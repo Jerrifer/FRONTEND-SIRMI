@@ -1,4 +1,6 @@
-
+import { useState } from "react";
+import axios from "axios";
+// import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -17,6 +19,40 @@ import {
 } from "reactstrap";
 
 const Login = () => {
+
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState({});
+
+  // const navigate = useHistory();
+
+  const handleChange = ({currentTarget: input}) => {
+    setData({...data, [input.name]: input.value});
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = 'http://localhost:3005/auth/login';
+      const {data: res} = await axios.post(url, data);
+      // navigate.push('/auth/login');
+      localStorage.setItem('token', res.tokenSession);
+      window.location="/"
+      console.log(res.message);
+    } catch (error) {
+      if( error.response && 
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
+          setError(error.response.data);
+        }
+    }
+    // console.log(data);
+  }
+
   return (
     <>
       <Col lg="5" md="7">
@@ -66,7 +102,7 @@ const Login = () => {
             <div className="text-center text-muted mb-4">
               <small>Or sign in with credentials</small>
             </div>
-            <Form role="form">
+            <Form role="form" onSubmit={handleSubmit}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
                   <InputGroupAddon addonType="prepend">
@@ -78,6 +114,10 @@ const Login = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    name="email" 
+                    required
+                    value={data.email}
+                    onChange={handleChange}
                   />
                 </InputGroup>
               </FormGroup>
@@ -92,6 +132,10 @@ const Login = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
+                    name="password" 
+                    value={data.password}
+                    required
+                    onChange={handleChange}
                   />
                 </InputGroup>
               </FormGroup>
@@ -109,7 +153,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4" color="primary" type="submit">
                   Sign in
                 </Button>
               </div>
