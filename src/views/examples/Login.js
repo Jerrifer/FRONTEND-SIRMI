@@ -25,7 +25,7 @@ const Login = () => {
     password: "",
   });
 
-  const [error, setError] = useState({});
+  const [ setError] = useState({});
 
   // const navigate = useHistory();
 
@@ -36,7 +36,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:3005/auth/login';
+      const url = 'http://localhost:3000/auth/login';
       const {data: res} = await axios.post(url, data);
       // navigate.push('/auth/login');
       localStorage.setItem('token', res.tokenSession);
@@ -139,7 +139,7 @@ const Login = () => {
                   />
                 </InputGroup>
               </FormGroup>
-              <div className="custom-control custom-control-alternative custom-checkbox">
+              {/* <div className="custom-control custom-control-alternative custom-checkbox">
                 <input
                   className="custom-control-input"
                   id=" customCheckLogin"
@@ -151,7 +151,7 @@ const Login = () => {
                 >
                   <span className="text-muted">Remember me</span>
                 </label>
-              </div>
+              </div> */}
               <div className="text-center">
                 <Button className="my-4" color="primary" type="submit">
                   Sign in

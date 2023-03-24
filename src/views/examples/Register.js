@@ -14,7 +14,7 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
-  Row,
+  // Row,
   Col
 } from "reactstrap";
 
@@ -26,7 +26,7 @@ const Register = () => {
     password: "",
   });
 
-  const [error, setError] = useState({});
+  const [ setError] = useState({});
 
   const navigate = useHistory();
 
@@ -37,7 +37,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:3005/auth/register';
+      const url = 'http://localhost:3000/auth/register';
       const {data: res} = await axios.post(url, data);
       navigate.push('/auth/login');
       console.log(res.message);
@@ -98,9 +98,9 @@ const Register = () => {
             </div>
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
-            <div className="text-center text-muted mb-4">
+            {/* <div className="text-center text-muted mb-4">
               <small>Or sign up with credentials</small>
-            </div>
+            </div> */}
             <Form role="form" onSubmit={handleSubmit}>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
@@ -154,13 +154,13 @@ const Register = () => {
                   />
                 </InputGroup>
               </FormGroup>
-              <div className="text-muted font-italic">
+              {/* <div className="text-muted font-italic">
                 <small>
                   password strength:{" "}
                   <span className="text-success font-weight-700">strong</span>
                 </small>
-              </div>
-              <Row className="my-4">
+              </div> */}
+              {/* <Row className="my-4">
                 <Col xs="12">
                   <div className="custom-control custom-control-alternative custom-checkbox">
                     <input
@@ -181,7 +181,7 @@ const Register = () => {
                     </label>
                   </div>
                 </Col>
-              </Row>
+              </Row> */}
               <div className="text-center">
                 {/* {error && <div className="alert alert-danger">{error}</div> } */}
                 <Button className="mt-4" color="primary" type="submit">
