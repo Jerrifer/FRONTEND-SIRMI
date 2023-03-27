@@ -1,0 +1,12 @@
+.cambios{
+    background-color: blue;
+    display: flex;
+    position:relative;
+    left: 2%;
+    top: 500%;
+    right: 23%;
+    bottom:0px; 
+    height: 115%; 
+   
+  
+}

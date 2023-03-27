@@ -3639,7 +3639,7 @@ input[type="button"].btn-block {
   display: block;
   min-height: 1.5rem;
   padding-left: 3rem;
-  color-adjust: exact;
+  /* color-adjust: exact; */
 }
 .custom-control-inline {
   display: inline-flex;
@@ -3718,7 +3718,9 @@ input[type="button"].btn-block {
   ~ .custom-control-label::before {
   border-color: #5e72e4;
   background-color: #5e72e4;
-  box-shadow: ;
+  -webkit-box-shadow: -1px 9px 39px -9px rgba(0,0,0,0.73);
+-moz-box-shadow: -1px 9px 39px -9px rgba(0,0,0,0.73);
+box-shadow: -1px 9px 39px -9px rgba(0,0,0,0.73);
 }
 .custom-checkbox
   .custom-control-input:indeterminate
