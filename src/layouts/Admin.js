@@ -55,11 +55,11 @@ const Admin = (props) => {
         routes={routes}
         logo={{
           innerLink: "/admin/index",
-          imgSrc: require("../assets/img/brand/argon-react.png"),
+          imgSrc: require("../assets/img/brand/sirmi-removebg-preview.png"),
           imgAlt: "..."
         }}
       />
-      <div className="main-content" ref={mainContent}>
+      <div className="main-content " ref={mainContent}>
         <AdminNavbar
           {...props}
           brandText={getBrandText(props.location.pathname)}

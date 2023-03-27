@@ -40,6 +40,8 @@ const Login = () => {
       const {data: res} = await axios.post(url, data);
       // navigate.push('/auth/login');
       localStorage.setItem('token', res.tokenSession);
+      localStorage.setItem('name', res.data.name);
+      localStorage.setItem('email', res.data.email);
       window.location="/"
       console.log(res.message);
     } catch (error) {

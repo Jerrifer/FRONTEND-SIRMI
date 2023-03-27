@@ -1,4 +1,6 @@
-
+import { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -14,12 +16,45 @@ import {
   Col
 } from "reactstrap";
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
+import AdminHeader from "components/Headers/admin/AdminHeader.js";
 
 const Profile = () => {
+
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState({});
+
+  const navigate = useHistory();
+
+  const handleChange = ({currentTarget: input}) => {
+    setData({...data, [input.name]: input.value});
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = 'http://localhost:3005/api/v1/users';
+      const {data: res} = await axios.post(url, data);
+      navigate.push('/auth/login');
+      console.log(res.message);
+    } catch (error) {
+      if( error.response && 
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
+          setError(error.response.data);
+        }
+    }
+    // console.log(data);
+  }
+
   return (
     <>
-      <UserHeader />
+      <AdminHeader />
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
@@ -43,7 +78,7 @@ const Profile = () => {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                   <h6 className="heading-small text-muted mb-4">
                     User information
                   </h6>
@@ -55,14 +90,16 @@ const Profile = () => {
                             className="form-control-label"
                             htmlFor="input-username"
                           >
-                            Username
+                            Name
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="lucky.jesse"
-                            id="input-username"
-                            placeholder="Username"
+                            placeholder="Name"
                             type="text"
+                            name="name" 
+                            value={data.name}
+                            require
+                            onChange={handleChange}
                           />
                         </FormGroup>
                       </Col>
@@ -72,13 +109,16 @@ const Profile = () => {
                             className="form-control-label"
                             htmlFor="input-email"
                           >
-                            Email address
+                            Email
                           </label>
                           <Input
                             className="form-control-alternative"
                             id="input-email"
-                            placeholder="jesse@example.com"
+                            placeholder="example@example.com"
                             type="email"
+                            name="email" 
+                            value={data.email}
+                            onChange={handleChange}
                           />
                         </FormGroup>
                       </Col>
@@ -90,7 +130,7 @@ const Profile = () => {
                             className="form-control-label"
                             htmlFor="input-first-name"
                           >
-                            First name
+                            Password
                           </label>
                           <Input
                             className="form-control-alternative"
@@ -98,27 +138,19 @@ const Profile = () => {
                             id="input-first-name"
                             placeholder="First name"
                             type="text"
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-last-name"
-                          >
-                            Last name
-                          </label>
-                          <Input
-                            className="form-control-alternative"
-                            defaultValue="Jesse"
-                            id="input-last-name"
-                            placeholder="Last name"
-                            type="text"
+                            name="password" 
+                            value={data.password}
+                            require
+                            onChange={handleChange}
                           />
                         </FormGroup>
                       </Col>
                     </Row>
+                    <div className="text-center">
+                      <Button className="mt-4" color="primary" type="submit">
+                        Create account
+                      </Button>
+                    </div>
                   </div>
                   <hr className="my-4" />
                   {/* Address */}

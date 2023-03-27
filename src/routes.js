@@ -6,7 +6,8 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
-import CreatePrueba from "views/examples/CreatePrueba.js";
+import CreateUser from "views/admin/users/CreateUser.js";
+import ListUsers from "views/admin/users/ListUsers.js";
 
 var routes = [
   {
@@ -28,7 +29,7 @@ var routes = [
     name: "Maps",
     icon: "ni ni-pin-3 text-orange",
     component: Maps,
-    layout: "/admin"
+    layout: "/public"
   },
   {
     path: "/user-profile",
@@ -58,12 +59,27 @@ var routes = [
     component: Register,
     layout: "/auth"
   },
+  // users routes CRUD
   {
-    path: "/create-prueba",
-    name: "Create Prueba",
-    icon: "ni ni-ungroup text-orange",
-    component: CreatePrueba,
+    path: "/users/create-user",
+    name: "Create User",
+    icon: "ni ni-fat-add text-red",
+    component: CreateUser,
     layout: "/admin"
-  }
+  },
+  {
+    path: "/users/list-users",
+    name: "List Users",
+    icon: "ni ni-books text-red",
+    component: ListUsers,
+    layout: "/admin"
+  },
+  // {
+  //   path: "/users/edit-user/:id",
+  //   name: "Edit User",
+  //   icon: "ni ni-scissors text-red",
+  //   component: EditUser,
+  //   layout: "/admin"
+  // }
 ];
 export default routes;
