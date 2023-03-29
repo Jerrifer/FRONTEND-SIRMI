@@ -21,8 +21,9 @@ import {
 const AdminNavbar = (props) => {
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
+    // localStorage.removeItem("token");
+    localStorage.clear("token");
+    window.location="/auth/login"
   };
 
   return (

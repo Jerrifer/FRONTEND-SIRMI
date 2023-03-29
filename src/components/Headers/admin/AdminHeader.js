@@ -1,11 +1,11 @@
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
 const AdminHeader = () => {
 
-  const navigate = useHistory();
+  // const navigate = useHistory();
 
   // const handleClickCreate = (e) => {
   //   navigate.push('/admin/users/create-user');
@@ -49,14 +49,6 @@ const AdminHeader = () => {
                 onClick={(e) => e.preventDefault()}
               >
                 List a user
-              </Button>
-              <Button
-                // path="/admin/index"
-                color="info"
-                href="/admin/users/create-user"
-                // onClick={(e) => e.preventDefault()}
-              >
-                Create a user
               </Button>
             </Col>
           </Row>

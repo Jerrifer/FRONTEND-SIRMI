@@ -37,7 +37,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:3000/auth/register';
+      const url = 'http://localhost:3005/auth/register';
       const {data: res} = await axios.post(url, data);
       navigate.push('/auth/login');
       console.log(res.message);

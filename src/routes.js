@@ -6,7 +6,6 @@ import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
-import CreateUser from "views/admin/users/CreateUser.js";
 import ListUsers from "views/admin/users/ListUsers.js";
 
 var routes = [
@@ -60,13 +59,6 @@ var routes = [
     layout: "/auth"
   },
   // users routes CRUD
-  {
-    path: "/users/create-user",
-    name: "Create User",
-    icon: "ni ni-fat-add text-red",
-    component: CreateUser,
-    layout: "/admin"
-  },
   {
     path: "/users/list-users",
     name: "List Users",

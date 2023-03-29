@@ -98,7 +98,7 @@ const Sidebar = (props) => {
           type="button"
           onClick={toggleCollapse}
         >
-          <span className="navbar-toggler-icon" />
+          <span className="navbar-toggler-icon " />
         </button>
         {/* Brand */}
         {logo ? (

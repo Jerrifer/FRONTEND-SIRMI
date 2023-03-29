@@ -22,7 +22,6 @@ const AdminNavbar = (props) => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.reload();
   };
 
   return (

@@ -1,14 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import axios from 'axios';
+import { Icon } from 'semantic-ui-react';
 
 
 
 
 function UpdateModalComponent(data) {
     const [isShow, invokeModal] = useState(false);
-    // const [APIData, setAPIData] = useState([]);
 
     const initModal = () => {
         return invokeModal(!isShow);
@@ -21,8 +22,9 @@ function UpdateModalComponent(data) {
 
 
     
-    const onSubmit2 = async (_id) => {
+    const onSubmit2 = async (e,_id) => {
         try {
+            e.preventDefault();
             const data = new FormData();
             data.append('id', data.id);
             data.append('name', data.name);
@@ -36,28 +38,21 @@ function UpdateModalComponent(data) {
             console.log(save);
             
             //
-            const res = await axios.put(`http://localhost:3005/api/v1/users/${id}`, save);
+            const res = await axios.put(`http://localhost:3005/api/v1/users/${id}`, save).then(res => {
+                console.log(res);
+                initModal();
+            });
             console.log(res);
         } catch (error) {
             console.log(error);
         }
-
-        // await axios.put(`http://localhost:3001/api/v1/users/${id}`, data)
-        //     .then(res => {
-        //         // console.log(res)
-        //         // console.log(res.data)
-                
-        //         setAPIData(res.data);
-        //         console.log(res.data);
-        //     }
-        // )
     }
 
     return (
         <>
-            <Button  variant='success' onClick={initModal}>
-            <i class="fas fa-pen-alt"></i>
-            </Button>
+            <Icon variant='success' onClick={initModal}>
+            <i class="fas fa-pen"></i>
+            </Icon>
 
             <Modal show={isShow}>
                 <Modal.Header closeButton onClick={initModal}>
@@ -92,7 +87,7 @@ function UpdateModalComponent(data) {
                         <Button variant='danger' onClick={initModal}>
                             Close
                         </Button>
-                        <Button type='submit' variant='dark' onSubmit={onSubmit2}>
+                        <Button type='submit' variant='dark'>
                             Update
                         </Button>
                     </Modal.Footer>

@@ -25,7 +25,7 @@ const Login = () => {
     password: "",
   });
 
-  const [ setError] = useState({});
+  const [errors,  setError] = useState({});
 
   // const navigate = useHistory();
 
@@ -36,13 +36,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:3000/auth/login';
+      const url = 'http://localhost:3005/auth/login';
       const {data: res} = await axios.post(url, data);
       // navigate.push('/auth/login');
       localStorage.setItem('token', res.tokenSession);
       localStorage.setItem('name', res.data.name);
       localStorage.setItem('email', res.data.email);
-      window.location="/"
+      window.location="/admin/user-profile"
       console.log(res.message);
     } catch (error) {
       if( error.response && 
