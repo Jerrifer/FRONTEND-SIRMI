@@ -48,17 +48,10 @@ const Auth = (props) => {
         <AuthNavbar />
         <div className="header fondo py-7 py-lg-5">
           <Container>
-<<<<<<< HEAD
-            <div className="header-body text-center mb-7">
-              <Row className="justify-content-center">
-                <Col lg="5" md="6">
-                  <h1 className="text-white ">Welcome!</h1>
-=======
             <div className="header-body text-center mb-7 ">
               <Row className=" cambios">
                 {/* <Col lg="5" md="6">
                   <h1 className="text-white">Welcome!</h1>
->>>>>>> 06ad358d37f77e03520a2a3f8d9f7b82ae762d17
                   <p className="text-lead text-light">
                     Use these awesome forms to login or create new account in
                     your project for free.

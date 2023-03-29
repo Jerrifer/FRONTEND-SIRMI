@@ -55,7 +55,7 @@ const Public = (props) => {
                 routes={routes}
                 logo={{
                     innerLink: "/public/maps",
-                    imgSrc: require("../assets/img/brand/sirmi-removebg-preview.png"),
+                    imgSrc: require("../assets/img/brand/Captura-removebg-preview.png"),
                     imgAlt: "..."
                 }}
             />

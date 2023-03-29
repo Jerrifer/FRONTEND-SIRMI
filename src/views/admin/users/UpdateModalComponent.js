@@ -36,7 +36,7 @@ function UpdateModalComponent(data) {
             console.log(save);
             
             //
-            const res = await axios.put(`http://localhost:3005/api/v1/users/${id}`, save);
+            const res = await axios.put(`http://localhost:3000/api/v1/users/${id}`, save);
             console.log(res);
         } catch (error) {
             console.log(error);

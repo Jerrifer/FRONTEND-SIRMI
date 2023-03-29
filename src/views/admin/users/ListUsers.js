@@ -40,15 +40,15 @@ const ListUsers = () => {
     const [user, setUser] = useState([]);
 
     useEffect (() => {
-        axios.get(`http://localhost:3005/api/v1/users`).then(
+        axios.get(`http://localhost:3000/api/v1/users`).then(
             (res) => {
-                setAPIData(res.data);
-                console.log(res.data);
+                setAPIData(res.data.results);
+                console.log(res.data.results);
             })
     }, []);
 
     const deleteUser = async (id) => {
-        await axios.delete(`http://localhost:3005/api/v1/users/${id}`)
+        await axios.delete(`http://localhost:3000/api/v1/users/${id}`)
             .then(res => {
                 console.log(res)
                 console.log(res.data)
