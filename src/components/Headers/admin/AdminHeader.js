@@ -1,11 +1,20 @@
+<<<<<<< HEAD
 // import { useHistory } from "react-router-dom";
+=======
+import { useHistory, } from "react-router-dom";
+>>>>>>> 465ac4f23467a98136b14252d741b4b4c0d77cb0
 
 // reactstrap components
-import { Button, Container, Row, Col } from "reactstrap";
+// import { Button, Container, Row, Col } from "reactstrap";
 
 const AdminHeader = () => {
 
+<<<<<<< HEAD
   // const navigate = useHistory();
+=======
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useHistory();
+>>>>>>> 465ac4f23467a98136b14252d741b4b4c0d77cb0
 
   // const handleClickCreate = (e) => {
   //   navigate.push('/admin/users/create-user');
@@ -15,6 +24,7 @@ const AdminHeader = () => {
   return (
 
     <>
+<<<<<<< HEAD
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
@@ -54,6 +64,8 @@ const AdminHeader = () => {
           </Row>
         </Container>
       </div>
+=======
+>>>>>>> 465ac4f23467a98136b14252d741b4b4c0d77cb0
     </>
   );
 };

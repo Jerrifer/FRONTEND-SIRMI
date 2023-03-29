@@ -22,6 +22,6 @@ root.render(
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
       <Route path="/public" render={(props) => <PublicLayout {...props} />} />
     </Switch>
-    {/* <Redirect from="/" to="/admin/index" /> */}
+    <Redirect from="/" to="/admin/index" />
   </BrowserRouter>
 );

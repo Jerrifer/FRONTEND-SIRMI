@@ -34,7 +34,7 @@ const AdminNavbar = () => {
                   <Link to="/">
                     <img
                       alt="..."
-                      src={require("../../assets/img/brand/sirmi-removebg-preview.png")}
+                      src={require("../../assets/img/brand/Captura-removebg-preview.png")}
                     />
                   </Link>
                 </Col>

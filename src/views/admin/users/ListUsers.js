@@ -61,11 +61,20 @@ const ListUsers = () => {
     }
 
     useEffect (() => {
+<<<<<<< HEAD
         getData()
     }, [getData]);
+=======
+        axios.get(`http://localhost:3000/api/v1/users`).then(
+            (res) => {
+                setAPIData(res.data.results);
+                console.log(res.data.results);
+            })
+    }, []);
+>>>>>>> 465ac4f23467a98136b14252d741b4b4c0d77cb0
 
     const deleteUser = async (id) => {
-        await axios.delete(`http://localhost:3005/api/v1/users/${id}`)
+        await axios.delete(`http://localhost:3000/api/v1/users/${id}`)
             .then(res => {
                 getData();
             }

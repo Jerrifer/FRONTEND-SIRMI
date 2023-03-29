@@ -235,12 +235,7 @@ select {
 select {
   word-wrap: normal;
 }
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  -webkit-appearance: button;
-}
+
 button:not(:disabled),
 [type="button"]:not(:disabled),
 [type="reset"]:not(:disabled),
@@ -287,10 +282,7 @@ progress {
 [type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
-[type="search"] {
-  outline-offset: -2px;
-  -webkit-appearance: none;
-}
+
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
@@ -14430,7 +14422,7 @@ a.btn-icon-only {
   display: inline-block;
   vertical-align: middle;
   text-decoration: none;
-  -moz-appearance: none;
+ 
   cursor: pointer;
   width: 100%;
   margin: 0.5rem 0;
@@ -18433,7 +18425,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   display: inline-block;
   vertical-align: middle;
   text-decoration: none;
-  -moz-appearance: none;
+ 
   cursor: pointer;
   width: 100%;
   margin: 0.5rem 0;
@@ -18771,7 +18763,7 @@ pre > code.highlight {
   padding: 0 5px;
 }
 .color-swatch-header .pass-fail-item {
-  float: left;
+  float: none;
   display: inline-block;
   text-align: center;
   padding: 2px;
@@ -18844,7 +18836,7 @@ pre > code.highlight {
 }
 .table-colors .swatch,
 .table-colors:first-child .swatch {
-  float: left;
+  float: none;
   height: 40px;
   width: 40px;
   margin-right: 20px;
@@ -18858,7 +18850,7 @@ pre > code.highlight {
 }
 .table-colors .lozenge,
 .table-colors:first-child .lozenge {
-  float: left;
+  float: none;
   margin: 5px 10px 0 0;
   font-size: 10px;
   display: inline-block;
