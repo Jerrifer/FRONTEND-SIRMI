@@ -1,28 +1,18 @@
-// import { useHistory } from "react-router-dom";
-
-// reactstrap components
 import { Button, Container, Row, Col } from "reactstrap";
 
 const AdminHeader = () => {
-
-  // const navigate = useHistory();
-
-  // const handleClickCreate = (e) => {
-  //   navigate.push('/admin/users/create-user');
-  //   e.preventDefault();
-  // }
-  
   return (
-
     <>
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
           minHeight: "600px",
           backgroundImage:
-            "url(" + require("../../../assets/img/theme/profile-cover.jpg") + ")",
+            "url(" +
+            require("../../../assets/img/theme/profile-cover.jpg") +
+            ")",
           backgroundSize: "cover",
-          backgroundPosition: "center top"
+          backgroundPosition: "center top",
         }}
       >
         {/* Mask */}

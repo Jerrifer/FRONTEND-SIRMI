@@ -1,6 +1,5 @@
 import { useState } from "react";
 import axios from "axios";
-// import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -15,45 +14,42 @@ import {
   InputGroupText,
   InputGroup,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 const Login = () => {
-
   const [data, setData] = useState({
     email: "",
     password: "",
   });
 
-  const [errors,  setError] = useState({});
+  const [setError] = useState({});
 
-  // const navigate = useHistory();
-
-  const handleChange = ({currentTarget: input}) => {
-    setData({...data, [input.name]: input.value});
-  }
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:3005/auth/login';
-      const {data: res} = await axios.post(url, data);
-      // navigate.push('/auth/login');
-      localStorage.setItem('token', res.tokenSession);
-      localStorage.setItem('name', res.data.name);
-      localStorage.setItem('email', res.data.email);
-      window.location="/admin/user-profile"
+      const url = "http://localhost:3005/auth/login";
+      const { data: res } = await axios.post(url, data);
+
+      localStorage.setItem("token", res.tokenSession);
+      localStorage.setItem("name", res.data.name);
+      localStorage.setItem("email", res.data.email);
+      window.location = "/admin/user-profile";
       console.log(res.message);
     } catch (error) {
-      if( error.response && 
-          error.response.status >= 400 &&
-          error.response.status <= 500
-        ) {
-          setError(error.response.data);
-        }
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data);
+      }
     }
-    // console.log(data);
-  }
+  };
 
   return (
     <>
@@ -116,7 +112,7 @@ const Login = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
-                    name="email" 
+                    name="email"
                     required
                     value={data.email}
                     onChange={handleChange}
@@ -134,14 +130,14 @@ const Login = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
-                    name="password" 
+                    name="password"
                     value={data.password}
                     required
                     onChange={handleChange}
                   />
                 </InputGroup>
               </FormGroup>
-              
+
               <div className="text-center">
                 <Button className="my-4" color="primary" type="submit">
                   Sign in

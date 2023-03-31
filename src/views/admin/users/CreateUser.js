@@ -13,13 +13,12 @@ import {
   Input,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 // core components
 import AdminHeader from "components/Headers/admin/AdminHeader.js";
 
 const Profile = () => {
-
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -31,27 +30,28 @@ const Profile = () => {
 
   const navigate = useHistory();
 
-  const handleChange = ({currentTarget: input}) => {
-    setData({...data, [input.name]: input.value});
-  }
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:3000/api/v1/users';
-      const {data: res} = await axios.post(url, data);
-      navigate.push('/auth/login');
+      const url = "http://localhost:3000/api/v1/users";
+      const { data: res } = await axios.post(url, data);
+      navigate.push("/auth/login");
       console.log(res.message);
     } catch (error) {
-      if( error.response && 
-          error.response.status >= 400 &&
-          error.response.status <= 500
-        ) {
-          setError(error.response.data);
-        }
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data);
+      }
     }
     // console.log(data);
-  }
+  };
 
   return (
     <>
@@ -97,7 +97,7 @@ const Profile = () => {
                             className="form-control-alternative"
                             placeholder="Name"
                             type="text"
-                            name="name" 
+                            name="name"
                             value={data.name}
                             require
                             onChange={handleChange}
@@ -117,7 +117,7 @@ const Profile = () => {
                             id="input-email"
                             placeholder="example@example.com"
                             type="email"
-                            name="email" 
+                            name="email"
                             value={data.email}
                             onChange={handleChange}
                           />
@@ -139,7 +139,7 @@ const Profile = () => {
                             id="input-first-name"
                             placeholder="First name"
                             type="text"
-                            name="password" 
+                            name="password"
                             value={data.password}
                             require
                             onChange={handleChange}

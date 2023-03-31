@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 // reactstrap components
 import {
@@ -7,19 +6,16 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   Form,
-  
   Navbar,
   Nav,
   Container,
-  Media
+  Media,
 } from "reactstrap";
 
 const AdminNavbar = (props) => {
-
   const handleLogout = () => {
-    // localStorage.removeItem("token");
     localStorage.clear("token");
-    window.location="/auth/login"
+    window.location = "/auth/login";
   };
 
   return (
@@ -32,9 +28,7 @@ const AdminNavbar = (props) => {
           >
             {props.brandText}
           </Link>
-          <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-           
-          </Form>
+          <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto"></Form>
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
@@ -46,9 +40,7 @@ const AdminNavbar = (props) => {
                     />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">
-                      jm
-                    </span>
+                    <span className="mb-0 text-sm font-weight-bold">jm</span>
                   </Media>
                 </Media>
               </DropdownToggle>
@@ -60,18 +52,7 @@ const AdminNavbar = (props) => {
                   <i className="ni ni-single-02" />
                   <span>My profile</span>
                 </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-settings-gear-65" />
-                  <span>Settings</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-calendar-grid-58" />
-                  <span>Activity</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-support-16" />
-                  <span>Support</span>
-                </DropdownItem>
+
                 <DropdownItem divider />
                 <DropdownItem href="#pablo" onClick={handleLogout}>
                   <i className="ni ni-user-run" />

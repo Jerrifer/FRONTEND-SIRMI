@@ -1,13 +1,12 @@
-
 import React from "react";
 import { useLocation, Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
-import { Container, Row, Col  } from "reactstrap";
-import '../components/Headers/header.css'
+import { Container, Row, Col } from "reactstrap";
+import "../components/Headers/header.css";
 // core components
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
-import './cambios.css'
+import "./cambios.css";
 import routes from "routes.js";
 
 const Auth = (props) => {
@@ -60,7 +59,6 @@ const Auth = (props) => {
               </Row>
             </div>
           </Container>
-         
         </div>
         {/* Page content */}
         <Container className="mt--8 pb-5 ">

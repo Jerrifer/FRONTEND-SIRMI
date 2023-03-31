@@ -1,19 +1,16 @@
-
 /*eslint-disable*/
 import { useState } from "react";
 import { NavLink as NavLinkRRD, Link } from "react-router-dom";
 // nodejs library to set properties for components
 import { PropTypes } from "prop-types";
-import './img.css'
+import "./img.css";
 // reactstrap components
 import {
- 
   Collapse,
   DropdownMenu,
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
- 
   Form,
   Input,
   InputGroupAddon,
@@ -25,10 +22,9 @@ import {
   NavItem,
   NavLink,
   Nav,
-
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 var ps;
@@ -71,12 +67,12 @@ const Sidebar = (props) => {
   if (logo && logo.innerLink) {
     navbarBrandProps = {
       to: logo.innerLink,
-      tag: Link
+      tag: Link,
     };
   } else if (logo && logo.outterLink) {
     navbarBrandProps = {
       href: logo.outterLink,
-      target: "_blank"
+      target: "_blank",
     };
   }
 
@@ -98,10 +94,11 @@ const Sidebar = (props) => {
         {/* Brand */}
         {logo ? (
           <NavbarBrand className="pt-3" {...navbarBrandProps}>
-           <img className="img-responsive"
-                      alt="..."
-                      src={require("../../assets/img/brand/Captura-removebg-preview.png")}
-                    />
+            <img
+              className="img-responsive"
+              alt="..."
+              src={require("../../assets/img/brand/Captura-removebg-preview.png")}
+            />
           </NavbarBrand>
         ) : null}
         {/* User */}
@@ -140,9 +137,7 @@ const Sidebar = (props) => {
                 <i className="ni ni-single-02" />
                 <span>My profile</span>
               </DropdownItem>
-              
-            
-              
+
               <DropdownItem divider />
               <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                 <i className="ni ni-user-run" />
@@ -201,7 +196,6 @@ const Sidebar = (props) => {
           <Nav navbar>{createLinks(routes)}</Nav>
           {/* Divider */}
           <hr className="my-3" />
-         
         </Collapse>
       </Container>
     </Navbar>
@@ -209,7 +203,7 @@ const Sidebar = (props) => {
 };
 
 Sidebar.defaultProps = {
-  routes: [{}]
+  routes: [{}],
 };
 
 Sidebar.propTypes = {
@@ -225,8 +219,8 @@ Sidebar.propTypes = {
     // the image src of the logo
     imgSrc: PropTypes.string.isRequired,
     // the alt for the img
-    imgAlt: PropTypes.string.isRequired
-  })
+    imgAlt: PropTypes.string.isRequired,
+  }),
 };
 
 export default Sidebar;

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useLocation, Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
@@ -56,7 +55,7 @@ const Admin = (props) => {
         logo={{
           innerLink: "/admin/index",
           imgSrc: require("../assets/img/brand/Captura-removebg-preview.png"),
-          imgAlt: "..."
+          imgAlt: "...",
         }}
       />
       <div className="main-content " ref={mainContent}>

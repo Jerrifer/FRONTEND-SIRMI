@@ -14,93 +14,47 @@ import {
   InputGroupAddon,
   InputGroupText,
   InputGroup,
- 
-  Col
+  Col,
 } from "reactstrap";
 
 const Register = () => {
-
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  const [ setError] = useState({});
+  const [setError] = useState({});
 
   const navigate = useHistory();
 
-  const handleChange = ({currentTarget: input}) => {
-    setData({...data, [input.name]: input.value});
-  }
+  const handleChange = ({ currentTarget: input }) => {
+    setData({ ...data, [input.name]: input.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = 'http://localhost:3005/auth/register';
-      const {data: res} = await axios.post(url, data);
-      navigate.push('/auth/login');
+      const url = "http://localhost:3005/auth/register";
+      const { data: res } = await axios.post(url, data);
+      navigate.push("/auth/login");
       console.log(res.message);
     } catch (error) {
-      if( error.response && 
-          error.response.status >= 400 &&
-          error.response.status <= 500
-        ) {
-          setError(error.response.data);
-        }
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data);
+      }
     }
-    // console.log(data);
-  }
+  };
 
   return (
     <>
       <Col lg="6" md="8">
         <Card className="bg-secondary shadow border-0">
-          {/* <CardHeader className="bg-transparent pb-5">
-            <div className="text-muted text-center mt-2 mb-4">
-              <small>Sign up with</small>
-            </div>
-            <div className="text-center">
-              <Button
-                className="btn-neutral btn-icon mr-4"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/github.svg")
-                        .default
-                    }
-                  />
-                </span>
-                <span className="btn-inner--text">Github</span>
-              </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={
-                      require("../../assets/img/icons/common/google.svg")
-                        .default
-                    }
-                  />
-                </span>
-                <span className="btn-inner--text">Google</span>
-              </Button>
-            </div>
-          </CardHeader> */}
           <CardBody className="px-lg-5 py-lg-5">
-            {/* <div className="text-center text-muted mb-4">
-              <small>Or sign up with credentials</small>
-            </div> */}
             <Form role="form" onSubmit={handleSubmit}>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
@@ -109,10 +63,10 @@ const Register = () => {
                       <i className="ni ni-hat-3" />
                     </InputGroupText>
                   </InputGroupAddon>
-                  <Input 
-                    placeholder="Name" 
-                    type="text" 
-                    name="name" 
+                  <Input
+                    placeholder="Name"
+                    type="text"
+                    name="name"
                     value={data.name}
                     require
                     onChange={handleChange}
@@ -130,7 +84,7 @@ const Register = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
-                    name="email" 
+                    name="email"
                     value={data.email}
                     onChange={handleChange}
                   />
@@ -147,16 +101,15 @@ const Register = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
-                    name="password" 
+                    name="password"
                     value={data.password}
                     require
                     onChange={handleChange}
                   />
                 </InputGroup>
               </FormGroup>
-             
+
               <div className="text-center">
-             
                 <Button className="mt-4" color="primary" type="submit">
                   Create account
                 </Button>
