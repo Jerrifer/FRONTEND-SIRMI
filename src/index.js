@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch,Redirect } from "react-router-dom";
 // import { createRoot } from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -22,6 +22,6 @@ root.render(
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
       <Route path="/public" render={(props) => <PublicLayout {...props} />} />
     </Switch>
-    <Redirect from="/" to="/admin/index" />
+    <Redirect from="/" to="/admin/index" /> 
   </BrowserRouter>
 );

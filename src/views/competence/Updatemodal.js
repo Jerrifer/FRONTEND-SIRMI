@@ -4,7 +4,7 @@ import { Modal, Button, Form } from 'react-bootstrap'
 import axios from 'axios';
 
 
-
+import './input.css'
 
 function UpdateModalComponent(data) {
     const [isShow, invokeModal] = useState(false);
@@ -59,7 +59,7 @@ function UpdateModalComponent(data) {
 
     return (
         <>
-            <Button  variant='success' onClick={initModal}>
+            <Button  variant='' onClick={initModal}>
             <i class="fas fa-pen-alt"></i>
             </Button>
 

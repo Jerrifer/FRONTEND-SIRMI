@@ -59,17 +59,14 @@ var routes = [
   //   layout: "/auth"
   // },
   // users routes CRUD
+  // {
+  //   path: "/users/create-user",
+  //   name: "Create User",
+  //   icon: "ni ni-bullet-list-67 text-dark ",
+  //   component: CreateUser,
+  //   layout: "/admin"
+  // },
   {
-<<<<<<< HEAD
-=======
-    path: "/users/create-user",
-    name: "Create User",
-    icon: "ni ni-bullet-list-67 text-dark ",
-    component: CreateUser,
-    layout: "/admin"
-  },
-  {
->>>>>>> 465ac4f23467a98136b14252d741b4b4c0d77cb0
     path: "/users/list-users",
     name: "List Users",
     icon: "ni ni-bullet-list-67 text-dark",

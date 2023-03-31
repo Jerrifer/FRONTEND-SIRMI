@@ -30,7 +30,7 @@ function PaginationData({ userPerPage, currentPage, setCurrentPage, totalUsers})
     }
 
     return (
-            <nav className="pagination is-centered m-1" 
+            <nav className="pagination is-rounded   mt-1" 
             role="navigation" 
             aria-label="pagination">
                 <a 
@@ -39,7 +39,8 @@ function PaginationData({ userPerPage, currentPage, setCurrentPage, totalUsers})
                     }`} 
                     onClick={onPreviousPage}
                 >
-                    Previous
+                                      <spam className="ni ni-bold-left"></spam>
+
                 </a>
                 <a 
                     className={`pagination-next ${
@@ -47,13 +48,13 @@ function PaginationData({ userPerPage, currentPage, setCurrentPage, totalUsers})
                     }`} 
                     onClick={onNextPage}
                 >
-                    Next page
+                    <spam className="ni ni-bold-right"></spam>
                 </a>
-                <ul className="pagination-list">
+                <ul className="pagination-list ">
                     {pageNumbers.map(noPage => (
                             <li key={noPage}>
                                 <a 
-                                    className={`pagination-link ${
+                                    className={`pagination-link has-text-primary-dark ${
                                         noPage === currentPage ? 'is-current' : ''
                                     }`}
                                     onClick={() => onSpecificPage(noPage)}

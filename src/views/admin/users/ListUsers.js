@@ -25,7 +25,6 @@ import {
     UncontrolledTooltip
 } from "reactstrap";
 // core components
-import AdminHeader from "../../../components/Headers/admin/AdminHeader";
 import { useEffect, useState } from 'react';
 import useModal from "../../../hooks/useModal";
 import UpdateModalComponent from "./UpdateModalComponent";
@@ -33,6 +32,7 @@ import { Button } from "react-bootstrap";
 import CreateModalComponent from "./CreateModalComponent";
 import PaginationData from "../../../components/PaginationData"
 import DeleteModalComponent from "./DeleteModalComponent";
+import Header from "components/Headers/Header.js";
 
 
 const ListUsers = () => {
@@ -61,17 +61,12 @@ const ListUsers = () => {
     }
 
     useEffect (() => {
-<<<<<<< HEAD
-        getData()
-    }, [getData]);
-=======
         axios.get(`http://localhost:3000/api/v1/users`).then(
             (res) => {
                 setAPIData(res.data.results);
                 console.log(res.data.results);
             })
     }, []);
->>>>>>> 465ac4f23467a98136b14252d741b4b4c0d77cb0
 
     const deleteUser = async (id) => {
         await axios.delete(`http://localhost:3000/api/v1/users/${id}`)
@@ -101,7 +96,7 @@ const ListUsers = () => {
 
     return (
         <>
-            <AdminHeader />
+              <Header />
             {/* Page content */}
             <Container className="mt--7" fluid>
                 {/* Table */}
@@ -240,46 +235,10 @@ const ListUsers = () => {
                                                 <DeleteModalComponent id={data._id}/>
                                             </td>
 
-                                            {/* <td>
-                                                <div className="d-flex align-items-center">
-                                                    <span className="mr-2">60%</span>
-                                                    <div>
-                                                        <Progress
-                                                            max="100"
-                                                            value="60"
-                                                            barClassName="bg-danger"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </td> */}
+                                          
                                             
                                             <td className="text-right">
-                                                <UncontrolledDropdown>
-                                                    <DropdownToggle
-                                                        className="btn-icon-only text-light"
-                                                        href="#pablo"
-                                                        role="button"
-                                                        size="sm"
-                                                        color=""
-                                                        onClick={(e) => e.preventDefault()}
-                                                    >
-                                                        <i className="fas fa-ellipsis-v" />
-                                                    </DropdownToggle>
-                                                    <DropdownMenu className="dropdown-menu-arrow" right>
-                                                        <DropdownItem
-                                                            href="#pablo"
-                                                            onClick={(e) => e.preventDefault()}
-                                                        >
-                                                            Another action
-                                                        </DropdownItem>
-                                                        <DropdownItem
-                                                            href="#pablo"
-                                                            onClick={(e) => e.preventDefault()}
-                                                        >
-                                                            Something else here
-                                                        </DropdownItem>
-                                                    </DropdownMenu>
-                                                </UncontrolledDropdown>
+                                               
                                             </td>
                                         </tr>
                                         )

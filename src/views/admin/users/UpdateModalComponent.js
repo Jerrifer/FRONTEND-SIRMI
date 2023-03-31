@@ -38,14 +38,10 @@ function UpdateModalComponent(data) {
             console.log(save);
             
             //
-<<<<<<< HEAD
-            const res = await axios.put(`http://localhost:3005/api/v1/users/${id}`, save).then(res => {
+            const res = await axios.put(`http://localhost:3000/api/v1/users/${id}`, save).then(res => {
                 console.log(res);
                 initModal();
             });
-=======
-            const res = await axios.put(`http://localhost:3000/api/v1/users/${id}`, save);
->>>>>>> 465ac4f23467a98136b14252d741b4b4c0d77cb0
             console.log(res);
         } catch (error) {
             console.log(error);
