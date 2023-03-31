@@ -21,17 +21,20 @@ import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
 import PaginationData from "../../../src/components/PaginationData";
 import {BASE_URL} from '../../globals.constans'
+import CreateModal from "./components/CreateModal";
 const Competence = () => {
+
+  
   const [competence, setCompetence] = useState([]);
-  // const totalUsers = competence.length;
-  const totalUsers = competence;
+  const totalUsers = competence.length;
+  // const totalUsers = competence;
 
   const [search, setSearch] = useState("");
 
   const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
   const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
-  const [userPerPage, setUserPerPage] = useState(2);
+  const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
   const shoData = async () => {
@@ -55,7 +58,7 @@ const Competence = () => {
 
   const deleteUser = async (id) => {
     await axios
-      .delete(`http://localhost:3000/api/v1/competences/${id}`)
+      .delete(`http://localhost:3500/api/v1/competences/${id}`)
       .then((res) => {
         console.log(res);
         console.log(res.data);
@@ -91,10 +94,11 @@ const Competence = () => {
             <Card className="formulario ">
               <CardHeader className="border-0">
                 <h3 className="mb-0">Competencias</h3>
+                <CreateModal/>
                 <input
                   value={search}
                   onChange={searcher}
-                  type="seacher"
+                  type="search"
                   placeholder="search"
                   className="input"
                 />
@@ -106,35 +110,55 @@ const Competence = () => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">id</th>
-                    <th scope="col">Norm</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Codigo de Competencias</th>
-                    <th scope="col">Duracion</th>
-                    <th scope="col">Programa de Formacion</th>
+                    <th scope="col">Labor Competence</th>
+                    <th scope="col">Labor Competence Version</th>
+                    {/* <th scope="col">Programa de Formación</th> */}
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {result
-                    .map((data) => {
+                  {result.map((data) => {
                       return (
-                        <tr key={data.id}>
-                          <td>{data._id}</td>
+                        <tr key={data._id}>
+                          {/* <td>{data._id}</td>
 
-                          <td>{data.name}</td>
+                          <td>{data.name}</td> */}
 
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-warning" />
-                              {data.norm}
+                              {data.labor_competence_code}
                             </Badge>
                           </td>
 
-                          <td>{data.competition_code}</td>
+                          <td>{data.labor_competition}</td>
 
-                          <td>{data.duration}</td>
+                          <td>{data.labor_competition_version}</td>
 
-                          <td>{data.formationprograms}</td>
+                          {/* <td>
+                            <select>
+                              {data.formation_programs.map((program) => {
+                                return (
+                                  <option value="1">{program.program_name}</option>
+                                );
+                              })}
+                            </select>
+                          </td> */}
+
+                          {/* <td>
+                            <select>
+                                  return(
+                                    <option value="1">
+                                      {
+                                        data.formation_programs.map(
+                                          (program) => {
+                                            return program.program_name;
+                                          }
+                                  )
+                                }
+                              </option>
+                            </select>
+                          </td> */}
                           <td>
                             <UpdateModalComponent
                               id={data._id}

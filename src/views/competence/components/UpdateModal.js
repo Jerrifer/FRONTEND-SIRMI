@@ -1,14 +1,12 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
 import { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import axios from 'axios';
 import { Icon } from 'semantic-ui-react';
+import { toast } from 'react-toastify';
 
+function UpdateModal(data) {
 
-
-
-function UpdateModalComponent(data) {
     const [isShow, invokeModal] = useState(false);
 
     const initModal = () => {
@@ -17,9 +15,20 @@ function UpdateModalComponent(data) {
 
     // form updating data
     const [id] = useState(data.id);
-    const [name, setName] = useState(data.name);
-    const [email, setEmail] = useState(data.email);
+    const [type_program, setTypeProgram] = useState(data.type_program);
 
+    const mensajes = () => {
+        toast.success('Tipo de programa actualizado!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+    }
 
     
     const onSubmit2 = async (e,_id) => {
@@ -27,20 +36,20 @@ function UpdateModalComponent(data) {
             e.preventDefault();
             const data = new FormData();
             data.append('id', data.id);
-            data.append('name', data.name);
-            data.append('email', data.email);
+            data.append('type_program', data.type_program);
 
-            const saveData = ( id, name, email ) => {
-                return { name: name, email: email, id: id };
+            const saveData = ( id, type_program ) => {
+                return { type_program: type_program, id: id };
             }
 
-            const save = saveData(id, name, email);
+            const save = saveData(id, type_program);
             console.log(save);
             
             //
-            const res = await axios.put(`http://localhost:3500/api/v1/users/${id}`, save).then(res => {
+            const res = await axios.put(`http://localhost:3005/typeProgram/${id}`, save).then(res => {
                 console.log(res);
                 initModal();
+                mensajes();
             });
             console.log(res);
         } catch (error) {
@@ -65,20 +74,10 @@ function UpdateModalComponent(data) {
                         <Form.Group>
                             <Form.Label>Name</Form.Label>
                             <Form.Control  type='text'
-                                    name='name'
-                                    placeholder='Enter name'
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                            />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control  type='email'
-                                    name='email'
-                                    placeholder='Enter email'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
+                                    name='type_program'
+                                    placeholder='Enter type program name'
+                                    value={type_program}
+                                    onChange={(e) => setTypeProgram(e.target.value)}
                             />
                         </Form.Group>
                     </Modal.Body>
@@ -97,4 +96,4 @@ function UpdateModalComponent(data) {
     )
 }
 
-export default UpdateModalComponent
+export default UpdateModal

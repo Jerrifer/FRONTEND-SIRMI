@@ -37,7 +37,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:3000/api/v1/users";
+      const url = "http://localhost:3500/api/v1/users";
       const { data: res } = await axios.post(url, data);
       navigate.push("/auth/login");
       console.log(res.message);
