@@ -7,7 +7,10 @@ import Maps from "views/examples/Maps.js";
 import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 import ListUsers from "views/admin/users/ListUsers.js";
- import Competence from "views/competence/competence";
+import Competence from "views/competence/competence";
+import FormationPrograms from "views/formation-programs/listFormationPrograms";
+import RegisterFormationProgram from "views/formation-programs/registerFormationProgram";
+
 var routes = [
   {
     path: "/index",
@@ -68,17 +71,31 @@ var routes = [
   // },
   {
     path: "/users/list-users",
-    name: "List Users",
+    name: "Usuarios",
     icon: "ni ni-bullet-list-67 text-dark",
     component: ListUsers,
     layout: "/admin"
   },
 
   {
-    path: "/competencias",
-    name: "competencias",
+    path: "/competences",
+    name: "Competencias",
     icon: "ni ni-bullet-list-67 text-dark",
     component: Competence,
+    layout: "/admin"
+  },
+  {
+    path: "/formationprograms",
+    name: "Programas de formación",
+    icon: "ni ni-bullet-list-67 text-dark",
+    component: FormationPrograms,
+    layout: "/admin"
+  },
+  {
+    path: "/formationprogramsregister",
+    name: "Registrar programa de formación",
+    icon: "ni ni-bullet-list-67 text-dark",
+    component: RegisterFormationProgram,
     layout: "/admin"
   },
   // {

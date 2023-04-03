@@ -11,7 +11,7 @@ import {
   chartOptions,
   parseOptions,
   
-} from "variables/charts.js";
+} from "plugins/charts.js";
 
 import Header from "components/Headers/Header.js";
 

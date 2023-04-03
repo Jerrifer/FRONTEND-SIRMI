@@ -24,6 +24,7 @@ import {BASE_URL} from '../../globals.constans'
 import CreateModal from "./components/CreateModal";
 const Competence = () => {
 
+  console.log('compe');
   
   const [competence, setCompetence] = useState([]);
   const totalUsers = competence.length;
