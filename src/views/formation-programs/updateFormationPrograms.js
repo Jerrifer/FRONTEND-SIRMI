@@ -21,10 +21,27 @@ import "../../../src/components/Headers/header.css";
 import {BASE_URL} from 'globals.constans';
 import axios from "axios";
 import { swalWithBootstrapButtons } from 'plugins/alerts'
-// import { Swal } from "sweetalert2";
 import './input.css'
 
-const RegisterFormationProgram = () => {
+// import { Swal } from "sweetalert2";
+// import { useParams } from "react-router-dom";
+
+const UpdateFormationProgram = () => {
+
+// const { formationprogram } = useParams()
+
+// console.log(formationprogram);
+// console.log('jerri');
+
+useEffect(() => {
+    showProgramLevel();
+    showThematicLines();
+    showTypeProgram();
+    showFormationProgram();
+  }, []);
+
+
+const [formationProgram, setFormationProgram] = useState([]);
 
 const [programName, setProgramName] = useState('');
 const [programCode, setProgramCode] = useState('');
@@ -38,6 +55,14 @@ const [programLevels, setProgramLevels] = useState([]);
 const [thematicLines, setThematicLines] = useState([]);
 const [typePrograms, setTypePrograms] = useState([]);
 
+
+const id = 12345
+
+  const showFormationProgram = async () => {
+    await axios.get(`${BASE_URL}formationprograms/${id}`).then((response) => {
+          return setFormationProgram(response.data.results);
+    })
+  };
 
   const showProgramLevel = async () => {
     await axios.get(`${BASE_URL}programlevels`).then((response) => {
@@ -57,13 +82,12 @@ const [typePrograms, setTypePrograms] = useState([]);
     })
   };
 
-  useEffect(() => {
-    showProgramLevel();
-    showThematicLines();
-    showTypeProgram();
-  }, []);
 
-  const register = async (e) => {
+//   useEffect(() => {
+//     showFormationProgram();
+//   }, []);
+
+  const update = async (e) => {
     e.preventDefault();
     
     const data = {
@@ -76,12 +100,13 @@ const [typePrograms, setTypePrograms] = useState([]);
         "type_program": selectedTypeProgram
     }
 
-    const response = await axios.post(`${BASE_URL}formationprograms`, data);
-    const resultRegister = await response.data.results;
-    console.log(resultRegister)
+    console.log(data)
+    const response = await axios.put(`${BASE_URL}formationprograms/${id}`, data);
+    const resultUpdate = await response.data.results;
+    console.log(resultUpdate)
     swalWithBootstrapButtons.fire(
-        'Registrado exitosamente',
-        'El programa de formación se registro con éxito.',
+        'Actualizado exitosamente',
+        'El programa de formación se actualizó con éxito.',
         'success'
       )
   };
@@ -96,12 +121,12 @@ const [typePrograms, setTypePrograms] = useState([]);
             <CardHeader className="bg-white border-0 align-items-center">
               <Row className="align-items-center">
                 <Col s="8">
-                  <h3 className="mb-0">Registrar Competencia</h3>
+                  <h3 className="mb-0">Actualizar Competencia</h3>
                 </Col>
               </Row>
             </CardHeader>
             <CardBody>
-              <Form onSubmit={register}>
+              <Form onSubmit={update}>
                 <div className="px-5">
                     <Row>
                       <Col lg="6">
@@ -117,6 +142,7 @@ const [typePrograms, setTypePrograms] = useState([]);
                           id="input-username"
                           placeholder="Nombre del programa de formación"
                           type="text"
+                          value={formationProgram.program_name}
                           required
                           onChange={(e) => setProgramName(e.target.value)}
                         />
@@ -135,6 +161,8 @@ const [typePrograms, setTypePrograms] = useState([]);
                           id="input-email"
                           placeholder="Código del programa de formación"
                           type="text"
+                          defaultValue={formationProgram.program_code}
+                          value={formationProgram.program_code}
                           required
                           onChange={(e) => setProgramCode(e.target.value)}
                         />
@@ -155,6 +183,7 @@ const [typePrograms, setTypePrograms] = useState([]);
                           id="input-first-name"
                           placeholder="Versión del programa de formación"
                           type="text"
+                          defaultValue={formationProgram.program_version}
                           required
                           onChange={(e) => setProgramVersion(e.target.value)}
                         />
@@ -173,6 +202,8 @@ const [typePrograms, setTypePrograms] = useState([]);
                           id="input-email"
                           placeholder="Duración estimada"
                           type="text"
+                          defaultValue={formationProgram.total_duration}
+                          required
                           onChange={(e) => setTotalDuration(e.target.value)}
                         />
                         </FormGroup>
@@ -232,7 +263,7 @@ const [typePrograms, setTypePrograms] = useState([]);
                       </Col>
                     </Row>
 
-                        <Button type="submit" className="btn btn-success m-4 bg-success">Registrar</Button>
+                        <Button type="submit" className="justify-content-end m-4">Guardar cambios</Button>
                 </div>
               </Form>
             </CardBody>
@@ -244,4 +275,4 @@ const [typePrograms, setTypePrograms] = useState([]);
 };
 
 
-export default RegisterFormationProgram;
+export default UpdateFormationProgram;

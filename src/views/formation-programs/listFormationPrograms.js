@@ -11,8 +11,8 @@ import {
   Table,
   Container,
   Row,
+  Col,
 } from "reactstrap";
-
 // core components
 import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
@@ -22,6 +22,8 @@ import PaginationData from "../../../src/components/PaginationData";
 import {BASE_URL} from 'globals.constans';
 // import { Swal } from "sweetalert2";
 import { alert } from 'plugins/alerts.js';
+import { Link } from "react-router-dom";
+import DetailFormationProgram from "./detailFormationProgram";
 
 const FormationPrograms = () => {
 
@@ -46,21 +48,21 @@ const FormationPrograms = () => {
     const response = await axios.get(`${BASE_URL}formationprograms`);
     const data = await response.data.results;
     setFormationProgram(data);
-    console.log(data.results)
+    // console.log(data.results)
   };
 
   useEffect(() => {
     showData();
-  });
+    
+  }, );
 
   const deleteFormationProgram = async (id) => {
-    
     const alertParams = {
       title:'¿Está seguro de eliminar el programa de formación?',
       icon: 'warning'
     };
-
     alert(alertParams.title, alertParams.icon, id);
+    showData();
   };
   //funcion de busqueda
     const searcher = (e) => {
@@ -74,7 +76,7 @@ const FormationPrograms = () => {
     result = formationProgram;
   } else {
     result = formationProgram.filter((dato) =>
-      dato.name.toLowerCase().includes(search.toLocaleLowerCase())
+      dato.program_name.toLowerCase().includes(search.toLocaleLowerCase())
     );
   }
 
@@ -89,14 +91,20 @@ const FormationPrograms = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-                <h3 className="mb-0">Programas de formación</h3>
-                <input
-                  value={search}
-                  onChange={searcher}
-                  type="search"
-                  placeholder="search"
-                  className="input"
-                />
+
+                <Col lg="6">
+                  <h3 className="mb-0">Programas de formación</h3>
+                </Col>
+                <Col lg="6">
+                  <input
+                    value={search}
+                    onChange={searcher}
+                    type="search"
+                    placeholder="search"
+                    className="input"
+                  />
+                </Col>
+                
               </CardHeader>
               <Table
                 className=" table table-striped table-hover  shadow-lg align-items-center table-flush"
@@ -104,7 +112,7 @@ const FormationPrograms = () => {
               >
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">id</th>
+                    <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Código del programa</th>
                     <th scope="col">Duración estimada</th>
@@ -114,14 +122,15 @@ const FormationPrograms = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {result.map((formationProgram) => {
+                  {result.map((formationProgram, i=0) => {
+
                       return (
                         <tr key={formationProgram._id}>
 
                           <td>
                             <Badge color="" className="badge-dot mr-4">
-                              <i className="bg-warning" />
-                              {formationProgram._id}
+                              <i className="bg-success" />
+                              {i + 1}
                             </Badge>
                           </td>
 
@@ -134,12 +143,18 @@ const FormationPrograms = () => {
                           <td>{formationProgram.program_version}</td>
 
                           <td>
-                            <Button 
-                              variant=""
-                              onClick={() => deleteFormationProgram(formationProgram._id)}
-                              >
-                              <i class="fas fa-pen-alt"></i>
-                            </Button>
+                            <DetailFormationProgram
+                              formationProgram={formationProgram}
+                            />
+
+                            <Link to={`/formationprograms/${formationProgram._id}`}>
+                              <Button 
+                                variant=""
+                                >
+                                <i class="fas fa-pen-alt"></i>
+                              </Button>
+                            </Link>
+
                             <Button
                               variant=""
                               onClick={() => deleteFormationProgram(formationProgram._id)}
@@ -150,7 +165,7 @@ const FormationPrograms = () => {
                         </tr>
                       );
                     })
-                    .slice((currentPage - 1) * 5, (currentPage - 1) * 5 + 5)}
+                    .slice((currentPage - 1) * 5, (currentPage - 1) * 7 + 7)}
                 </tbody>
               </Table>
 

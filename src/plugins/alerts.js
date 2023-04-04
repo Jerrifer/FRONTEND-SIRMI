@@ -22,20 +22,31 @@ export function alert (title, icon, id) {
   }).then((result) => {
     if (result.isConfirmed) {
       axios.delete(`${BASE_URL}formationprograms/${id}`).then(res => {
-        console.log(res)
+        console.log(res.data)
+        const result = res.data
+        if(result.status === 'success'){
+          swalWithBootstrapButtons.fire(
+            'Eliminado!',
+            'El programa de formación fue eliminado',
+            'success'
+          )
+        }
+        else{
+          swalWithBootstrapButtons.fire(
+            'Error!',
+            result.message,
+            'error'
+          )
+        }
+        
       })
-      swalWithBootstrapButtons.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
     } else if (
       result.dismiss === Swal.DismissReason.cancel
     ) {
       swalWithBootstrapButtons.fire(
-        'Cancelled',
-        'Your imaginary file is safe :)',
-        'error'
+        'Cancelado!',
+        '',
+        'info'
       )
     }
   })

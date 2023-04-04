@@ -22,6 +22,8 @@ import "../../../src/components/Headers/header.css";
 import PaginationData from "../../../src/components/PaginationData";
 import {BASE_URL} from '../../globals.constans'
 import CreateModal from "./components/CreateModal";
+// import './indexCompetence.css'
+
 const Competence = () => {
 
   console.log('compe');
@@ -132,7 +134,7 @@ const Competence = () => {
                             </Badge>
                           </td>
 
-                          <td>{data.labor_competition}</td>
+                          <td className="space">{data.labor_competition}</td>
 
                           <td>{data.labor_competition_version}</td>
 

@@ -10,6 +10,7 @@ import ListUsers from "views/admin/users/ListUsers.js";
 import Competence from "views/competence/competence";
 import FormationPrograms from "views/formation-programs/listFormationPrograms";
 import RegisterFormationProgram from "views/formation-programs/registerFormationProgram";
+import UpdateFormationProgram from "views/formation-programs/updateFormationPrograms";
 
 var routes = [
   {
@@ -97,6 +98,15 @@ var routes = [
     icon: "ni ni-bullet-list-67 text-dark",
     component: RegisterFormationProgram,
     layout: "/admin"
+  },
+
+  {
+    path: "/formationprogramsupdate/:formationprogram",
+    icon: "ni ni-bullet-list-67 text-dark",
+    name: "Actualizar programa de formación",
+    component: UpdateFormationProgram,
+    layout: "/admin",
+    sidebar: true
   },
   // {
   //   path: "/users/edit-user/:id",
