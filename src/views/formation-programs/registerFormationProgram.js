@@ -80,7 +80,7 @@ const [typePrograms, setTypePrograms] = useState([]);
     const resultRegister = await response.data.results;
     console.log(resultRegister)
     swalWithBootstrapButtons.fire(
-        'Registrado exitosamente',
+        'Registro exitoso',
         'El programa de formación se registro con éxito.',
         'success'
       )

@@ -11,6 +11,7 @@ import {
   Table,
   Container,
   Row,
+  Col
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -26,7 +27,7 @@ import CreateModal from "./components/CreateModal";
 
 const Competence = () => {
 
-  console.log('compe');
+  // console.log('compe');  
   
   const [competence, setCompetence] = useState([]);
   const totalUsers = competence.length;
@@ -49,7 +50,7 @@ const Competence = () => {
 
   useEffect(() => {
     shoData();
-  });
+  },[]);
 
   //funcion psrs trser los datos de la api
   //   useEffect(() => {
@@ -61,7 +62,7 @@ const Competence = () => {
 
   const deleteUser = async (id) => {
     await axios
-      .delete(`http://localhost:3500/api/v1/competences/${id}`)
+      .delete(`${BASE_URL}competences/${id}`)
       .then((res) => {
         console.log(res);
         console.log(res.data);
@@ -96,8 +97,17 @@ const Competence = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
+              <Col lg="2">
                 <h3 className="mb-0">Competencias</h3>
-                <CreateModal/>
+
+              
+                 
+                 
+              
+</Col>
+<CreateModal/>
+<Col lg="10">
+  
                 <input
                   value={search}
                   onChange={searcher}
@@ -105,6 +115,7 @@ const Competence = () => {
                   placeholder="search"
                   className="input"
                 />
+                </Col>
               </CardHeader>
               <Table
                 className=" table table-striped table-hover  shadow-lg align-items-center table-flush"

@@ -77,7 +77,7 @@ function UpdateModalComponent(data) {
   return (
     <>
       <Button variant="" onClick={initModal}>
-        <i class="fas fa-pen-alt"></i>
+      <i class="fa-solid fa-file-pen"></i>
       </Button>
 
       <Modal show={isShow}>

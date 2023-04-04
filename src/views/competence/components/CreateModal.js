@@ -1,10 +1,14 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+// eslint-disable-next-line no-unused-vars
 import { Modal, Button, Form, Dropdown } from 'react-bootstrap'
 import axios from 'axios';
-import { Input } from "reactstrap";
+// import { Input } from "reactstrap";
+// eslint-disable-next-line no-unused-vars
 import { Checkbox, Icon, Select } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
+import {BASE_URL} from 'globals.constans'
+import { swalWithBootstrapButtons } from 'plugins/alerts';
 
 
 function CreateModal() {
@@ -15,16 +19,15 @@ function CreateModal() {
     }
 
     const [data, setData] = useState({
-        type_program: '',
-        _id: '',
         labor_competence_code: '',
         labor_competition: '',
         labor_competition_version: '',
-        formation_program: []
+        duration: 0
     });
 
-    const [programs, setPrograms] = useState([]);
+    // const [programs, setPrograms] = useState([]);
 
+    // eslint-disable-next-line no-unused-vars
     const [error, setError] = useState(null);
 
     const mensajes = () => {
@@ -48,13 +51,18 @@ function CreateModal() {
     }
 
     const handleSubmit = (e) => {
+        console.log(data);
         e.preventDefault();
-        axios.post('http://localhost:4000/api/competence', data)
+        axios.post(`${BASE_URL}competences`, data)
             .then(res => {
-                console.log(res);
                 console.log(res.data);
                 mensajes();
                 initModal();
+                swalWithBootstrapButtons.fire(
+                    'Registro exitoso',
+                    'La competencia laboral se registro con éxito.',
+                    'success'
+                  )
             })
             .catch(err => {
                 console.log(err);
@@ -62,24 +70,25 @@ function CreateModal() {
             })
     }
 
-    const getPrograms = async () => {
-        const response = await fetch('http://localhost:3500/api/v1/formationprograms');
-        const data = await response.json();
-        setPrograms(data.results);
-    }
+    // const getPrograms = async () => {
+    //     const response = await fetch(`${BASE_URL}formationprograms`);
+    //     const data = await response.json();
+    //     setPrograms(data.results);
+    // }
 
-    useEffect(() => {
-        getPrograms();
-    }, []);
+    // useEffect(() => {
+    //     getPrograms();
+    // }, []);
 
-    const options = programs.map((program) => {
-        return {
-            key: program._id,
-            text: program.programs_name,
-            value: program.programs_name
-        }
-    })
+    // const options = programs.map((program) => {
+    //     return {
+    //         key: program._id,
+    //         text: program.programs_name,
+    //         value: program.programs_name
+    //     }
+    // })
 
+    // eslint-disable-next-line no-unused-vars
     const handleChangePrograms = (e, { value }) => {
         setData({
             ...data,
@@ -90,8 +99,8 @@ function CreateModal() {
     return (
 
         <div>
-            <Button variant="primary" onClick={initModal}>
-                <Icon name='plus' />
+            <Button className='btn btn-success' variant="" onClick={initModal}>
+             agregar
             </Button>
 
             <Modal show={isShow} onHide={initModal}>
@@ -102,22 +111,22 @@ function CreateModal() {
                     {isShow &&
                         <Form onSubmit={handleSubmit}>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Nombre del Tipo de Programa</Form.Label>
-                                <Form.Control type="text" placeholder="Ingrese el nombre del tipo de programa" name="type_program" onChange={handleChange} />
+                                <Form.Label>Nombre de la competencia Laboral</Form.Label>
+                                <Form.Control type="text" placeholder="Ingrese el nombre de la competencia Laboral" name="labor_competition" onChange={handleChange} />
                             </Form.Group>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Código de Competencia Laboral</Form.Label>
                                 <Form.Control type="text" placeholder="Ingrese el código de competencia laboral" name="labor_competence_code" onChange={handleChange} />
                             </Form.Group>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Competencia Laboral</Form.Label>
-                                <Form.Control type="text" placeholder="Ingrese la competencia laboral" name="labor_competition" onChange={handleChange} />
-                            </Form.Group>
-                            <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Versión de la Competencia Laboral</Form.Label>
                                 <Form.Control type="text" placeholder="Ingrese la versión de la competencia laboral" name="labor_competition_version" onChange={handleChange} />
                             </Form.Group>
                             <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Duración estimada</Form.Label>
+                                <Form.Control type="number" placeholder="Ingrese la duración de la competencia laboral" name="duration" onChange={handleChange} />
+                            </Form.Group>
+                            {/* <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Programa de Formación</Form.Label>
                                 <select name="formation_program" onChange={handleChange}>
                                     {programs.map((program) => (
@@ -136,7 +145,7 @@ function CreateModal() {
                                     ))}
                                 </Input>
 
-                            </Form.Group>
+                            </Form.Group> */}
                             <Button variant="primary" type="submit">
                                 Crear
                             </Button>

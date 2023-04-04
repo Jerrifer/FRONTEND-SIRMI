@@ -48,13 +48,13 @@ const FormationPrograms = () => {
     const response = await axios.get(`${BASE_URL}formationprograms`);
     const data = await response.data.results;
     setFormationProgram(data);
-    // console.log(data.results)
+  console.log(data.results)
   };
 
   useEffect(() => {
     showData();
     
-  }, );
+  }, []);
 
   const deleteFormationProgram = async (id) => {
     const alertParams = {

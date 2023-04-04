@@ -8,7 +8,7 @@ const Tables = () => {
     <>
       <Header />
       {/* Page content */}
-    
+      <i class="fa fa-address-book" aria-hidden="true"></i>
     </>
   );
 };
