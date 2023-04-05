@@ -32,6 +32,7 @@ import CreateModalComponent from "./CreateModalComponent";
 import PaginationData from "../../../components/PaginationData";
 import DeleteModalComponent from "./DeleteModalComponent";
 import Header from "components/Headers/Header.js";
+import { BASE_URL } from "globals.constans";
 
 const ListUsers = () => {
   const [APIData, setAPIData] = useState([]);
@@ -47,14 +48,14 @@ const ListUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const getData = () => {
-    axios.get(`http://localhost:3000/api/v1/users`).then((res) => {
+    axios.get(`${BASE_URL}users`).then((res) => {
       setAPIData(res.data);
       // console.log(res.data);
     });
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/v1/users`).then((res) => {
+    axios.get(`${BASE_URL}users`).then((res) => {
       setAPIData(res.data.results);
       console.log(res.data.results);
     });
@@ -62,7 +63,7 @@ const ListUsers = () => {
 
   const deleteUser = async (id) => {
     await axios
-      .delete(`http://localhost:3000/api/v1/users/${id}`)
+      .delete(`${BASE_URL}users/${id}`)
       .then((res) => {
         getData();
       });

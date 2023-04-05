@@ -11,7 +11,7 @@ import {
   Table,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -21,14 +21,13 @@ import UpdateModalComponent from "../../../src/views/competence/Updatemodal";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
 import PaginationData from "../../../src/components/PaginationData";
-import {BASE_URL} from '../../globals.constans'
+import { BASE_URL } from "../../globals.constans";
 import CreateModal from "./components/CreateModal";
 // import './indexCompetence.css'
 
 const Competence = () => {
+  // console.log('compe');
 
-  // console.log('compe');  
-  
   const [competence, setCompetence] = useState([]);
   const totalUsers = competence.length;
   // const totalUsers = competence;
@@ -41,33 +40,30 @@ const Competence = () => {
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const shoData = async () => {
-    const response = await fetch(`${BASE_URL}competences`);
-    const data = await response.json();
-    setCompetence(data.results);
-    // console.log(data.results)
-  };
+  // const shoData = async () => {
+  //   const response = await fetch(`${BASE_URL}competences`);
+  //   const data = await response.json();
+  //   setCompetence(data.results);
+  //   // console.log(data.results)
+  // };
 
-  useEffect(() => {
-    shoData();
-  },[]);
+  // useEffect(() => {
+  //   shoData();
+  // },[]);
 
   //funcion psrs trser los datos de la api
-  //   useEffect(() => {
-  //     axios.get(`http://localhost:3000/api/v1/competences`).then((res) => {
-  //       setCompetence(res.data.data);
-  //       console.log(res.data.data);
-  //     });
-  //   }, []);
+  useEffect(() => {
+    axios.get(`${BASE_URL}competences`).then((res) => {
+      setCompetence(res.data.results);
+      console.log(res.data.results);
+    });
+  }, []);
 
   const deleteUser = async (id) => {
-    await axios
-      .delete(`${BASE_URL}competences/${id}`)
-      .then((res) => {
-        console.log(res);
-        console.log(res.data);
-        window.location.reload();
-      });
+    await axios.delete(`${BASE_URL}competences/${id}`).then((res) => {
+      console.log(res.data.results);
+      window.location.reload();
+    });
   };
   //funcion de busqueda
   const searcher = (e) => {
@@ -83,7 +79,9 @@ const Competence = () => {
     result = competence;
   } else {
     result = competence.filter((dato) =>
-      dato.labor_competence_code.toLowerCase().includes(search.toLocaleLowerCase())
+      dato.labor_competition
+        .toLowerCase()
+        .includes(search.toLocaleLowerCase())
     );
   }
 
@@ -97,21 +95,18 @@ const Competence = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-              <Col lg="5">
-                <h3 className="mb-0">Competencias</h3>
-
-             
-</Col>
-<CreateModal/>
-<Col lg="6">
-  
-                <input
-                  value={search}
-                  onChange={searcher}
-                  type="search"
-                  placeholder="search"
-                  className="input"
-                />
+                <Col lg="5">
+                  <h3 className="mb-0">Competencias</h3>
+                </Col>
+                <CreateModal />
+                <Col lg="6">
+                  <input
+                    value={search}
+                    onChange={searcher}
+                    type="search"
+                    placeholder="search"
+                    className="input"
+                  />
                 </Col>
               </CardHeader>
               <Table
@@ -128,13 +123,10 @@ const Competence = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {result.map((data) => {
+                  {result
+                    .map((data) => {
                       return (
                         <tr key={data._id}>
-                          {/* <td>{data._id}</td>
-
-                          <td>{data.name}</td> */}
-
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-warning" />
@@ -145,31 +137,6 @@ const Competence = () => {
                           <td className="space">{data.labor_competition}</td>
 
                           <td>{data.labor_competition_version}</td>
-
-                          {/* <td>
-                            <select>
-                              {data.formation_programs.map((program) => {
-                                return (
-                                  <option value="1">{program.program_name}</option>
-                                );
-                              })}
-                            </select>
-                          </td> */}
-
-                          {/* <td>
-                            <select>
-                                  return(
-                                    <option value="1">
-                                      {
-                                        data.formation_programs.map(
-                                          (program) => {
-                                            return program.program_name;
-                                          }
-                                  )
-                                }
-                              </option>
-                            </select>
-                          </td> */}
                           <td>
                             <UpdateModalComponent
                               id={data._id}

@@ -45,10 +45,11 @@ const FormationPrograms = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const showData = async () => {
-    const response = await axios.get(`${BASE_URL}formationprograms`);
-    const data = await response.data.results;
-    setFormationProgram(data);
-  console.log(data.results)
+    await axios.get(`${BASE_URL}formationprograms`).then((response) => {
+        const data = response.data;
+        setFormationProgram(data.results);
+      }
+    )
   };
 
   useEffect(() => {

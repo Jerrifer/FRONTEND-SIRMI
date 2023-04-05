@@ -3,6 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import axios from 'axios';
+import { BASE_URL } from 'globals.constans';
 // import { Icon } from 'semantic-ui-react';
 
 
@@ -38,7 +39,7 @@ function UpdateModalComponent(data) {
             console.log(save);
             
             //
-            const res = await axios.put(`http://localhost:3000/api/v1/users/${id}`, save).then(res => {
+            const res = await axios.put(`${BASE_URL}users/${id}`, save).then(res => {
                 console.log(res);
                 initModal();
             });

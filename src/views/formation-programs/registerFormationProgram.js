@@ -41,19 +41,19 @@ const [typePrograms, setTypePrograms] = useState([]);
 
   const showProgramLevel = async () => {
     await axios.get(`${BASE_URL}programlevels`).then((response) => {
-          return setProgramLevels(response.data.results);
+      setProgramLevels(response.data.results);
     })
   };
 
   const showThematicLines = async () => {
     await axios.get(`${BASE_URL}thematiclines`).then((response) => {
-      return setThematicLines(response.data.results);
+      setThematicLines(response.data.results);
     });
   };
 
   const showTypeProgram = async () => {
     await axios.get(`${BASE_URL}typeprograms`).then((response) => {
-      return setTypePrograms(response.data.results);
+      setTypePrograms(response.data.results);
     })
   };
 

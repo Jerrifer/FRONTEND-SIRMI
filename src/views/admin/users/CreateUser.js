@@ -17,6 +17,7 @@ import {
 } from "reactstrap";
 // core components
 import AdminHeader from "components/Headers/admin/AdminHeader.js";
+import { BASE_URL } from "globals.constans";
 
 const Profile = () => {
   const [data, setData] = useState({
@@ -37,7 +38,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:3000/api/v1/users";
+      const url = `${BASE_URL}users`;
       const { data: res } = await axios.post(url, data);
       navigate.push("/auth/login");
       console.log(res.message);

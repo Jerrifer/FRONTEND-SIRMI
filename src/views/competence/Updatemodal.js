@@ -4,6 +4,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 
 import "./input.css";
+import { BASE_URL } from "globals.constans";
 
 function UpdateModalComponent(data) {
   const [isShow, invokeModal] = useState(false);
@@ -65,7 +66,7 @@ function UpdateModalComponent(data) {
 
       //
       const res = await axios.put(
-        `http://localhost:3000/api/v1/competences/${id}`,
+        `${BASE_URL}competences/${id}`,
         save
       );
       console.log(res);

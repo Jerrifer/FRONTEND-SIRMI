@@ -4,6 +4,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { Input } from "reactstrap";
 import { Icon } from "semantic-ui-react";
+import { BASE_URL } from "globals.constans";
 
 function CreateModalComponent() {
   const [isShow, invokeModal] = useState(false);
@@ -28,7 +29,7 @@ function CreateModalComponent() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const url = "http://localhost:3000/api/v1/users";
+      const url = `${BASE_URL}users`;
       const { data: res } = await axios.post(url, data).then((res) => {
         console.log(res);
         initModal();

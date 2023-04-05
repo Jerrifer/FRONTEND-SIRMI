@@ -1,7 +1,7 @@
 
 // import Index from "views/Index.js";
 // import Profile from "views/examples/Profile.js";
-import Maps from "views/examples/Maps.js";
+// import Maps from "views/examples/Maps.js";
 // import Register from "views/examples/Register.js";
 // import Login from "views/examples/Login.js";
 // import Tables from "views/examples/Tables.js";
@@ -30,13 +30,6 @@ var routes = [
   //   component: Icons,
   //   layout: "/admin"
   // },
-  {
-    path: "/maps",
-    name: "Competencias",
-    icon: "ni ni-ungroup text-dark",
-    component: Maps,
-    layout: "/public"
-  },
   // {
   //   path: "/user-profile",
   //   name: "User Profile",
@@ -102,12 +95,5 @@ var routes = [
     component: RegisterFormationProgram,
     layout: "/admin"
   },
-  // {
-  //   path: "/users/edit-user/:id",
-  //   name: "Edit User",
-  //   icon: "ni ni-scissors text-red",
-  //   component: EditUser,
-  //   layout: "/admin"
-  // }
 ];
 export default routes;
