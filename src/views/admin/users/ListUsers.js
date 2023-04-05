@@ -47,14 +47,14 @@ const ListUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const getData = () => {
-    axios.get(`http://localhost:3500/api/v1/users`).then((res) => {
+    axios.get(`http://localhost:3000/api/v1/users`).then((res) => {
       setAPIData(res.data);
       // console.log(res.data);
     });
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:3500/api/v1/users`).then((res) => {
+    axios.get(`http://localhost:3000/api/v1/users`).then((res) => {
       setAPIData(res.data.results);
       console.log(res.data.results);
     });
@@ -62,7 +62,7 @@ const ListUsers = () => {
 
   const deleteUser = async (id) => {
     await axios
-      .delete(`http://localhost:3500/api/v1/users/${id}`)
+      .delete(`http://localhost:3000/api/v1/users/${id}`)
       .then((res) => {
         getData();
       });

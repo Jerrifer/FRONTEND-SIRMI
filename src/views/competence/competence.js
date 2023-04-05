@@ -83,7 +83,7 @@ const Competence = () => {
     result = competence;
   } else {
     result = competence.filter((dato) =>
-      dato.name.toLowerCase().includes(search.toLocaleLowerCase())
+      dato.labor_competence_code.toLowerCase().includes(search.toLocaleLowerCase())
     );
   }
 
@@ -97,16 +97,13 @@ const Competence = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-              <Col lg="2">
+              <Col lg="5">
                 <h3 className="mb-0">Competencias</h3>
 
-              
-                 
-                 
-              
+             
 </Col>
 <CreateModal/>
-<Col lg="10">
+<Col lg="6">
   
                 <input
                   value={search}

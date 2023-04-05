@@ -1,8 +1,8 @@
 
 /*eslint-disable*/
 
-// reactstrap components
-import { Container, Row, Col, Nav, NavItem, NavLink } from "reactstrap";
+
+import { a, Row, Col} from "reactstrap";
 
 const Footer = () => {
   return (

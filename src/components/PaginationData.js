@@ -41,7 +41,7 @@ function PaginationData({
         }`}
         onClick={onPreviousPage}
       >
-        <spam className="ni ni-bold-left"></spam>
+        <i className="ni ni-bold-left"></i>
       </a>
       <a
         className={`pagination-next ${
@@ -49,7 +49,7 @@ function PaginationData({
         }`}
         onClick={onNextPage}
       >
-        <spam className="ni ni-bold-right"></spam>
+        <i className="ni ni-bold-right"></i>
       </a>
       <ul className="pagination-list ">
         {pageNumbers.map((noPage) => (

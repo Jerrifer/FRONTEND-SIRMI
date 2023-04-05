@@ -65,7 +65,7 @@ function UpdateModalComponent(data) {
 
       //
       const res = await axios.put(
-        `http://localhost:3500/api/v1/competences/${id}`,
+        `http://localhost:3000/api/v1/competences/${id}`,
         save
       );
       console.log(res);

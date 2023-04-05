@@ -28,7 +28,7 @@ function CreateModalComponent() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const url = "http://localhost:3500/api/v1/users";
+      const url = "http://localhost:3000/api/v1/users";
       const { data: res } = await axios.post(url, data).then((res) => {
         console.log(res);
         initModal();
