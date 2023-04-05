@@ -29,7 +29,7 @@ import { useEffect, useState } from "react";
 import UpdateModalComponent from "./UpdateModalComponent";
 import { Button } from "react-bootstrap";
 import CreateModalComponent from "./CreateModalComponent";
-import PaginationData from "../../../components/PaginationData";
+import PaginationData from "../../../components/pagination/PaginationData";
 import DeleteModalComponent from "./DeleteModalComponent";
 import Header from "components/Headers/Header.js";
 import { BASE_URL } from "globals.constans";

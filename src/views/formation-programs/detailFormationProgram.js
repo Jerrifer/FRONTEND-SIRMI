@@ -3,7 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { Badge } from "reactstrap";
 // import axios from "axios";
 // import {BASE_URL} from 'globals.constans';
-
+import './input.css'
 function DetailFormationProgram(data) {
 
   const [isShow, invokeModal] = useState(false);
@@ -44,14 +44,15 @@ function DetailFormationProgram(data) {
       <i className="fas fa-eye-solid fa-eye" />
       </Button>
 
-      <Modal show={isShow} size={"lg"}>
+      <Modal show={isShow} size={"lg"} className=" color">
         <Modal.Header>
           <Modal.Title>Programa de formaión... {formationProgram._id}</Modal.Title>
         </Modal.Header>
 
         <div className="container">
-          <Modal.Body>
+          <Modal.Body >
 
+          <div className="container ">
             <Form.Group className="text-center mb-4">
               <h2
               >{formationProgram.program_name}</h2>
@@ -107,7 +108,7 @@ function DetailFormationProgram(data) {
                 )
               })}
             
-
+</div>
           </Modal.Body>
 
           <Modal.Footer>

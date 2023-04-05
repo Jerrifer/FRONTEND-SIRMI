@@ -10,6 +10,7 @@ import ListUsers from "views/admin/users/ListUsers.js";
 import Competence from "views/competence/competence";
 import FormationPrograms from "views/formation-programs/listFormationPrograms";
 import RegisterFormationProgram from "views/formation-programs/registerFormationProgram";
+import UpdateFormationProgram from "views/formation-programs/updateFormationPrograms";
 
 var routes = [
 
@@ -94,6 +95,14 @@ var routes = [
     icon: "ni ni-single-copy-04 text-dark",
     component: RegisterFormationProgram,
     layout: "/admin"
+  },
+  {
+    path: "/updateformationprograms/:id",
+    name: "Actualizar programa de formación",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: <UpdateFormationProgram />,
+    layout: "/admin", 
+    sidebar: false
   },
 ];
 export default routes;

@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import UpdateModalComponent from "../../../src/views/competence/Updatemodal";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import PaginationData from "../../../src/components/PaginationData";
+import PaginationData from "../../components/pagination/PaginationData";
 import { BASE_URL } from "../../globals.constans";
 import CreateModal from "./components/CreateModal";
 // import './indexCompetence.css'

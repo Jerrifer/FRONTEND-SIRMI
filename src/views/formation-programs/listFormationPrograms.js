@@ -18,7 +18,7 @@ import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import PaginationData from "../../../src/components/PaginationData";
+import PaginationData from "../../components/pagination/PaginationData";
 import {BASE_URL} from 'globals.constans';
 // import { Swal } from "sweetalert2";
 import { alert } from 'plugins/alerts.js';
@@ -147,6 +147,12 @@ const FormationPrograms = () => {
                             <DetailFormationProgram
                               formationProgram={formationProgram}
                             />
+
+                            <Button 
+                              variant=""
+                              >
+                              <i class="fas fa-circle-plus"></i>
+                            </Button>
 
                             <Link to={`/formationprograms/${formationProgram._id}`}>
                               <Button 

@@ -7,3 +7,8 @@ color: #8898aa;
 font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
 font-size: 15px;
 }
+
+.color{
+ background: rgba(0, 0, 0, 0.274) ;
+filter: grayscale(5px);
+}

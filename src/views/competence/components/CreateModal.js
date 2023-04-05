@@ -1,11 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
 // eslint-disable-next-line no-unused-vars
-import { Modal, Button, Form, Dropdown } from 'react-bootstrap'
+import { Modal, Button, Form } from 'react-bootstrap'
 import axios from 'axios';
 // import { Input } from "reactstrap";
 // eslint-disable-next-line no-unused-vars
-import { Checkbox, Icon, Select } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import {BASE_URL} from 'globals.constans'
 import { swalWithBootstrapButtons } from 'plugins/alerts';
