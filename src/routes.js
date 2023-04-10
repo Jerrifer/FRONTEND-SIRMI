@@ -100,7 +100,7 @@ var routes = [
     path: "/updateformationprograms/:id",
     name: "Actualizar programa de formación",
     icon: "ni ni-single-copy-04 text-dark",
-    component: <UpdateFormationProgram />,
+    component: UpdateFormationProgram,
     layout: "/admin", 
     sidebar: false
   },

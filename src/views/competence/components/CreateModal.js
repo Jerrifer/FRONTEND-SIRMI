@@ -43,8 +43,7 @@ function CreateModal() {
     }
 
     const handleChange = (e) => {
-        setData({
-            ...data,
+        setData({...data,
             [e.target.name]: e.target.value
         })
     }

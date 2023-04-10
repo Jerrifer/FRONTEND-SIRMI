@@ -13,8 +13,6 @@ import {
     Row,
     Col,
   } from "reactstrap";
-  // core components
-
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
@@ -22,93 +20,94 @@ import {BASE_URL} from 'globals.constans';
 import axios from "axios";
 import { swalWithBootstrapButtons } from 'plugins/alerts'
 import './input.css'
+import { useParams } from "react-router-dom";
+import { object } from "prop-types";
 
 // import { Swal } from "sweetalert2";
-// import { useParams } from "react-router-dom";
 
 const UpdateFormationProgram = () => {
+  
+  const { id } = useParams()
 
-// const { formationprogram } = useParams()
-
-// console.log(formationprogram);
-// console.log('jerri');
-
-useEffect(() => {
+  useEffect(() => {
     showProgramLevel();
     showThematicLines();
     showTypeProgram();
-    showFormationProgram();
-  }, []);
+    showFormationProgram(id);
+  }, [id]);
 
 
-const [formationProgram, setFormationProgram] = useState([]);
+  const [formationProgram, setFormationProgram] = useState([]);
 
-const [programName, setProgramName] = useState('');
-const [programCode, setProgramCode] = useState('');
-const [totalDuration, setTotalDuration] = useState('');
-const [programVersion, setProgramVersion] = useState('');
-const [selectedProgramLevel, setSelectedProgramLevel] = useState('');
-const [selectedThematicLine, setSelectedThematicLine] = useState('');
-const [selectedTypeProgram, setSelectedTypeProgram] = useState('');
+  const [programLevels, setProgramLevels] = useState([]);
+  const [thematicLines, setThematicLines] = useState([]);
+  const [typePrograms, setTypePrograms] = useState([]);
 
-const [programLevels, setProgramLevels] = useState([]);
-const [thematicLines, setThematicLines] = useState([]);
-const [typePrograms, setTypePrograms] = useState([]);
-
-
-const id = 12345
-
-  const showFormationProgram = async () => {
+  const showFormationProgram = async (id) => {
     await axios.get(`${BASE_URL}formationprograms/${id}`).then((response) => {
-          return setFormationProgram(response.data.results);
+          setFormationProgram(response.data.results);
     })
   };
 
   const showProgramLevel = async () => {
     await axios.get(`${BASE_URL}programlevels`).then((response) => {
-          return setProgramLevels(response.data.results);
+          setProgramLevels(response.data.results);
     })
   };
 
   const showThematicLines = async () => {
     await axios.get(`${BASE_URL}thematiclines`).then((response) => {
-      return setThematicLines(response.data.results);
+      setThematicLines(response.data.results);
     });
   };
 
   const showTypeProgram = async () => {
     await axios.get(`${BASE_URL}typeprograms`).then((response) => {
-      return setTypePrograms(response.data.results);
+      setTypePrograms(response.data.results);
     })
   };
 
-
-//   useEffect(() => {
-//     showFormationProgram();
-//   }, []);
+  
+  const changeData = (e) => {
+    setFormationProgram({...formationProgram,
+        [e.target.name]: e.target.value
+    })
+}
 
   const update = async (e) => {
     e.preventDefault();
-    
-    const data = {
-        "program_name": programName,
-        "program_code": programCode,
-        "total_duration": totalDuration,
-        "program_version": programVersion,
-        "program_level": selectedProgramLevel,
-        "thematic_line": selectedThematicLine,
-        "type_program": selectedTypeProgram
+
+    const typeDataTypeProgram = typeof(formationProgram.type_program)
+
+    if (typeDataTypeProgram === 'object') {
+      formationProgram.type_program = formationProgram.type_program._id
     }
 
-    console.log(data)
-    const response = await axios.put(`${BASE_URL}formationprograms/${id}`, data);
-    const resultUpdate = await response.data.results;
-    console.log(resultUpdate)
-    swalWithBootstrapButtons.fire(
-        'Actualizado exitosamente',
-        'El programa de formación se actualizó con éxito.',
-        'success'
+    // console.log(formationProgram);
+    await axios.put(`${BASE_URL}formationprograms/${id}`, formationProgram).then((response) => {
+      const resultUpdate = response.data;
+      if (resultUpdate.status === 'success') {
+        swalWithBootstrapButtons.fire(
+          'Actualizado exitosamente',
+          resultUpdate.message,
+          'success'
+        )
+      } else {
+        swalWithBootstrapButtons.fire(
+          'Error por validaciones',
+          resultUpdate.results.errors[0].msg,
+          'warning'
+        )
+      }
+    }).catch((error) => {
+      console.log(error);
+      swalWithBootstrapButtons.fire(
+        'Hubo un error',
+        error.response.data.message,
+        'error'
       )
+    })
+    
   };
 
   return (
@@ -139,12 +138,13 @@ const id = 12345
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-username"
+                          id="input-program_name"
+                          name="program_name"
                           placeholder="Nombre del programa de formación"
                           type="text"
-                          value={formationProgram.program_name}
+                          defaultValue={formationProgram.program_name}
                           required
-                          onChange={(e) => setProgramName(e.target.value)}
+                          onChange={changeData}
                         />
                         </FormGroup>
                       </Col>
@@ -159,12 +159,13 @@ const id = 12345
                         <Input
                           className="form-control-alternative"
                           id="input-email"
+                          name="program_code"
                           placeholder="Código del programa de formación"
                           type="text"
                           defaultValue={formationProgram.program_code}
                           value={formationProgram.program_code}
                           required
-                          onChange={(e) => setProgramCode(e.target.value)}
+                          onChange={changeData}
                         />
                         </FormGroup>
                       </Col>
@@ -181,11 +182,12 @@ const id = 12345
                         <Input
                           className="form-control-alternative"
                           id="input-first-name"
+                          name="program_version"
                           placeholder="Versión del programa de formación"
                           type="text"
                           defaultValue={formationProgram.program_version}
                           required
-                          onChange={(e) => setProgramVersion(e.target.value)}
+                          onChange={changeData}
                         />
                         </FormGroup>
                       </Col>
@@ -200,11 +202,12 @@ const id = 12345
                         <Input
                           className="form-control-alternative"
                           id="input-email"
+                          name="total_duration"
                           placeholder="Duración estimada"
                           type="text"
                           defaultValue={formationProgram.total_duration}
                           required
-                          onChange={(e) => setTotalDuration(e.target.value)}
+                          onChange={changeData}
                         />
                         </FormGroup>
                       </Col>
@@ -219,7 +222,7 @@ const id = 12345
                           Titulo del programa
                         </label>
                       
-                          <select className=" input"  onChange={(e) => setSelectedProgramLevel(e.target.value)}>
+                          <select className=" input" name="program_level" onChange={changeData}>
                             {programLevels.map((programLevel) =>
                                 <option key={programLevel._id} value={programLevel._id}>{programLevel.program_level}</option>
                             )}
@@ -236,7 +239,7 @@ const id = 12345
                         >
                           Línea tématica
                         </label>
-                        <select className="input" onChange={(e) => setSelectedThematicLine(e.target.value)}>
+                        <select className="input" name="thematic_line" onChange={changeData}>
                           {thematicLines.map((thematicLine) => 
                               <option key={thematicLine._id} value={thematicLine._id}>{thematicLine.thematic_line}</option>
                           )}
@@ -254,7 +257,7 @@ const id = 12345
                         >
                           Tipo del programa
                         </label>
-                        <select className="input" onChange={(e) => setSelectedTypeProgram(e.target.value)}>
+                        <select className="input" name="type_program" onChange={changeData}>
                           {typePrograms.map((typeProgram) =>
                               <option key={typeProgram._id} value={typeProgram._id}>{typeProgram.type_program}</option>
                           )}

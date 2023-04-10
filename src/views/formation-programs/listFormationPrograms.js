@@ -12,6 +12,8 @@ import {
   Container,
   Row,
   Col,
+  NavLink,
+  DropdownToggle,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -22,12 +24,15 @@ import PaginationData from "../../components/pagination/PaginationData";
 import {BASE_URL} from 'globals.constans';
 // import { Swal } from "sweetalert2";
 import { alert } from 'plugins/alerts.js';
-import { Link } from "react-router-dom";
+import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import DetailFormationProgram from "./detailFormationProgram";
+import AssignCompetences from "./assignCompetences";
 
 const FormationPrograms = () => {
 
   const [formationProgram, setFormationProgram] = useState([]);
+  const [competencesAssign, setCompetencesAssign] = useState([]);
+
   const totalFormationPrograms = () => {
     if(formationProgram.length > 0) {
       return formationProgram.length;
@@ -44,7 +49,7 @@ const FormationPrograms = () => {
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const showData = async () => {
+  const showFormationPrograms = async () => {
     await axios.get(`${BASE_URL}formationprograms`).then((response) => {
         const data = response.data;
         setFormationProgram(data.results);
@@ -52,8 +57,16 @@ const FormationPrograms = () => {
     )
   };
 
+  const showCompetences = async () => {
+    await axios.get(`${BASE_URL}competences`).then((response) => {
+      setCompetencesAssign(response.data.results);
+      }
+    )
+  };
+
   useEffect(() => {
-    showData();
+    showFormationPrograms();
+    showCompetences();
     
   }, []);
 
@@ -63,7 +76,7 @@ const FormationPrograms = () => {
       icon: 'warning'
     };
     alert(alertParams.title, alertParams.icon, id);
-    showData();
+    showFormationPrograms();
   };
   //funcion de busqueda
     const searcher = (e) => {
@@ -148,17 +161,19 @@ const FormationPrograms = () => {
                               formationProgram={formationProgram}
                             />
 
-                            <Button 
-                              variant=""
-                              >
-                              <i class="fas fa-circle-plus"></i>
-                            </Button>
+                            <AssignCompetences
+                              formationProgram={formationProgram}
+                              competences={competencesAssign}
+                            />
 
-                            <Link to={`/formationprograms/${formationProgram._id}`}>
-                              <Button 
-                                variant=""
-                                >
-                                <i class="fas fa-pen-alt"></i>
+                            <Link
+                              to={`/admin/updateformationprograms/${formationProgram._id}`}
+                              tag={NavLinkRRD}
+                              activeclassname="active"
+                            >
+                              <Button
+                                variant="">
+                                  <i className="fas fa-pen-alt"></i>
                               </Button>
                             </Link>
 
@@ -166,7 +181,7 @@ const FormationPrograms = () => {
                               variant=""
                               onClick={() => deleteFormationProgram(formationProgram._id)}
                             >
-                              <i class="fas fa-trash-alt"></i>
+                              <i className="fas fa-trash-alt"></i>
                             </Button>
                           </td>
                         </tr>
@@ -177,12 +192,12 @@ const FormationPrograms = () => {
               </Table>
 
               <CardFooter className="py-4"></CardFooter>
-              <PaginationData
+              {/* <PaginationData
                 userPerPage={userPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 totalUsers={totalFormationPrograms}
-              />
+              /> */}
             </Card>
           </div>
         </Row>
