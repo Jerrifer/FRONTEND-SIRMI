@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { Badge } from "reactstrap";
+// import { Badge } from "reactstrap";
 // import axios from "axios";
 // import {BASE_URL} from 'globals.constans';
 

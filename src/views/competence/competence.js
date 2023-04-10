@@ -116,8 +116,11 @@ const Competence = () => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">id</th>
-                    <th scope="col">Labor Competence</th>
-                    <th scope="col">Labor Competence Version</th>
+                    <th scope="col">Labor Competence-CODE</th>
+                    <th scope="col">labor_competition</th>
+                    <th scope="col">labor_competition_version</th>
+                    <th scope="col">duration</th>
+                    <th scope="col">formation_programs</th>
                     {/* <th scope="col">Programa de Formación</th> */}
                     <th scope="col">Acciones</th>
                   </tr>
@@ -134,9 +137,12 @@ const Competence = () => {
                             </Badge>
                           </td>
 
-                          <td className="space">{data.labor_competition}</td>
 
-                          <td>{data.labor_competition_version}</td>
+                          <td className="space">{data.labor_competition}</td>
+                          <td className="space">{data.labor_competition_version}</td>
+                          <td>{data.duration}</td>
+                          <td>{data.formation_programs}</td>
+
                           <td>
                             <UpdateModalComponent
                               id={data._id}
