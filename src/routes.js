@@ -7,7 +7,7 @@
 // import Tables from "views/examples/Tables.js";
 // import Icons from "views/examples/Icons.js";
 import ListUsers from "views/admin/users/ListUsers.js";
-import Competence from "views/competence/competence";
+// import Competence from "views/competence/competence";
 import Competences from "views/competences/listCompetence";
 
 import FormationPrograms from "views/formation-programs/listFormationPrograms";
@@ -80,16 +80,16 @@ var routes = [
     layout: "/admin"
   },
 
-  {
-    path: "/competences",
-    name: "Competencias",
-    icon: "ni ni-collection text-dark",
-    component: Competence,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/competences",
+  //   name: "Competencias",
+  //   icon: "ni ni-collection text-dark",
+  //   component: Competence,
+  //   layout: "/admin"
+  // },
   {
     path: "/competence",
-    name: "Competencias2",
+    name: "Competencias",
     icon: "ni ni-collection text-dark",
     component: Competences,
     layout: "/admin"

@@ -129,7 +129,7 @@ const UpdateCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          competencia laboral
+                          Competencia laboral
                         </label>
                         <Input
                           className="form-control-alternative"

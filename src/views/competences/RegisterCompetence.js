@@ -30,53 +30,30 @@ const [programName, setProgramName] = useState('');
 const [programCode, setProgramCode] = useState('');
 const [totalDuration, setTotalDuration] = useState('');
 const [programVersion, setProgramVersion] = useState('');
-const [selectedProgramLevel, setSelectedProgramLevel] = useState('');
-const [selectedThematicLine, setSelectedThematicLine] = useState('');
-const [selectedTypeProgram, setSelectedTypeProgram] = useState('');
-
-const [programLevels, setProgramLevels] = useState([]);
-const [thematicLines, setThematicLines] = useState([]);
-const [typePrograms, setTypePrograms] = useState([]);
 
 
-  const showProgramLevel = async () => {
-    await axios.get(`${BASE_URL}programlevels`).then((response) => {
-      setProgramLevels(response.data.results);
-    })
-  };
 
-  const showThematicLines = async () => {
-    await axios.get(`${BASE_URL}thematiclines`).then((response) => {
-      setThematicLines(response.data.results);
-    });
-  };
+  
+ 
 
-  const showTypeProgram = async () => {
-    await axios.get(`${BASE_URL}typeprograms`).then((response) => {
-      setTypePrograms(response.data.results);
-    })
-  };
+ 
 
   useEffect(() => {
-    showProgramLevel();
-    showThematicLines();
-    showTypeProgram();
+    
   }, []);
 
   const register = async (e) => {
     e.preventDefault();
     
     const data = {
-        "program_name": programName,
-        "program_code": programCode,
-        "total_duration": totalDuration,
-        "program_version": programVersion,
-        "program_level": selectedProgramLevel,
-        "thematic_line": selectedThematicLine,
-        "type_program": selectedTypeProgram
+        "labor_competence_code": programName,
+        "labor_competition": programCode,
+        "labor_competition_version": totalDuration,
+        "duration": programVersion,
+        
     }
 
-    const response = await axios.post(`${BASE_URL}formationprograms`, data);
+    const response = await axios.post(`${BASE_URL}competences`, data);
     const resultRegister = await response.data.results;
     console.log(resultRegister)
     swalWithBootstrapButtons.fire(
@@ -110,12 +87,12 @@ const [typePrograms, setTypePrograms] = useState([]);
                           className="form-control-label"
                           htmlFor="input-username"
                         >
-                          Nombre del programa de formación
+                          Codigo de Competencia Laboral
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-username"
-                          placeholder="Nombre del programa de formación"
+                          placeholder=" Codigo de Competencia Laboral"
                           type="text"
                           required
                           onChange={(e) => setProgramName(e.target.value)}
@@ -128,12 +105,13 @@ const [typePrograms, setTypePrograms] = useState([]);
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Código del programa de formación
+                                                    Competencia laboral
+
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Código del programa de formación"
+                          placeholder=" Competencia laboral"
                           type="text"
                           required
                           onChange={(e) => setProgramCode(e.target.value)}
@@ -178,59 +156,9 @@ const [typePrograms, setTypePrograms] = useState([]);
                         </FormGroup>
                       </Col>
                     </Row>
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="input-first-name"
-                        >
-                          Titulo del programa
-                        </label>
-                      
-                          <select className=" input"  onChange={(e) => setSelectedProgramLevel(e.target.value)}>
-                            {programLevels.map((programLevel) =>
-                                <option key={programLevel._id} value={programLevel._id}>{programLevel.program_level}</option>
-                            )}
-                          </select>
-                        
+                   
 
-                        </FormGroup>
-                      </Col>
-                      <Col lg="4">
-                        <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="input-email"
-                        >
-                          Línea tématica
-                        </label>
-                        <select className="input" onChange={(e) => setSelectedThematicLine(e.target.value)}>
-                          {thematicLines.map((thematicLine) => 
-                              <option key={thematicLine._id} value={thematicLine._id}>{thematicLine.thematic_line}</option>
-                          )}
-                        </select>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-
-                    <Row>
-                      <Col lg="4">
-                        <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="input-email"
-                        >
-                          Tipo del programa
-                        </label>
-                        <select className="input" onChange={(e) => setSelectedTypeProgram(e.target.value)}>
-                          {typePrograms.map((typeProgram) =>
-                              <option key={typeProgram._id} value={typeProgram._id}>{typeProgram.type_program}</option>
-                          )}
-                        </select>
-                        </FormGroup>
-                      </Col>
-                    </Row>
+                   
 
                         <Button type="submit" className="btn btn-success m-4 bg-success">Registrar</Button>
                 </div>
