@@ -21,7 +21,6 @@ import axios from "axios";
 import { swalWithBootstrapButtons } from 'plugins/alerts'
 import './input.css'
 import { useParams } from "react-router-dom";
-import { object } from "prop-types";
 
 // import { Swal } from "sweetalert2";
 
