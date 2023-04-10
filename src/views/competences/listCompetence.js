@@ -23,22 +23,21 @@ import "../../../src/components/Headers/header.css";
 import PaginationData from "../../components/pagination/PaginationData";
 import {BASE_URL} from 'globals.constans';
 // import { Swal } from "sweetalert2";
-import { alert } from 'plugins/alerts.js';
+import { alert } from './alerts';
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import DetailFormationProgram from "./detailFormationProgram";
-import AssignCompetences from "./assignCompetences";
 
-const FormationPrograms = () => {
+const ListCompetence = () => {
 
-  const [formationProgram, setFormationProgram] = useState([]);
+  // const [formationProgram, setFormationProgram] = useState([]);
   const [competencesAssign, setCompetencesAssign] = useState([]);
 
-  const totalFormationPrograms = () => {
-    if(formationProgram.length > 0) {
-      return formationProgram.length;
-    }
-    return 0
-  }
+  // const totalFormationPrograms = () => {
+  //   if(formationProgram.length > 0) {
+  //     return formationProgram.length;
+  //   }
+  //   return 0
+  // }
   // const totalUsers = competence;
 
   const [search, setSearch] = useState("");
@@ -49,14 +48,14 @@ const FormationPrograms = () => {
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const showFormationPrograms = async () => {
-    await axios.get(`${BASE_URL}formationprograms`).then((response) => {
-        const data = response.data;
-        setFormationProgram(data.results);
-        console.log(data);
-      }
-    )
-  };
+  // const showFormationPrograms = async () => {
+  //   await axios.get(`${BASE_URL}formationprograms`).then((response) => {
+  //       const data = response.data;
+  //       setFormationProgram(data.results);
+  //       console.log(data);
+  //     }
+  //   )
+  // };
 
   const showCompetences = async () => {
     await axios.get(`${BASE_URL}competences`).then((response) => {
@@ -66,7 +65,7 @@ const FormationPrograms = () => {
   };
 
   useEffect(() => {
-    showFormationPrograms();
+    // showFormationPrograms();
     showCompetences();
     
   }, []);
@@ -77,7 +76,9 @@ const FormationPrograms = () => {
       icon: 'warning'
     };
     alert(alertParams.title, alertParams.icon, id);
-    showFormationPrograms();
+    showCompetences();
+
+    // showFormationPrograms();
   };
   //funcion de busqueda
     const searcher = (e) => {
@@ -88,10 +89,10 @@ const FormationPrograms = () => {
   let result = [];
 
   if (!search) {
-    result = formationProgram;
+    result = competencesAssign;
   } else {
-    result = formationProgram.filter((dato) =>
-      dato.program_name.toLowerCase().includes(search.toLocaleLowerCase())
+    result = competencesAssign.filter((dato) =>
+      dato.labor_competence_code.toLowerCase().includes(search.toLocaleLowerCase())
     );
   }
 
@@ -108,9 +109,18 @@ const FormationPrograms = () => {
               <CardHeader className="border-0">
 
                 <Col lg="6">
-                  <h3 className="mb-0">Programas de formación</h3>
+                  <h3 className="mb-0">Competencias</h3>
                 </Col>
-                <Col lg="6">
+                <Link
+                              to={`/admin/RegisterCompetence/${competencesAssign._id}`}
+                              tag={NavLinkRRD}
+                              activeclassname="active"
+                            >
+                              <Button>
+                                crear
+                              </Button>
+                            </Link>
+                <Col lg="5">
                   <input
                     value={search}
                     onChange={searcher}
@@ -126,21 +136,22 @@ const FormationPrograms = () => {
                 responsive
               >
                 <thead className="thead-light">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Código del programa</th>
-                    <th scope="col">Duración estimada</th>
-                    <th scope="col">Versión</th>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Labor Competence-CODE</th>
+                    <th scope="col">labor_competition</th>
+                    <th scope="col">labor_competition_version</th>
+                    <th scope="col">duration</th>
+                    <th scope="col">formation_programs</th>
                     {/* <th scope="col">Programa de Formación</th> */}
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {result.map((formationProgram, i=0) => {
+                  {result.map((competencesAssign, i=0) => {
 
                       return (
-                        <tr key={formationProgram._id}>
+                        <tr key={competencesAssign._id}>
 
                           <td>
                             <Badge color="" className="badge-dot mr-4">
@@ -149,26 +160,22 @@ const FormationPrograms = () => {
                             </Badge>
                           </td>
 
-                          <td>{formationProgram.program_name}</td>
+                          <td>{competencesAssign.labor_competence_code}</td>
 
-                          <td>{formationProgram.program_code}</td>
+                          <td>{competencesAssign.labor_competition}</td>
 
-                          <td>{formationProgram.total_duration}</td>
+                          <td>{competencesAssign.labor_competition_version}</td>
 
-                          <td>{formationProgram.program_version}</td>
+                          <td>{competencesAssign.duration}</td>
+                          <td>{competencesAssign.formation_programs}</td>
 
                           <td>
                             <DetailFormationProgram
-                              formationProgram={formationProgram}
-                            />
-
-                            <AssignCompetences
-                              formationProgram={formationProgram}
-                              competences={competencesAssign}
+                              competence={competencesAssign}
                             />
 
                             <Link
-                              to={`/admin/updateformationprograms/${formationProgram._id}`}
+                              to={`/admin/updateCompetence/${competencesAssign._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
@@ -180,7 +187,7 @@ const FormationPrograms = () => {
 
                             <Button
                               variant=""
-                              onClick={() => deleteFormationProgram(formationProgram._id)}
+                              onClick={() => deleteFormationProgram(competencesAssign._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
@@ -207,4 +214,4 @@ const FormationPrograms = () => {
   );
 };
 
-export default FormationPrograms;
+export default ListCompetence;

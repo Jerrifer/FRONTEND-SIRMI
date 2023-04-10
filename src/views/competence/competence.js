@@ -118,7 +118,6 @@ const Competence = () => {
                     <th scope="col">id</th>
                     <th scope="col">Labor Competence-CODE</th>
                     <th scope="col">labor_competition</th>
-                    <th scope="col">labor_competition_version</th>
                     <th scope="col">duration</th>
                     <th scope="col">formation_programs</th>
                     {/* <th scope="col">Programa de Formación</th> */}
@@ -126,8 +125,7 @@ const Competence = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {result
-                    .map((data) => {
+                  {result.map((data) => {
                       return (
                         <tr key={data._id}>
                           <td>

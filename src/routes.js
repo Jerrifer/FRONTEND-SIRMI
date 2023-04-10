@@ -8,9 +8,14 @@
 // import Icons from "views/examples/Icons.js";
 import ListUsers from "views/admin/users/ListUsers.js";
 import Competence from "views/competence/competence";
+import Competences from "views/competences/listCompetence";
+
 import FormationPrograms from "views/formation-programs/listFormationPrograms";
 import RegisterFormationProgram from "views/formation-programs/registerFormationProgram";
 import UpdateFormationProgram from "views/formation-programs/updateFormationPrograms";
+import UpdateCompetence from "views/competences/updateCompetence";
+import RegisterCompetence from "views/competences/RegisterCompetence";
+
 
 var routes = [
 
@@ -83,6 +88,13 @@ var routes = [
     layout: "/admin"
   },
   {
+    path: "/competence",
+    name: "Competencias2",
+    icon: "ni ni-collection text-dark",
+    component: Competences,
+    layout: "/admin"
+  },
+  {
     path: "/formationprograms",
     name: "Programas de formación",
     icon: "ni ni-books text-dark",
@@ -96,11 +108,30 @@ var routes = [
     component: RegisterFormationProgram,
     layout: "/admin"
   },
+
+  {
+    path: "/registerCompetence",
+    name: "Registrar Competencia",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: RegisterCompetence,
+    layout: "/admin",
+    sidebar: false
+
+  },
   {
     path: "/updateformationprograms/:id",
     name: "Actualizar programa de formación",
     icon: "ni ni-single-copy-04 text-dark",
     component: UpdateFormationProgram,
+    layout: "/admin", 
+    sidebar: false
+  },
+
+  {
+    path: "/updatecompetence/:id",
+    name: "Actualizar Competencia",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: UpdateCompetence,
     layout: "/admin", 
     sidebar: false
   },
