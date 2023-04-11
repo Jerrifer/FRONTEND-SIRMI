@@ -19,13 +19,13 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
 import { BASE_URL } from "globals.constans";
-import { alert } from "./alertsCompetence";
+import { alert } from "./usersAlerts";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
-import DetailFormationProgram from "./detailCompetence";
+import DetailUsers from "./detailUser";
 import "assets/css/indexCompetence.css";
 
-const ListCompetence = () => {
-  const [competencesAssign, setCompetencesAssign] = useState([]);
+const ListUser = () => {
+  const [userAssign, setUser] = useState([]);
 
   const [search, setSearch] = useState("");
 
@@ -35,25 +35,23 @@ const ListCompetence = () => {
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // };
-
-  const showCompetences = async () => {
-    await axios.get(`${BASE_URL}competences`).then((response) => {
-      setCompetencesAssign(response.data.results);
+  const showUsers = async () => {
+    await axios.get(`${BASE_URL}users`).then((response) => {
+      setUser(response.data.results);
     });
   };
 
   useEffect(() => {
-    showCompetences();
+    showUsers();
   }, []);
 
-  const deleteFormationProgram = async (id) => {
+  const deleteUsers = async (id) => {
     const alertParams = {
-      title: "¿Está seguro de eliminar la Competencia?",
+      title: "¿Está seguro de eliminar el Usuario?",
       icon: "warning",
     };
     alert(alertParams.title, alertParams.icon, id);
-    showCompetences();
+    showUsers();
   };
   //funcion de busqueda
   const searcher = (e) => {
@@ -64,12 +62,10 @@ const ListCompetence = () => {
   let result = [];
 
   if (!search) {
-    result = competencesAssign;
+    result = userAssign;
   } else {
-    result = competencesAssign.filter((dato) =>
-      dato.labor_competence_code
-        .toLowerCase()
-        .includes(search.toLocaleLowerCase())
+    result = userAssign.filter((dato) =>
+      dato.email.toLowerCase().includes(search.toLocaleLowerCase())
     );
   }
 
@@ -85,7 +81,7 @@ const ListCompetence = () => {
               <CardHeader className="border-0">
                 <Col lg="6">
                   <Link
-                    to={`/admin/RegisterCompetence`}
+                    to={`/admin/registeruser`}
                     tag={NavLinkRRD}
                     activeclassname="active"
                   >
@@ -126,19 +122,23 @@ const ListCompetence = () => {
               >
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">Labor Competence-CODE</th>
-                    <th scope="col">labor_competition</th>
-                    <th scope="col">labor_competition_version</th>
-                    <th scope="col">duration</th>
+                    <th scope="col">N°</th>
+
+                    <th scope="col">first_name</th>
+                    <th scope="col">last_name</th>
+                    <th scope="col">email</th>
+                    <th scope="col">password</th>
+                    <th scope="col">contact_number</th>
+                    <th scope="col">document_number</th>
+
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   {result
-                    .map((competencesAssign, i = 0) => {
+                    .map((userAssign, i = 0) => {
                       return (
-                        <tr key={competencesAssign._id}>
+                        <tr key={userAssign._id}>
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
@@ -146,23 +146,21 @@ const ListCompetence = () => {
                             </Badge>
                           </td>
 
-                          <td>{competencesAssign.labor_competence_code}</td>
+                          <td>{userAssign.first_name}</td>
 
-                          <td className="space">
-                            {competencesAssign.labor_competition}
-                          </td>
+                          <td className="space">{userAssign.last_name}</td>
 
-                          <td>{competencesAssign.labor_competition_version}</td>
+                          <td>{userAssign.email}</td>
 
-                          <td>{competencesAssign.duration}</td>
+                          <td>{userAssign.password}</td>
+                          <td>{userAssign.contact_number}</td>
+                          <td>{userAssign.document_number}</td>
 
                           <td>
-                            <DetailFormationProgram
-                              competence={competencesAssign}
-                            />
+                            <DetailUsers users={userAssign} />
 
                             <Link
-                              to={`/admin/updateCompetence/${competencesAssign._id}`}
+                              to={`/admin/updateusers/${userAssign._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
@@ -173,9 +171,7 @@ const ListCompetence = () => {
 
                             <Button
                               variant=""
-                              onClick={() =>
-                                deleteFormationProgram(competencesAssign._id)
-                              }
+                              onClick={() => deleteUsers(userAssign._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
@@ -202,4 +198,4 @@ const ListCompetence = () => {
   );
 };
 
-export default ListCompetence;
+export default ListUser;

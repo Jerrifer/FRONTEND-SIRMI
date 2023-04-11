@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-// import axios from "axios";
-// import {BASE_URL} from 'globals.constans';
 
 function DetailFormationProgram(data) {
   const [isShow, invokeModal] = useState(false);
@@ -21,9 +19,7 @@ function DetailFormationProgram(data) {
 
       <Modal show={isShow} size={"lg"} className=" color">
         <Modal.Header>
-          <Modal.Title>
-            Programa de formaión... {Competence._id}
-          </Modal.Title>
+          <Modal.Title>Programa de formaión... {Competence._id}</Modal.Title>
         </Modal.Header>
 
         <div className="container">
@@ -47,7 +43,11 @@ function DetailFormationProgram(data) {
               </Form.Group>
 
               {formationPrograms.map((formationProgram) => {
-                return <Form.Group key={formationProgram._id}><h4>{formationProgram.program_name}</h4></Form.Group>
+                return (
+                  <Form.Group key={formationProgram._id}>
+                    <h4>{formationProgram.program_name}</h4>
+                  </Form.Group>
+                );
               })}
             </div>
           </Modal.Body>

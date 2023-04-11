@@ -22,9 +22,8 @@ import { swalWithBootstrapButtons } from "plugins/alerts";
 
 import { useHistory, useParams } from "react-router-dom";
 
-// import { Swal } from "sweetalert2";
 
-const UpdateCompetence = () => {
+const UpdateUser = () => {
   const navigate = useHistory();
   const { id } = useParams();
 
@@ -32,29 +31,29 @@ const UpdateCompetence = () => {
     showFormationProgram(id);
   }, [id]);
 
-  const [competence, setCompetence] = useState([]);
+  const [user, setUser] = useState([]);
 
   const showFormationProgram = async (id) => {
-    await axios.get(`${BASE_URL}competences/${id}`).then((response) => {
-      setCompetence(response.data.results);
+    await axios.get(`${BASE_URL}users/${id}`).then((response) => {
+      setUser(response.data.results);
     });
   };
 
   const changeData = (e) => {
-    setCompetence({ ...competence, [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const update = async (e) => {
     e.preventDefault();
 
-    const typeDataTypeProgram = typeof competence.type_program;
+    const typeDataTypeProgram = typeof user.type_program;
 
     if (typeDataTypeProgram === "object") {
-      competence.type_program = competence.type_program._id;
+      user.type_program = user.type_program._id;
     }
 
     await axios
-      .put(`${BASE_URL}competences/${id}`, competence)
+      .put(`${BASE_URL}users/${id}`, user)
       .then((response) => {
         console.log(response);
 
@@ -65,7 +64,7 @@ const UpdateCompetence = () => {
             resultUpdate.message,
             "success"
           );
-          navigate.push("/admin/competence");
+          navigate.push("/admin/users");
         } else {
           swalWithBootstrapButtons.fire(
             "Error por validaciones",
@@ -94,7 +93,7 @@ const UpdateCompetence = () => {
             <CardHeader className="bg-white border-0 align-items-center">
               <Row className="align-items-center">
                 <Col s="8">
-                  <h3 className="mb-0">Actualizar Competencia</h3>
+                  <h3 className="mb-0">Actualizar Usuario</h3>
                 </Col>
               </Row>
             </CardHeader>
@@ -108,15 +107,15 @@ const UpdateCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-username"
                         >
-                          Codigo de Competencia Laboral
+                          Primer Nombre
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-program_name"
                           name="program_name"
-                          placeholder="Nombre del programa de formación"
+                          placeholder="Primer Nombre"
                           type="text"
-                          defaultValue={competence.labor_competition}
+                          defaultValue={user.first_name}
                           required
                           onChange={changeData}
                         />
@@ -128,16 +127,16 @@ const UpdateCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Competencia laboral
+                          Segundo Nombre
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
                           name="program_code"
-                          placeholder="Código del programa de formación"
+                          placeholder="Segundo Nombre"
                           type="text"
-                          defaultValue={competence.labor_competence_codeKF}
-                          value={competence.labor_competence_code}
+                          defaultValue={user.last_name}
+                          value={user.last_name}
                           required
                           onChange={changeData}
                         />
@@ -151,15 +150,15 @@ const UpdateCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-first-name"
                         >
-                          versión de competencia laboral
+                          Correo electronico
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-first-name"
                           name="program_version"
-                          placeholder="Versión del programa de formación"
-                          type="text"
-                          defaultValue={competence.labor_competition_version}
+                          placeholder="Correo electronico"
+                          type="email"
+                          defaultValue={user.email}
                           required
                           onChange={changeData}
                         />
@@ -171,30 +170,60 @@ const UpdateCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Duración estimada
+                          Contraseña
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
                           name="duration"
-                          placeholder="Duración estimada"
-                          type="text"
-                          defaultValue={competence.duration}
+                          placeholder="Contraseña"
+                          type="password"
+                          defaultValue={user.password}
                           required
                           onChange={changeData}
                         />
                       </FormGroup>
                     </Col>
-                  </Row>
-                  <Row>
+
                     <Col lg="6">
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-first-name"
+                          htmlFor="input-email"
                         >
-                          Titulo del programa
+                          Numero de Contanto
                         </label>
+                        <Input
+                          className="form-control-alternative"
+                          id="input-email"
+                          name="duration"
+                          placeholder="Numero de Contanto"
+                          type="number"
+                          defaultValue={user.contact_number}
+                          required
+                          onChange={changeData}
+                        />
+                      </FormGroup>
+                    </Col>
+
+                    <Col lg="6">
+                      <FormGroup>
+                        <label
+                          className="form-control-label"
+                          htmlFor="input-email"
+                        >
+                          Numero de Documento
+                        </label>
+                        <Input
+                          className="form-control-alternative"
+                          id="input-email"
+                          name="duration"
+                          placeholder="Numero de Documento"
+                          type="number"
+                          defaultValue={user.document_number}
+                          required
+                          onChange={changeData}
+                        />
                       </FormGroup>
                     </Col>
                   </Row>
@@ -212,4 +241,4 @@ const UpdateCompetence = () => {
   );
 };
 
-export default UpdateCompetence;
+export default UpdateUser;

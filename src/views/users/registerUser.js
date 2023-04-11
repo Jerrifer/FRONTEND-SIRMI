@@ -25,10 +25,12 @@ import { useHistory } from "react-router-dom";
 const RegisterCompetence = () => {
   const navigate = useHistory();
 
-  const [programName, setProgramName] = useState("");
-  const [programCode, setProgramCode] = useState("");
-  const [totalDuration, setTotalDuration] = useState("");
-  const [programVersion, setProgramVersion] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [contactnumber, setContactnumber] = useState("");
+  const [documentnumber, setDocumentnumber] = useState("");
 
   useEffect(() => {}, []);
 
@@ -36,21 +38,23 @@ const RegisterCompetence = () => {
     e.preventDefault();
 
     const data = {
-      labor_competence_code: programName,
-      labor_competition: programCode,
-      labor_competition_version: totalDuration,
-      duration: programVersion,
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      password: password,
+      contact_number: contactnumber,
+      document_number: documentnumber,
     };
 
-    const response = await axios.post(`${BASE_URL}competences`, data);
+    const response = await axios.post(`${BASE_URL}users`, data);
     const resultRegister = await response.data.results;
     console.log(resultRegister);
     swalWithBootstrapButtons.fire(
       "Registro exitoso",
-      "El programa de formación se registro con éxito.",
+      "El Usuario se registro con éxito.",
       "success"
     );
-    navigate.push("/admin/competence");
+    navigate.push("/admin/users");
   };
 
   return (
@@ -63,7 +67,7 @@ const RegisterCompetence = () => {
             <CardHeader className="bg-white border-0 align-items-center">
               <Row className="align-items-center">
                 <Col s="8">
-                  <h3 className="mb-0">Registrar Competencia</h3>
+                  <h3 className="mb-0">Registrar Usuario</h3>
                 </Col>
               </Row>
             </CardHeader>
@@ -77,15 +81,15 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-username"
                         >
-                          Codigo de Competencia Laboral
+                          Primer Nombre
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-username"
-                          placeholder=" Codigo de Competencia Laboral"
+                          placeholder="Primer Nombre"
                           type="text"
                           required
-                          onChange={(e) => setProgramName(e.target.value)}
+                          onChange={(e) => setFirstName(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -95,15 +99,15 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Competencia laboral
+                          Segundo Nombre
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder=" Competencia laboral"
+                          placeholder="Segundo Nombre"
                           type="text"
                           required
-                          onChange={(e) => setProgramCode(e.target.value)}
+                          onChange={(e) => setLastName(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -115,15 +119,15 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-first-name"
                         >
-                          Versión del programa de formación
+                          Correo electronico
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-first-name"
-                          placeholder="Versión del programa de formación"
-                          type="text"
+                          placeholder="Correo electronico"
+                          type="email"
                           required
-                          onChange={(e) => setProgramVersion(e.target.value)}
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -133,14 +137,49 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Duración estimada (Horas)
+                          Contraseña
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Duración estimada"
-                          type="text"
-                          onChange={(e) => setTotalDuration(e.target.value)}
+                          placeholder="Contraseña"
+                          type="password"
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg="6">
+                      <FormGroup>
+                        <label
+                          className="form-control-label"
+                          htmlFor="input-email"
+                        >
+                          Numero de Contanto
+                        </label>
+                        <Input
+                          className="form-control-alternative"
+                          id="input-email"
+                          placeholder="Numero de Contanto"
+                          type="number"
+                          onChange={(e) => setContactnumber(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
+
+                    <Col lg="6">
+                      <FormGroup>
+                        <label
+                          className="form-control-label"
+                          htmlFor="input-email"
+                        >
+                          Numero de Documento
+                        </label>
+                        <Input
+                          className="form-control-alternative"
+                          id="input-email"
+                          placeholder="Numero de Documento"
+                          type="number"
+                          onChange={(e) => setDocumentnumber(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
