@@ -52,7 +52,6 @@ const UpdateCompetence = () => {
       competence.type_program = competence.type_program._id;
     }
 
-    // console.log(formationProgram);
     await axios
       .put(`${BASE_URL}competences/${id}`, competence)
       .then((response) => {
@@ -64,7 +63,6 @@ const UpdateCompetence = () => {
             "Actualizado exitosamente",
             resultUpdate.message,
             "success"
-            
           );
         } else {
           swalWithBootstrapButtons.fire(
@@ -73,7 +71,6 @@ const UpdateCompetence = () => {
             "warning"
           );
         }
-        console.log(resultUpdate);
       })
       .catch((error) => {
         console.log(error);

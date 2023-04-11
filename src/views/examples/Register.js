@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import { BASE_URL } from "globals.constans";
 // reactstrap components
 import {
   Button,
@@ -35,7 +35,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:3005/auth/register";
+      const url = (`${BASE_URL}auth/register`);
       const { data: res } = await axios.post(url, data);
       navigate.push("/auth/login");
       console.log(res.message);

@@ -2,65 +2,52 @@ import React, { useEffect, useState } from "react";
 
 // reactstrap components
 import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    FormGroup,
-    Form,
-    Input,
-    Container,
-    Row,
-    Col,
-  } from "reactstrap";
-  // core components
-
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  FormGroup,
+  Form,
+  Input,
+  Container,
+  Row,
+  Col,
+} from "reactstrap";
+// core components
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import {BASE_URL} from 'globals.constans';
+import { BASE_URL } from "globals.constans";
 import axios from "axios";
-import { swalWithBootstrapButtons } from 'plugins/alerts'
+import { swalWithBootstrapButtons } from "plugins/alerts";
 // import { Swal } from "sweetalert2";
 
-
 const RegisterCompetence = () => {
+  const [programName, setProgramName] = useState("");
+  const [programCode, setProgramCode] = useState("");
+  const [totalDuration, setTotalDuration] = useState("");
+  const [programVersion, setProgramVersion] = useState("");
 
-const [programName, setProgramName] = useState('');
-const [programCode, setProgramCode] = useState('');
-const [totalDuration, setTotalDuration] = useState('');
-const [programVersion, setProgramVersion] = useState('');
-
-
-
-  
- 
-
- 
-
-  useEffect(() => {
-    
-  }, []);
+  useEffect(() => {}, []);
 
   const register = async (e) => {
     e.preventDefault();
-    
+
     const data = {
-        "labor_competence_code": programName,
-        "labor_competition": programCode,
-        "labor_competition_version": totalDuration,
-        "duration": programVersion,
-        
-    }
+      labor_competence_code: programName,
+      labor_competition: programCode,
+      labor_competition_version: totalDuration,
+      duration: programVersion,
+    };
 
     const response = await axios.post(`${BASE_URL}competences`, data);
     const resultRegister = await response.data.results;
-    console.log(resultRegister)
+    console.log(resultRegister);
     swalWithBootstrapButtons.fire(
-        'Registro exitoso',
-        'El programa de formación se registro con éxito.',
-        'success'
-      )
+      "Registro exitoso",
+      "El programa de formación se registro con éxito.",
+      "success"
+    );
   };
 
   return (
@@ -80,9 +67,9 @@ const [programVersion, setProgramVersion] = useState('');
             <CardBody>
               <Form onSubmit={register}>
                 <div className="px-5">
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup>
+                  <Row>
+                    <Col lg="6">
+                      <FormGroup>
                         <label
                           className="form-control-label"
                           htmlFor="input-username"
@@ -97,16 +84,15 @@ const [programVersion, setProgramVersion] = useState('');
                           required
                           onChange={(e) => setProgramName(e.target.value)}
                         />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
+                      </FormGroup>
+                    </Col>
+                    <Col lg="6">
+                      <FormGroup>
                         <label
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                                                    Competencia laboral
-
+                          Competencia laboral
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -116,12 +102,12 @@ const [programVersion, setProgramVersion] = useState('');
                           required
                           onChange={(e) => setProgramCode(e.target.value)}
                         />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col lg="6">
-                        <FormGroup>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg="6">
+                      <FormGroup>
                         <label
                           className="form-control-label"
                           htmlFor="input-first-name"
@@ -136,10 +122,10 @@ const [programVersion, setProgramVersion] = useState('');
                           required
                           onChange={(e) => setProgramVersion(e.target.value)}
                         />
-                        </FormGroup>
-                      </Col>
-                      <Col lg="6">
-                        <FormGroup>
+                      </FormGroup>
+                    </Col>
+                    <Col lg="6">
+                      <FormGroup>
                         <label
                           className="form-control-label"
                           htmlFor="input-email"
@@ -153,14 +139,16 @@ const [programVersion, setProgramVersion] = useState('');
                           type="text"
                           onChange={(e) => setTotalDuration(e.target.value)}
                         />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                   
+                      </FormGroup>
+                    </Col>
+                  </Row>
 
-                   
-
-                        <Button type="submit" className="btn btn-success m-4 bg-success">Registrar</Button>
+                  <Button
+                    type="submit"
+                    className="btn btn-success m-4 bg-success"
+                  >
+                    Registrar
+                  </Button>
                 </div>
               </Form>
             </CardBody>
@@ -170,6 +158,5 @@ const [programVersion, setProgramVersion] = useState('');
     </>
   );
 };
-
 
 export default RegisterCompetence;
