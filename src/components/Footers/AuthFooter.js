@@ -22,7 +22,6 @@ const Login = () => {
                 </a>
               </div>
             </Col>
-           y
           </Row>
         </Container>
       </footer>

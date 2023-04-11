@@ -23,6 +23,8 @@ const Login = () => {
     password: "",
   });
 
+  const [login, setLogin ] = useState([])
+
   const [setError] = useState({});
 
   const handleChange = ({ currentTarget: input }) => {
@@ -32,14 +34,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:3005/auth/login";
-      const { data: res } = await axios.post(url, data);
+      const url = "http://localhost:3000/api/v1/auth/login";
+      await axios.post(url, data).then((response) => {
+        setLogin(response.data.results)
+        console.log(response.data.results)
+      })
 
-      localStorage.setItem("token", res.tokenSession);
-      localStorage.setItem("name", res.data.name);
-      localStorage.setItem("email", res.data.email);
-      window.location = "/admin/user-profile";
-      console.log(res.message);
+      localStorage.setItem("token", login.token);
+      localStorage.setItem("name", login.user.first_name);
+      localStorage.setItem("email", login.user.email);
+      window.location = "/admin/index";
+      // console.log(login.user.message);
     } catch (error) {
       if (
         error.response &&

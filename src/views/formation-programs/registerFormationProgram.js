@@ -23,8 +23,11 @@ import axios from "axios";
 import { swalWithBootstrapButtons } from 'plugins/alerts'
 // import { Swal } from "sweetalert2";
 import './input.css'
+import { useHistory } from "react-router-dom";
 
 const RegisterFormationProgram = () => {
+
+  const navigate = useHistory();
 
 const [programName, setProgramName] = useState('');
 const [programCode, setProgramCode] = useState('');
@@ -84,6 +87,7 @@ const [typePrograms, setTypePrograms] = useState([]);
         'El programa de formación se registro con éxito.',
         'success'
       )
+      navigate.push("/admin/formationprograms");
   };
 
   return (

@@ -26,7 +26,7 @@ import { BASE_URL } from "globals.constans";
 import { alert } from "./alerts";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import DetailFormationProgram from "./detailFormationProgram";
-import "../competence/indexCompetence.css";
+import "assets/css/indexCompetence.css";
 
 const ListCompetence = () => {
   const [competencesAssign, setCompetencesAssign] = useState([]);

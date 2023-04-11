@@ -20,12 +20,13 @@ import {BASE_URL} from 'globals.constans';
 import axios from "axios";
 import { swalWithBootstrapButtons } from 'plugins/alerts'
 import './input.css'
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 // import { Swal } from "sweetalert2";
 
 const UpdateFormationProgram = () => {
   
+  const navigate = useHistory();
   const { id } = useParams()
 
   useEffect(() => {
@@ -91,6 +92,7 @@ const UpdateFormationProgram = () => {
           resultUpdate.message,
           'success'
         )
+        navigate.push("/admin/formationprograms");
       } else {
         swalWithBootstrapButtons.fire(
           'Error por validaciones',
