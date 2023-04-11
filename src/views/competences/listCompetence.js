@@ -26,6 +26,7 @@ import {BASE_URL} from 'globals.constans';
 import { alert } from './alerts';
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import DetailFormationProgram from "./detailFormationProgram";
+import "../competence/indexCompetence.css";
 
 const ListCompetence = () => {
 
@@ -142,7 +143,6 @@ const ListCompetence = () => {
                     <th scope="col">labor_competition</th>
                     <th scope="col">labor_competition_version</th>
                     <th scope="col">duration</th>
-                    <th scope="col">formation_programs</th>
                     {/* <th scope="col">Programa de Formación</th> */}
                     <th scope="col">Acciones</th>
                   </tr>
@@ -162,12 +162,11 @@ const ListCompetence = () => {
 
                           <td>{competencesAssign.labor_competence_code}</td>
 
-                          <td>{competencesAssign.labor_competition}</td>
+                          <td className="space">{competencesAssign.labor_competition}</td>
 
                           <td>{competencesAssign.labor_competition_version}</td>
 
                           <td>{competencesAssign.duration}</td>
-                          <td>{competencesAssign.formation_programs}</td>
 
                           <td>
                             <DetailFormationProgram
