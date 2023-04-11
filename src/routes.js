@@ -106,7 +106,8 @@ var routes = [
     name: "Registrar programa de formación",
     icon: "ni ni-single-copy-04 text-dark",
     component: RegisterFormationProgram,
-    layout: "/admin"
+    layout: "/admin",
+    sidebar: false
   },
 
   {
