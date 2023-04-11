@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import Multiselect from 'multiselect-react-dropdown';
+// import Multiselect from 'multiselect-react-dropdown';
 // import axios from "axios";
 // import {BASE_URL} from 'globals.constans';
 import "./input.css";
@@ -13,9 +13,9 @@ function AssignCompetences(data) {
   const initModal = () => {
     return invokeModal(!isShow);
   };
-  const state = {
-    options: data.competences
-};
+  // const state = {
+  //   options: data.competences
+  // };
 
   const [formationProgram] = useState(data.formationProgram);
   // const [competences] = useState(data.competences);
@@ -47,7 +47,7 @@ function AssignCompetences(data) {
                 return <Form.Group key={competence._id}><h4>{competence.labor_competition}</h4></Form.Group>
               })} */}
 
-              <Multiselect
+              {/* <Multiselect
                 isObject={false}
                 onKeyPressFn={function noRefCheck(){}}
                 onRemove={function noRefCheck(){}}
@@ -56,7 +56,7 @@ function AssignCompetences(data) {
                 showCheckbox={true}
                 displayValue="labor_competition" 
                 options={state.options.competences}
-              />
+              /> */}
               
             </div>
           </Modal.Body>
