@@ -170,7 +170,7 @@ const [typePrograms, setTypePrograms] = useState([]);
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Duración estimada
+                          Duración estimada (Horas)
                         </label>
                         <Input
                           className="form-control-alternative"

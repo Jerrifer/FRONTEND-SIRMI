@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-use-before-define */
+
 import axios from "axios";
 
 // reactstrap components
@@ -25,15 +24,17 @@ import DetailUsers from "./detailUser";
 import "assets/css/indexCompetence.css";
 
 const ListUser = () => {
-  const [userAssign, setUser] = useState([]);
+  const [user, setUser] = useState([]);
 
   const [search, setSearch] = useState("");
 
-  const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
-  const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
-  const [userPerPage, setUserPerPage] = useState(5);
-  const [currentPage, setCurrentPage] = useState(1);
+
+  // const [userPerPage] = useState(5);
+  const [currentPage] = useState(1);
+
+  // const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
+  // const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
   const showUsers = async () => {
     await axios.get(`${BASE_URL}users`).then((response) => {
@@ -62,9 +63,9 @@ const ListUser = () => {
   let result = [];
 
   if (!search) {
-    result = userAssign;
+    result = user;
   } else {
-    result = userAssign.filter((dato) =>
+    result = user.filter((dato) =>
       dato.email.toLowerCase().includes(search.toLocaleLowerCase())
     );
   }

@@ -10,7 +10,9 @@ export const swalWithBootstrapButtons = Swal.mixin({
     buttonsStyling: false
   })
 
-export function alert (title, icon, id) {
+export function alert (alertParams) {
+
+  const { title, icon, id, path, focus } = alertParams
   
   swalWithBootstrapButtons.fire({
     title: title,
@@ -20,14 +22,15 @@ export function alert (title, icon, id) {
     cancelButtonText: 'Cancelar',
     reverseButtons: true
   }).then((result) => {
+
     if (result.isConfirmed) {
-      axios.delete(`${BASE_URL}formationprograms/${id}`).then(res => {
+      axios.delete(`${path}${id}`).then(res => {
         console.log(res.data)
         const result = res.data
         if(result.status === 'success'){
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            'El programa de formación fue eliminado',
+            `${focus} se elimino exitosamente`,
             'success'
           )
         }

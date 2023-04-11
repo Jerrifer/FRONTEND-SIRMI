@@ -52,7 +52,7 @@ var routes = [
     sidebar: false,
   },
 
-  // users fin
+  // users end
 
   // competences
 
@@ -80,9 +80,9 @@ var routes = [
     sidebar: false,
   },
 
-  // competences fin
+  // competences end
 
-  // formatercenters
+  // formation programs
   {
     path: "/formationprograms",
     name: "Programas de formación",
@@ -106,6 +106,6 @@ var routes = [
     layout: "/admin",
     sidebar: false,
   },
-  // formatercenters  fin
+  // formation programs  end
 ];
 export default routes;

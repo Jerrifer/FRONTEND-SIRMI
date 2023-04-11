@@ -32,7 +32,6 @@ import "./input.css"
 const FormationPrograms = () => {
 
   const [formationProgram, setFormationProgram] = useState([]);
-  const [competences, setCompetences] = useState([]);
 
   const totalFormationPrograms = () => {
     if(formationProgram.length > 0) {
@@ -58,24 +57,20 @@ const FormationPrograms = () => {
     )
   };
 
-  const showCompetences = async () => {
-    await axios.get(`${BASE_URL}competences`).then((response) => {
-        setCompetences(response.data.results);
-      }
-    )
-  };
 
   useEffect(() => {
       showFormationPrograms();
-      showCompetences();
   }, [formationProgram]);
 
   const deleteFormationProgram = async (id) => {
     const alertParams = {
       title:'¿Está seguro de eliminar el programa de formación?',
-      icon: 'warning'
+      icon: 'warning',
+      id: id,
+      path: `${BASE_URL}formationprograms/`,
+      focus: 'El programa de formación'
     };
-    await alert(alertParams.title, alertParams.icon, id);
+    await alert(alertParams);
     showFormationPrograms();
   };
 
@@ -175,7 +170,6 @@ const FormationPrograms = () => {
 
                             <AssignCompetences
                               formationProgram={formationProgram}
-                              competences={competences}
                             />
 
                             <Link

@@ -20,12 +20,11 @@ import { BASE_URL } from "globals.constans";
 import axios from "axios";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 // import { Swal } from "sweetalert2";
 
 const UpdateCompetence = () => {
-  const navigate = useHistory();
   const { id } = useParams();
 
   useEffect(() => {
@@ -47,6 +46,7 @@ const UpdateCompetence = () => {
   const update = async (e) => {
     e.preventDefault();
 
+    console.log(competence);
     const typeDataTypeProgram = typeof competence.type_program;
 
     if (typeDataTypeProgram === "object") {
@@ -56,7 +56,7 @@ const UpdateCompetence = () => {
     await axios
       .put(`${BASE_URL}competences/${id}`, competence)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
 
         const resultUpdate = response.data;
         if (resultUpdate.status === "success") {
@@ -65,7 +65,6 @@ const UpdateCompetence = () => {
             resultUpdate.message,
             "success"
           );
-          navigate.push("/admin/competence");
         } else {
           swalWithBootstrapButtons.fire(
             "Error por validaciones",
@@ -108,12 +107,12 @@ const UpdateCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-username"
                         >
-                          Codigo de Competencia Laboral
+                          Competencia Laboral
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-program_name"
-                          name="program_name"
+                          name="labor_competition"
                           placeholder="Nombre del programa de formación"
                           type="text"
                           defaultValue={competence.labor_competition}
@@ -128,15 +127,16 @@ const UpdateCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Competencia laboral
+                          Código de Competencia Laboral
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          name="program_code"
+                          name="labor_competence_code"
+                          disabled
                           placeholder="Código del programa de formación"
                           type="text"
-                          defaultValue={competence.labor_competence_codeKF}
+                          defaultValue={competence.labor_competence_code}
                           value={competence.labor_competence_code}
                           required
                           onChange={changeData}
@@ -156,7 +156,7 @@ const UpdateCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-first-name"
-                          name="program_version"
+                          name="labor_competition_version"
                           placeholder="Versión del programa de formación"
                           type="text"
                           defaultValue={competence.labor_competition_version}

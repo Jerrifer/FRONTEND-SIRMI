@@ -52,8 +52,7 @@ const UpdateUser = () => {
       user.type_program = user.type_program._id;
     }
 
-    await axios
-      .put(`${BASE_URL}users/${id}`, user)
+    await axios.put(`${BASE_URL}users/${id}`, user)
       .then((response) => {
         console.log(response);
 
@@ -107,12 +106,12 @@ const UpdateUser = () => {
                           className="form-control-label"
                           htmlFor="input-username"
                         >
-                          Primer Nombre
+                          Nombre
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-program_name"
-                          name="program_name"
+                          name="first_name"
                           placeholder="Primer Nombre"
                           type="text"
                           defaultValue={user.first_name}
@@ -127,16 +126,15 @@ const UpdateUser = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Segundo Nombre
+                          Apellidos
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          name="program_code"
+                          name="last_name"
                           placeholder="Segundo Nombre"
                           type="text"
                           defaultValue={user.last_name}
-                          value={user.last_name}
                           required
                           onChange={changeData}
                         />
@@ -155,7 +153,7 @@ const UpdateUser = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-first-name"
-                          name="program_version"
+                          name="email"
                           placeholder="Correo electronico"
                           type="email"
                           defaultValue={user.email}
@@ -175,7 +173,7 @@ const UpdateUser = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          name="duration"
+                          name="password"
                           placeholder="Contraseña"
                           type="password"
                           defaultValue={user.password}
@@ -196,7 +194,7 @@ const UpdateUser = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          name="duration"
+                          name="contact_number"
                           placeholder="Numero de Contanto"
                           type="number"
                           defaultValue={user.contact_number}
@@ -217,7 +215,7 @@ const UpdateUser = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          name="duration"
+                          name="document_number"
                           placeholder="Numero de Documento"
                           type="number"
                           defaultValue={user.document_number}

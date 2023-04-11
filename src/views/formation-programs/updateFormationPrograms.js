@@ -66,7 +66,7 @@ const UpdateFormationProgram = () => {
       setTypePrograms(response.data.results);
     })
   };
-
+  console.log(formationProgram);
   
   const changeData = (e) => {
     setFormationProgram({...formationProgram,
@@ -83,7 +83,9 @@ const UpdateFormationProgram = () => {
       formationProgram.type_program = formationProgram.type_program._id
     }
 
-    // console.log(formationProgram);
+    delete(formationProgram.competences)
+
+    console.log(formationProgram);
     await axios.put(`${BASE_URL}formationprograms/${id}`, formationProgram).then((response) => {
       const resultUpdate = response.data;
       if (resultUpdate.status === 'success') {
@@ -163,6 +165,7 @@ const UpdateFormationProgram = () => {
                           name="program_code"
                           placeholder="Código del programa de formación"
                           type="text"
+                          disabled
                           defaultValue={formationProgram.program_code}
                           value={formationProgram.program_code}
                           required
@@ -198,7 +201,7 @@ const UpdateFormationProgram = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Duración estimada
+                          Duración estimada (Horas)
                         </label>
                         <Input
                           className="form-control-alternative"

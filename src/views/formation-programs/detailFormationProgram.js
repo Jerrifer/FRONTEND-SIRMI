@@ -3,7 +3,7 @@ import { Modal, Button, Form, Accordion } from "react-bootstrap";
 // import axios from "axios";
 // import {BASE_URL} from 'globals.constans';
 import "./input.css";
-import { Card } from "reactstrap";
+import { Badge, Card } from "reactstrap";
 function DetailFormationProgram(data) {
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
@@ -78,7 +78,15 @@ function DetailFormationProgram(data) {
                 </Accordion.Header>
                   <Accordion.Body>
                   {competences.map((competence) => {
-                    return  <Form.Group key={competence._id}><Card className="p-2 mt-2"><h4 className="mt-2">{competence.labor_competition}</h4></Card></Form.Group>
+                    return (
+                    <Form.Group key={competence._id}>
+                      <Card className="p-2 mt-2">
+                        <Badge color="" className="badge-dot">
+                          <h4 className="mt-2"><i className="bg-success" />{competence.labor_competition}</h4>
+                        </Badge>
+                      </Card>
+                    </Form.Group>
+                    )
                   })}
                   </Accordion.Body>
                 </Accordion.Item>

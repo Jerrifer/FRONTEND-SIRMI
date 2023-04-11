@@ -81,7 +81,7 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-username"
                         >
-                          Primer Nombre
+                          Nombre
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -99,7 +99,7 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Segundo Nombre
+                          Apellidos
                         </label>
                         <Input
                           className="form-control-alternative"
