@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import Multiselect from 'multiselect-react-dropdown';
+// import Multiselect from 'multiselect-react-dropdown';
 // import axios from "axios";
 // import {BASE_URL} from 'globals.constans';
 import "./input.css";
@@ -44,7 +44,7 @@ function AssignCompetences(data) {
               {/* {data.competences.map((competence) => {
                 return <Form.Group key={competence._id}><h4>{competence.labor_competition}</h4></Form.Group>
               })} */}
-
+{/* 
               <Multiselect
                 isObject={false}
                 onKeyPressFn={function noRefCheck(){}}
@@ -58,7 +58,7 @@ function AssignCompetences(data) {
                   'Yuri',
                   'Juan'
                 ]}
-              />
+              /> */}
               
             </div>
           </Modal.Body>

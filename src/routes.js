@@ -10,6 +10,9 @@ import ListUser from "views/users/listUser";
 import RegisterUser from "views/users/registerUser";
 import UpdateUsers from "views/users/updateUser";
 
+import LearningResults from 'views/learning-results/listLearningResults'
+import UpdateLearningresult from "views/learning-results/updateLearningResults"
+import RegisterLearningResult from "views/learning-results/registerLearningResults";
 var routes = [
   // {
   //   path: "/login",
@@ -107,5 +110,39 @@ var routes = [
     sidebar: false,
   },
   // formation programs  end
+
+
+  // LearningResults 
+
+  {
+    path: "/learningresults",
+    name: "Resultados de Aprendizaje",
+    icon: "ni ni-books text-dark",
+    component: LearningResults,
+    layout: "/admin",
+  },
+
+  {
+    path: "/RegisterLearningResult",
+    name: "Registrar Resultado de Aprendizaje",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: RegisterLearningResult,
+    layout: "/admin",
+    sidebar: false,
+  },
+ 
+
+
+
+  {
+    path: "/updatelearningresult/:id",
+    name: "Actualizar Resultado de Aprendizaje",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: UpdateLearningresult,
+    layout: "/admin",
+    sidebar: false,
+  },
+  // LearningResults end
+
 ];
 export default routes;

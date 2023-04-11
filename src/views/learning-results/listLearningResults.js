@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-use-before-define */
+
 import axios from "axios";
 
 // reactstrap components
@@ -12,75 +11,52 @@ import {
   Container,
   Row,
   Col,
-  NavLink,
-  DropdownToggle,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import PaginationData from "../../components/pagination/PaginationData";
-import {BASE_URL} from 'globals.constans';
-// import { Swal } from "sweetalert2";
-import { alert } from 'plugins/alerts.js';
+import { BASE_URL } from "globals.constans";
+import { alert } from "./usersAlerts";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
-import DetailFormationProgram from "./detailFormationProgram";
-import AssignCompetences from "./assignCompetences";
-import "./input.css"
+import DetailUsers from "./detailLearningResults";
+import "assets/css/indexCompetence.css";
 
-const FormationPrograms = () => {
+const LearningResults = () => {
+  const [learningresult, setLearningresult] = useState([]);
 
-  const [formationProgram, setFormationProgram] = useState([]);
-  const [competences, setCompetences] = useState([]);
-
-  const totalFormationPrograms = () => {
-    if(formationProgram.length > 0) {
-      return formationProgram.length;
-    }
-    return 0
-  }
-  // const totalUsers = competence;
 
   const [search, setSearch] = useState("");
 
-  const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
-  const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
-  const [userPerPage, setUserPerPage] = useState(5);
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const showFormationPrograms = async () => {
-    await axios.get(`${BASE_URL}formationprograms`).then((response) => {
-        const data = response.data;
-        setFormationProgram(data.results);
-      }
-    )
-  };
+  // const [userPerPage] = useState(5);
+  const [currentPage] = useState(1);
 
-  const showCompetences = async () => {
-    await axios.get(`${BASE_URL}competences`).then((response) => {
-        setCompetences(response.data.results);
-      }
-    )
+  // const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
+  // const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
+
+  const showLearningresults = async () => {
+    await axios.get(`${BASE_URL}learningresults`).then((response) => {
+      setLearningresult(response.data.results);
+    });
   };
 
   useEffect(() => {
-      showFormationPrograms();
-      showCompetences();
-  }, [formationProgram]);
+    showLearningresults();
+  }, []);
 
-  const deleteFormationProgram = async (id) => {
+  const deleteUsers = async (id) => {
     const alertParams = {
-      title:'¿Está seguro de eliminar el programa de formación?',
-      icon: 'warning'
+      title: "¿Está seguro de eliminar el Usuario?",
+      icon: "warning",
     };
-    await alert(alertParams.title, alertParams.icon, id);
-    showFormationPrograms();
+    alert(alertParams.title, alertParams.icon, id);
+    showLearningresults();
   };
-
   //funcion de busqueda
-    const searcher = (e) => {
+  const searcher = (e) => {
     setSearch(e.target.value);
   };
 
@@ -88,14 +64,13 @@ const FormationPrograms = () => {
   let result = [];
 
   if (!search) {
-    result = formationProgram;
+    result = learningresult;
   } else {
-    result = formationProgram.filter((dato) =>
-      dato.program_name.toLowerCase().includes(search.toLocaleLowerCase())
+    result = learningresult.filter((dato) =>
+      dato.learning_result.toLowerCase().includes(search.toLocaleLowerCase())
     );
   }
 
-  
   return (
     <>
       <Header />
@@ -106,21 +81,33 @@ const FormationPrograms = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-
                 <Col lg="6">
-                <Link
-                  to={`/admin/formationprogramsregister`}
-                  tag={NavLinkRRD}
-                  activeclassname="active"
-                >
-                  <button class="cssbuttons-io-button"> Registrar
-                    <div class="icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
-                    </div>
-                  </button>
-                </Link>
-                
+                  <Link
+                    to={`/admin/RegisterLearningResult`}
+                    tag={NavLinkRRD}
+                    activeclassname="active"
+                  >
+                    <button class="cssbuttons-io-button">
+                      {" "}
+                      Registrar
+                      <div class="icon">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          width="24"
+                          height="24"
+                        >
+                          <path fill="none" d="M0 0h24v24H0z"></path>
+                          <path
+                            fill="currentColor"
+                            d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </button>
+                  </Link>
                 </Col>
+
                 <Col lg="6">
                   <input
                     value={search}
@@ -130,7 +117,6 @@ const FormationPrograms = () => {
                     className="input"
                   />
                 </Col>
-                
               </CardHeader>
               <Table
                 className=" table table-striped table-hover  shadow-lg align-items-center table-flush"
@@ -138,21 +124,18 @@ const FormationPrograms = () => {
               >
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Código del programa</th>
-                    <th scope="col">Duración estimada</th>
-                    <th scope="col">Versión</th>
-                    {/* <th scope="col">Programa de Formación</th> */}
+                    <th scope="col">N°</th>
+
+                    <th scope="col">Resultado de Aprendizaje</th>
+                    
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {result.map((formationProgram, i=0) => {
-
+                  {result
+                    .map((learningresult, i = 0) => {
                       return (
-                        <tr key={formationProgram._id}>
-
+                        <tr key={learningresult._id}>
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
@@ -160,38 +143,25 @@ const FormationPrograms = () => {
                             </Badge>
                           </td>
 
-                          <td>{formationProgram.program_name}</td>
+                          <td className="spaces">{learningresult.learning_result}</td>
 
-                          <td>{formationProgram.program_code}</td>
-
-                          <td>{formationProgram.total_duration}</td>
-
-                          <td>{formationProgram.program_version}</td>
-
+                         
                           <td>
-                            <DetailFormationProgram
-                              formationProgram={formationProgram}
-                            />
-
-                            <AssignCompetences
-                              formationProgram={formationProgram}
-                              competences={competences}
-                            />
+                            <DetailUsers users={learningresult} />
 
                             <Link
-                              to={`/admin/updateformationprograms/${formationProgram._id}`}
+                              to={`/admin/updatelearningresult/${learningresult._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button
-                                variant="">
-                                  <i className="fas fa-pen-alt"></i>
+                              <Button variant="">
+                                <i className="fas fa-pen-alt"></i>
                               </Button>
                             </Link>
 
                             <Button
                               variant=""
-                              onClick={() => deleteFormationProgram(formationProgram._id)}
+                              onClick={() => deleteUsers(learningresult._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
@@ -218,4 +188,4 @@ const FormationPrograms = () => {
   );
 };
 
-export default FormationPrograms;
+export default LearningResults;

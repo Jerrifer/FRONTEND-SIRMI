@@ -6,3 +6,12 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
+  .spaces{
+    max-width: 1000px;
+    font-size: 40px;
+    border: solid 2px gray;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
