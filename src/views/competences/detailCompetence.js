@@ -17,7 +17,7 @@ function DetailFormationProgram(data) {
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
 
-      <Modal show={isShow} size={"lg"} className=" color">
+      <Modal show={isShow} size={"lg"} className=" color ">
         <Modal.Header>
           <Modal.Title>Programa de formaión... {Competence._id}</Modal.Title>
         </Modal.Header>

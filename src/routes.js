@@ -1,5 +1,5 @@
-// import Register from "views/examples/Register.js";
-// import Login from "views/examples/Login.js";
+import Register from "views/examples/Register.js";
+import Login from "views/examples/Login.js";
 import Competences from "views/competences/listCompetence";
 import FormationPrograms from "views/formation-programs/listFormationPrograms";
 import RegisterFormationProgram from "views/formation-programs/registerFormationProgram";
@@ -15,20 +15,20 @@ import UpdateLearningresult from "views/learning-results/updateLearningResults"
 import RegisterLearningResult from "views/learning-results/registerLearningResults";
 import ProgramCompetences from "views/formation-programs/programCompetences";
 var routes = [
-  // {
-  //   path: "/login",
-  //   name: "Login",
-  //   icon: "ni ni-key-25 text-info",
-  //   component: Login,
-  //   layout: "/auth",
-  // },
-  // {
-  //   path: "/register",
-  //   name: "Register",
-  //   icon: "ni ni-circle-08 text-pink",
-  //   component: Register,
-  //   layout: "/auth",
-  // },
+  {
+    path: "/login",
+    name: "Login",
+    icon: "ni ni-key-25 text-info",
+    component: Login,
+    layout: "/auth",
+  },
+  {
+    path: "/register",
+    name: "Register",
+    icon: "ni ni-circle-08 text-pink",
+    component: Register,
+    layout: "/auth",
+  },
 
   // users
 
