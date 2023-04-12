@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import axios from "axios";
 
@@ -44,15 +45,17 @@ const ListUser = () => {
 
   useEffect(() => {
     showUsers();
-  }, []);
+  }, [showUsers]);
 
   const deleteUsers = async (id) => {
     const alertParams = {
       title: "¿Está seguro de eliminar el Usuario?",
       icon: "warning",
     };
-    alert(alertParams.title, alertParams.icon, id);
-    showUsers();
+    alert(alertParams.title, alertParams.icon, id)
+      .then((response) => {
+        showUsers();
+      })
   };
   //funcion de busqueda
   const searcher = (e) => {

@@ -14,6 +14,7 @@ import LearningResults from 'views/learning-results/listLearningResults'
 import UpdateLearningresult from "views/learning-results/updateLearningResults"
 import RegisterLearningResult from "views/learning-results/registerLearningResults";
 import ProgramCompetences from "views/formation-programs/programCompetences";
+import Profile from "views/examples/Profile";
 var routes = [
   {
     path: "/login",
@@ -28,6 +29,15 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: Register,
     layout: "/auth",
+  },
+  // profile
+  {
+    path: "/profile",
+    name: "Perfil",
+    icon: "ni ni-single-02 text-yellow",
+    component: Profile,
+    layout: "/admin",
+    sidebar: false
   },
 
   // users

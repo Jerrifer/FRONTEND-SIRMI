@@ -21,6 +21,10 @@ const Login = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
+    first_name: "",
+    last_name: "",
+    contact_number: "",
+    document_number: "",
   });
 
   const [login, setLogin ] = useState([])
@@ -42,7 +46,11 @@ const Login = () => {
 
       localStorage.setItem("token", login.token);
       localStorage.setItem("name", login.user.first_name);
+      localStorage.setItem("lastname", login.user.last_name);
       localStorage.setItem("email", login.user.email);
+      localStorage.setItem("contact", login.user.contact_number);
+      localStorage.setItem("document", login.user.document_number);
+      localStorage.setItem("id", login.user._id);
       window.location = "/admin/index";
       // console.log(login.user.message);
     } catch (error) {

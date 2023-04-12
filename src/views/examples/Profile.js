@@ -44,6 +44,9 @@ const Profile = () => {
                 <h6 className="heading-small text-muted mb-4">
                   User information
                 </h6>
+                <h6 className="heading-small text-muted mb-4">
+                  id: {localStorage.getItem('id')}
+                </h6>
                 <div className="pl-lg-4">
                   <Row>
                     <Col lg="6">
@@ -56,7 +59,7 @@ const Profile = () => {
                         </label>
                         <Input
                           className="form-control-alternative"
-                          defaultValue="lucky.jesse"
+                          defaultValue={localStorage.getItem('name')}
                           id="input-username"
                           placeholder="Username"
                           type="text"
@@ -74,8 +77,9 @@ const Profile = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="jesse@example.com"
+                          defaultValue={localStorage.getItem('email')}
                           type="email"
+                          placeholder="Email"
                         />
                       </FormGroup>
                     </Col>
@@ -91,7 +95,7 @@ const Profile = () => {
                         </label>
                         <Input
                           className="form-control-alternative"
-                          defaultValue="Lucky"
+                          defaultValue={localStorage.getItem('name')}
                           id="input-first-name"
                           placeholder="First name"
                           type="text"
@@ -108,7 +112,7 @@ const Profile = () => {
                         </label>
                         <Input
                           className="form-control-alternative"
-                          defaultValue="Jesse"
+                          defaultValue={localStorage.getItem('lastname')}
                           id="input-last-name"
                           placeholder="Last name"
                           type="text"
@@ -149,11 +153,11 @@ const Profile = () => {
                           className="form-control-label"
                           htmlFor="input-city"
                         >
-                          City
+                          Contact Number
                         </label>
                         <Input
                           className="form-control-alternative"
-                          defaultValue="New York"
+                          defaultValue={localStorage.getItem('contact')}
                           id="input-city"
                           placeholder="City"
                           type="text"
@@ -166,18 +170,18 @@ const Profile = () => {
                           className="form-control-label"
                           htmlFor="input-country"
                         >
-                          Country
+                          Document
                         </label>
                         <Input
                           className="form-control-alternative"
-                          defaultValue="United States"
+                          defaultValue={localStorage.getItem('document')}
                           id="input-country"
                           placeholder="Country"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
-                    <Col lg="4">
+                    {/* <Col lg="4">
                       <FormGroup>
                         <label
                           className="form-control-label"
@@ -192,7 +196,7 @@ const Profile = () => {
                           type="number"
                         />
                       </FormGroup>
-                    </Col>
+                    </Col> */}
                   </Row>
                 </div>
                 <hr className="my-4" />
