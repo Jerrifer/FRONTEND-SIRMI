@@ -65,31 +65,30 @@ function DetailFormationProgram(data) {
                 <h3 className="ml-4">{programLevel.program_level}</h3>
               </Form.Group>
 
-              <Form.Group className="text-center">
-                <Form.Label>Competencias laborales</Form.Label>
-              </Form.Group>
-
               {/* {competences.map((competence) => {
                 return <Form.Group key={competence._id}><h4>{competence.labor_competition}</h4></Form.Group>
               })} */}
 
               <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header className="btn">
-                      Competencias laborales
-                </Accordion.Header>
+                <Accordion.Item eventKey="0" >
+                  <Accordion.Button className="custom-accordion-button">
+                    Ver competencias laborales
+                  </Accordion.Button>
                   <Accordion.Body>
-                  {competences.map((competence) => {
-                    return (
-                    <Form.Group key={competence._id}>
-                      <Card className="p-2 mt-2">
-                        <Badge color="" className="badge-dot">
-                          <h4 className="mt-2"><i className="bg-success" />{competence.labor_competition}</h4>
-                        </Badge>
-                      </Card>
-                    </Form.Group>
-                    )
-                  })}
+                    {competences.map((competence) => {
+                      return (
+                        <Form.Group key={competence._id}>
+                          <Card className="p-2 mt-2">
+                            <Badge color="" className="badge-dot">
+                              <h4 className="mt-2">
+                                <i className="bg-success" />
+                                {competence.labor_competition}
+                              </h4>
+                            </Badge>
+                          </Card>
+                        </Form.Group>
+                      );
+                    })}
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>

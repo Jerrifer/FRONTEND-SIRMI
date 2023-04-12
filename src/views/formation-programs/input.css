@@ -13,6 +13,19 @@ font-size: 15px;
 filter: grayscale(5px);
 }
 
+.custom-accordion-button {
+  background-color: #00000000;
+  color: #000000;
+  border: 1px solid #0000;
+  display: flex;
+  justify-content: center;
+  margin-left: 35%;
+}
+
+.custom-accordion-button:hover {
+  color: #47a44b;
+  
+}
 
 /* .cssbuttons-io-button {
   background: #47a44b;
