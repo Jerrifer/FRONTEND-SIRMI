@@ -37,11 +37,12 @@ const LearningResults = () => {
   // const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
   // const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
-  const showLearningresults = async () => {
-    await axios.get(`${BASE_URL}learningresults`).then((response) => {
+  const showLearningresults = async (id) => {
+    await axios.get(`${BASE_URL}learningresults/bycompetence/${id}`).then((response) => {
       setLearningresult(response.data.results);
     });
   };
+ console.log(showLearningresults);
 
   useEffect(() => {
     showLearningresults();
@@ -49,7 +50,7 @@ const LearningResults = () => {
 
   const deleteUsers = async (id) => {
     const alertParams = {
-      title: "¿Está seguro de eliminar el Usuario?",
+      title: "¿Está seguro de eliminar el Resultado De Aprendizaje ?",
       icon: "warning",
     };
     alert(alertParams.title, alertParams.icon, id);

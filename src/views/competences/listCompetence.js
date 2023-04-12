@@ -171,6 +171,20 @@ const ListCompetence = () => {
                               </Button>
                             </Link>
 
+                            <Link
+                              to={`/admin/learningresults/bycompetence/${competencesAssign._id}`}
+                              tag={NavLinkRRD}
+                              activeclassname="active"
+                            >
+                              <Button
+                                variant="">
+                                  <i className="fas fa-circle-plus"></i>
+                              </Button>
+                            </Link>
+
+
+
+
                             <Button
                               variant=""
                               onClick={() =>
