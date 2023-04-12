@@ -4,6 +4,7 @@ import { Modal, Button, Form, Accordion } from "react-bootstrap";
 // import {BASE_URL} from 'globals.constans';
 import "./input.css";
 import { Badge, Card } from "reactstrap";
+
 function DetailFormationProgram(data) {
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
@@ -19,7 +20,7 @@ function DetailFormationProgram(data) {
 
   return (
     <>
-      <Button className="btn-icon-only" variant="" onClick={initModal}>
+      <Button variant="" onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
 
@@ -71,10 +72,11 @@ function DetailFormationProgram(data) {
               {/* {competences.map((competence) => {
                 return <Form.Group key={competence._id}><h4>{competence.labor_competition}</h4></Form.Group>
               })} */}
+
               <Accordion>
               <Accordion.Item eventKey="0">
-                <Accordion.Header >
-                      <h3>Competencias laborales</h3>
+                <Accordion.Header className="btn">
+                      Competencias laborales
                 </Accordion.Header>
                   <Accordion.Body>
                   {competences.map((competence) => {

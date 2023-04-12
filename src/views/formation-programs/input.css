@@ -14,7 +14,7 @@ filter: grayscale(5px);
 }
 
 
-.cssbuttons-io-button {
+/* .cssbuttons-io-button {
   background: #47a44b;
   color: white;
   font-family: inherit;
@@ -56,7 +56,7 @@ filter: grayscale(5px);
 .cssbuttons-io-button .icon svg {
   width: 1.1em;
   transition: transform 0.3s;
-  color: #409144;
+  color: #47a44b;
 }
 
 .cssbuttons-io-button:hover .icon svg {
@@ -65,4 +65,4 @@ filter: grayscale(5px);
 
 .cssbuttons-io-button:active .icon {
   transform: scale(0.95);
-}
+} */

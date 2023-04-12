@@ -1,5 +1,4 @@
 import axios from "axios"
-// import { BASE_URL } from 'globals.constans'
 const { default: Swal } = require("sweetalert2")
 
 export const swalWithBootstrapButtons = Swal.mixin({

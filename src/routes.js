@@ -13,6 +13,7 @@ import UpdateUsers from "views/users/updateUser";
 import LearningResults from 'views/learning-results/listLearningResults'
 import UpdateLearningresult from "views/learning-results/updateLearningResults"
 import RegisterLearningResult from "views/learning-results/registerLearningResults";
+import ProgramCompetences from "views/formation-programs/programCompetences";
 var routes = [
   // {
   //   path: "/login",
@@ -106,6 +107,14 @@ var routes = [
     name: "Actualizar programa de formación",
     icon: "ni ni-single-copy-04 text-dark",
     component: UpdateFormationProgram,
+    layout: "/admin",
+    sidebar: false,
+  },
+  {
+    path: "/programcompetences/:id",
+    name: "Gestionar competencias un programa de formación",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: ProgramCompetences,
     layout: "/admin",
     sidebar: false,
   },

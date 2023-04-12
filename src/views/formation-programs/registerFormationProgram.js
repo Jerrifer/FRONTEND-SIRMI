@@ -15,7 +15,6 @@ import {
   } from "reactstrap";
   // core components
 
-
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
 import {BASE_URL} from 'globals.constans';
