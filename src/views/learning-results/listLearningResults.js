@@ -19,17 +19,18 @@ import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
 import { BASE_URL } from "globals.constans";
 import { alert } from "./usersAlerts";
-import { Link, NavLink as NavLinkRRD } from "react-router-dom";
+import { Link, NavLink as NavLinkRRD, useParams } from "react-router-dom";
 import DetailUsers from "./detailLearningResults";
 import "assets/css/indexCompetence.css";
 
 const LearningResults = () => {
-  const [learningresult, setLearningresult] = useState([]);
 
+  const { id } =useParams()
+
+  const [learningresult, setLearningresult] = useState([]);
+  const [competence, setCompetence] = useState([]);
 
   const [search, setSearch] = useState("");
-
-
 
   // const [userPerPage] = useState(5);
   const [currentPage] = useState(1);
@@ -39,14 +40,15 @@ const LearningResults = () => {
 
   const showLearningresults = async (id) => {
     await axios.get(`${BASE_URL}learningresults/bycompetence/${id}`).then((response) => {
-      setLearningresult(response.data.results);
+      setLearningresult(response.data.results.learningresults);
+      setCompetence(response.data.results.competence);
     });
   };
  console.log(showLearningresults);
 
   useEffect(() => {
-    showLearningresults();
-  }, []);
+    showLearningresults(id);
+  }, [id]);
 
   const deleteUsers = async (id) => {
     const alertParams = {
@@ -83,28 +85,14 @@ const LearningResults = () => {
             <Card className="formulario ">
               <CardHeader className="border-0">
                 <Col lg="6">
+                  <h3>Resultados de aprendizaje de {competence.labor_competition}</h3>
                   <Link
                     to={`/admin/RegisterLearningResult`}
                     tag={NavLinkRRD}
                     activeclassname="active"
                   >
-                    <button class="cssbuttons-io-button">
-                      {" "}
+                    <button class="btn btn-success bg-success">
                       Registrar
-                      <div class="icon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          height="24"
-                        >
-                          <path fill="none" d="M0 0h24v24H0z"></path>
-                          <path
-                            fill="currentColor"
-                            d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                          ></path>
-                        </svg>
-                      </div>
                     </button>
                   </Link>
                 </Col>

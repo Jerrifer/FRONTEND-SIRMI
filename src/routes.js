@@ -121,14 +121,15 @@ var routes = [
   // formation programs  end
 
 
-  // LearningResults 
+  // Learning results 
 
   {
-    path: "/learningresults",
+    path: "/learningresults/:id",
     name: "Resultados de Aprendizaje",
     icon: "ni ni-books text-dark",
     component: LearningResults,
     layout: "/admin",
+    sidebar: false,
   },
 
   {
@@ -139,9 +140,6 @@ var routes = [
     layout: "/admin",
     sidebar: false,
   },
- 
-
-
 
   {
     path: "/updatelearningresult/:id",
