@@ -17,10 +17,10 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import axios from "axios";
+
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import { useHistory } from "react-router-dom";
+import { registerCompetenceService } from "services/competences";
 
 const RegisterCompetence = () => {
   const navigate = useHistory();
@@ -35,24 +35,35 @@ const RegisterCompetence = () => {
   const register = async (e) => {
     e.preventDefault();
 
-    const data = {
+    const body = {
       labor_competence_code: programName,
       labor_competition: programCode,
       labor_competition_version: totalDuration,
       duration: programVersion,
     };
 
-    const response = await axios.post(`${BASE_URL}competences`, data);
-    const resultRegister = await response.data.results;
-    console.log(resultRegister);
-    swalWithBootstrapButtons.fire(
-      "Registro exitoso",
-      "El programa de formación se registro con éxito.",
-      "success"
-    );
-    navigate.push("/admin/competence");
+
+    const data = await registerCompetenceService(body);
+    if(data.status === 'success') {
+      swalWithBootstrapButtons.fire(
+        'Registro exitoso',
+        data.message,
+        'success'
+      )
+      console.log(data);
+    } else {
+      swalWithBootstrapButtons.fire(
+        'Hubo un error',
+        data.message,
+        'error'
+      )
+    }
+      navigate.push("/admin/competence");
   };
 
+
+
+   
   return (
     <>
       <Header />

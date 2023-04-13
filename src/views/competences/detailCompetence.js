@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-function DetailFormationProgram(data) {
+function DetailCompetence(data) {
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!isShow);
@@ -63,4 +63,4 @@ function DetailFormationProgram(data) {
   );
 }
 
-export default DetailFormationProgram;
+export default DetailCompetence;

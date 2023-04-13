@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
-import axios from "axios";
 
 // reactstrap components
 import {
@@ -18,11 +17,14 @@ import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import { alert } from "./alertsCompetence";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
-import DetailFormationProgram from "./detailCompetence";
+import DetailCompetence from "./detailCompetence";
 import "assets/css/indexCompetence.css";
+import { alert } from "plugins/alerts.js";
+import { allCompetencesService } from "services/competences";
+import { deleteCompetenceService } from "services/competences";
+import Swal from "sweetalert2";
+import { swalWithBootstrapButtons } from "plugins/alerts";
 
 const ListCompetence = () => {
   const [competencesAssign, setCompetencesAssign] = useState([]);
@@ -35,26 +37,37 @@ const ListCompetence = () => {
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // };
-
-  const showCompetences = async () => {
-    await axios.get(`${BASE_URL}competences`).then((response) => {
-      setCompetencesAssign(response.data.results);
-    });
-  };
-
   useEffect(() => {
     showCompetences();
   }, []);
 
-  const deleteFormationProgram = async (id) => {
+  // llamado a la api
+  const showCompetences = async () => {
+    const data = await allCompetencesService();
+    setCompetencesAssign(data.results);
+  };
+
+  // metodo de eliminar
+
+  const deleteCompetences = async (id) => {
     const alertParams = {
-      title: "¿Está seguro de eliminar la Competencia?",
+      title: "¿Está seguro de eliminar el programa de formación?",
       icon: "warning",
     };
-    alert(alertParams.title, alertParams.icon, id);
-    showCompetences();
+    const confirmed = await alert(alertParams);
+
+    if (confirmed.isConfirmed) {
+      const data = await deleteCompetenceService(id);
+      if (data.status === "success") {
+        swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
+      } else {
+        swalWithBootstrapButtons.fire("Error!", data.message, "error");
+      }
+    } else if (confirmed.dismiss === Swal.DismissReason.cancel) {
+      swalWithBootstrapButtons.fire("Cancelado!", "", "info");
+    }
   };
+
   //funcion de busqueda
   const searcher = (e) => {
     setSearch(e.target.value);
@@ -142,9 +155,7 @@ const ListCompetence = () => {
                           <td>{competencesAssign.duration}</td>
 
                           <td>
-                            <DetailFormationProgram
-                              competence={competencesAssign}
-                            />
+                            <DetailCompetence competence={competencesAssign} />
 
                             <Link
                               to={`/admin/updateCompetence/${competencesAssign._id}`}
@@ -161,19 +172,15 @@ const ListCompetence = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button
-                                variant="">
-                                  <i className="fas fa-circle-plus"></i>
+                              <Button variant="">
+                                <i className="fas fa-circle-plus"></i>
                               </Button>
                             </Link>
-
-
-
 
                             <Button
                               variant=""
                               onClick={() =>
-                                deleteFormationProgram(competencesAssign._id)
+                                deleteCompetences(competencesAssign._id)
                               }
                             >
                               <i className="fas fa-trash-alt"></i>
