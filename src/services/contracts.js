@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from 'globals.constans';
 
-export const allcontractsService = async () => {
+export const allContractsService = async () => {
     return await new Promise( async (resolve, reject) => {
         await axios.get(`${BASE_URL}contracts`).then((response) => {
             resolve(response.data)

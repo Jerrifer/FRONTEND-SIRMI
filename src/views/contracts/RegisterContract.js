@@ -17,10 +17,9 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import axios from "axios";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import { useHistory } from "react-router-dom";
+import { registerContractService } from "services/contracts";
 
 const RegisterContracts = () => {
   const navigate = useHistory();
@@ -37,21 +36,21 @@ const RegisterContracts = () => {
   const register = async (e) => {
     e.preventDefault();
 
-    const data = {
+    const body = {
       contract_number: contractnumber,
       object: object,
       pay: pay,
       start_date: startdate,
       end_date: enddate,
       type_contract: typecontract,
+      user: "6435ba221abd3ec5a6aab6e8"
     };
 
-    const response = await axios.post(`${BASE_URL}contracts`, data);
-    const resultRegister = await response.data.results;
-    console.log(resultRegister);
+    const data = await registerContractService(body)
+    console.log(data);
     swalWithBootstrapButtons.fire(
       "Registro exitoso",
-      "El Contrato  se registro con éxito.",
+      data.message, 
       "success"
     );
     navigate.push("/admin/contracts");
@@ -81,7 +80,7 @@ const RegisterContracts = () => {
                           className="form-control-label"
                           htmlFor="contract_number"
                         >
-                          contract_number
+                          Número de contrato
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -99,7 +98,7 @@ const RegisterContracts = () => {
                           className="form-control-label"
                           htmlFor="object"
                         >
-                          object
+                          Objeto
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -119,7 +118,7 @@ const RegisterContracts = () => {
                           className="form-control-label"
                           htmlFor="pay"
                         >
-                          pay
+                          Pago
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -137,7 +136,7 @@ const RegisterContracts = () => {
                           className="form-control-label"
                           htmlFor="start_date"
                         >
-                          start_date (Horas)
+                          Fecha inicio
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -155,7 +154,7 @@ const RegisterContracts = () => {
                           className="form-control-label"
                           htmlFor="end_date"
                         >
-                          end_date (Horas)
+                          Fecha fin
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -174,7 +173,7 @@ const RegisterContracts = () => {
                           className="form-control-label"
                           htmlFor="type_contract"
                         >
-                          Tipo de contrato (Horas)
+                          Tipo de contrato
                         </label>
                         <Input
                           className="form-control-alternative"

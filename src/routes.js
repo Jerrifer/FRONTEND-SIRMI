@@ -16,7 +16,7 @@ import RegisterLearningResult from "views/learning-results/registerLearningResul
 import ProgramCompetences from "views/formation-programs/programCompetences";
 import Profile from "views/examples/Profile";
 
-import ListContracte from 'views/contracts/listContract'
+import ListContract from 'views/contracts/listContract'
 import RegisterContracts from "views/contracts/RegisterContract"
 
 import UpdateContracts from "views/contracts/updateContract"
@@ -175,7 +175,7 @@ var routes = [
     path: "/contracts",
     name: "Contratos",
     icon: "ni ni-books text-dark",
-    component: ListContracte,
+    component: ListContract,
     layout: "/admin",
   },
 
