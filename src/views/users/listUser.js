@@ -57,12 +57,12 @@ const ListUser = () => {
         showUsers();
       })
   };
-  //funcion de busqueda
+  //función de búsqueda
   const searcher = (e) => {
     setSearch(e.target.value);
   };
 
-  //metodo de filtrado
+  //método de filtrado
   let result = [];
 
   if (!search) {
@@ -117,7 +117,7 @@ const ListUser = () => {
                     <th scope="col">first_name</th>
                     <th scope="col">last_name</th>
                     <th scope="col">email</th>
-                    <th scope="col">password</th>
+                    {/* <th scope="col">password</th> */}
                     <th scope="col">contact_number</th>
                     <th scope="col">document_number</th>
 
@@ -142,7 +142,7 @@ const ListUser = () => {
 
                           <td>{userAssign.email}</td>
 
-                          <td>{userAssign.password}</td>
+                          {/* <td>{userAssign.password}</td> */}
                           <td>{userAssign.contact_number}</td>
                           <td>{userAssign.document_number}</td>
 

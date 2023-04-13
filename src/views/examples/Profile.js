@@ -159,7 +159,7 @@ const Profile = () => {
                           className="form-control-alternative"
                           defaultValue={localStorage.getItem('contact')}
                           id="input-city"
-                          placeholder="City"
+                          placeholder="Contact Number"
                           type="text"
                         />
                       </FormGroup>
@@ -176,7 +176,7 @@ const Profile = () => {
                           className="form-control-alternative"
                           defaultValue={localStorage.getItem('document')}
                           id="input-country"
-                          placeholder="Country"
+                          placeholder="Document"
                           type="text"
                         />
                       </FormGroup>

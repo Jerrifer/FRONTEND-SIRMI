@@ -40,7 +40,7 @@ const AdminNavbar = (props) => {
                     />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">jm</span>
+                    <span className="mb-0 text-sm font-weight-bold">User</span>
                   </Media>
                 </Media>
               </DropdownToggle>

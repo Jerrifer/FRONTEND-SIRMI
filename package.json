@@ -49,6 +49,7 @@
     "chart.js": "2.9.4",
     "classnames": "2.3.1",
     "eslint": "^8.1.0",
+    "formik": "^2.2.9",
     "moment": "2.29.4",
     "multiselect-react-dropdown": "^2.0.25",
     "nouislider": "15.2.0",
