@@ -16,11 +16,11 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import axios from "axios";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 
 import { useHistory, useParams } from "react-router-dom";
+import { getContractService } from "services/contracts";
+import { updateContractService } from "services/contracts";
 
 // import { Swal } from "sweetalert2";
 
@@ -38,9 +38,8 @@ const [contracts , setContracts] = useState([])
 
 
   const showContract = async (id) => {
-    await axios.get(`${BASE_URL}contracts/${id}`).then((response) => {
-      setContracts(response.data.results);
-    });
+    const data = await getContractService(id)
+      setContracts(data.results);
   };
 
   const changeData = (e) => {
@@ -50,43 +49,22 @@ const [contracts , setContracts] = useState([])
   const update = async (e) => {
     e.preventDefault();
 
-    console.log(contracts);
-    const typeDataTypeProgram = typeof contracts.type_program;
-
-    if (typeDataTypeProgram === "object") {
-      contracts.type_program = contracts.type_program._id;
-    }
-
-    await axios
-      .put(`${BASE_URL}contracts/${id}`, contracts)
-      .then((response) => {
-        // console.log(response);
-
-        const resultUpdate = response.data;
-        if (resultUpdate.status === "success") {
+    const data = await updateContractService(id, contracts)
+        if (data.status === "success") {
           swalWithBootstrapButtons.fire(
             "Actualizado exitosamente",
-            resultUpdate.message,
+            data.message,
             "success"
           );
-    navigate.push("/admin/contracts");
+          navigate.push("/admin/contracts");
 
         } else {
           swalWithBootstrapButtons.fire(
             "Error por validaciones",
-            resultUpdate.results.errors[0].msg,
+            data.results.errors[0].msg,
             "warning"
           );
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        swalWithBootstrapButtons.fire(
-          "Hubo un error",
-          error.response.data.message,
-          "error"
-        );
-      });
   };
 
   return (
@@ -113,7 +91,7 @@ const [contracts , setContracts] = useState([])
                           className="form-control-label"
                           htmlFor="contract_number"
                         >
-                          contract_number
+                        Número de contrato
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -133,7 +111,7 @@ const [contracts , setContracts] = useState([])
                           className="form-control-label"
                           htmlFor="object"
                         >
-                          object
+                        Objeto
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -157,7 +135,7 @@ const [contracts , setContracts] = useState([])
                           className="form-control-label"
                           htmlFor="pay"
                         >
-                         pay
+                         Pago
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -177,7 +155,7 @@ const [contracts , setContracts] = useState([])
                           className="form-control-label"
                           htmlFor="start_date"
                         >
-                          start_date
+                          Fecha inicio
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -198,7 +176,7 @@ const [contracts , setContracts] = useState([])
                           className="form-control-label"
                           htmlFor="end_date"
                         >
-                         end_date
+                         Fecha fin
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -219,7 +197,7 @@ const [contracts , setContracts] = useState([])
                           className="form-control-label"
                           htmlFor="type_contract"
                         >
-                          type_contract
+                          Tipo de contrato
                         </label>
                         <Input
                           className="form-control-alternative"

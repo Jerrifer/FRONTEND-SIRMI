@@ -23,9 +23,13 @@ import { alert } from "plugins/alerts";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import Detailcontract from "./detailContract";
 import "assets/css/indexCompetence.css";
+import { allContractsService } from "services/contracts";
+import { swalWithBootstrapButtons } from "plugins/alerts";
+import Swal from "sweetalert2";
+import { deleteContractService } from "services/contracts";
 
-const ListContracte = () => {
-const [ contract, setContract] = useState([]);
+const ListContract = () => {
+const [ contracts, setContracts] = useState([]);
 
   const [search, setSearch] = useState("");
 
@@ -38,26 +42,45 @@ const [ contract, setContract] = useState([]);
   // };
 
   const showContracts = async () => {
-    await axios.get(`${BASE_URL}contracts`).then((response) => {
-      setContract(response.data.results);
-      console.log(response.data.results);
-    });
+    const data = await allContractsService()
+    setContracts(data.results);
   };
 
   useEffect(() => {
     showContracts();
-  }, []);
+  }, [contracts]);
 
   const deleteContract = async (id) => {
     const alertParams = {
       title: "¿Está seguro de eliminar El Contrato?",
-      icon: "warning",
-      id: id,
-      path: `${BASE_URL}contracts/`,
-      focus: 'El programa de formación'
+      icon: "warning"
     };
-    alert(alertParams);
-    showContracts();
+    const confirmed = await alert(alertParams);
+    if (confirmed.isConfirmed) {
+      const data = await deleteContractService(id)
+      if(data.status === 'success'){
+        swalWithBootstrapButtons.fire(
+          'Eliminado!',
+          data.message,
+          'success'
+        )
+      }
+      else{
+        swalWithBootstrapButtons.fire(
+          'Error!',
+          data.message,
+          'error'
+        )
+      }
+      } else if (
+      confirmed.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado!',
+        '',
+        'info'
+      )
+    }
   };
   //funcion de busqueda
   const searcher = (e) => {
@@ -68,14 +91,15 @@ const [ contract, setContract] = useState([]);
   let result = [];
 
   if (!search) {
-    result = contract;
+    result = contracts;
   } else {
-    result = contract.filter((dato) =>
+    result = contracts.filter((dato) =>
       dato.contract_number
         .toLowerCase()
         .includes(search.toLocaleLowerCase())
     );
   }
+
 
   return (
     <>
@@ -93,7 +117,7 @@ const [ contract, setContract] = useState([]);
                     tag={NavLinkRRD}
                     activeclassname="active"
                   >
-                    <button class="btn btn-success bg-success">
+                    <button className="btn btn-success bg-success">
                       Registrar
                     </button>
                   </Link>
@@ -116,12 +140,13 @@ const [ contract, setContract] = useState([]);
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">id</th>
-                    <th scope="col">contract_number</th>
-                    <th scope="col">object</th>
-                    <th scope="col">pay</th>
-                    <th scope="col">start_date</th>
-                    <th scope="col">end_date</th>
-                    <th scope="col">type_contract</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Número de contrato</th>
+                    <th scope="col">Objeto</th>
+                    <th scope="col">Pago</th>
+                    <th scope="col">Fecha inicio</th>
+                    <th scope="col">Fecha fin</th>
+                    <th scope="col">Tipo de contrato</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
@@ -137,14 +162,10 @@ const [ contract, setContract] = useState([]);
                             </Badge>
                           </td>
 
+                          <td>{contract.user.first_name} {contract.user.last_name}</td>
                           <td>{contract.contract_number}</td>
-
-                          <td className="space">
-                            {contract.object}
-                          </td>
-
+                          <td>{contract.object}</td>
                           <td>{contract.pay}</td>
-
                           <td>{contract.start_date}</td>
                           <td>{contract.end_date}</td>
                           <td>{contract.type_contract}</td>
@@ -163,10 +184,6 @@ const [ contract, setContract] = useState([]);
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                             </Link>
-
-                           
-
-
 
                             <Button
                               variant=""
@@ -199,4 +216,4 @@ const [ contract, setContract] = useState([]);
   );
 };
 
-export default ListContracte;
+export default ListContract;
