@@ -22,51 +22,39 @@ import axios from "axios";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import { useHistory } from "react-router-dom";
 
-const RegisterCompetence = () => {
+const RegisterContracts = () => {
   const navigate = useHistory();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [contactnumber, setContactnumber] = useState("");
-  const [documentnumber, setDocumentnumber] = useState("");
-  const [trainingcenterSelected, setTrainingcenterSelected] = useState("");
-  const [trainingcenters, setTrainingcenters] = useState([]);
+  const [contractnumber, setContractnumber] = useState("");
+  const [object, setObject] = useState("");
+  const [pay, setPay] = useState("");
+  const [startdate, setStartdate] = useState("");
+  const [enddate, setEnddate] = useState("");
+  const [typecontract, setTypecontract] = useState("");
 
-  const showTrainingcenters = async () => {
-    await axios.get(`${BASE_URL}trainingcenter`).then((response) => {
-      setTrainingcenters(response.data.results);
-      console.log(response.data.results);
-    })
-  };
-
-  useEffect(() => {
-    showTrainingcenters()
-  }, []);
+  useEffect(() => {}, []);
 
   const register = async (e) => {
     e.preventDefault();
 
     const data = {
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      password: password,
-      contact_number: contactnumber,
-      document_number: documentnumber,
-      training_center:trainingcenterSelected
+      contract_number: contractnumber,
+      object: object,
+      pay: pay,
+      start_date: startdate,
+      end_date: enddate,
+      type_contract: typecontract,
     };
 
-    const response = await axios.post(`${BASE_URL}users`, data);
+    const response = await axios.post(`${BASE_URL}contracts`, data);
     const resultRegister = await response.data.results;
     console.log(resultRegister);
     swalWithBootstrapButtons.fire(
       "Registro exitoso",
-      "El Usuario se registro con éxito.",
+      "El Contrato  se registro con éxito.",
       "success"
     );
-    navigate.push("/admin/users");
+    navigate.push("/admin/contracts");
   };
 
   return (
@@ -79,7 +67,7 @@ const RegisterCompetence = () => {
             <CardHeader className="bg-white border-0 align-items-center">
               <Row className="align-items-center">
                 <Col s="8">
-                  <h3 className="mb-0">Registrar Usuario</h3>
+                  <h3 className="mb-0">Registrar Contrato</h3>
                 </Col>
               </Row>
             </CardHeader>
@@ -91,17 +79,17 @@ const RegisterCompetence = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-username"
+                          htmlFor="contract_number"
                         >
-                          Nombre
+                          contract_number
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-username"
-                          placeholder="Primer Nombre"
+                          id="contract_number"
+                          placeholder="contract_number"
                           type="text"
                           required
-                          onChange={(e) => setFirstName(e.target.value)}
+                          onChange={(e) => setContractnumber(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -109,17 +97,17 @@ const RegisterCompetence = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-email"
+                          htmlFor="object"
                         >
-                          Apellidos
+                          object
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
-                          placeholder="Segundo Nombre"
+                          id="object"
+                          placeholder=" object"
                           type="text"
                           required
-                          onChange={(e) => setLastName(e.target.value)}
+                          onChange={(e) => setObject(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -129,17 +117,17 @@ const RegisterCompetence = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-first-name"
+                          htmlFor="pay"
                         >
-                          Correo electronico
+                          pay
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-first-name"
-                          placeholder="Correo electronico"
-                          type="email"
+                          id="pay"
+                          placeholder="pay"
+                          type="text"
                           required
-                          onChange={(e) => setEmail(e.target.value)}
+                          onChange={(e) => setPay(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -147,33 +135,16 @@ const RegisterCompetence = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-email"
+                          htmlFor="start_date"
                         >
-                          Contraseña
+                          start_date (Horas)
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
-                          placeholder="Contraseña"
-                          type="password"
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="input-email"
-                        >
-                          Numero de Contanto
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          id="input-email"
-                          placeholder="Numero de Contanto"
-                          type="number"
-                          onChange={(e) => setContactnumber(e.target.value)}
+                          id="start_date"
+                          placeholder="start_date"
+                          type="text"
+                          onChange={(e) => setStartdate(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
@@ -182,38 +153,38 @@ const RegisterCompetence = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-email"
+                          htmlFor="end_date"
                         >
-                          Numero de Documento
+                          end_date (Horas)
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
-                          placeholder="Numero de Documento"
-                          type="number"
-                          onChange={(e) => setDocumentnumber(e.target.value)}
+                          id="end_date"
+                          placeholder="end_date"
+                          type="text"
+                          onChange={(e) => setEnddate(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
 
+
                     <Col lg="6">
-                        <FormGroup>
+                      <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-first-name"
+                          htmlFor="type_contract"
                         >
-                          Centro De Formacion 
+                          Tipo de contrato (Horas)
                         </label>
-                      
-                          <select className="input"  onChange={(e) => setTrainingcenterSelected(e.target.value)}>
-                            {trainingcenters.map((trainingcenter) =>
-                                <option key={trainingcenters._id} value={trainingcenters._id}>{trainingcenter.training_center}</option>
-                            )}
-                          </select>
-                        
-
-                        </FormGroup>
-                      </Col>
+                        <Input
+                          className="form-control-alternative"
+                          id="type_contract"
+                          placeholder="contrato"
+                          type="text"
+                          onChange={(e) => setTypecontract(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
                   </Row>
 
                   <Button
@@ -232,4 +203,4 @@ const RegisterCompetence = () => {
   );
 };
 
-export default RegisterCompetence;
+export default RegisterContracts;

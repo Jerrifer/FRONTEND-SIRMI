@@ -15,6 +15,13 @@ import UpdateLearningresult from "views/learning-results/updateLearningResults"
 import RegisterLearningResult from "views/learning-results/registerLearningResults";
 import ProgramCompetences from "views/formation-programs/programCompetences";
 import Profile from "views/examples/Profile";
+
+import ListContracte from 'views/contracts/listContract'
+import RegisterContracts from "views/contracts/RegisterContract"
+
+import UpdateContracts from "views/contracts/updateContract"
+
+
 var routes = [
   {
     path: "/login",
@@ -161,5 +168,33 @@ var routes = [
   },
   // LearningResults end
 
+
+  // contracts 
+
+  {
+    path: "/contracts",
+    name: "Contratos",
+    icon: "ni ni-books text-dark",
+    component: ListContracte,
+    layout: "/admin",
+  },
+
+  {
+    path: "/RegisterContracts",
+    name: "Registrar Un Contrato",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: RegisterContracts,
+    layout: "/admin",
+    sidebar: false,
+  },
+
+  {
+    path: "/updateleContracts/:id",
+    name: "Actualizar Contrato",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: UpdateContracts,
+    layout: "/admin",
+    sidebar: false,
+  },
 ];
 export default routes;
