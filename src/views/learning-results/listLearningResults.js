@@ -1,6 +1,4 @@
 
-import axios from "axios";
-
 // reactstrap components
 import {
   Badge,
@@ -17,11 +15,14 @@ import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import { alert } from "./usersAlerts";
+import { alert } from "plugins/alerts";
 import { Link, NavLink as NavLinkRRD, useParams } from "react-router-dom";
-import DetailUsers from "./detailLearningResults";
+import DetailLearningResult from "./detailLearningResults";
 import "assets/css/indexCompetence.css";
+import { LearningResultByCompetenceService } from "services/learningResults";
+import { swalWithBootstrapButtons } from "plugins/alerts";
+import Swal from "sweetalert2";
+import { deleteLearningResultService } from "services/learningResults";
 
 const LearningResults = () => {
 
@@ -39,12 +40,10 @@ const LearningResults = () => {
   // const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
   const showLearningresults = async (id) => {
-    await axios.get(`${BASE_URL}learningresults/bycompetence/${id}`).then((response) => {
-      setLearningresult(response.data.results.learningresults);
-      setCompetence(response.data.results.competence);
-    });
+    const data = await LearningResultByCompetenceService(id)
+      setLearningresult(data.results.learningresults);
+      setCompetence(data.results.competence);
   };
- console.log(showLearningresults);
 
   useEffect(() => {
     showLearningresults(id);
@@ -55,8 +54,33 @@ const LearningResults = () => {
       title: "¿Está seguro de eliminar el Resultado De Aprendizaje ?",
       icon: "warning",
     };
-    alert(alertParams.title, alertParams.icon, id);
-    showLearningresults();
+    const confirmed = alert(alertParams);
+
+    if (confirmed.isConfirmed) {
+      const data = await deleteLearningResultService(id)
+      if(data.status === 'success'){
+        swalWithBootstrapButtons.fire(
+          'Eliminado!',
+          data.message,
+          'success'
+        )
+      }
+      else{
+        swalWithBootstrapButtons.fire(
+          'Error!',
+          data.message,
+          'error'
+        )
+      }
+      } else if (
+      confirmed.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado!',
+        '',
+        'info'
+      )
+    }
   };
   //funcion de busqueda
   const searcher = (e) => {
@@ -87,7 +111,7 @@ const LearningResults = () => {
                 <Col lg="6">
                   <h3>Resultados de aprendizaje de {competence.labor_competition}</h3>
                   <Link
-                    to={`/admin/RegisterLearningResult`}
+                    to={`/admin/RegisterLearningResult/${competence._id}`}
                     tag={NavLinkRRD}
                     activeclassname="active"
                   >
@@ -122,9 +146,9 @@ const LearningResults = () => {
                 </thead>
                 <tbody>
                   {result
-                    .map((learningresult, i = 0) => {
+                    .map((learningResult, i = 0) => {
                       return (
-                        <tr key={learningresult._id}>
+                        <tr key={learningResult._id}>
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
@@ -132,14 +156,14 @@ const LearningResults = () => {
                             </Badge>
                           </td>
 
-                          <td className="spaces">{learningresult.learning_result}</td>
+                          <td className="spaces">{learningResult.learning_result}</td>
 
                          
                           <td>
-                            <DetailUsers users={learningresult} />
+                            <DetailLearningResult learningResult={learningResult} competence={competence} />
 
                             <Link
-                              to={`/admin/updatelearningresult/${learningresult._id}`}
+                              to={`/admin/updatelearningResult/${learningResult._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
@@ -150,7 +174,7 @@ const LearningResults = () => {
 
                             <Button
                               variant=""
-                              onClick={() => deleteUsers(learningresult._id)}
+                              onClick={() => deleteUsers(learningResult._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>

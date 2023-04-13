@@ -17,12 +17,14 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import axios from "axios";
 import { swalWithBootstrapButtons } from "plugins/alerts";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { registerLearningResultService } from "services/learningResults";
 
 const RegisterLearningResult = () => {
+
+  const { id } = useParams();
+
   const navigate = useHistory();
 
   const [learningResult, setLearningresult] = useState("");
@@ -32,20 +34,20 @@ const RegisterLearningResult = () => {
   const register = async (e) => {
     e.preventDefault();
 
-    const data = {
+    const body = {
       learning_result: learningResult,
-     
+      competence: id
     };
 
-    const response = await axios.post(`${BASE_URL}learningresults`, data);
-    const resultRegister = await response.data.results;
+    const data = registerLearningResultService(body)
+    const resultRegister = await data.results;
     console.log(resultRegister);
     swalWithBootstrapButtons.fire(
       "Registro exitoso",
-      "El Resultado de Aprendizaje se registro con éxito.",
+      data.message,
       "success"
     );
-    navigate.push("/admin/learningresults");
+    navigate.push(`/admin/learningresults/${id}`);
   };
 
   return (

@@ -16,11 +16,11 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import axios from "axios";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 
 import { useHistory, useParams } from "react-router-dom";
+import { getLearningResultService } from "services/learningResults";
+import { updateLearningResultService } from "services/learningResults";
 
 
 const UpdateLearningresults = () => {
@@ -31,55 +31,37 @@ const UpdateLearningresults = () => {
     showLearningresults(id);
   }, [id]);
 
-  const [learningresults, setLearningresults] = useState([]);
+  const [learningResults, setLearningResults] = useState([]);
 
   const showLearningresults = async (id) => {
-    await axios.get(`${BASE_URL}learningresults/${id}`).then((response) => {
-      setLearningresults(response.data.results);
-    });
+    const data = await getLearningResultService(id)
+      setLearningResults(data.results);
   };
 
   const changeData = (e) => {
-    setLearningresults({ ...learningresults, [e.target.name]: e.target.value });
+    setLearningResults({ ...learningResults, [e.target.name]: e.target.value });
   };
 
   const update = async (e) => {
     e.preventDefault();
 
-    const typeDataTypeProgram = typeof learningresults.type_program;
+    const data = await updateLearningResultService(id, learningResults)
+        console.log(data);
 
-    if (typeDataTypeProgram === "object") {
-      learningresults.type_program = learningresults.type_program._id;
-    }
-
-    await axios.put(`${BASE_URL}learningresults/${id}`, learningresults)
-      .then((response) => {
-        console.log(response);
-
-        const resultUpdate = response.data;
-        if (resultUpdate.status === "success") {
+        if (data.status === "success") {
           swalWithBootstrapButtons.fire(
             "Actualizado exitosamente",
-            resultUpdate.message,
+            data.message,
             "success"
           );
-          navigate.push("/admin/learningresults");
+          navigate.push(`/admin/learningresults/${learningResults.competence._id}`);
         } else {
           swalWithBootstrapButtons.fire(
             "Error por validaciones",
-            resultUpdate.results.errors[0].msg,
+            data.results.errors[0].msg,
             "warning"
           );
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        swalWithBootstrapButtons.fire(
-          "Hubo un error",
-          error.response.data.message,
-          "error"
-        );
-      });
   };
 
   return (
@@ -115,7 +97,7 @@ const UpdateLearningresults = () => {
                           name="learning_result"
                           placeholder="Resultado de Aprendizaje"
                           type="text"
-                          defaultValue={learningresults.learning_result}
+                          defaultValue={learningResults.learning_result}
                           required
                           onChange={changeData}
                         />

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-function DetailLearningresult(data) {
+function DetailLearningResult(data) {
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!isShow);
   };
 
   console.log(data.users);
-  const [users] = useState(data.users);
+  const [learningResult] = useState(data.learningResult);
+  const [competence] = useState(data.competence);
 
+  console.log(learningResult);
   return (
     <>
       <Button className="btn-icon-only" variant="" onClick={initModal}>
@@ -17,20 +19,23 @@ function DetailLearningresult(data) {
       </Button>
 
       <Modal show={isShow} size={"lg"} className=" color">
-        <Modal.Header>
-          <Modal.Title>Resultado de Aprendizaje... {users._id}</Modal.Title>
-        </Modal.Header>
 
         <div className="container">
           <Modal.Body>
-            <div className="container ">
+            <div className="container">
               <Form.Group className="text-center mb-4">
-                <h2>{users.learning_result}</h2>
-                
+                <h2>{learningResult.learning_result}</h2>
               </Form.Group>
-              
 
-              
+              <Form.Group>
+                <Form.Label>Competencia</Form.Label>
+                <h3 className="ml-4">{competence.labor_competition}</h3>
+              </Form.Group>
+
+              <Form.Group>
+                <Form.Label>Código de la competencia</Form.Label>
+                <h3 className="ml-4">{competence.labor_competence_code}</h3>
+              </Form.Group>
             </div>
           </Modal.Body>
 
@@ -45,4 +50,4 @@ function DetailLearningresult(data) {
   );
 }
 
-export default DetailLearningresult;
+export default DetailLearningResult;

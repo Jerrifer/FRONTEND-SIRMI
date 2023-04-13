@@ -150,7 +150,7 @@ var routes = [
   },
 
   {
-    path: "/RegisterLearningResult",
+    path: "/RegisterLearningResult/:id",
     name: "Registrar Resultado de Aprendizaje",
     icon: "ni ni-single-copy-04 text-dark",
     component: RegisterLearningResult,
