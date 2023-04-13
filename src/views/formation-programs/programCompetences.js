@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
-import axios from "axios";
+import axios, { all } from "axios";
 
 // reactstrap components
 import {
@@ -21,11 +21,18 @@ import "../../../src/components/Headers/header.css";
 import { BASE_URL } from "globals.constans";
 import { Link, NavLink as NavLinkRRD, useParams } from "react-router-dom";
 import AssignCompetences from "./assignCompetences";
+import Multiselect from "multiselect-react-dropdown";
+import { alert } from "plugins/alerts";
 
 const ProgramCompetences = () => {
   const { id } = useParams();
+  
+  useEffect(() => {
+    showCompetences()
+    showFormationProgram(id);
+  }, [id]);
 
-  const [allCompetences, setAllCompetences] = useState([]);
+  var [allCompetences, setAllCompetences] = useState([]);
   const [competencesByProgram, setCompetencesByProgram] = useState([]);
   const [formationProgram, setFormationProgram] = useState([]);
 
@@ -36,8 +43,6 @@ const ProgramCompetences = () => {
 
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-
-  // };
 
   const showFormationProgram = async (id) => {
     await axios.get(`${BASE_URL}formationprograms/${id}`).then((response) => {
@@ -52,18 +57,19 @@ const ProgramCompetences = () => {
     });
   };
 
-  useEffect(() => {
-    showCompetences()
-    showFormationProgram(id);
-  }, [id]);
-
   const deleteFormationProgram = async (id) => {
     const alertParams = {
-      title: "¿Está seguro de eliminar la Competencia?",
+      title: "¿Está seguro de quitarle la competencia al programa de formación?",
       icon: "warning",
+      id: formationProgram._id,
+      path: `${BASE_URL}/formationprograms/deallocate/`,
+      method:'POST',
+      body: {competence: id}
     };
-    alert(alertParams.title, alertParams.icon, id);
-    showFormationProgram();
+    alert(alertParams).then(() => {
+      showFormationProgram(formationProgram._id);
+      showCompetences();
+    })
   };
   //funcion de busqueda
   const searcher = (e) => {
@@ -95,8 +101,8 @@ const ProgramCompetences = () => {
               <CardHeader className="border-0">
                 <Col lg="8">
                   <h2>
-                    COMPETENCIAS DE "{formationProgram.program_name}"
-                    <AssignCompetences formationProgram={formationProgram.name} competences={allCompetences}/>
+                    COMPETENCIAS DEL PROGRAMA DE FORMACIÓN "{formationProgram.program_name}"
+                    <AssignCompetences  program={formationProgram} competences={allCompetences}/>
                   </h2>
                 </Col>
 
@@ -125,8 +131,7 @@ const ProgramCompetences = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {competences
-                    .map((competence, i = 0) => {
+                  {competences.map((competence, i = 0) => {
                       return (
                         <tr key={competence._id}>
                           <td>

@@ -66,10 +66,12 @@ const FormationPrograms = () => {
       icon: 'warning',
       id: id,
       path: `${BASE_URL}formationprograms/`,
-      focus: 'El programa de formación'
+      method: 'DELETE',
+      body: null
     };
-    await alert(alertParams);
-    showFormationPrograms();
+    await alert(alertParams).then(() => {
+      showFormationPrograms();
+    });
   };
 
   //funcion de busqueda

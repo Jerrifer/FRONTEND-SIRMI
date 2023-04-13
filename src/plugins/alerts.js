@@ -11,7 +11,7 @@ export const swalWithBootstrapButtons = Swal.mixin({
 
 export function alert (alertParams) {
 
-  const { title, icon, id, path, focus } = alertParams
+  const { title, icon, id, path, method, body } = alertParams
   
   swalWithBootstrapButtons.fire({
     title: title,
@@ -23,20 +23,20 @@ export function alert (alertParams) {
   }).then((result) => {
 
     if (result.isConfirmed) {
-      axios.delete(`${path}${id}`).then(res => {
+      axios({method: method, url:path+id, data:body}).then(res => {
         console.log(res.data)
-        const result = res.data
-        if(result.status === 'success'){
+        const resultData = res.data
+        if(resultData.status === 'success'){
           swalWithBootstrapButtons.fire(
             'Eliminado!',
-            `${focus} se elimino exitosamente`,
+            resultData.message,
             'success'
           )
         }
         else{
           swalWithBootstrapButtons.fire(
             'Error!',
-            result.message,
+            resultData.message,
             'error'
           )
         }
@@ -51,6 +51,12 @@ export function alert (alertParams) {
         'info'
       )
     }
+  }).catch((error) => {
+    swalWithBootstrapButtons.fire(
+      'Error!',
+      error,
+      'danger'
+    )
   })
                     
 }
