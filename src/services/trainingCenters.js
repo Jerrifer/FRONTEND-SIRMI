@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { BASE_URL } from 'globals.constans';
 
-export const allThematicLinesService = async () => {
+export const allTrainingCentersService = async () => {
     return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}thematiclines`).then((response) => {
+        await axios.get(`${BASE_URL}trainingcenters`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -11,9 +11,9 @@ export const allThematicLinesService = async () => {
     })
 };
 
-export const getThematicLineService = async (id) => {
+export const getTrainingCenterService = async (id) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}thematiclines/${id}`).then((response) => {
+        await axios.get(`${BASE_URL}trainingcenters/${id}`).then((response) => {
             resolve(response.data)
             console.log(response.data);
         }).catch((error) => {
