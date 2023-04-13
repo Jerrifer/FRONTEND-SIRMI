@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
-import axios from "axios";
 
 // reactstrap components
 import {
@@ -19,24 +18,34 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
 import PaginationData from "../../components/pagination/PaginationData";
-import {BASE_URL} from 'globals.constans';
 // import { Swal } from "sweetalert2";
 import { alert } from 'plugins/alerts.js';
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import DetailFormationProgram from "./detailFormationProgram";
-import AssignCompetences from "./assignCompetences";
 import "./input.css"
+import { swalWithBootstrapButtons } from "plugins/alerts";
+import Swal from "sweetalert2";
+import { deleteFormationProgramService, allFormationProgramsService } from "services/formationPrograms";
 
 const FormationPrograms = () => {
 
-  const [formationProgram, setFormationProgram] = useState([]);
-
+  const [formationPrograms, setFormationPrograms] = useState([]);
+  
   const totalFormationPrograms = () => {
-    if(formationProgram.length > 0) {
-      return formationProgram.length;
+    if(formationPrograms.length > 0) {
+      return formationPrograms.length;
     }
     return 0
   }
+  useEffect(() => {
+      showFormationPrograms();
+  }, [formationPrograms]);
+  
+  const showFormationPrograms = async () => {
+    const data = await allFormationProgramsService();
+    setFormationPrograms(data.results);
+  };
+
   // const totalUsers = competence;
 
   const [search, setSearch] = useState("");
@@ -47,31 +56,38 @@ const FormationPrograms = () => {
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const showFormationPrograms = async () => {
-    await axios.get(`${BASE_URL}formationprograms`).then((response) => {
-        const data = response.data;
-        setFormationProgram(data.results);
-      }
-    )
-  };
-
-
-  useEffect(() => {
-      showFormationPrograms();
-  }, [formationProgram]);
-
   const deleteFormationProgram = async (id) => {
     const alertParams = {
       title:'¿Está seguro de eliminar el programa de formación?',
       icon: 'warning',
-      id: id,
-      path: `${BASE_URL}formationprograms/`,
-      method: 'DELETE',
-      body: null
     };
-    await alert(alertParams).then(() => {
-      showFormationPrograms();
-    });
+    const confirmed = await alert(alertParams)
+
+    if (confirmed.isConfirmed) {
+      const data = await deleteFormationProgramService(id)
+      if(data.status === 'success'){
+        swalWithBootstrapButtons.fire(
+          'Eliminado!',
+          data.message,
+          'success'
+        )
+      }
+      else{
+        swalWithBootstrapButtons.fire(
+          'Error!',
+          data.message,
+          'error'
+        )
+      }
+      } else if (
+      confirmed.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado!',
+        '',
+        'info'
+      )
+    }
   };
 
   //funcion de busqueda
@@ -83,9 +99,9 @@ const FormationPrograms = () => {
   let result = [];
 
   if (!search) {
-    result = formationProgram;
+    result = formationPrograms;
   } else {
-    result = formationProgram.filter((dato) =>
+    result = formationPrograms.filter((dato) =>
       dato.program_name.toLowerCase().includes(search.toLocaleLowerCase())
     );
   }

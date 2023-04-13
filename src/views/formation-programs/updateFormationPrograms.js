@@ -16,11 +16,13 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import {BASE_URL} from 'globals.constans';
-import axios from "axios";
 import { swalWithBootstrapButtons } from 'plugins/alerts'
 import './input.css'
 import { useHistory, useParams } from "react-router-dom";
+import { updateFormationProgramService, getFormationProgramService } from "services/formationPrograms";
+import { allProgramLevelsService } from "services/programLevels";
+import { allThematicLinesService } from "services/thematicLines";
+import { allTypeProgramsService } from "services/typePrograms";
 
 // import { Swal } from "sweetalert2";
 
@@ -44,29 +46,27 @@ const UpdateFormationProgram = () => {
   const [typePrograms, setTypePrograms] = useState([]);
 
   const showFormationProgram = async (id) => {
-    await axios.get(`${BASE_URL}formationprograms/${id}`).then((response) => {
-          setFormationProgram(response.data.results);
-    })
+    const data = await getFormationProgramService(id)
+    setFormationProgram(data.results);
+    console.log('jerriiii');
+    console.log(data);
   };
 
+
   const showProgramLevel = async () => {
-    await axios.get(`${BASE_URL}programlevels`).then((response) => {
-          setProgramLevels(response.data.results);
-    })
+    const data = await allProgramLevelsService()
+      setProgramLevels(data.results);
   };
 
   const showThematicLines = async () => {
-    await axios.get(`${BASE_URL}thematiclines`).then((response) => {
-      setThematicLines(response.data.results);
-    });
+    const data = await allThematicLinesService() 
+      setThematicLines(data.results);
   };
 
   const showTypeProgram = async () => {
-    await axios.get(`${BASE_URL}typeprograms`).then((response) => {
-      setTypePrograms(response.data.results);
-    })
+    const data = await allTypeProgramsService()
+      setTypePrograms(data.results);
   };
-  console.log(formationProgram);
   
   const changeData = (e) => {
     setFormationProgram({...formationProgram,
@@ -85,31 +85,22 @@ const UpdateFormationProgram = () => {
 
     delete(formationProgram.competences)
 
-    console.log(formationProgram);
-    await axios.put(`${BASE_URL}formationprograms/${id}`, formationProgram).then((response) => {
-      const resultUpdate = response.data;
-      if (resultUpdate.status === 'success') {
+    const data = await updateFormationProgramService(id,formationProgram);
+      if (data.status === 'success') {
         swalWithBootstrapButtons.fire(
           'Actualizado exitosamente',
-          resultUpdate.message,
+          data.message,
           'success'
         )
         navigate.push("/admin/formationprograms");
       } else {
         swalWithBootstrapButtons.fire(
-          'Error por validaciones',
-          resultUpdate.results.errors[0].msg,
-          'warning'
+          'Hubo un error',
+          data.message,
+          'error'
         )
       }
-    }).catch((error) => {
-      console.log(error);
-      swalWithBootstrapButtons.fire(
-        'Hubo un error',
-        error.response.data.message,
-        'error'
-      )
-    })
+      
     
   };
 

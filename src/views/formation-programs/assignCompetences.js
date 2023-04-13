@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import Multiselect from 'multiselect-react-dropdown';
-import axios from "axios";
-import {BASE_URL} from 'globals.constans';
 import "./input.css";
 import { swalWithBootstrapButtons } from "plugins/alerts";
+import { assignCompetencesService } from "services/formationPrograms";
 
 function AssignCompetences(props) {
 
@@ -17,8 +16,6 @@ function AssignCompetences(props) {
   const formationProgram = props.program;
   const competences = props.competences;
 
-  // http://localhost:3000/api/v1/formationprograms/assign/35445698
-
   const selectedCompetencia = async (e) => {
     e.preventDefault();
     const idsCompetence = selectedCompetencies.map(item => {
@@ -26,19 +23,13 @@ function AssignCompetences(props) {
       return _idCompetence;
     });
 
-    console.log(idsCompetence);
-    await axios.post(`${BASE_URL}formationprograms/assign/${formationProgram._id}`, {competences: idsCompetence})
-    .then((respnose) => {
-      console.log(respnose.data);
+    const data = assignCompetencesService(formationProgram._id, {competences: idsCompetence})
       initModal()
       swalWithBootstrapButtons.fire(
-        'Registro exitoso',
-        `Las competencias que seleccionaste fueron asignadas con éxito al programa de formación ${formationProgram.program_name}.`,
+        'Asignación exitosa',
+        data.message,
         'success'
       )
-    }).catch((error) => {
-      console.log(error);
-    })
   }
 
   return (

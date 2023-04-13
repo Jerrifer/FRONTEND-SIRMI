@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Accordion } from "react-bootstrap";
-// import axios from "axios";
-// import {BASE_URL} from 'globals.constans';
 import "./input.css";
 import { Badge, Card } from "reactstrap";
 
@@ -78,12 +76,12 @@ function DetailFormationProgram(data) {
                     {competences.map((competence) => {
                       return (
                         <Form.Group key={competence._id}>
-                          <Card className="p-2 mt-2">
+                          <Card className="p-2 mt-2 cardx">
                             <Badge color="" className="badge-dot">
-                              <h4 className="mt-2">
-                                <i className="bg-success" />
-                                {competence.labor_competition}
-                              </h4>
+                                <h4 className="mt-2">
+                                  <i className="bg-success" />
+                                  {competence.labor_competition}
+                                </h4>
                             </Badge>
                           </Card>
                         </Form.Group>

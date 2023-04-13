@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
-import axios, { all } from "axios";
 
 // reactstrap components
 import {
@@ -17,25 +16,28 @@ import {
 import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { swalWithBootstrapButtons } from "plugins/alerts";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import { Link, NavLink as NavLinkRRD, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AssignCompetences from "./assignCompetences";
-import Multiselect from "multiselect-react-dropdown";
 import { alert } from "plugins/alerts";
+import { getFormationProgramService, deallocateCompetencesService } from "services/formationPrograms";
+import Swal from "sweetalert2";
+import { allCompetencesService } from "services/competences";
 
 const ProgramCompetences = () => {
   const { id } = useParams();
   
+  
+  const [formationProgram, setFormationProgram] = useState([]);
+  const [allCompetences, setAllCompetences] = useState([]);
+  const [competencesByProgram, setCompetencesByProgram] = useState([]);
+  
   useEffect(() => {
     showCompetences()
     showFormationProgram(id);
-  }, [id]);
-
-  var [allCompetences, setAllCompetences] = useState([]);
-  const [competencesByProgram, setCompetencesByProgram] = useState([]);
-  const [formationProgram, setFormationProgram] = useState([]);
-
+  }, [id, formationProgram]);
+  
   const [search, setSearch] = useState("");
 
   const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
@@ -45,32 +47,53 @@ const ProgramCompetences = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const showFormationProgram = async (id) => {
-    await axios.get(`${BASE_URL}formationprograms/${id}`).then((response) => {
-      setFormationProgram(response.data.results);
-      setCompetencesByProgram(response.data.results.competences);
-    });
+     const data = await getFormationProgramService(id)
+      setFormationProgram(data.results);
+      setCompetencesByProgram(data.results.competences);
   };
 
   const showCompetences = async () => {
-    await axios.get(`${BASE_URL}competences`).then((response) => {
-      setAllCompetences(response.data.results);
-    });
+    const data = await allCompetencesService()
+      setAllCompetences(data.results);
   };
 
-  const deleteFormationProgram = async (id) => {
+
+
+  const deallocateCompetence = async (competence) => {
     const alertParams = {
       title: "¿Está seguro de quitarle la competencia al programa de formación?",
       icon: "warning",
-      id: formationProgram._id,
-      path: `${BASE_URL}/formationprograms/deallocate/`,
-      method:'POST',
-      body: {competence: id}
     };
-    alert(alertParams).then(() => {
-      showFormationProgram(formationProgram._id);
-      showCompetences();
-    })
+    const confirmed = await alert(alertParams)
+
+    if (confirmed.isConfirmed) {
+      const data = await deallocateCompetencesService(formationProgram._id, {competence: competence})
+      if(data.status === 'success'){
+        swalWithBootstrapButtons.fire(
+          'Eliminado!',
+          data.message,
+          'success'
+        )
+      }
+      else{
+        swalWithBootstrapButtons.fire(
+          'Error!',
+          data.message,
+          'error'
+        )
+      }
+      } else if (
+      confirmed.dismiss === Swal.DismissReason.cancel
+    ) {
+      swalWithBootstrapButtons.fire(
+        'Cancelado!',
+        '',
+        'info'
+      )
+    }
   };
+
+
   //funcion de busqueda
   const searcher = (e) => {
     setSearch(e.target.value);
@@ -149,7 +172,7 @@ const ProgramCompetences = () => {
                             <Button
                               variant=""
                               onClick={() =>
-                                deleteFormationProgram(competence._id)
+                                deallocateCompetence(competence._id)
                               }
                             >
                               <i className="fas fa-trash-alt"></i>

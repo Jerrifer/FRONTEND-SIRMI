@@ -17,12 +17,14 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import {BASE_URL} from 'globals.constans';
-import axios from "axios";
 import { swalWithBootstrapButtons } from 'plugins/alerts'
 // import { Swal } from "sweetalert2";
 import './input.css'
 import { useHistory } from "react-router-dom";
+import { registerFormationProgramService } from "services/formationPrograms";
+import { allProgramLevelsService } from "services/programLevels";
+import { allThematicLinesService } from "services/thematicLines";
+import { allTypeProgramsService } from "services/typePrograms";
 
 const RegisterFormationProgram = () => {
 
@@ -42,21 +44,18 @@ const [typePrograms, setTypePrograms] = useState([]);
 
 
   const showProgramLevel = async () => {
-    await axios.get(`${BASE_URL}programlevels`).then((response) => {
-      setProgramLevels(response.data.results);
-    })
+    const data = await allProgramLevelsService()
+      setProgramLevels(data.results);
   };
 
   const showThematicLines = async () => {
-    await axios.get(`${BASE_URL}thematiclines`).then((response) => {
-      setThematicLines(response.data.results);
-    });
+    const data = await allThematicLinesService() 
+      setThematicLines(data.results);
   };
 
   const showTypeProgram = async () => {
-    await axios.get(`${BASE_URL}typeprograms`).then((response) => {
-      setTypePrograms(response.data.results);
-    })
+    const data = await allTypeProgramsService()
+      setTypePrograms(data.results);
   };
 
   useEffect(() => {
@@ -68,7 +67,7 @@ const [typePrograms, setTypePrograms] = useState([]);
   const register = async (e) => {
     e.preventDefault();
     
-    const data = {
+    const body = {
         "program_name": programName,
         "program_code": programCode,
         "total_duration": totalDuration,
@@ -78,14 +77,20 @@ const [typePrograms, setTypePrograms] = useState([]);
         "type_program": selectedTypeProgram
     }
 
-    const response = await axios.post(`${BASE_URL}formationprograms`, data);
-    const resultRegister = await response.data.results;
-    console.log(resultRegister)
-    swalWithBootstrapButtons.fire(
+    const data = await registerFormationProgramService(body);
+    if(data.status === 'success') {
+      swalWithBootstrapButtons.fire(
         'Registro exitoso',
-        'El programa de formación se registro con éxito.',
+        data.message,
         'success'
       )
+    } else {
+      swalWithBootstrapButtons.fire(
+        'Hubo un error',
+        data.message,
+        'error'
+      )
+    }
       navigate.push("/admin/formationprograms");
   };
 
