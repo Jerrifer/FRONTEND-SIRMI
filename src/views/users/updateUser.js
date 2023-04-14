@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 // reactstrap components
 import {
   Button,
@@ -13,30 +12,27 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import axios from "axios";
 import { swalWithBootstrapButtons } from "plugins/alerts";
-
 import { useHistory, useParams } from "react-router-dom";
-
+import { updateUserService } from "services/users";
+import { allUsersService } from "services/users";
 
 const UpdateUser = () => {
   const navigate = useHistory();
   const { id } = useParams();
 
   useEffect(() => {
-    showFormationProgram(id);
+    // updateUser(id)
+    lisSusers(id);
   }, [id]);
 
   const [user, setUser] = useState([]);
 
-  const showFormationProgram = async (id) => {
-    await axios.get(`${BASE_URL}users/${id}`).then((response) => {
-      setUser(response.data.results);
-    });
+  const lisSusers = async () => {
+    const data = await allUsersService();
+    setUser(data.results);
   };
 
   const changeData = (e) => {
@@ -46,40 +42,24 @@ const UpdateUser = () => {
   const update = async (e) => {
     e.preventDefault();
 
-    const typeDataTypeProgram = typeof user.type_program;
+    // const typeDataTypeProgram = typeof user.type_program;
 
-    if (typeDataTypeProgram === "object") {
-      user.type_program = user.type_program._id;
+    // if (typeDataTypeProgram === "object") {
+    //   user.type_program = user.type_program._id;
+    // }
+
+    const data = await updateUserService(id, user);
+
+    if (data.status === "success") {
+      swalWithBootstrapButtons.fire(
+        "Actualizado exitosamente",
+        data.message,
+        "success"
+      );
+      navigate.push("/admin/users");
+    } else {
+      swalWithBootstrapButtons.fire("Hubo un error", data.message, "error");
     }
-
-    await axios.put(`${BASE_URL}users/${id}`, user)
-      .then((response) => {
-        console.log(response);
-
-        const resultUpdate = response.data;
-        if (resultUpdate.status === "success") {
-          swalWithBootstrapButtons.fire(
-            "Actualizado exitosamente",
-            resultUpdate.message,
-            "success"
-          );
-          navigate.push("/admin/users");
-        } else {
-          swalWithBootstrapButtons.fire(
-            "Error por validaciones",
-            resultUpdate.results.errors[0].msg,
-            "warning"
-          );
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        swalWithBootstrapButtons.fire(
-          "Hubo un error",
-          error.response.data.message,
-          "error"
-        );
-      });
   };
 
   return (
@@ -104,13 +84,13 @@ const UpdateUser = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-username"
+                          htmlFor="first_name"
                         >
                           Nombre
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-program_name"
+                          id="first_name"
                           name="first_name"
                           placeholder="Primer Nombre"
                           type="text"
@@ -124,13 +104,13 @@ const UpdateUser = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-email"
+                          htmlFor="last_name"
                         >
                           Apellidos
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
+                          id="last_name"
                           name="last_name"
                           placeholder="Segundo Nombre"
                           type="text"
@@ -144,15 +124,12 @@ const UpdateUser = () => {
                   <Row>
                     <Col lg="6">
                       <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="input-first-name"
-                        >
+                        <label className="form-control-label" htmlFor="email">
                           Correo electronico
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-first-name"
+                          id="email"
                           name="email"
                           placeholder="Correo electronico"
                           type="email"
@@ -166,13 +143,13 @@ const UpdateUser = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-email"
+                          htmlFor="password"
                         >
                           Contraseña
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
+                          id="password"
                           name="password"
                           placeholder="Contraseña"
                           type="password"
@@ -187,13 +164,13 @@ const UpdateUser = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-email"
+                          htmlFor="contact_number"
                         >
                           Numero de Contanto
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
+                          id="contact_number"
                           name="contact_number"
                           placeholder="Numero de Contanto"
                           type="number"
@@ -208,13 +185,13 @@ const UpdateUser = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-email"
+                          htmlFor="document_number"
                         >
                           Numero de Documento
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
+                          id="document_number"
                           name="document_number"
                           placeholder="Numero de Documento"
                           type="number"

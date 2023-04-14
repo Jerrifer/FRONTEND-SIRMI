@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import axios from "axios";
+// import axios from "axios";
 
 // reactstrap components
 import {
@@ -18,11 +18,17 @@ import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import { alert } from "./usersAlerts";
+// import { BASE_URL } from "globals.constans";
+// import { alert } from "./usersAlerts";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import DetailUsers from "./detailUser";
 import "assets/css/indexCompetence.css";
+import { alert } from 'plugins/alerts.js';
+
+import { allUsersService } from "services/users";
+import { deleteUserService } from "services/users";
+import { swalWithBootstrapButtons } from "plugins/alerts";
+import Swal from "sweetalert2";
 
 const ListUser = () => {
   const [user, setUser] = useState([]);
@@ -37,26 +43,38 @@ const ListUser = () => {
   // const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
   // const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
-  const showUsers = async () => {
-    await axios.get(`${BASE_URL}users`).then((response) => {
-      setUser(response.data.results);
-    });
-  };
 
+
+  const lisSusers = async () => {
+    const data = await allUsersService();
+    setUser(data.results);
+  };
   useEffect(() => {
-    showUsers();
-  }, [showUsers]);
+    lisSusers()
+  }, [ 
+  ]);
+
+ 
 
   const deleteUsers = async (id) => {
     const alertParams = {
       title: "¿Está seguro de eliminar el Usuario?",
       icon: "warning",
     };
-    alert(alertParams.title, alertParams.icon, id)
-      .then((response) => {
-        showUsers();
-      })
+    const confirmed = await alert(alertParams);
+
+    if (confirmed.isConfirmed) {
+      const data = await deleteUserService(id);
+      if (data.status === "success") {
+        swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
+      } else {
+        swalWithBootstrapButtons.fire("Error!", data.message, "error");
+      }
+    } else if (confirmed.dismiss === Swal.DismissReason.cancel) {
+      swalWithBootstrapButtons.fire("Cancelado!", "", "info");
+    }
   };
+
   //función de búsqueda
   const searcher = (e) => {
     setSearch(e.target.value);
@@ -114,12 +132,14 @@ const ListUser = () => {
                   <tr>
                     <th scope="col">N°</th>
 
-                    <th scope="col">first_name</th>
-                    <th scope="col">last_name</th>
-                    <th scope="col">email</th>
+                    <th scope="col">Primer Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Correo</th>
                     {/* <th scope="col">password</th> */}
-                    <th scope="col">contact_number</th>
-                    <th scope="col">document_number</th>
+                    <th scope="col">Numero Telefono</th>
+                    <th scope="col">Numero de Identidad</th>
+                    <th scope="col">Centro de Formacion</th>
+
 
                     <th scope="col">Acciones</th>
                   </tr>
@@ -145,6 +165,8 @@ const ListUser = () => {
                           {/* <td>{userAssign.password}</td> */}
                           <td>{userAssign.contact_number}</td>
                           <td>{userAssign.document_number}</td>
+                          <td>{userAssign.training_center}</td>
+
 
                           <td>
                             <DetailUsers users={userAssign} />

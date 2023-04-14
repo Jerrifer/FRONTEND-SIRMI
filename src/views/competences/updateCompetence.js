@@ -1,4 +1,4 @@
-   import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // reactstrap components
 import {
@@ -32,17 +32,15 @@ const UpdateCompetence = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    showCompetence(id)
+    showCompetence(id);
   }, [id]);
 
   const [competence, setCompetence] = useState([]);
 
-
-
   const showCompetence = async (id) => {
-    const data = await getCompetenceService(id)
+    const data = await getCompetenceService(id);
     setCompetence(data.results);
-  
+
     // console.log(data);
   };
 
@@ -59,22 +57,17 @@ const UpdateCompetence = () => {
     //   competence.type_program = competence.type_program._id;
     // }
 
-    const data = await updateCompetenceService(id,competence);
-    if (data.status === 'success') {
+    const data = await updateCompetenceService(id, competence);
+    if (data.status === "success") {
       swalWithBootstrapButtons.fire(
-        'Actualizado exitosamente',
+        "Actualizado exitosamente",
         data.message,
-        'success'
-      )
+        "success"
+      );
       navigate.push("/admin/competence");
     } else {
-      swalWithBootstrapButtons.fire(
-        'Hubo un error',
-        data.message,
-        'error'
-      )
+      swalWithBootstrapButtons.fire("Hubo un error", data.message, "error");
     }
-    
   };
 
   return (
@@ -127,7 +120,6 @@ const UpdateCompetence = () => {
                           className="form-control-alternative"
                           id="labor_competence_code"
                           name="labor_competence_code"
-                          disabled
                           placeholder="Código del programa de formación"
                           type="text"
                           defaultValue={competence.labor_competence_code}

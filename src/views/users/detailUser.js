@@ -7,7 +7,6 @@ function DetailUsers(data) {
     return invokeModal(!isShow);
   };
 
-  console.log(data.users);
   const [users] = useState(data.users);
 
   return (

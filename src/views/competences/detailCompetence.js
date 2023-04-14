@@ -7,7 +7,7 @@ function DetailCompetence(data) {
     return invokeModal(!isShow);
   };
 
-  console.log(data.competence);
+  // console.log(data.competence);
   const [Competence] = useState(data.competence);
   const [formationPrograms] = useState(Competence.formation_programs);
 

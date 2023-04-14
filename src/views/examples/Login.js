@@ -16,6 +16,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+// import { signInService } from "services/auth";
 
 const Login = () => {
   const [data, setData] = useState({
@@ -35,6 +36,8 @@ const Login = () => {
     setData({ ...data, [input.name]: input.value });
   };
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -43,6 +46,10 @@ const Login = () => {
         setLogin(response.data.results)
         console.log(response.data.results)
       })
+      // const signInservice = async () => {
+      //   const data = await signInService();
+      //   setLogin(data.results);
+      // };
 
       localStorage.setItem("token", login.token);
       localStorage.setItem("name", login.user.first_name);
