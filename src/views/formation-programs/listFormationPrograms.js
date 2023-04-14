@@ -10,7 +10,8 @@ import {
   Table,
   Container,
   Row,
-  Col
+  Col,
+  UncontrolledTooltip
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -191,9 +192,19 @@ const FormationPrograms = () => {
                               activeclassname="active"
                             >
                               <Button
-                                variant="">
+                                variant=""
+                                id="btn-program-competences"
+                                >
                                   <i className="fas fa-address-book"></i>
                               </Button>
+
+                              <UncontrolledTooltip
+                                className="tooltip-inner"
+                                delay={0}
+                                target="btn-program-competences"
+                              >
+                                Competencias asignadas
+                              </UncontrolledTooltip>
                             </Link>
 
                             <Link
@@ -202,17 +213,35 @@ const FormationPrograms = () => {
                               activeclassname="active"
                             >
                               <Button
-                                variant="">
+                                variant=""
+                                id="btn-program-edit"
+                              >
                                   <i className="fas fa-pen-alt"></i>
                               </Button>
+
+                              <UncontrolledTooltip
+                                className="tooltip-inner"
+                                delay={0}
+                                target="btn-program-edit"
+                              >
+                                Actualizar programa de formación
+                              </UncontrolledTooltip>
                             </Link>
 
                             <Button
+                              id="btn-program-delete"
                               variant=""
                               onClick={() => deleteFormationProgram(formationProgram._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
+                            <UncontrolledTooltip
+                              className="tooltip-inner"
+                              delay={0}
+                              target="btn-program-delete"
+                            >
+                              Eliminar programa de formación
+                            </UncontrolledTooltip>
                           </td>
                         </tr>
                       );

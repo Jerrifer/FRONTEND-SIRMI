@@ -49,7 +49,7 @@ const LearningResults = () => {
     showLearningresults(id);
   }, [id]);
 
-  const deleteUsers = async (id) => {
+  const deleteLearningResult = async (id) => {
     const alertParams = {
       title: "¿Está seguro de eliminar el Resultado De Aprendizaje ?",
       icon: "warning",
@@ -115,7 +115,7 @@ const LearningResults = () => {
                     tag={NavLinkRRD}
                     activeclassname="active"
                   >
-                    <button class="btn btn-success bg-success">
+                    <button className="btn btn-success bg-success">
                       Registrar
                     </button>
                   </Link>
@@ -174,7 +174,7 @@ const LearningResults = () => {
 
                             <Button
                               variant=""
-                              onClick={() => deleteUsers(learningResult._id)}
+                              onClick={() => deleteLearningResult(learningResult._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>

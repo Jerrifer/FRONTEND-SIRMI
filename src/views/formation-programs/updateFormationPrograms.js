@@ -90,14 +90,14 @@ const UpdateFormationProgram = () => {
         swalWithBootstrapButtons.fire(
           'Actualizado exitosamente',
           data.message,
-          'success'
+          data.status
         )
         navigate.push("/admin/formationprograms");
       } else {
         swalWithBootstrapButtons.fire(
-          'Hubo un error',
           data.message,
-          'error'
+          data.results,
+          data.status
         )
       }
       

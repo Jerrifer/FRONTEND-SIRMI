@@ -40,9 +40,6 @@ const ProgramCompetences = () => {
   
   const [search, setSearch] = useState("");
 
-  const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
-  const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
-
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 

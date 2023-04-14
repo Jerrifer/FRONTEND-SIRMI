@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
-import axios from "axios";
 
 // reactstrap components
 import {
@@ -18,7 +17,6 @@ import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
 import { alert } from "plugins/alerts";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import Detailcontract from "./detailContract";
@@ -33,9 +31,6 @@ const [ contracts, setContracts] = useState([]);
 
   const [search, setSearch] = useState("");
 
-  const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
-  const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
-
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -48,7 +43,7 @@ const [ contracts, setContracts] = useState([]);
 
   useEffect(() => {
     showContracts();
-  }, [contracts]);
+  }, []);
 
   const deleteContract = async (id) => {
     const alertParams = {
@@ -139,7 +134,7 @@ const [ contracts, setContracts] = useState([]);
               >
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">id</th>
+                    <th scope="col">#</th>
                     <th scope="col">Usuario</th>
                     <th scope="col">Número de contrato</th>
                     <th scope="col">Objeto</th>

@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-function DetailLearningResult(data) {
+function DetailLearningResult({learningResult, competence}) {
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!isShow);
   };
-
-  console.log(data.users);
-  const [learningResult] = useState(data.learningResult);
-  const [competence] = useState(data.competence);
 
   console.log(learningResult);
   return (
@@ -20,6 +16,11 @@ function DetailLearningResult(data) {
 
       <Modal show={isShow} size={"lg"} className=" color">
 
+      <Modal.Header>
+        <Modal.Title>
+          Resultados de aprendizaje...
+        </Modal.Title>
+      </Modal.Header>
         <div className="container">
           <Modal.Body>
             <div className="container">

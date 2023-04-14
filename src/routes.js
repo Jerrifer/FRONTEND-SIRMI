@@ -52,7 +52,7 @@ var routes = [
   {
     path: "/users",
     name: "Usuarios",
-    icon: "ni ni-badge text-dark",
+    icon: "ni ni-circle-08 text-dark",
     component: ListUser,
     layout: "/admin",
   },
@@ -174,7 +174,7 @@ var routes = [
   {
     path: "/contracts",
     name: "Contratos",
-    icon: "ni ni-books text-dark",
+    icon: "ni ni-paper-diploma text-dark",
     component: ListContract,
     layout: "/admin",
   },

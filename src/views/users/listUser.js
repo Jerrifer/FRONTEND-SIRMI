@@ -18,8 +18,6 @@ import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-// import { BASE_URL } from "globals.constans";
-// import { alert } from "./usersAlerts";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import DetailUsers from "./detailUser";
 import "assets/css/indexCompetence.css";
@@ -35,15 +33,7 @@ const ListUser = () => {
 
   const [search, setSearch] = useState("");
 
-
-
-  // const [userPerPage] = useState(5);
   const [currentPage] = useState(1);
-
-  // const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
-  // const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
-
-
 
   const lisSusers = async () => {
     const data = await allUsersService();
@@ -51,8 +41,7 @@ const ListUser = () => {
   };
   useEffect(() => {
     lisSusers()
-  }, [ 
-  ]);
+  }, [user]);
 
  
 
@@ -107,7 +96,7 @@ const ListUser = () => {
                     tag={NavLinkRRD}
                     activeclassname="active"
                   >
-                    <button class="btn btn-success bg-success">
+                    <button className="btn btn-success bg-success">
                       Registrar
                       
                     </button>
@@ -132,13 +121,13 @@ const ListUser = () => {
                   <tr>
                     <th scope="col">N°</th>
 
-                    <th scope="col">Primer Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Correo</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Correo electrónico</th>
                     {/* <th scope="col">password</th> */}
-                    <th scope="col">Numero Telefono</th>
-                    <th scope="col">Numero de Identidad</th>
-                    <th scope="col">Centro de Formacion</th>
+                    <th scope="col">Número teléfono</th>
+                    <th scope="col">Número de identidad</th>
+                    <th scope="col">Centro de Formación</th>
 
 
                     <th scope="col">Acciones</th>
@@ -146,9 +135,9 @@ const ListUser = () => {
                 </thead>
                 <tbody>
                   {result
-                    .map((userAssign, i = 0) => {
+                    .map((user, i = 0) => {
                       return (
-                        <tr key={userAssign._id}>
+                        <tr key={user._id}>
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
@@ -156,23 +145,23 @@ const ListUser = () => {
                             </Badge>
                           </td>
 
-                          <td>{userAssign.first_name}</td>
+                          <td>{user.first_name}</td>
 
-                          <td className="space">{userAssign.last_name}</td>
+                          <td className="space">{user.last_name}</td>
 
-                          <td>{userAssign.email}</td>
+                          <td>{user.email}</td>
 
-                          {/* <td>{userAssign.password}</td> */}
-                          <td>{userAssign.contact_number}</td>
-                          <td>{userAssign.document_number}</td>
-                          <td>{userAssign.training_center}</td>
+                          {/* <td>{user.password}</td> */}
+                          <td>{user.contact_number}</td>
+                          <td>{user.document_number}</td>
+                          <td>{user.training_center.training_center}</td>
 
 
                           <td>
-                            <DetailUsers users={userAssign} />
+                            <DetailUsers user={user} />
 
                             <Link
-                              to={`/admin/updateusers/${userAssign._id}`}
+                              to={`/admin/updateusers/${user._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
@@ -183,7 +172,7 @@ const ListUser = () => {
 
                             <Button
                               variant=""
-                              onClick={() => deleteUsers(userAssign._id)}
+                              onClick={() => deleteUsers(user._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
@@ -196,12 +185,6 @@ const ListUser = () => {
               </Table>
 
               <CardFooter className="py-4"></CardFooter>
-              {/* <PaginationData
-                userPerPage={userPerPage}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalUsers={totalFormationPrograms}
-              /> */}
             </Card>
           </div>
         </Row>

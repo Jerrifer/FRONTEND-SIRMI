@@ -72,9 +72,9 @@ const [typePrograms, setTypePrograms] = useState([]);
         "program_code": programCode,
         "total_duration": totalDuration,
         "program_version": programVersion,
-        "program_level": selectedProgramLevel,
         "thematic_line": selectedThematicLine,
-        "type_program": selectedTypeProgram
+        "type_program": selectedTypeProgram,
+        "program_level": selectedProgramLevel,
     }
 
     const data = await registerFormationProgramService(body);
@@ -82,16 +82,16 @@ const [typePrograms, setTypePrograms] = useState([]);
       swalWithBootstrapButtons.fire(
         'Registro exitoso',
         data.message,
-        'success'
+        data.status
       )
+      navigate.push("/admin/formationprograms");
     } else {
       swalWithBootstrapButtons.fire(
-        'Hubo un error',
         data.message,
-        'error'
+        data.results,
+        data.status
       )
     }
-      navigate.push("/admin/formationprograms");
   };
 
   return (

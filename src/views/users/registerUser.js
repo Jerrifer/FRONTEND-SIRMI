@@ -17,10 +17,10 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import { BASE_URL } from "globals.constans";
-import axios from "axios";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import { useHistory } from "react-router-dom";
+import { allTrainingCentersService } from "services/trainingCenters";
+import { registerUserService } from "services/users";
 
 const RegisterCompetence = () => {
   const navigate = useHistory();
@@ -35,10 +35,8 @@ const RegisterCompetence = () => {
   const [trainingcenters, setTrainingcenters] = useState([]);
 
   const showTrainingcenters = async () => {
-    await axios.get(`${BASE_URL}trainingcenter`).then((response) => {
-      setTrainingcenters(response.data.results);
-      console.log(response.data.results);
-    })
+    const data  = await allTrainingCentersService()
+      setTrainingcenters(data.results);
   };
 
   
@@ -46,11 +44,13 @@ const RegisterCompetence = () => {
   useEffect(() => {
     showTrainingcenters()
   }, []);
+  
 
   const register = async (e) => {
+
     e.preventDefault();
 
-    const data = {
+    const body = {
       first_name: firstName,
       last_name: lastName,
       email: email,
@@ -59,16 +59,24 @@ const RegisterCompetence = () => {
       document_number: documentnumber,
       training_center:trainingcenterSelected
     };
+    console.log(trainingcenterSelected);
 
-    const response = await axios.post(`${BASE_URL}users`, data);
-    const resultRegister = await response.data.results;
-    console.log(resultRegister);
-    swalWithBootstrapButtons.fire(
-      "Registro exitoso",
-      "El Usuario se registro con éxito.",
-      "success"
-    );
+    const data = await registerUserService(body)
+    console.log(data.results);
+    if(data.status === 'success') {
+      swalWithBootstrapButtons.fire(
+        'Registro exitoso',
+        data.message,
+        data.status
+      )
     navigate.push("/admin/users");
+    } else {
+      swalWithBootstrapButtons.fire(
+        data.message,
+        data.results,
+        data.status
+      )
+    }
   };
 
   return (
@@ -100,7 +108,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-username"
-                          placeholder="Primer Nombre"
+                          placeholder="Nombre"
                           type="text"
                           required
                           onChange={(e) => setFirstName(e.target.value)}
@@ -118,7 +126,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Segundo Nombre"
+                          placeholder="Apellidos"
                           type="text"
                           required
                           onChange={(e) => setLastName(e.target.value)}
@@ -133,12 +141,12 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-first-name"
                         >
-                          Correo electronico
+                          Correo electrónico
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-first-name"
-                          placeholder="Correo electronico"
+                          placeholder="Correo electrónico"
                           type="email"
                           required
                           onChange={(e) => setEmail(e.target.value)}
@@ -168,12 +176,12 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Numero de Contanto
+                          Número de contacto
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Numero de Contanto"
+                          placeholder="Número de contacto"
                           type="number"
                           onChange={(e) => setContactnumber(e.target.value)}
                         />
@@ -186,12 +194,12 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Numero de Documento
+                          Número de documento
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Numero de Documento"
+                          placeholder="Número de documento"
                           type="number"
                           onChange={(e) => setDocumentnumber(e.target.value)}
                         />
@@ -204,15 +212,14 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-first-name"
                         >
-                          Centro De Formacion 
+                          Centro de formación 
                         </label>
                       
                           <select className="input"  onChange={(e) => setTrainingcenterSelected(e.target.value)}>
                             {trainingcenters.map((trainingcenter) =>
-                                <option key={trainingcenters._id} value={trainingcenters._id}>{trainingcenter.training_center}</option>
+                                <option key={trainingcenter._id} value={trainingcenter._id}>{trainingcenter.training_center}</option>
                             )}
                           </select>
-                        
 
                         </FormGroup>
                       </Col>

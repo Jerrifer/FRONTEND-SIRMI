@@ -27,7 +27,7 @@ import Swal from "sweetalert2";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 
 const ListCompetence = () => {
-  const [competencesAssign, setCompetencesAssign] = useState([]);
+  const [competences, setCompetences] = useState([]);
 
   const [search, setSearch] = useState("");
 
@@ -44,12 +44,12 @@ const ListCompetence = () => {
   // llamado a la api
   const showCompetences = async () => {
     const data = await allCompetencesService();
-    setCompetencesAssign(data.results);
+    setCompetences(data.results);
   };
 
   // metodo de eliminar
 
-  const deleteCompetences = async (id) => {
+  const deleteCompetence = async (id) => {
     const alertParams = {
       title: "¿Está seguro de eliminar el programa de formación?",
       icon: "warning",
@@ -77,9 +77,9 @@ const ListCompetence = () => {
   let result = [];
 
   if (!search) {
-    result = competencesAssign;
+    result = competences;
   } else {
-    result = competencesAssign.filter((dato) =>
+    result = competences.filter((dato) =>
       dato.labor_competence_code
         .toLowerCase()
         .includes(search.toLocaleLowerCase())
@@ -102,7 +102,7 @@ const ListCompetence = () => {
                     tag={NavLinkRRD}
                     activeclassname="active"
                   >
-                    <button class="btn btn-success bg-success">
+                    <button className="btn btn-success bg-success">
                       Registrar
                     </button>
                   </Link>
@@ -124,7 +124,7 @@ const ListCompetence = () => {
               >
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">id</th>
+                    <th scope="col">#</th>
                     <th scope="col">Labor Competence-CODE</th>
                     <th scope="col">labor_competition</th>
                     <th scope="col">labor_competition_version</th>
@@ -134,9 +134,9 @@ const ListCompetence = () => {
                 </thead>
                 <tbody>
                   {result
-                    .map((competencesAssign, i = 0) => {
+                    .map((competence, i = 0) => {
                       return (
-                        <tr key={competencesAssign._id}>
+                        <tr key={competence._id}>
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
@@ -144,21 +144,21 @@ const ListCompetence = () => {
                             </Badge>
                           </td>
 
-                          <td>{competencesAssign.labor_competence_code}</td>
+                          <td>{competence.labor_competence_code}</td>
 
                           <td className="space">
-                            {competencesAssign.labor_competition}
+                            {competence.labor_competition}
                           </td>
 
-                          <td>{competencesAssign.labor_competition_version}</td>
+                          <td>{competence.labor_competition_version}</td>
 
-                          <td>{competencesAssign.duration}</td>
+                          <td>{competence.duration}</td>
 
                           <td>
-                            <DetailCompetence competence={competencesAssign} />
+                            <DetailCompetence Competence={competence} />
 
                             <Link
-                              to={`/admin/updateCompetence/${competencesAssign._id}`}
+                              to={`/admin/updateCompetence/${competence._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
@@ -168,19 +168,19 @@ const ListCompetence = () => {
                             </Link>
 
                             <Link
-                              to={`/admin/learningresults/${competencesAssign._id}`}
+                              to={`/admin/learningresults/${competence._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
                               <Button variant="">
-                                <i className="fas fa-circle-plus"></i>
+                                <i className="fas fa-award"></i>
                               </Button>
                             </Link>
 
                             <Button
                               variant=""
                               onClick={() =>
-                                deleteCompetences(competencesAssign._id)
+                                deleteCompetence(competence._id)
                               }
                             >
                               <i className="fas fa-trash-alt"></i>
