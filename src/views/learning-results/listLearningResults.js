@@ -109,7 +109,7 @@ const LearningResults = () => {
             <Card className="formulario ">
               <CardHeader className="border-0">
                 <Col lg="6">
-                  <h3>Resultados de aprendizaje de {competence.labor_competition}</h3>
+                  <h3>Resultados de aprendizaje de... {competence.labor_competition}</h3>
                   <Link
                     to={`/admin/RegisterLearningResult/${competence._id}`}
                     tag={NavLinkRRD}
@@ -122,13 +122,15 @@ const LearningResults = () => {
                 </Col>
 
                 <Col lg="6">
-                  <input
+                 <div>
+                 <input
                     value={search}
                     onChange={searcher}
                     type="search"
                     placeholder="search"
                     className="input"
                   />
+                 </div>
                 </Col>
               </CardHeader>
               <Table

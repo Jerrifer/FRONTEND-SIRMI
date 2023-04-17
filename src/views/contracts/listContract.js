@@ -25,6 +25,7 @@ import { allContractsService } from "services/contracts";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 import { deleteContractService } from "services/contracts";
+import { contractsByTrainingCenterService } from "services/contracts";
 
 const ListContract = () => {
 const [ contracts, setContracts] = useState([]);
@@ -36,13 +37,14 @@ const [ contracts, setContracts] = useState([]);
 
   // };
 
-  const showContracts = async () => {
-    const data = await allContractsService()
+  const showContracts = async (id) => {
+    const data = await contractsByTrainingCenterService(id)
     setContracts(data.results);
   };
 
   useEffect(() => {
-    showContracts();
+    const idTrainingCenter = localStorage.getItem('training_center')
+    showContracts(idTrainingCenter);
   }, []);
 
   const deleteContract = async (id) => {

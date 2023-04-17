@@ -215,7 +215,8 @@ const RegisterCompetence = () => {
                           Centro de formación 
                         </label>
                       
-                          <select className="input"  onChange={(e) => setTrainingcenterSelected(e.target.value)}>
+                          <select className="input" required onChange={(e) => setTrainingcenterSelected(e.target.value)}>
+                              <option disabled selected></option>
                             {trainingcenters.map((trainingcenter) =>
                                 <option key={trainingcenter._id} value={trainingcenter._id}>{trainingcenter.training_center}</option>
                             )}

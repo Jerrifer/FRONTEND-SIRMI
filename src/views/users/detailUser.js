@@ -47,7 +47,7 @@ function DetailUsers({user}) {
 
               <Form.Group>
                 <Form.Label>Centro de formación</Form.Label>
-                {/* <h3 className="ml-4">{user.tr}</h3> */}
+                <h3 className="ml-4">{user.training_center.training_center}</h3>
               </Form.Group>
 
             </div>

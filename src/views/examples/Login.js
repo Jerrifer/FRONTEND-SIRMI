@@ -44,7 +44,7 @@ const Login = () => {
       const url = "http://localhost:3000/api/v1/auth/login";
       await axios.post(url, data).then((response) => {
         setLogin(response.data.results)
-        console.log(response.data.results)
+        console.log(response.data)
       })
       // const signInservice = async () => {
       //   const data = await signInService();
@@ -58,6 +58,7 @@ const Login = () => {
       localStorage.setItem("contact", login.user.contact_number);
       localStorage.setItem("document", login.user.document_number);
       localStorage.setItem("id", login.user._id);
+      localStorage.setItem("training_center", login.user.training_center._id);
       window.location = "/admin/index";
       // console.log(login.user.message);
     } catch (error) {

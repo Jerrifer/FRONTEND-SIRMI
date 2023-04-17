@@ -125,10 +125,10 @@ const ListCompetence = () => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Labor Competence-CODE</th>
-                    <th scope="col">labor_competition</th>
-                    <th scope="col">labor_competition_version</th>
-                    <th scope="col">duration</th>
+                    <th scope="col">Código de la competencia laboral</th>
+                    <th scope="col">Competencia laboral</th>
+                    <th scope="col">Versión de la competencia laboral</th>
+                    <th scope="col">Duración</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>

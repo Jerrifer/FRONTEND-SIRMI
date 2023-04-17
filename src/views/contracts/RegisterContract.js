@@ -34,6 +34,8 @@ const RegisterContracts = () => {
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
   const [typecontract, setTypecontract] = useState("");
+  const [userSelected, setUserSelected] = useState("");
+
 
   useEffect(() => {
     showUsers()
@@ -54,7 +56,7 @@ const RegisterContracts = () => {
       start_date: startdate,
       end_date: enddate,
       type_contract: typecontract,
-      user: "6435ba221abd3ec5a6aab6e8"
+      user: userSelected
     };
 
     const data = await registerContractService(body)
@@ -101,7 +103,7 @@ const RegisterContracts = () => {
                           >
                            Usuario
                           </label>
-                          <select className=" input" onChange={(e) => setUsers(e.target.value)}>
+                          <select required className=" input" onChange={(e) => setUserSelected(e.target.value)}>
                             {users.map((user) =>
                                 <option key={user._id} value={user._id}>{user.first_name}</option>
                             )}
