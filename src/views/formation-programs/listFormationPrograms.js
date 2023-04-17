@@ -31,7 +31,6 @@ import {
   allFormationProgramsService,
 } from "services/formationPrograms";
 
-import Loading from   '../../components/loader'
 import Spinner from "../../components/loader";
 
 
@@ -50,15 +49,12 @@ const FormationPrograms = () => {
 
   const showFormationPrograms = async () => {
     const data = await allFormationProgramsService();
-    // setLoading(true);
 
     setFormationPrograms(data.results);
-    // setLoading(false);
     setLoading(false)
 
   };
 
-  // const totalUsers = competence;
 
   const [search, setSearch] = useState("");
 
