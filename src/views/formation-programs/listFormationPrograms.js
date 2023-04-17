@@ -31,9 +31,13 @@ import {
   allFormationProgramsService,
 } from "services/formationPrograms";
 
+import Loading from   '../../components/loader'
+import Spinner from "../../components/loader";
+
+
 const FormationPrograms = () => {
   const [formationPrograms, setFormationPrograms] = useState([]);
-
+  const [ loading ,setLoading] = useState(true);
   const totalFormationPrograms = () => {
     if (formationPrograms.length > 0) {
       return formationPrograms.length;
@@ -46,8 +50,12 @@ const FormationPrograms = () => {
 
   const showFormationPrograms = async () => {
     const data = await allFormationProgramsService();
+    // setLoading(true);
+
     setFormationPrograms(data.results);
-    setisLoading(false);
+    // setLoading(false);
+    setLoading(false)
+
   };
 
   // const totalUsers = competence;
@@ -60,8 +68,7 @@ const FormationPrograms = () => {
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [isLoading, setisLoading] = useState(true);
-
+   
   const deleteFormationProgram = async (id) => {
     const alertParams = {
       title: "¿Está seguro de eliminar el programa de formación?",
@@ -100,6 +107,7 @@ const FormationPrograms = () => {
   return (
     <>
       <Header />
+      
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -144,7 +152,7 @@ const FormationPrograms = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {isLoading && <div>cargando.....</div>}
+                {loading && < Spinner/>}
 
                   {result
                     .map((formationProgram, i = 0) => {

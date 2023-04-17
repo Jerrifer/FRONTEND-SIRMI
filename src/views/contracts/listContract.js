@@ -21,7 +21,7 @@ import { alert } from "plugins/alerts";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import Detailcontract from "./detailContract";
 import "assets/css/indexCompetence.css";
-import { allContractsService } from "services/contracts";
+// import { allContractsService } from "services/contracts";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 import { deleteContractService } from "services/contracts";

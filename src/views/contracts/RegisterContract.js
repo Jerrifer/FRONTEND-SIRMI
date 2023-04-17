@@ -22,7 +22,7 @@ import { useHistory } from "react-router-dom";
 import { registerContractService } from "services/contracts";
 import { allUsersService } from "services/users";
 import { TextArea } from "semantic-ui-react";
-import MySelectComponent from "plugins/selectSearch";
+// import MySelectComponent from "plugins/selectSearch";
 import Multiselect from "multiselect-react-dropdown";
 
 const RegisterContracts = () => {
