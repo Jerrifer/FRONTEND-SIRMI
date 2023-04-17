@@ -22,6 +22,8 @@ import { useHistory } from "react-router-dom";
 import { registerContractService } from "services/contracts";
 import { allUsersService } from "services/users";
 import { TextArea } from "semantic-ui-react";
+import MySelectComponent from "plugins/selectSearch";
+import Multiselect from "multiselect-react-dropdown";
 
 const RegisterContracts = () => {
   const navigate = useHistory();
@@ -108,6 +110,16 @@ const RegisterContracts = () => {
                                 <option key={user._id} value={user._id}>{user.first_name}</option>
                             )}
                           </select>
+
+                          <Multiselect
+                            displayValue="first_name"
+                            selectionLimit={1}
+                            onKeyPressFn={function noRefCheck(){}}
+                            onRemove={function noRefCheck(){}}
+                            onSearch={function noRefCheck(){}}
+                            onSelect={function noRefCheck(){}}
+                            options={users}
+                          />
                         </FormGroup>
                       </Col>
                     <Col lg="6">

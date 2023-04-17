@@ -23,7 +23,7 @@ import DetailUsers from "./detailUser";
 import "assets/css/indexCompetence.css";
 import { alert } from 'plugins/alerts.js';
 
-import { allUsersService } from "services/users";
+import { getUsersByTrainingCenterService } from "services/users";
 import { deleteUserService } from "services/users";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
@@ -34,16 +34,16 @@ const ListUser = () => {
   const [search, setSearch] = useState("");
 
   const [currentPage] = useState(1);
-
-  const lisSusers = async () => {
-    const data = await allUsersService();
-    setUser(data.results);
-  };
+  
   useEffect(() => {
-    lisSusers()
+    const idTrainingCenter = localStorage.getItem('training_center')
+    listUsers(idTrainingCenter)
   }, [user]);
 
- 
+  const listUsers = async (id) => {
+    const data = await getUsersByTrainingCenterService(id);
+    setUser(data.results);
+  };
 
   const deleteUsers = async (id) => {
     const alertParams = {
@@ -116,7 +116,7 @@ const ListUser = () => {
               <Table
                 className=" table table-striped table-hover  shadow-lg align-items-center table-flush"
                 responsive
-              >
+                >
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">N°</th>
@@ -134,6 +134,7 @@ const ListUser = () => {
                   </tr>
                 </thead>
                 <tbody>
+
                   {result
                     .map((user, i = 0) => {
                       return (
@@ -159,6 +160,16 @@ const ListUser = () => {
 
                           <td>
                             <DetailUsers user={user} />
+
+                            <Link
+                              to={`/admin/contracts/${user._id}`}
+                              tag={NavLinkRRD}
+                              activeclassname="active"
+                            >
+                              <Button variant="">
+                                <i className="fas fa-pen-alt"></i>
+                              </Button>
+                            </Link>
 
                             <Link
                               to={`/admin/updateusers/${user._id}`}
