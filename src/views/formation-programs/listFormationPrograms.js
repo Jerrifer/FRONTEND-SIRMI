@@ -11,7 +11,7 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip
+  UncontrolledTooltip,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -20,31 +20,34 @@ import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
 import PaginationData from "../../components/pagination/PaginationData";
 // import { Swal } from "sweetalert2";
-import { alert } from 'plugins/alerts.js';
+import { alert } from "plugins/alerts.js";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import DetailFormationProgram from "./detailFormationProgram";
-import "./input.css"
+import "./input.css";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
-import { deleteFormationProgramService, allFormationProgramsService } from "services/formationPrograms";
+import {
+  deleteFormationProgramService,
+  allFormationProgramsService,
+} from "services/formationPrograms";
 
 const FormationPrograms = () => {
-
   const [formationPrograms, setFormationPrograms] = useState([]);
-  
+
   const totalFormationPrograms = () => {
-    if(formationPrograms.length > 0) {
+    if (formationPrograms.length > 0) {
       return formationPrograms.length;
     }
-    return 0
-  }
+    return 0;
+  };
   useEffect(() => {
-      showFormationPrograms();
-  }, [formationPrograms]);
-  
+    showFormationPrograms();
+  }, []);
+
   const showFormationPrograms = async () => {
     const data = await allFormationProgramsService();
     setFormationPrograms(data.results);
+    setisLoading(false);
   };
 
   // const totalUsers = competence;
@@ -57,42 +60,29 @@ const FormationPrograms = () => {
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [isLoading, setisLoading] = useState(true);
+
   const deleteFormationProgram = async (id) => {
     const alertParams = {
-      title:'¿Está seguro de eliminar el programa de formación?',
-      icon: 'warning',
+      title: "¿Está seguro de eliminar el programa de formación?",
+      icon: "warning",
     };
-    const confirmed = await alert(alertParams)
+    const confirmed = await alert(alertParams);
 
     if (confirmed.isConfirmed) {
-      const data = await deleteFormationProgramService(id)
-      if(data.status === 'success'){
-        swalWithBootstrapButtons.fire(
-          'Eliminado!',
-          data.message,
-          'success'
-        )
+      const data = await deleteFormationProgramService(id);
+      if (data.status === "success") {
+        swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
+      } else {
+        swalWithBootstrapButtons.fire("Error!", data.message, "error");
       }
-      else{
-        swalWithBootstrapButtons.fire(
-          'Error!',
-          data.message,
-          'error'
-        )
-      }
-      } else if (
-      confirmed.dismiss === Swal.DismissReason.cancel
-    ) {
-      swalWithBootstrapButtons.fire(
-        'Cancelado!',
-        '',
-        'info'
-      )
+    } else if (confirmed.dismiss === Swal.DismissReason.cancel) {
+      swalWithBootstrapButtons.fire("Cancelado!", "", "info");
     }
   };
 
   //funcion de busqueda
-    const searcher = (e) => {
+  const searcher = (e) => {
     setSearch(e.target.value);
   };
 
@@ -107,7 +97,6 @@ const FormationPrograms = () => {
     );
   }
 
-  
   return (
     <>
       <Header />
@@ -118,18 +107,16 @@ const FormationPrograms = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-
                 <Col lg="6">
-                <Link
-                  to={`/admin/formationprogramsregister`}
-                  tag={NavLinkRRD}
-                  activeclassname="active"
-                >
-                  <Button className="btn btn-success bg-success">
-                    Registrar
-                  </Button>
-                </Link>
-                
+                  <Link
+                    to={`/admin/formationprogramsregister`}
+                    tag={NavLinkRRD}
+                    activeclassname="active"
+                  >
+                    <Button className="btn btn-success bg-success">
+                      Registrar
+                    </Button>
+                  </Link>
                 </Col>
                 <Col lg="6">
                   <input
@@ -140,7 +127,6 @@ const FormationPrograms = () => {
                     className="input"
                   />
                 </Col>
-                
               </CardHeader>
               <Table
                 className=" table table-striped table-hover  shadow-lg align-items-center table-flush"
@@ -158,11 +144,12 @@ const FormationPrograms = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {result.map((formationProgram, i=0) => {
+                  {isLoading && <div>cargando.....</div>}
 
+                  {result
+                    .map((formationProgram, i = 0) => {
                       return (
                         <tr key={formationProgram._id}>
-
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
@@ -191,11 +178,8 @@ const FormationPrograms = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button
-                                variant=""
-                                id="btn-program-competences"
-                                >
-                                  <i className="fas fa-address-book"></i>
+                              <Button variant="" id="btn-program-competences">
+                                <i className="fas fa-address-book"></i>
                               </Button>
 
                               <UncontrolledTooltip
@@ -212,11 +196,8 @@ const FormationPrograms = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button
-                                variant=""
-                                id="btn-program-edit"
-                              >
-                                  <i className="fas fa-pen-alt"></i>
+                              <Button variant="" id="btn-program-edit">
+                                <i className="fas fa-pen-alt"></i>
                               </Button>
 
                               <UncontrolledTooltip
@@ -231,7 +212,9 @@ const FormationPrograms = () => {
                             <Button
                               id="btn-program-delete"
                               variant=""
-                              onClick={() => deleteFormationProgram(formationProgram._id)}
+                              onClick={() =>
+                                deleteFormationProgram(formationProgram._id)
+                              }
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
