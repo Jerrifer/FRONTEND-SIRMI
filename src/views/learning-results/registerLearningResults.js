@@ -40,14 +40,20 @@ const RegisterLearningResult = () => {
     };
 
     const data = registerLearningResultService(body)
-    const resultRegister = await data.results;
-    console.log(resultRegister);
-    swalWithBootstrapButtons.fire(
-      "Registro exitoso",
-      data.message,
-      "success"
-    );
-    navigate.push(`/admin/learningresults/${id}`);
+    if(data.status === 'success') {
+      swalWithBootstrapButtons.fire(
+        'Registro exitoso',
+        data.message,
+        data.status
+      )
+      navigate.push(`/admin/learningresults/${id}`);
+    } else {
+      swalWithBootstrapButtons.fire(
+        data.message,
+        data.results,
+        data.status
+      )
+    }
   };
 
   return (

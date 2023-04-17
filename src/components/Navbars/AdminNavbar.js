@@ -18,6 +18,9 @@ const AdminNavbar = (props) => {
     window.location = "/auth/login";
   };
 
+  const name = localStorage.getItem('name')
+  const last_name = localStorage.getItem('lastname')
+
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -36,27 +39,28 @@ const AdminNavbar = (props) => {
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
-                      src={require("../../assets/img/theme/no-user-image-icon-27.jpg")}
+                      src="https://lostramites.com.co/wp-content/uploads/logo-de-Sena-sin-fondo-Blanco-300x300.png"
                     />
                   </span>
-                  <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold">User</span>
+                  <Media className="ml-2 d-none">
+                    <span className="mb-0 text-sm font-weight-bold">{name} {last_name}</span>
                   </Media>
                 </Media>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
                 <DropdownItem className="noti-title" header tag="div">
-                  <h6 className="text-overflow m-0">Welcome!</h6>
+                  <h5 className="text-overflow m-0">Bienvenido! </h5>
+                  <h5 className="text-overflow m-0">{name} {last_name}</h5>
                 </DropdownItem>
                 <DropdownItem to="/admin/profile" tag={Link}>
                   <i className="ni ni-single-02" />
-                  <span>My profile</span>
+                  <span>Mi perfil</span>
                 </DropdownItem>
 
                 <DropdownItem divider />
                 <DropdownItem href="#pablo" onClick={handleLogout}>
                   <i className="ni ni-user-run" />
-                  <span>Logout</span>
+                  <span>Cerrar sesión</span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

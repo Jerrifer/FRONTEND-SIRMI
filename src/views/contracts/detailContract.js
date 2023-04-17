@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-function DetailContracts(data) {
+function DetailContracts({ contract }) {
 
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!isShow);
   };
 
-  const [contract] = useState(data.contract);
-  const [user] = useState(contract.user);
+  const user = contract.user;
 
   return (
     <>

@@ -20,9 +20,13 @@ import "../../../src/components/Headers/header.css";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import { useHistory } from "react-router-dom";
 import { registerContractService } from "services/contracts";
+import { allUsersService } from "services/users";
+import { TextArea } from "semantic-ui-react";
 
 const RegisterContracts = () => {
   const navigate = useHistory();
+
+  const [users, setUsers] = useState([]);
 
   const [contractnumber, setContractnumber] = useState("");
   const [object, setObject] = useState("");
@@ -30,8 +34,17 @@ const RegisterContracts = () => {
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
   const [typecontract, setTypecontract] = useState("");
+  const [userSelected, setUserSelected] = useState("");
 
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    showUsers()
+  }, []);
+
+  const showUsers = async () => {
+    const data = await allUsersService()
+    setUsers(data.results)
+  }
 
   const register = async (e) => {
     e.preventDefault();
@@ -43,17 +56,25 @@ const RegisterContracts = () => {
       start_date: startdate,
       end_date: enddate,
       type_contract: typecontract,
-      user: "6435ba221abd3ec5a6aab6e8"
+      user: userSelected
     };
 
     const data = await registerContractService(body)
     console.log(data);
-    swalWithBootstrapButtons.fire(
-      "Registro exitoso",
-      data.message, 
-      "success"
-    );
-    navigate.push("/admin/contracts");
+    if(data.status === 'success') {
+      swalWithBootstrapButtons.fire(
+        'Registro exitoso',
+        data.message,
+        data.status
+      )
+      navigate.push("/admin/contracts");
+    } else {
+      swalWithBootstrapButtons.fire(
+        data.message,
+        data.results,
+        data.status
+      )
+    }
   };
 
   return (
@@ -74,6 +95,21 @@ const RegisterContracts = () => {
               <Form onSubmit={register}>
                 <div className="px-5">
                   <Row>
+                  <Col lg="6">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-first-name"
+                          >
+                           Usuario
+                          </label>
+                          <select required className=" input" onChange={(e) => setUserSelected(e.target.value)}>
+                            {users.map((user) =>
+                                <option key={user._id} value={user._id}>{user.first_name}</option>
+                            )}
+                          </select>
+                        </FormGroup>
+                      </Col>
                     <Col lg="6">
                       <FormGroup>
                         <label
@@ -92,25 +128,19 @@ const RegisterContracts = () => {
                         />
                       </FormGroup>
                     </Col>
+                  </Row>
                     <Col lg="6">
                       <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="object"
-                        >
-                          Objeto
-                        </label>
-                        <Input
-                          className="form-control-alternative"
+                        <TextArea
+                          className="form-control-alternative "
                           id="object"
-                          placeholder=" object"
+                          placeholder="Objeto"
                           type="text"
                           required
                           onChange={(e) => setObject(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
-                  </Row>
                   <Row>
                     <Col lg="6">
                       <FormGroup>

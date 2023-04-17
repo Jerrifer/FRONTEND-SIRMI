@@ -17,22 +17,29 @@ import "../../../src/components/Headers/header.css";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import { useHistory, useParams } from "react-router-dom";
 import { updateUserService } from "services/users";
-import { allUsersService } from "services/users";
+import { allTrainingCentersService } from "services/trainingCenters";
+import { getUserService } from "services/users";
 
 const UpdateUser = () => {
   const navigate = useHistory();
   const { id } = useParams();
 
   useEffect(() => {
-    // updateUser(id)
-    lisSusers(id);
+    showUser(id);
+    showTrainingcenters()
   }, [id]);
 
   const [user, setUser] = useState([]);
+  const [trainingcenters, setTrainingcenters] = useState([]);
 
-  const lisSusers = async () => {
-    const data = await allUsersService();
+  const showUser = async (id) => {
+    const data = await getUserService(id);
     setUser(data.results);
+  };
+
+  const showTrainingcenters = async () => {
+    const data  = await allTrainingCentersService()
+      setTrainingcenters(data.results);
   };
 
   const changeData = (e) => {
@@ -42,23 +49,17 @@ const UpdateUser = () => {
   const update = async (e) => {
     e.preventDefault();
 
-    // const typeDataTypeProgram = typeof user.type_program;
-
-    // if (typeDataTypeProgram === "object") {
-    //   user.type_program = user.type_program._id;
-    // }
-
     const data = await updateUserService(id, user);
 
     if (data.status === "success") {
       swalWithBootstrapButtons.fire(
         "Actualizado exitosamente",
         data.message,
-        "success"
+        data.status
       );
       navigate.push("/admin/users");
     } else {
-      swalWithBootstrapButtons.fire("Hubo un error", data.message, "error");
+      swalWithBootstrapButtons.fire(data.message, data.results, data.status);
     }
   };
 
@@ -201,6 +202,23 @@ const UpdateUser = () => {
                         />
                       </FormGroup>
                     </Col>
+
+                    <Col lg="6">
+                        <FormGroup>
+                        <label
+                          className="form-control-label"
+                          htmlFor="input-first-name"
+                        >
+                          Centro de formación 
+                        </label>
+                      
+                          <select className="input" name="training_center" onChange={changeData}>
+                            {trainingcenters.map((trainingcenter) =>
+                                <option key={trainingcenter._id} value={trainingcenter._id}>{trainingcenter.training_center}</option>
+                            )}
+                          </select>
+                        </FormGroup>
+                      </Col>
                   </Row>
 
                   <Button type="submit" className="justify-content-end m-4">

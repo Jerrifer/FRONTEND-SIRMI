@@ -52,14 +52,14 @@ const UpdateLearningresults = () => {
           swalWithBootstrapButtons.fire(
             "Actualizado exitosamente",
             data.message,
-            "success"
+            data.status
           );
           navigate.push(`/admin/learningresults/${learningResults.competence._id}`);
         } else {
           swalWithBootstrapButtons.fire(
-            "Error por validaciones",
-            data.results.errors[0].msg,
-            "warning"
+            data.message,
+            data.results,
+            data.status
           );
         }
   };

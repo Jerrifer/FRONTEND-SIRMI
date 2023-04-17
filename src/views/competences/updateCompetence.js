@@ -62,11 +62,11 @@ const UpdateCompetence = () => {
       swalWithBootstrapButtons.fire(
         "Actualizado exitosamente",
         data.message,
-        "success"
+        data.status
       );
       navigate.push("/admin/competence");
     } else {
-      swalWithBootstrapButtons.fire("Hubo un error", data.message, "error");
+      swalWithBootstrapButtons.fire(data.message, data.results, data.status);
     }
   };
 
@@ -156,7 +156,7 @@ const UpdateCompetence = () => {
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Duración estimada
+                          Duración estimada (Horas)
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -168,18 +168,6 @@ const UpdateCompetence = () => {
                           required
                           onChange={changeData}
                         />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="input-first-name"
-                        >
-                          Titulo del programa
-                        </label>
                       </FormGroup>
                     </Col>
                   </Row>

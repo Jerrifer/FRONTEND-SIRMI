@@ -54,15 +54,15 @@ const [contracts , setContracts] = useState([])
           swalWithBootstrapButtons.fire(
             "Actualizado exitosamente",
             data.message,
-            "success"
+            data.status
           );
           navigate.push("/admin/contracts");
 
         } else {
           swalWithBootstrapButtons.fire(
-            "Error por validaciones",
-            data.results.errors[0].msg,
-            "warning"
+            data.message,
+            data.results,
+            data.status
           );
         }
   };

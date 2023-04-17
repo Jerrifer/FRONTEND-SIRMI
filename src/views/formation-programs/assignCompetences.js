@@ -25,11 +25,19 @@ function AssignCompetences(props) {
 
     const data = assignCompetencesService(formationProgram._id, {competences: idsCompetence})
       initModal()
-      swalWithBootstrapButtons.fire(
-        'Asignación exitosa',
-        data.message,
-        'success'
-      )
+      if(data.status === 'success') {
+        swalWithBootstrapButtons.fire(
+          data.message,
+          '',
+          data.status
+        )
+      } else {
+        swalWithBootstrapButtons.fire(
+          data.message,
+          data.results,
+          data.status
+        )
+      }
   }
 
   return (

@@ -27,6 +27,11 @@ filter: grayscale(5px);
   
 }
 
+.tooltip-inner {
+  background-color: #062e56;
+  color: #ffffff;
+}
+
 /* .cssbuttons-io-button {
   background: #47a44b;
   color: white;

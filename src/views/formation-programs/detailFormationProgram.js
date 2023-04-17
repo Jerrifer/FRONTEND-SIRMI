@@ -1,32 +1,36 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Accordion } from "react-bootstrap";
 import "./input.css";
-import { Badge, Card } from "reactstrap";
+import { Card, Col, Row, UncontrolledTooltip } from "reactstrap";
 
-function DetailFormationProgram(data) {
+function DetailFormationProgram({ formationProgram }) {
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!isShow);
   };
 
-  // console.log(data.formationProgram);
-  const [formationProgram] = useState(data.formationProgram);
-  const [thematicLine] = useState(formationProgram.thematic_line);
-  const [typeProgram] = useState(formationProgram.type_program);
-  const [programLevel] = useState(formationProgram.program_level);
-  const [competences] = useState(formationProgram.competences);
+  const thematicLine = formationProgram.thematic_line;
+  const typeProgram = formationProgram.type_program;
+  const programLevel = formationProgram.program_level;
+  const competences = formationProgram.competences;
 
   return (
     <>
-      <Button variant="" onClick={initModal}>
+      <Button id="btn-program-detail" variant="" onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
+      <UncontrolledTooltip
+        className="tooltip-inner"
+        delay={0}
+        target="btn-program-detail"
+      >
+        Ver detalles del programa
+      </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color">
-        {/* <Modal.Header>
-          <Modal.Title>
-          </Modal.Title>
-        </Modal.Header> */}
+        <Modal.Header>
+          <Modal.Title>Programa de formación...</Modal.Title>
+        </Modal.Header>
 
         <div className="container">
           <Modal.Body>
@@ -68,7 +72,7 @@ function DetailFormationProgram(data) {
               })} */}
 
               <Accordion>
-                <Accordion.Item eventKey="0" >
+                <Accordion.Item eventKey="0">
                   <Accordion.Button className="custom-accordion-button">
                     Ver competencias laborales
                   </Accordion.Button>
@@ -76,13 +80,17 @@ function DetailFormationProgram(data) {
                     {competences.map((competence) => {
                       return (
                         <Form.Group key={competence._id}>
-                          <Card className="p-2 mt-2 cardx">
-                            <Badge color="" className="badge-dot">
+                          <Card className="p-2 mt-2">
+                            <Row>
+                              <Col lg="1">
+                                <i className="ni ni-check-bold" />
+                              </Col>
+                              <Col lg="11">
                                 <h4 className="mt-2">
-                                  <i className="bg-success" />
                                   {competence.labor_competition}
                                 </h4>
-                            </Badge>
+                              </Col>
+                            </Row>
                           </Card>
                         </Form.Group>
                       );

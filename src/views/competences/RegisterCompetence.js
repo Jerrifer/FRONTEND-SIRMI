@@ -48,14 +48,14 @@ const RegisterCompetence = () => {
       swalWithBootstrapButtons.fire(
         'Registro exitoso',
         data.message,
-        'success'
+        data.status
       )
       console.log(data);
     } else {
       swalWithBootstrapButtons.fire(
-        'Hubo un error',
         data.message,
-        'error'
+        data.results,
+        data.status
       )
     }
       navigate.push("/admin/competence");
