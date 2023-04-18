@@ -11,6 +11,7 @@ import {
   Container,
   Row,
   Col,
+  UncontrolledTooltip,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -172,6 +173,7 @@ const ProgramCompetences = () => {
 
                           <td>
                             <Button
+                              id="btn-competence-deallocate"
                               variant=""
                               onClick={() =>
                                 deallocateCompetence(competence._id)
@@ -179,6 +181,14 @@ const ProgramCompetences = () => {
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
+                            <UncontrolledTooltip
+                              className="tooltip-inner"
+                              delay={0}
+                              placement="top"
+                              target="btn-competence-deallocate"
+                            >
+                              Quitar competencia
+                            </UncontrolledTooltip>
                           </td>
                         </tr>
                       );

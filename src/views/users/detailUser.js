@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { UncontrolledTooltip } from "reactstrap";
 
 function DetailUsers({user}) {
   const [isShow, invokeModal] = useState(false);
@@ -12,9 +13,18 @@ function DetailUsers({user}) {
 
   return (
     <>
-      <Button variant="" onClick={initModal}>
+      <Button id="btn-detail-user" variant="" onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
+
+      <UncontrolledTooltip
+        className="tooltip-inner"
+        delay={0}
+        placement="top"
+        target="btn-detail-user"
+      >
+        Ver detalles del usuario
+      </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color">
 

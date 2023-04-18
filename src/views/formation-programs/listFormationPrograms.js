@@ -207,9 +207,10 @@ const FormationPrograms = () => {
                               <UncontrolledTooltip
                                 className="tooltip-inner"
                                 delay={0}
+                                placement="top"
                                 target="btn-program-edit"
                               >
-                                Actualizar programa de formación
+                                Actualizar programa
                               </UncontrolledTooltip>
                             </Link>
 
@@ -227,7 +228,7 @@ const FormationPrograms = () => {
                               delay={0}
                               target="btn-program-delete"
                             >
-                              Eliminar programa de formación
+                              Eliminar programa
                             </UncontrolledTooltip>
                           </td>
                         </tr>

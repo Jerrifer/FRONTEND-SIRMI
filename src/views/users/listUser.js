@@ -12,6 +12,7 @@ import {
   Container,
   Row,
   Col,
+  UncontrolledTooltip,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -165,27 +166,54 @@ const ListUser = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="">
+                              <Button variant="" id="btn-contracts">
                                 <i className="ni ni-paper-diploma"></i>
                               </Button>
                             </Link>
+
+                            <UncontrolledTooltip
+                              className="tooltip-inner"
+                              delay={0}
+                              placement="top"
+                              target="btn-contracts"
+                            >
+                              Ver contratos
+                            </UncontrolledTooltip>
 
                             <Link
                               to={`/admin/updateusers/${user._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="">
+                              <Button id="btn-update-user" variant="">
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                             </Link>
 
+                            <UncontrolledTooltip
+                              className="tooltip-inner"
+                              delay={0}
+                              placement="top"
+                              target="btn-update-user"
+                            >
+                              Actualizar usuario
+                            </UncontrolledTooltip>
+
                             <Button
+                              id="btn-delete-user"
                               variant=""
                               onClick={() => deleteUsers(user._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
+                            <UncontrolledTooltip
+                              className="tooltip-inner"
+                              delay={0}
+                              placement="top"
+                              target="btn-delete-user"
+                            >
+                              Eliminar usuario
+                            </UncontrolledTooltip>
                           </td>
                         </tr>
                       );
