@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { UncontrolledTooltip } from "reactstrap";
 
 function DetailContracts({ contract }) {
 
@@ -12,9 +13,18 @@ function DetailContracts({ contract }) {
 
   return (
     <>
-      <Button variant="" onClick={initModal}>
+      <Button id="btn-detail-contract" variant="" onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
+
+      <UncontrolledTooltip
+        className="tooltip-inner"
+        delay={0}
+        placement="top"
+        target="btn-detail-contract"
+      >
+          Ver detalles del contrato
+      </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color ">
 

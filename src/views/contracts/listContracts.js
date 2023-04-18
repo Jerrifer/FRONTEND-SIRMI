@@ -11,6 +11,7 @@ import {
   Container,
   Row,
   Col,
+  UncontrolledTooltip,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -182,12 +183,22 @@ const ListContracts = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="">
+                              <Button id="btn-update-contract" variant="">
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                             </Link>
 
+                            <UncontrolledTooltip
+                              className="tooltip-inner"
+                              delay={0}
+                              placement="top"
+                              target="btn-update-contract"
+                            >
+                                Actualizar contrato
+                            </UncontrolledTooltip>
+
                             <Button
+                              id="btn-delete-contract"
                               variant=""
                               onClick={() =>
                                 deleteContract(contract._id)
@@ -195,6 +206,15 @@ const ListContracts = () => {
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
+
+                            <UncontrolledTooltip
+                              className="tooltip-inner"
+                              delay={0}
+                              placement="top"
+                              target="btn-delete-contract"
+                            >
+                                Eliminar contrato
+                            </UncontrolledTooltip>
                           </td>
                         </tr>
                       );
