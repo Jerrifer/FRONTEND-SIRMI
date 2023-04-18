@@ -58,7 +58,7 @@ const RegisterCompetence = () => {
       password: password,
       contact_number: contactnumber,
       document_number: documentnumber,
-      training_center:trainingcenterSelected._id
+      training_center:trainingcenterSelected[0]._id
     };
     console.log(trainingcenterSelected);
 

@@ -25,11 +25,13 @@ import { allCompetencesService } from "services/competences";
 import { deleteCompetenceService } from "services/competences";
 import Swal from "sweetalert2";
 import { swalWithBootstrapButtons } from "plugins/alerts";
+import Spinner from "../../components/loader"
 
 const ListCompetence = () => {
   const [competences, setCompetences] = useState([]);
 
   const [search, setSearch] = useState("");
+  const [ loading ,setLoading] = useState(true);
 
   const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
   const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
@@ -45,6 +47,7 @@ const ListCompetence = () => {
   const showCompetences = async () => {
     const data = await allCompetencesService();
     setCompetences(data.results);
+    setLoading(false)
   };
 
   // metodo de eliminar
@@ -133,6 +136,8 @@ const ListCompetence = () => {
                   </tr>
                 </thead>
                 <tbody>
+                {loading && < Spinner/>}
+
                   {result
                     .map((competence, i = 0) => {
                       return (

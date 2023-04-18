@@ -39,7 +39,9 @@ const RegisterLearningResult = () => {
       competence: id
     };
 
-    const data = registerLearningResultService(body)
+    const data = await registerLearningResultService(body)
+    console.log(data);
+
     if(data.status === 'success') {
       swalWithBootstrapButtons.fire(
         'Registro exitoso',

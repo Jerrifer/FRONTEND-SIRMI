@@ -28,6 +28,7 @@ import { deleteUserService } from "services/users";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 // import { allUsersService } from "services/users";
+import Spinner from "../../components/loader"
 
 const ListUser = () => {
   
@@ -49,6 +50,7 @@ const ListUser = () => {
   const listUsers = async (id) => {
     const data = await getUsersByTrainingCenterService(id);
     setUser(data.results);
+    console.log(data);
   };
 
   const deleteUsers = async (id) => {
@@ -137,6 +139,7 @@ const ListUser = () => {
                   </tr>
                 </thead>
                 <tbody>
+                {isLoading && < Spinner/>}
 
                   {result
                     .map((user, i = 0) => {

@@ -23,6 +23,7 @@ import { LearningResultByCompetenceService } from "services/learningResults";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 import { deleteLearningResultService } from "services/learningResults";
+import Spinner from "../../components/loader"
 
 const LearningResults = () => {
 
@@ -30,6 +31,7 @@ const LearningResults = () => {
 
   const [learningresult, setLearningresult] = useState([]);
   const [competence, setCompetence] = useState([]);
+  const [ loading ,setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
 
@@ -43,18 +45,19 @@ const LearningResults = () => {
     const data = await LearningResultByCompetenceService(id)
       setLearningresult(data.results.learningresults);
       setCompetence(data.results.competence);
+      setLoading(false)
   };
 
   useEffect(() => {
     showLearningresults(id);
-  }, [id]);
+  }, [id, learningresult]);
 
   const deleteLearningResult = async (id) => {
     const alertParams = {
-      title: "¿Está seguro de eliminar el Resultado De Aprendizaje ?",
+      title: "¿Está seguro de eliminar el resultado de aprendizaje ?",
       icon: "warning",
     };
-    const confirmed = alert(alertParams);
+    const confirmed = await alert(alertParams);
 
     if (confirmed.isConfirmed) {
       const data = await deleteLearningResultService(id)
@@ -148,6 +151,8 @@ const LearningResults = () => {
                   </tr>
                 </thead>
                 <tbody>
+                {loading && < Spinner/>}
+
                   {result
                     .map((learningResult, i = 0) => {
                       return (

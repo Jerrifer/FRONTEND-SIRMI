@@ -24,6 +24,7 @@ import { alert } from "plugins/alerts";
 import { getFormationProgramService, deallocateCompetencesService } from "services/formationPrograms";
 import Swal from "sweetalert2";
 import { allCompetencesService } from "services/competences";
+import Spinner from "../../components/loader"
 
 const ProgramCompetences = () => {
   const { id } = useParams();
@@ -39,6 +40,7 @@ const ProgramCompetences = () => {
   }, [id, formationProgram]);
   
   const [search, setSearch] = useState("");
+  const [ loading ,setLoading] = useState(true);
 
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,6 +54,7 @@ const ProgramCompetences = () => {
   const showCompetences = async () => {
     const data = await allCompetencesService()
       setAllCompetences(data.results);
+      setLoading(false)
   };
 
 
@@ -151,6 +154,8 @@ const ProgramCompetences = () => {
                   </tr>
                 </thead>
                 <tbody>
+                {loading && < Spinner/>}
+
                   {competences.map((competence, i = 0) => {
                       return (
                         <tr key={competence._id}>

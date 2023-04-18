@@ -25,10 +25,12 @@ import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 import { deleteContractService } from "services/contracts";
 import { contractsByUserService } from "services/contracts";
+import Spinner from "../../components/loader"
 
 const ListContracts = () => {
 
   const id = useParams()
+  const [ loading ,setLoading] = useState(true);
 
   const [ contracts, setContracts] = useState([]);
   const [ user, setUser] = useState([]);
@@ -41,6 +43,7 @@ const ListContracts = () => {
     const data = await contractsByUserService(id)
     setContracts(data.results.listContracts);
     setUser(data.results.user);
+    setLoading(false)
   };
 
   const [search, setSearch] = useState("");
@@ -152,6 +155,8 @@ const ListContracts = () => {
                   </tr>
                 </thead>
                 <tbody>
+                {loading && < Spinner/>}
+
                   {result
                     .map((contract, i = 0) => {
                       return (
