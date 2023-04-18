@@ -5,9 +5,9 @@ import {
   UncontrolledCollapse,
   // NavbarBrand,
   Navbar,
-  NavItem,
-  NavLink,
-  Nav,
+  // NavItem,
+  // NavLink,
+  // Nav,
   Container,
   Row,
   Col
@@ -46,7 +46,7 @@ const AdminNavbar = () => {
                 </Col>
               </Row>
             </div>
-            <Nav className="ml-auto" navbar>
+            {/* <Nav className="ml-auto" navbar>
               
               <NavItem>
                 <NavLink
@@ -55,11 +55,11 @@ const AdminNavbar = () => {
                   tag={Link}
                 >
                   <i className="ni ni-circle-08" />
-                  <span className="nav-link-inner--text">Register</span>
+                  <span className="nav-link-inner--text">Registeree</span>
                 </NavLink>
               </NavItem>
              
-            </Nav>
+            </Nav> */}
           </UncontrolledCollapse>
         </Container>
       </Navbar>

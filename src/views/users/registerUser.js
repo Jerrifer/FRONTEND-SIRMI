@@ -21,6 +21,7 @@ import { swalWithBootstrapButtons } from "plugins/alerts";
 import { useHistory } from "react-router-dom";
 import { allTrainingCentersService } from "services/trainingCenters";
 import { registerUserService } from "services/users";
+import Multiselect from "multiselect-react-dropdown";
 
 const RegisterCompetence = () => {
   const navigate = useHistory();
@@ -57,7 +58,7 @@ const RegisterCompetence = () => {
       password: password,
       contact_number: contactnumber,
       document_number: documentnumber,
-      training_center:trainingcenterSelected
+      training_center:trainingcenterSelected._id
     };
     console.log(trainingcenterSelected);
 
@@ -107,7 +108,7 @@ const RegisterCompetence = () => {
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-username"
+                          id="input-first_name"
                           placeholder="Nombre"
                           type="text"
                           required
@@ -139,13 +140,13 @@ const RegisterCompetence = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-first-name"
+                          htmlFor="input-email"
                         >
                           Correo electrónico
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-first-name"
+                          id="input-email"
                           placeholder="Correo electrónico"
                           type="email"
                           required
@@ -163,7 +164,7 @@ const RegisterCompetence = () => {
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
+                          id="input-passwords"
                           placeholder="Contraseña"
                           type="password"
                           onChange={(e) => setPassword(e.target.value)}
@@ -180,7 +181,7 @@ const RegisterCompetence = () => {
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
+                          id="input-contact-number"
                           placeholder="Número de contacto"
                           type="number"
                           onChange={(e) => setContactnumber(e.target.value)}
@@ -192,13 +193,13 @@ const RegisterCompetence = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-email"
+                          htmlFor="input-document-number"
                         >
                           Número de documento
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="input-email"
+                          id="input-document-number"
                           placeholder="Número de documento"
                           type="number"
                           onChange={(e) => setDocumentnumber(e.target.value)}
@@ -214,13 +215,21 @@ const RegisterCompetence = () => {
                         >
                           Centro de formación 
                         </label>
-                      
-                          <select className="input" required onChange={(e) => setTrainingcenterSelected(e.target.value)}>
-                              <option disabled selected></option>
-                            {trainingcenters.map((trainingcenter) =>
-                                <option key={trainingcenter._id} value={trainingcenter._id}>{trainingcenter.training_center}</option>
-                            )}
-                          </select>
+                          <Multiselect
+                            required
+                            placeholder="Centro de formación"
+                            displayValue="training_center"
+                            selectionLimit={1}
+                            onKeyPressFn={function noRefCheck(){}}
+                            onRemove={function noRefCheck(){}}
+                            onSearch={function noRefCheck(){}}
+                            onSelect={function noRefCheck(e){
+                              setTrainingcenterSelected(e)
+                            }}
+                            options={trainingcenters}
+                            avoidHighlightFirstOption={true}
+                            closeOnSelect={true}
+                          />
 
                         </FormGroup>
                       </Col>

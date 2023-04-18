@@ -99,10 +99,10 @@ const UpdateCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="labor_competence_code"
-                          name="labor_competence_code"
+                          name="labor_competition"
                           placeholder="Nombre del programa de formación"
                           type="text"
-                          defaultValue={competence.labor_competence_code}
+                          defaultValue={competence.labor_competition}
                           required
                           onChange={changeData}
                         />
@@ -117,6 +117,7 @@ const UpdateCompetence = () => {
                           Código de Competencia Laboral
                         </label>
                         <Input
+                          disabled
                           className="form-control-alternative"
                           id="labor_competence_code"
                           name="labor_competence_code"

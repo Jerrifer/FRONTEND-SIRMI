@@ -23,8 +23,9 @@ function AssignCompetences(props) {
       return _idCompetence;
     });
 
-    const data = assignCompetencesService(formationProgram._id, {competences: idsCompetence})
+    const data = await assignCompetencesService(formationProgram._id, {competences: idsCompetence})
       initModal()
+      console.log(data);
       if(data.status === 'success') {
         swalWithBootstrapButtons.fire(
           data.message,
@@ -56,6 +57,8 @@ function AssignCompetences(props) {
 
                   <Form.Group>
                     <Multiselect
+                      disablePreSelectedValues
+                      placeholder="Competencias"
                       displayValue="labor_competition"
                       onKeyPressFn={function noRefCheck(){}}
                       onRemove={function noRefCheck(){}}
@@ -64,6 +67,8 @@ function AssignCompetences(props) {
                         setSelectedCompetencies(e)
                       }}
                       options={competences}
+                      selectedValues={formationProgram.competences}
+                      emptyRecordMsg="No hay más competencias"
                     />
                   </Form.Group>
               </div>
@@ -71,7 +76,7 @@ function AssignCompetences(props) {
           
             <Modal.Footer className="justify-content-between">
               <Button variant="danger" onClick={initModal}>
-                Close
+                Cerrar
               </Button>
               <Button variant="success" type="submit">
                 Asignar

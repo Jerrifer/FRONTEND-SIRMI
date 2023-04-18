@@ -27,18 +27,24 @@ import { getUsersByTrainingCenterService } from "services/users";
 import { deleteUserService } from "services/users";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
+// import { allUsersService } from "services/users";
 
 const ListUser = () => {
+  
   const [user, setUser] = useState([]);
 
   const [search, setSearch] = useState("");
 
   const [currentPage] = useState(1);
+
+  const [isLoading, setisLoading] = useState(true);
+
   
   useEffect(() => {
     const idTrainingCenter = localStorage.getItem('training_center')
     listUsers(idTrainingCenter)
-  }, [user]);
+    setisLoading(false)
+  }, []);
 
   const listUsers = async (id) => {
     const data = await getUsersByTrainingCenterService(id);
@@ -82,6 +88,9 @@ const ListUser = () => {
 
   return (
     <>
+
+    {/* {loader ? console.log('kkkkkk') : console.log('ppipp')} */}
+    {isLoading && <div>cargando.....</div>}
       <Header />
       {/* Page content */}
       <Container className="mt--7" fluid>
@@ -98,7 +107,6 @@ const ListUser = () => {
                   >
                     <button className="btn btn-success bg-success">
                       Registrar
-                      
                     </button>
                   </Link>
                 </Col>
@@ -121,15 +129,10 @@ const ListUser = () => {
                   <tr>
                     <th scope="col">N°</th>
 
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellidos</th>
+                    <th scope="col">Usuario</th>
                     <th scope="col">Correo electrónico</th>
-                    {/* <th scope="col">password</th> */}
                     <th scope="col">Número teléfono</th>
                     <th scope="col">Número de identidad</th>
-                    <th scope="col">Centro de Formación</th>
-
-
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
@@ -146,17 +149,10 @@ const ListUser = () => {
                             </Badge>
                           </td>
 
-                          <td>{user.first_name}</td>
-
-                          <td className="space">{user.last_name}</td>
-
+                          <td>{user.first_name} {user.last_name}</td>
                           <td>{user.email}</td>
-
-                          {/* <td>{user.password}</td> */}
                           <td>{user.contact_number}</td>
                           <td>{user.document_number}</td>
-                          <td>{user.training_center.training_center}</td>
-
 
                           <td>
                             <DetailUsers user={user} />
@@ -167,7 +163,7 @@ const ListUser = () => {
                               activeclassname="active"
                             >
                               <Button variant="">
-                                <i className="fas fa-pen-alt"></i>
+                                <i className="ni ni-paper-diploma"></i>
                               </Button>
                             </Link>
 

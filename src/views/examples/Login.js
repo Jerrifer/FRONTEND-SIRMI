@@ -79,7 +79,7 @@ const Login = () => {
           
           <CardBody className="px-lg-5 py-lg-5">
             <div className="text-center text-muted mb-4">
-              <small>Or sign in with credentials</small>
+              <small>Inciar sesión</small>
             </div>
             <Form role="form" onSubmit={handleSubmit}>
               <FormGroup className="mb-3">
@@ -121,7 +121,7 @@ const Login = () => {
 
               <div className="text-center">
                 <Button className="my-4" color="primary" type="submit">
-                  Sign in
+                  Inciar sesión
                 </Button>
               </div>
             </Form>
@@ -134,7 +134,7 @@ const Login = () => {
               href="#pablo"
               onClick={(e) => e.preventDefault()}
             >
-              <small>Forgot password?</small>
+              {/* <small>Forgot password?</small> */}
             </a>
           </Col>
           <Col className="text-right" xs="6">
@@ -143,7 +143,7 @@ const Login = () => {
               href="#pablo"
               onClick={(e) => e.preventDefault()}
             >
-              <small>Create new account</small>
+              {/* <small>Create new account</small> */}
             </a>
           </Col>
         </Row>

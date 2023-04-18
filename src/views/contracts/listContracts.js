@@ -18,34 +18,35 @@ import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
 import { alert } from "plugins/alerts";
-import { Link, NavLink as NavLinkRRD } from "react-router-dom";
+import { Link, NavLink as NavLinkRRD, useParams } from "react-router-dom";
 import Detailcontract from "./detailContract";
 import "assets/css/indexCompetence.css";
-// import { allContractsService } from "services/contracts";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 import { deleteContractService } from "services/contracts";
-import { contractsByTrainingCenterService } from "services/contracts";
+import { contractsByUserService } from "services/contracts";
 
-const ListContract = () => {
-const [ contracts, setContracts] = useState([]);
+const ListContracts = () => {
+
+  const id = useParams()
+
+  const [ contracts, setContracts] = useState([]);
+  const [ user, setUser] = useState([]);
+
+  useEffect(() => {
+    showContractsByUser(id.id);
+  }, [id]);
+
+  const showContractsByUser = async (id) => {
+    const data = await contractsByUserService(id)
+    setContracts(data.results.listContracts);
+    setUser(data.results.user);
+  };
 
   const [search, setSearch] = useState("");
 
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-
-  // };
-
-  const showContracts = async (id) => {
-    const data = await contractsByTrainingCenterService(id)
-    setContracts(data.results);
-  };
-
-  useEffect(() => {
-    const idTrainingCenter = localStorage.getItem('training_center')
-    showContracts(idTrainingCenter);
-  }, []);
 
   const deleteContract = async (id) => {
     const alertParams = {
@@ -109,25 +110,31 @@ const [ contracts, setContracts] = useState([]);
             <Card className="formulario ">
               <CardHeader className="border-0">
                 <Col lg="6">
+                  <h3>Contratos de {user.first_name} {user.last_name}
                   <Link
-                    to={`/admin/RegisterContracts`}
+                    to={`/admin/RegisterContracts/${user._id}`}
                     tag={NavLinkRRD}
                     activeclassname="active"
+                    className="ml-4"
                   >
                     <button className="btn btn-success bg-success">
                       Registrar
                     </button>
                   </Link>
+                  </h3>
+                  
                 </Col>
 
                 <Col lg="6">
-                  <input
-                    value={search}
-                    onChange={searcher}
-                    type="search"
-                    placeholder="search"
-                    className="input"
-                  />
+                  <div>
+                    <input
+                      value={search}
+                      onChange={searcher}
+                      type="search"
+                      placeholder="search"
+                      className="input"
+                    />
+                  </div>
                 </Col>
               </CardHeader>
               <Table
@@ -137,10 +144,7 @@ const [ contracts, setContracts] = useState([]);
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Usuario</th>
                     <th scope="col">Número de contrato</th>
-                    <th scope="col">Objeto</th>
-                    <th scope="col">Pago</th>
                     <th scope="col">Fecha inicio</th>
                     <th scope="col">Fecha fin</th>
                     <th scope="col">Tipo de contrato</th>
@@ -158,11 +162,7 @@ const [ contracts, setContracts] = useState([]);
                               {i + 1}
                             </Badge>
                           </td>
-
-                          <td>{contract.user.first_name} {contract.user.last_name}</td>
                           <td>{contract.contract_number}</td>
-                          <td>{contract.object}</td>
-                          <td>{contract.pay}</td>
                           <td>{contract.start_date}</td>
                           <td>{contract.end_date}</td>
                           <td>{contract.type_contract}</td>
@@ -213,4 +213,4 @@ const [ contracts, setContracts] = useState([]);
   );
 };
 
-export default ListContract;
+export default ListContracts;

@@ -18,34 +18,34 @@ import {
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
 import { swalWithBootstrapButtons } from "plugins/alerts";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { registerContractService } from "services/contracts";
-import { allUsersService } from "services/users";
+import { getUserService } from "services/users";
 import { TextArea } from "semantic-ui-react";
-// import MySelectComponent from "plugins/selectSearch";
-import Multiselect from "multiselect-react-dropdown";
 
 const RegisterContracts = () => {
   const navigate = useHistory();
+  const id = useParams()
 
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState([])
 
+  useEffect(() => {
+    showUser(id)
+  }, [id]);
+  
   const [contractnumber, setContractnumber] = useState("");
   const [object, setObject] = useState("");
   const [pay, setPay] = useState("");
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
   const [typecontract, setTypecontract] = useState("");
-  const [userSelected, setUserSelected] = useState("");
 
 
-  useEffect(() => {
-    showUsers()
-  }, []);
 
-  const showUsers = async () => {
-    const data = await allUsersService()
-    setUsers(data.results)
+  const showUser = async (id) => {
+    const data = await getUserService(id.id)
+    setUser(data.results)
+    console.log(data);
   }
 
   const register = async (e) => {
@@ -58,7 +58,7 @@ const RegisterContracts = () => {
       start_date: startdate,
       end_date: enddate,
       type_contract: typecontract,
-      user: userSelected
+      user: id
     };
 
     const data = await registerContractService(body)
@@ -89,7 +89,7 @@ const RegisterContracts = () => {
             <CardHeader className="bg-white border-0 align-items-center">
               <Row className="align-items-center">
                 <Col s="8">
-                  <h3 className="mb-0">Registrar Contrato</h3>
+                  <h3 className="mb-0">Registrar Contrato a {user.first_name} {user.last_name}</h3>
                 </Col>
               </Row>
             </CardHeader>
@@ -97,31 +97,6 @@ const RegisterContracts = () => {
               <Form onSubmit={register}>
                 <div className="px-5">
                   <Row>
-                  <Col lg="6">
-                        <FormGroup>
-                          <label
-                            className="form-control-label"
-                            htmlFor="input-first-name"
-                          >
-                           Usuario
-                          </label>
-                          <select required className=" input" onChange={(e) => setUserSelected(e.target.value)}>
-                            {users.map((user) =>
-                                <option key={user._id} value={user._id}>{user.first_name}</option>
-                            )}
-                          </select>
-
-                          <Multiselect
-                            displayValue="first_name"
-                            selectionLimit={1}
-                            onKeyPressFn={function noRefCheck(){}}
-                            onRemove={function noRefCheck(){}}
-                            onSearch={function noRefCheck(){}}
-                            onSelect={function noRefCheck(){}}
-                            options={users}
-                          />
-                        </FormGroup>
-                      </Col>
                     <Col lg="6">
                       <FormGroup>
                         <label
@@ -140,11 +115,10 @@ const RegisterContracts = () => {
                         />
                       </FormGroup>
                     </Col>
-                  </Row>
                     <Col lg="6">
                       <FormGroup>
                         <TextArea
-                          className="form-control-alternative "
+                          className="form-control-alternative"
                           id="object"
                           placeholder="Objeto"
                           type="text"
@@ -153,6 +127,7 @@ const RegisterContracts = () => {
                         />
                       </FormGroup>
                     </Col>
+                  </Row>
                   <Row>
                     <Col lg="6">
                       <FormGroup>

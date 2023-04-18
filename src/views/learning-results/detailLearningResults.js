@@ -10,7 +10,7 @@ function DetailLearningResult({learningResult, competence}) {
   console.log(learningResult);
   return (
     <>
-      <Button className="btn-icon-only" variant="" onClick={initModal}>
+      <Button variant="" onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
 
@@ -18,7 +18,7 @@ function DetailLearningResult({learningResult, competence}) {
 
       <Modal.Header>
         <Modal.Title>
-          Resultados de aprendizaje...
+          Resultado de aprendizaje...
         </Modal.Title>
       </Modal.Header>
         <div className="container">
@@ -42,7 +42,7 @@ function DetailLearningResult({learningResult, competence}) {
 
           <Modal.Footer>
             <Button variant="danger" onClick={initModal}>
-              Close
+              Cerrar
             </Button>
           </Modal.Footer>
         </div>

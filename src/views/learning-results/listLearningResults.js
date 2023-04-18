@@ -109,16 +109,17 @@ const LearningResults = () => {
             <Card className="formulario ">
               <CardHeader className="border-0">
                 <Col lg="6">
-                  <h3>Resultados de aprendizaje de... {competence.labor_competition}</h3>
-                  <Link
-                    to={`/admin/RegisterLearningResult/${competence._id}`}
-                    tag={NavLinkRRD}
-                    activeclassname="active"
-                  >
-                    <button className="btn btn-success bg-success">
-                      Registrar
-                    </button>
-                  </Link>
+                  <h3>Resultados de aprendizaje de... {competence.labor_competition}
+                    <Link
+                      to={`/admin/RegisterLearningResult/${competence._id}`}
+                      tag={NavLinkRRD}
+                      activeclassname="active"
+                    >
+                      <button className="btn btn-success bg-success">
+                        Registrar
+                      </button>
+                    </Link>
+                  </h3>
                 </Col>
 
                 <Col lg="6">

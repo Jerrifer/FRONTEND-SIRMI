@@ -61,3 +61,13 @@ export const getContractService = async (id) => {
         })          
     })
   };
+
+  export const contractsByUserService = async (id) => {
+    return await new Promise( async (resolve, reject) => {
+        await axios.get(`${BASE_URL}contracts/byuser/${id}`).then((response) => {
+            resolve(response.data)
+        }).catch((error) => {
+            resolve(error.response.data)
+        })          
+    })
+  };

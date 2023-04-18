@@ -82,7 +82,7 @@ function DetailFormationProgram({ formationProgram }) {
                         <Form.Group key={competence._id}>
                           <Card className="p-2 mt-2">
                             <Row>
-                              <Col lg="1">
+                              <Col lg="1" className="">
                                 <i className="ni ni-check-bold" />
                               </Col>
                               <Col lg="11">

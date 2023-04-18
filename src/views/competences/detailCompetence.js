@@ -51,7 +51,7 @@ function DetailCompetence({ Competence }) {
 
           <Modal.Footer>
             <Button variant="danger" onClick={initModal}>
-              Close
+              Cerrar
             </Button>
           </Modal.Footer>
         </div>

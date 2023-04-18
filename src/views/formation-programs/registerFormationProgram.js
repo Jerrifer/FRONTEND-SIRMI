@@ -25,6 +25,7 @@ import { registerFormationProgramService } from "services/formationPrograms";
 import { allProgramLevelsService } from "services/programLevels";
 import { allThematicLinesService } from "services/thematicLines";
 import { allTypeProgramsService } from "services/typePrograms";
+import Multiselect from "multiselect-react-dropdown";
 
 const RegisterFormationProgram = () => {
 
@@ -72,12 +73,14 @@ const [typePrograms, setTypePrograms] = useState([]);
         "program_code": programCode,
         "total_duration": totalDuration,
         "program_version": programVersion,
-        "thematic_line": selectedThematicLine,
-        "type_program": selectedTypeProgram,
-        "program_level": selectedProgramLevel,
+        "thematic_line": selectedThematicLine[0]._id,
+        "type_program": selectedTypeProgram[0]._id,
+        "program_level": selectedProgramLevel[0]._id,
     }
+    console.log(body);
 
     const data = await registerFormationProgramService(body);
+    console.log(data);
     if(data.status === 'success') {
       swalWithBootstrapButtons.fire(
         'Registro exitoso',
@@ -196,12 +199,26 @@ const [typePrograms, setTypePrograms] = useState([]);
                           Titulo del programa
                         </label>
                       
-                          <select className=" input"  onChange={(e) => setSelectedProgramLevel(e.target.value)}>
+                          {/* <select className=" input"  onChange={(e) => setSelectedProgramLevel(e.target.value)}>
                             {programLevels.map((programLevel) =>
                                 <option key={programLevel._id} value={programLevel._id}>{programLevel.program_level}</option>
                             )}
-                          </select>
-                        
+                          </select> */}
+                          <Multiselect
+                            required
+                            placeholder="Titulos de programas"
+                            displayValue="program_level"
+                            selectionLimit={1}
+                            onKeyPressFn={function noRefCheck(){}}
+                            onRemove={function noRefCheck(){}}
+                            onSearch={function noRefCheck(){}}
+                            onSelect={function noRefCheck(e){
+                              setSelectedProgramLevel(e)
+                            }}
+                            options={programLevels}
+                            avoidHighlightFirstOption={true}
+                            closeOnSelect={true}
+                          />
 
                         </FormGroup>
                       </Col>
@@ -213,11 +230,27 @@ const [typePrograms, setTypePrograms] = useState([]);
                         >
                           Línea tématica
                         </label>
-                        <select className="input" onChange={(e) => setSelectedThematicLine(e.target.value)}>
+                        {/* <select className="input" onChange={(e) => setSelectedThematicLine(e.target.value)}>
                           {thematicLines.map((thematicLine) => 
                               <option key={thematicLine._id} value={thematicLine._id}>{thematicLine.thematic_line}</option>
                           )}
-                        </select>
+                        </select> */}
+
+                        <Multiselect
+                            required
+                            placeholder="Lineas tématicas"
+                            displayValue="thematic_line"
+                            selectionLimit={1}
+                            onKeyPressFn={function noRefCheck(){}}
+                            onRemove={function noRefCheck(){}}
+                            onSearch={function noRefCheck(){}}
+                            onSelect={function noRefCheck(e){
+                              setSelectedThematicLine(e)
+                            }}
+                            options={thematicLines}
+                            avoidHighlightFirstOption={true}
+                            closeOnSelect={true}
+                          />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -231,11 +264,27 @@ const [typePrograms, setTypePrograms] = useState([]);
                         >
                           Tipo del programa
                         </label>
-                        <select className="input" onChange={(e) => setSelectedTypeProgram(e.target.value)}>
+                        {/* <select className="input" onChange={(e) => setSelectedTypeProgram(e.target.value)}>
                           {typePrograms.map((typeProgram) =>
                               <option key={typeProgram._id} value={typeProgram._id}>{typeProgram.type_program}</option>
                           )}
-                        </select>
+                        </select> */}
+
+                        <Multiselect
+                            required
+                            placeholder="Tipos de programas"
+                            displayValue="type_program"
+                            selectionLimit={1}
+                            onKeyPressFn={function noRefCheck(){}}
+                            onRemove={function noRefCheck(){}}
+                            onSearch={function noRefCheck(){}}
+                            onSelect={function noRefCheck(e){
+                              setSelectedTypeProgram(e)
+                            }}
+                            options={typePrograms}
+                            avoidHighlightFirstOption={true}
+                            closeOnSelect={true}
+                          />
                         </FormGroup>
                       </Col>
                     </Row>
