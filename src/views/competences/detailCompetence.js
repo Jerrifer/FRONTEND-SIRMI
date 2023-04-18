@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { UncontrolledTooltip } from "reactstrap";
 
 function DetailCompetence({ Competence }) {
   const [isShow, invokeModal] = useState(false);
@@ -11,9 +12,18 @@ function DetailCompetence({ Competence }) {
 
   return (
     <>
-      <Button variant="" onClick={initModal}>
+      <Button variant="" 
+      id="btn-program-detail"
+      onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
+      <UncontrolledTooltip
+        className="tooltip-inner"
+        delay={0}
+        target="btn-program-detail"
+      >
+        Ver detalles de Competencia
+      </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color ">
         <Modal.Header>

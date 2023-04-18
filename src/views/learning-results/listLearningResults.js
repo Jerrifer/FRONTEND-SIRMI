@@ -9,6 +9,7 @@ import {
   Container,
   Row,
   Col,
+  UncontrolledTooltip,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -175,17 +176,32 @@ const LearningResults = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="">
+                              <Button variant=""
+                              id="btn-program-update">
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
+                              <UncontrolledTooltip
+        className="tooltip-inner"
+        delay={0}
+        target="btn-program-update"
+      >
+        Actualizar
+      </UncontrolledTooltip>
                             </Link>
 
                             <Button
-                              variant=""
+                              variant=""id="btn-program-delete"
                               onClick={() => deleteLearningResult(learningResult._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
+                            <UncontrolledTooltip
+        className="tooltip-inner"
+        delay={0}
+        target="btn-program-delete"
+      >
+       eliminar
+      </UncontrolledTooltip>
                           </td>
                         </tr>
                       );

@@ -11,6 +11,7 @@ import {
   Container,
   Row,
   Col,
+  UncontrolledTooltip,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -167,9 +168,16 @@ const ListCompetence = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="">
+                              <Button variant="" id="btn-program-edit">
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
+                              <UncontrolledTooltip
+                                className="tooltip-inner"
+                                delay={0}
+                                target="btn-program-edit"
+                              >
+                                Actualizar Competencia
+                              </UncontrolledTooltip>
                             </Link>
 
                             <Link
@@ -177,19 +185,37 @@ const ListCompetence = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="">
+                              <Button 
+                              variant=""
+                              id="btn-program-competence"
+                              >
                                 <i className="fas fa-award"></i>
                               </Button>
+                              <UncontrolledTooltip
+                                className="tooltip-inner"
+                                delay={0}
+                                target="btn-program-competence"
+                              >
+                                Resultado De Aprendizaje
+                              </UncontrolledTooltip>
                             </Link>
 
                             <Button
                               variant=""
+                              id="btn-program-delete"
                               onClick={() =>
                                 deleteCompetence(competence._id)
                               }
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
+                            <UncontrolledTooltip
+                              className="tooltip-inner"
+                              delay={0}
+                              target="btn-program-delete"
+                            >
+                              Eliminar Competencia
+                            </UncontrolledTooltip>
                           </td>
                         </tr>
                       );

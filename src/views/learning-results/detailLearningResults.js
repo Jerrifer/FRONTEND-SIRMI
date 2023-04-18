@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { UncontrolledTooltip } from "reactstrap";
 
 function DetailLearningResult({learningResult, competence}) {
   const [isShow, invokeModal] = useState(false);
@@ -10,9 +11,18 @@ function DetailLearningResult({learningResult, competence}) {
   console.log(learningResult);
   return (
     <>
-      <Button variant="" onClick={initModal}>
+      <Button variant=""
+      id="btn-program-detail"
+       onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
-      </Button>
+      </Button> 
+      <UncontrolledTooltip
+        className="tooltip-inner"
+        delay={0}
+        target="btn-program-detail"
+      >
+        Ver detalle
+      </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color">
 
