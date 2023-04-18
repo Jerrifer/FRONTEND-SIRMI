@@ -18,8 +18,7 @@ import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import PaginationData from "../../components/pagination/PaginationData";
-// import { Swal } from "sweetalert2";
+import PaginationData from "plugins/pagination";
 import { alert } from "plugins/alerts.js";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 import DetailFormationProgram from "./detailFormationProgram";
@@ -239,12 +238,12 @@ const FormationPrograms = () => {
               </Table>
 
               <CardFooter className="py-4"></CardFooter>
-              {/* <PaginationData
+              <PaginationData
                 userPerPage={userPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                totalUsers={totalFormationPrograms}
-              /> */}
+                totalData={totalFormationPrograms}
+              />
             </Card>
           </div>
         </Row>

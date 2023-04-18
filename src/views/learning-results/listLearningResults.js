@@ -181,12 +181,12 @@ const LearningResults = () => {
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                               <UncontrolledTooltip
-        className="tooltip-inner"
-        delay={0}
-        target="btn-program-update"
-      >
-        Actualizar
-      </UncontrolledTooltip>
+                                className="tooltip-inner"
+                                delay={0}
+                                target="btn-program-update"
+                              >
+                                Actualizar resultado de aprendizaje
+                              </UncontrolledTooltip>
                             </Link>
 
                             <Button
@@ -196,12 +196,12 @@ const LearningResults = () => {
                               <i className="fas fa-trash-alt"></i>
                             </Button>
                             <UncontrolledTooltip
-        className="tooltip-inner"
-        delay={0}
-        target="btn-program-delete"
-      >
-       eliminar
-      </UncontrolledTooltip>
+                              className="tooltip-inner"
+                              delay={0}
+                              target="btn-program-delete"
+                            >
+                            Eliminar resultado de aprendizaje
+                            </UncontrolledTooltip>
                           </td>
                         </tr>
                       );

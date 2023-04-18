@@ -1,0 +1,62 @@
+.profile{
+background-color: #f7fafc;
+height: 730px;
+margin-left: 10px;
+border-radius: 30px;
+-webkit-box-shadow: 0px 0px 9px -1px rgba(66, 68, 90, 1);
+-moz-box-shadow: 0px 0px 9px -1px rgba(66, 68, 90, 1);
+box-shadow: 0px 0px 9px -1px rgba(66, 68, 90, 1);
+}
+
+.card-top{
+    background-color: #f7fafc;
+height: 341px;
+border-radius: 30px;
+-webkit-box-shadow: 0px 0px 9px -1px rgba(66, 68, 90, 1);
+-moz-box-shadow: 0px 0px 9px -1px rgba(66, 68, 90, 1);
+box-shadow: 0px 0px 9px -1px rgba(66, 68, 90, 1);
+    }
+
+ .info{
+    display:flex;
+    background-color: blue;
+    height:140px;
+border-radius: 30px 30px 0px 0px;
+padding: 10px;
+
+
+ }
+
+ .images{
+    background-color: black;
+    width: 140px;
+    height: 110px;
+    border-radius: 100%;
+    margin-top: 40px;
+    margin-left: 10px;
+ }
+
+ img{
+width: 100%;
+ }
+
+ .name{
+    width: 100%;
+    height: 140px;
+    margin-top: 80px;
+    margin-left: 15px;
+   
+    
+ }
+
+ .name h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 30px;
+    color: aliceblue;
+ }
+
+
+ .content{
+    margin-top: 20px;
+    background-color: black;
+ }

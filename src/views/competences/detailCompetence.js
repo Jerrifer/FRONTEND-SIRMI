@@ -22,7 +22,7 @@ function DetailCompetence({ Competence }) {
         delay={0}
         target="btn-program-detail"
       >
-        Ver detalles de Competencia
+        Ver detalle de competencia
       </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color ">

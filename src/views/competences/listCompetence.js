@@ -176,7 +176,7 @@ const ListCompetence = () => {
                                 delay={0}
                                 target="btn-program-edit"
                               >
-                                Actualizar Competencia
+                                Actualizar competencia
                               </UncontrolledTooltip>
                             </Link>
 
@@ -196,7 +196,7 @@ const ListCompetence = () => {
                                 delay={0}
                                 target="btn-program-competence"
                               >
-                                Resultado De Aprendizaje
+                                Resultado de aprendizaje
                               </UncontrolledTooltip>
                             </Link>
 
