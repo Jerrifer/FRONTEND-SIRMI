@@ -38,7 +38,7 @@ const ProgramCompetences = () => {
   useEffect(() => {
     showCompetences()
     showFormationProgram(id);
-  }, [id, formationProgram]);
+  }, [id, formationProgram, competencesByProgram]);
   
   const [search, setSearch] = useState("");
   const [ loading ,setLoading] = useState(true);
@@ -148,7 +148,7 @@ const ProgramCompetences = () => {
               >
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">id</th>
+                    <th scope="col">#</th>
                     <th scope="col">Competencia laboral</th>
                     <th scope="col">Código de la competencia laboral</th>
                     <th scope="col">Acciones</th>

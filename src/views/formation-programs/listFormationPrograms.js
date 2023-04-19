@@ -36,31 +36,26 @@ import Spinner from "../../components/loader";
 const FormationPrograms = () => {
   const [formationPrograms, setFormationPrograms] = useState([]);
   const [ loading ,setLoading] = useState(true);
-  const totalFormationPrograms = () => {
-    if (formationPrograms.length > 0) {
-      return formationPrograms.length;
-    }
-    return 0;
-  };
   useEffect(() => {
     showFormationPrograms();
   }, []);
-
+  
   const showFormationPrograms = async () => {
     const data = await allFormationProgramsService();
-
+    
     setFormationPrograms(data.results);
     setLoading(false)
-
+    
   };
-
-
+  
+  
   const [search, setSearch] = useState("");
+  
+  const totalFormationPrograms = formationPrograms.length 
+  // const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
+  // const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
-  const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
-  const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
-
-  const [userPerPage, setUserPerPage] = useState(5);
+  const userPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
 
    
@@ -164,7 +159,7 @@ const FormationPrograms = () => {
 
                           <td>{formationProgram.program_code}</td>
 
-                          <td>{formationProgram.total_duration}</td>
+                          <td>{formationProgram.total_duration} (Horas)</td>
 
                           <td>{formationProgram.program_version}</td>
 
@@ -172,10 +167,6 @@ const FormationPrograms = () => {
                             <DetailFormationProgram
                               formationProgram={formationProgram}
                             />
-
-                            {/* <AssignCompetences
-                              formationProgram={formationProgram}
-                            /> */}
                             <Link
                               to={`/admin/programcompetences/${formationProgram._id}`}
                               tag={NavLinkRRD}
@@ -233,17 +224,18 @@ const FormationPrograms = () => {
                         </tr>
                       );
                     })
-                    .slice((currentPage - 1) * 5, (currentPage - 1) * 7 + 7)}
+                    .slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)}
                 </tbody>
               </Table>
 
-              <CardFooter className="py-4"></CardFooter>
+              <CardFooter className="py-4">
               <PaginationData
                 userPerPage={userPerPage}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 totalData={totalFormationPrograms}
               />
+              </CardFooter>
             </Card>
           </div>
         </Row>

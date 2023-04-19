@@ -34,7 +34,7 @@ function DetailFormationProgram({ formationProgram }) {
 
         <div className="container">
           <Modal.Body>
-            <div className="container ">
+            <div className="">
               <Form.Group className="text-center mb-4">
                 <h2>{formationProgram.program_name}</h2>
               </Form.Group>
@@ -49,7 +49,7 @@ function DetailFormationProgram({ formationProgram }) {
               </Form.Group>
               <Form.Group>
                 <Form.Label>Duración estimada</Form.Label>
-                <h3 className="ml-4">{formationProgram.total_duration}</h3>
+                <h3 className="ml-4">{formationProgram.total_duration} (Horas)</h3>
               </Form.Group>
 
               <Form.Group>

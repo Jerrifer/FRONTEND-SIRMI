@@ -48,8 +48,6 @@ const UpdateFormationProgram = () => {
   const showFormationProgram = async (id) => {
     const data = await getFormationProgramService(id)
     setFormationProgram(data.results);
-    // console.log('jerriiii');
-    // console.log(data);
   };
 
 

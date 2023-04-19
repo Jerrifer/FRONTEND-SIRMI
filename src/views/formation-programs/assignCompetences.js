@@ -16,29 +16,29 @@ function AssignCompetences(props) {
   const formationProgram = props.program;
   const competences = props.competences;
 
-  const selectedCompetencia = async (e) => {
+  const selectedCompetences = async (e) => {
     e.preventDefault();
     const idsCompetence = selectedCompetencies.map(item => {
       const _idCompetence = item._id
       return _idCompetence;
     });
 
-    const data = await assignCompetencesService(formationProgram._id, {competences: idsCompetence})
-      initModal()
-      console.log(data);
-      if(data.status === 'success') {
-        swalWithBootstrapButtons.fire(
-          data.message,
-          '',
-          data.status
-        )
-      } else {
-        swalWithBootstrapButtons.fire(
-          data.message,
-          data.results,
-          data.status
-        )
-      }
+  const data = await assignCompetencesService(formationProgram._id, {competences: idsCompetence})
+    initModal()
+    console.log(data);
+    if(data.status === 'success') {
+      swalWithBootstrapButtons.fire(
+        data.message,
+        '',
+        data.status
+      )
+    } else {
+      swalWithBootstrapButtons.fire(
+        data.message,
+        data.results,
+        data.status
+      )
+    }
   }
 
   return (
@@ -48,14 +48,14 @@ function AssignCompetences(props) {
       <Modal show={isShow} size={"xl"} className="color">
 
         <div className="container">
-          <Form onSubmit={selectedCompetencia}>
+          <Form onSubmit={selectedCompetences}>
             <Modal.Body>
-              <div className="container ">
+              <div className="container pt-2" style={{height : '200px'}}>
                   <Form.Group className="text-center mb-4">
                     <h2>ASIGNAR COMPETENCIAS A: {formationProgram.program_name}</h2>
                   </Form.Group>
 
-                  <Form.Group>
+                  <Form.Group className="pt-4">
                     <Multiselect
                       disablePreSelectedValues
                       placeholder="Competencias"

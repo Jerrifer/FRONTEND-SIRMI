@@ -77,7 +77,7 @@ const [contracts , setContracts] = useState([])
             <CardHeader className="bg-white border-0 align-items-center">
               <Row className="align-items-center">
                 <Col s="8">
-                  <h3 className="mb-0">Actualizar Contrato de {contracts.user.first_name} {contracts.user.last_name}</h3>
+                  <h3 className="mb-0">Actualizar Contrato de {contracts.user?.first_name} {contracts.user?.last_name}</h3>
                 </Col>
               </Row>
             </CardHeader>

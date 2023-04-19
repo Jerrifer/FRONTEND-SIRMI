@@ -58,7 +58,7 @@ const RegisterContracts = () => {
       start_date: startdate,
       end_date: enddate,
       type_contract: typecontract,
-      user: id
+      user: id.id
     };
 
     const data = await registerContractService(body)
@@ -69,7 +69,7 @@ const RegisterContracts = () => {
         data.message,
         data.status
       )
-      navigate.push("/admin/contracts");
+      navigate.push(`/admin/contracts/${id.id}`);
     } else {
       swalWithBootstrapButtons.fire(
         data.message,
@@ -108,82 +108,13 @@ const RegisterContracts = () => {
                         <Input
                           className="form-control-alternative"
                           id="contract_number"
-                          placeholder="contract_number"
+                          placeholder="Ej. 123456"
                           type="text"
                           required
                           onChange={(e) => setContractnumber(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
-                    <Col lg="6">
-                      <FormGroup>
-                        <TextArea
-                          className="form-control-alternative"
-                          id="object"
-                          placeholder="Objeto"
-                          type="text"
-                          required
-                          onChange={(e) => setObject(e.target.value)}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="pay"
-                        >
-                          Pago
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          id="pay"
-                          placeholder="pay"
-                          type="text"
-                          required
-                          onChange={(e) => setPay(e.target.value)}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="start_date"
-                        >
-                          Fecha inicio
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          id="start_date"
-                          placeholder="start_date"
-                          type="text"
-                          onChange={(e) => setStartdate(e.target.value)}
-                        />
-                      </FormGroup>
-                    </Col>
-
-                    <Col lg="6">
-                      <FormGroup>
-                        <label
-                          className="form-control-label"
-                          htmlFor="end_date"
-                        >
-                          Fecha fin
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          id="end_date"
-                          placeholder="end_date"
-                          type="text"
-                          onChange={(e) => setEnddate(e.target.value)}
-                        />
-                      </FormGroup>
-                    </Col>
-
-
                     <Col lg="6">
                       <FormGroup>
                         <label
@@ -195,9 +126,99 @@ const RegisterContracts = () => {
                         <Input
                           className="form-control-alternative"
                           id="type_contract"
-                          placeholder="contrato"
+                          placeholder="Ej. Prestación de Servicios"
                           type="text"
                           onChange={(e) => setTypecontract(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg="6">
+                      <FormGroup>
+                        {/* <label
+                          className="form-control-label"
+                          htmlFor="pay"
+                        >
+                          Valor y forma de Pago
+                        </label>
+                        <Input
+                          className="form-control-alternative"
+                          id="pay"
+                          placeholder="pay"
+                          type="text"
+                          required
+                          onChange={(e) => setPay(e.target.value)}
+                        /> */}
+                        <label
+                          className="form-control-label"
+                          htmlFor="pay"
+                        >
+                          Valor y forma de Pago
+                        </label>
+                        <TextArea
+                          className="form-control-alternative rounded-5"
+                          id="pay"
+                          placeholder="Ej. El valor total del presente contrato asciende a la suma de..."
+                          type="text"
+                          required
+                          rows="4" cols="71"
+                          onChange={(e) => setPay(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg="6">
+                      <FormGroup>
+                        <label
+                            className="form-control-label"
+                            htmlFor="pay"
+                        >
+                          Objeto
+                        </label>
+                        <TextArea
+                          className="form-control-alternative"
+                          id="object"
+                          placeholder="Ej. PRESTAR SERVICIOS PERSONALES DE CARACTER TEMPORAL COMO INSTRUCTOR CONTRATISTA..."
+                          type="text"
+                          required
+                          rows="4" cols="71"
+                          onChange={(e) => setObject(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
+
+                    <Col lg="6">
+                    <FormGroup>
+                        <label
+                          className="form-control-label"
+                          htmlFor="start_date"
+                        >
+                          Fecha inicio
+                        </label>
+                        <Input
+                          className="form-control-alternative"
+                          id="start_date"
+                          placeholder="start_date"
+                          type="date"
+                          onChange={(e) => setStartdate(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
+
+                    <Col lg="6">
+                    <FormGroup>
+                        <label
+                          className="form-control-label"
+                          htmlFor="end_date"
+                        >
+                          Fecha fin
+                        </label>
+                        <Input
+                          className="form-control-alternative"
+                          id="end_date"
+                          placeholder="end_date"
+                          type="date"
+                          onChange={(e) => setEnddate(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
