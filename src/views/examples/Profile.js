@@ -27,7 +27,7 @@ const Profile = () => {
     const data = await getUserService(idUser)
     setUser(data.results)
     setTrainingCenter(data.results.training_center)
-    setRegionale(data.results.training_center.municipalitie.regionale)
+    setRegionale(data.results.training_center?.municipalitie?.regionale)
   }
 
 

@@ -136,20 +136,6 @@ const RegisterContracts = () => {
                   <Row>
                     <Col lg="6">
                       <FormGroup>
-                        {/* <label
-                          className="form-control-label"
-                          htmlFor="pay"
-                        >
-                          Valor y forma de Pago
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          id="pay"
-                          placeholder="pay"
-                          type="text"
-                          required
-                          onChange={(e) => setPay(e.target.value)}
-                        /> */}
                         <label
                           className="form-control-label"
                           htmlFor="pay"
@@ -157,7 +143,7 @@ const RegisterContracts = () => {
                           Valor y forma de Pago
                         </label>
                         <TextArea
-                          className="form-control-alternative rounded-5"
+                          className="form-control-alternative"
                           id="pay"
                           placeholder="Ej. El valor total del presente contrato asciende a la suma de..."
                           type="text"
@@ -168,10 +154,10 @@ const RegisterContracts = () => {
                       </FormGroup>
                     </Col>
                     <Col lg="6">
-                      <FormGroup>
+                      <FormGroup> 
                         <label
                             className="form-control-label"
-                            htmlFor="pay"
+                            htmlFor="object"
                         >
                           Objeto
                         </label>

@@ -24,7 +24,7 @@ const Login = () => {
     password: "",
     first_name: "",
     last_name: "",
-    contact_number: "",
+    contact_number: "", 
     document_number: "",
   });
 

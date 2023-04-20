@@ -21,6 +21,11 @@ import RegisterContracts from "views/contracts/RegisterContract"
 import UpdateContracts from "views/contracts/updateContract"
 
 
+
+import otheractivity from "views/otherActivity/listOtheractivity"
+import registerOtherActivity from "views/otherActivity/RegisterOtheractivity";
+import Updateotheractivity from "views/otherActivity/updateOtheractivity";
+
 var routes = [
   {
     path: "/login",
@@ -195,6 +200,35 @@ var routes = [
     name: "Actualizar Contrato",
     icon: "ni ni-single-copy-04 text-dark",
     component: UpdateContracts,
+    layout: "/admin",
+    sidebar: false,
+  },
+
+
+
+   // otheractivity
+   {
+    path: "/otheractivity",
+    name: "Otras actividades",
+    icon: "ni ni-books text-dark",
+    component: otheractivity,
+    layout: "/admin",
+  },
+
+  {
+    path: "/registerOtheractivity",
+    name: "Registrar actividad",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: registerOtherActivity,
+    layout: "/admin",
+    sidebar: false,
+  },
+
+  {
+    path: "/updateotheractivity/:id",
+    name: "Actualizar actividad",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: Updateotheractivity,
     layout: "/admin",
     sidebar: false,
   },
