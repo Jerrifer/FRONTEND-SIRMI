@@ -135,7 +135,7 @@ const FormationPrograms = () => {
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Código del programa</th>
-                    <th scope="col">Duración estimada</th>
+                    <th scope="col">Duración estimada (Meses)</th>
                     <th scope="col">Versión</th>
                     {/* <th scope="col">Programa de Formación</th> */}
                     <th scope="col">Acciones</th>
@@ -159,7 +159,7 @@ const FormationPrograms = () => {
 
                           <td>{formationProgram.program_code}</td>
 
-                          <td>{formationProgram.total_duration} (Horas)</td>
+                          <td>{formationProgram.total_duration}</td>
 
                           <td>{formationProgram.program_version}</td>
 

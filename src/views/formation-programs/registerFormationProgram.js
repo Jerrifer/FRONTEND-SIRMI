@@ -126,7 +126,7 @@ const [typePrograms, setTypePrograms] = useState([]);
                         <Input
                           className="form-control-alternative"
                           id="input-username"
-                          placeholder="Nombre del programa de formación"
+                          placeholder="Ej. PRODUCCIÓN DE JOYERÍA"
                           type="text"
                           required
                           onChange={(e) => setProgramName(e.target.value)}
@@ -144,7 +144,7 @@ const [typePrograms, setTypePrograms] = useState([]);
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Código del programa de formación"
+                          placeholder="Ej. 842403"
                           type="text"
                           required
                           onChange={(e) => setProgramCode(e.target.value)}
@@ -164,7 +164,7 @@ const [typePrograms, setTypePrograms] = useState([]);
                         <Input
                           className="form-control-alternative"
                           id="input-first-name"
-                          placeholder="Versión del programa de formación"
+                          placeholder="Ej. 100"
                           type="text"
                           required
                           onChange={(e) => setProgramVersion(e.target.value)}
@@ -177,12 +177,12 @@ const [typePrograms, setTypePrograms] = useState([]);
                           className="form-control-label"
                           htmlFor="input-email"
                         >
-                          Duración estimada (Horas)
+                          Duración estimada (Meses)
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Duración estimada"
+                          placeholder="24"
                           type="text"
                           onChange={(e) => setTotalDuration(e.target.value)}
                         />

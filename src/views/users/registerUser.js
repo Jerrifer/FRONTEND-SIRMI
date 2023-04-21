@@ -19,9 +19,7 @@ import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import { useHistory } from "react-router-dom";
-import { allTrainingCentersService } from "services/trainingCenters";
 import { registerUserService } from "services/users";
-import Multiselect from "multiselect-react-dropdown";
 
 const RegisterCompetence = () => {
   const navigate = useHistory();
@@ -32,18 +30,18 @@ const RegisterCompetence = () => {
   const [password, setPassword] = useState("");
   const [contactnumber, setContactnumber] = useState("");
   const [documentnumber, setDocumentnumber] = useState("");
-  const [trainingcenterSelected, setTrainingcenterSelected] = useState("");
-  const [trainingcenters, setTrainingcenters] = useState([]);
+  // const [trainingcenterSelected, setTrainingcenterSelected] = useState("");
+  const [trainingcenter, setTrainingcenter] = useState([]);
 
-  const showTrainingcenters = async () => {
-    const data  = await allTrainingCentersService()
-      setTrainingcenters(data.results);
-  };
+  // const showTrainingcenters = async () => {
+  //   const data  = await allTrainingCentersService()
+  //     setTrainingcenters(data.results);
+  // };
 
   
 
   useEffect(() => {
-    showTrainingcenters()
+    setTrainingcenter(localStorage.getItem('training_center'))
   }, []);
   
 
@@ -58,9 +56,9 @@ const RegisterCompetence = () => {
       password: password,
       contact_number: contactnumber,
       document_number: documentnumber,
-      training_center:trainingcenterSelected[0]._id
+      training_center: trainingcenter
     };
-    console.log(trainingcenterSelected);
+    console.log(trainingcenter);
 
     const data = await registerUserService(body)
     console.log(data.results);
@@ -109,7 +107,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-first_name"
-                          placeholder="Nombre"
+                          placeholder="Ej. Jose"
                           type="text"
                           required
                           onChange={(e) => setFirstName(e.target.value)}
@@ -127,7 +125,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Apellidos"
+                          placeholder="Ej. García Rodríguez"
                           type="text"
                           required
                           onChange={(e) => setLastName(e.target.value)}
@@ -147,7 +145,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Correo electrónico"
+                          placeholder="Ej. example@gmail.com"
                           type="email"
                           required
                           onChange={(e) => setEmail(e.target.value)}
@@ -165,7 +163,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-passwords"
-                          placeholder="Contraseña"
+                          placeholder="ej. A#ai7l?1oSsW2Ed"
                           type="password"
                           onChange={(e) => setPassword(e.target.value)}
                         />
@@ -182,7 +180,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-contact-number"
-                          placeholder="Número de contacto"
+                          placeholder="Ej. 3105847596"
                           type="number"
                           onChange={(e) => setContactnumber(e.target.value)}
                         />
@@ -200,14 +198,14 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-document-number"
-                          placeholder="Número de documento"
+                          placeholder="Ej. 10094875478"
                           type="number"
                           onChange={(e) => setDocumentnumber(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
 
-                    <Col lg="6">
+                    {/* <Col lg="6">
                         <FormGroup>
                         <label
                           className="form-control-label"
@@ -232,7 +230,7 @@ const RegisterCompetence = () => {
                           />
 
                         </FormGroup>
-                      </Col>
+                      </Col> */}
                   </Row>
 
                   <Button

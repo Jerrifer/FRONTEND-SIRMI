@@ -4,6 +4,7 @@ import React from "react";
 import Multiselect from "multiselect-react-dropdown";
 import { Col, FormGroup, Input, Row } from "reactstrap";
 import { selectedValueDecorator, optionValueDecorator, closeIcon } from "plugins/multiSelect";
+import { useState } from "react";
 
 function AddLearningResults({options, onSelect, disable}) {
 
@@ -30,27 +31,21 @@ function AddLearningResults({options, onSelect, disable}) {
     inputField: {
         color: '#0000',
     },
-};
+  };
 
-  // useEffect(() => {
-  //   showCompetences(selectedFormationProgram)
-  // },[selectedFormationProgram])
-  // const [hola, setHola] = useState(true);
+  const [seleted, setSeleted] = useState([])
 
-  // const showCompetences = async (selectedFormationProgram) => {
-  //   console.log(selectedFormationProgram);
-  //   // setCompetences(selectedFormationProgram.competences)
-  //   setHola(false)
-  // }
-
-  // const showLearningResults = async (competences) => {
-  //   console.log(competences);
-  // }
+  const joinData = (endDate) => {
+    const data = {
+      learning_result: seleted, end_date: endDate
+    }
+    onSelect(data)
+  }
 
   return (
     <>
       <Row>
-        <Col lg='6'>
+        <Col lg='7'>
           <label
             className="form-control-label"
             htmlFor="input-ficha"
@@ -71,7 +66,7 @@ function AddLearningResults({options, onSelect, disable}) {
             onRemove={function noRefCheck(){}}
             onSearch={function noRefCheck(){}}
             onSelect={function noRefCheck(e){
-              onSelect(e[0])
+              setSeleted(e[0])
             }}
             options={options}
             avoidHighlightFirstOption={true}
@@ -80,7 +75,7 @@ function AddLearningResults({options, onSelect, disable}) {
             emptyRecordMsg="No hay más datos"
           />
         </Col>
-        <Col lg='6'>
+        <Col lg='5'>
           <FormGroup>
             <label
               className="form-control-label"
@@ -94,7 +89,7 @@ function AddLearningResults({options, onSelect, disable}) {
               placeholder="Ej. 24514755"
               type="date"
               required
-              // onChange={(e) => setFicha(e.target.value)}
+              onChange={(e) => joinData(e.target.value)}
             />
           </FormGroup>
         </Col>

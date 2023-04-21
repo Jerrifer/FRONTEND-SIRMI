@@ -93,7 +93,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-username"
-                          placeholder=" Codigo de Competencia Laboral"
+                          placeholder="Ej. 240201500"
                           type="text"
                           required
                           onChange={(e) => setProgramName(e.target.value)}
@@ -111,7 +111,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder=" Competencia laboral"
+                          placeholder="PROMOVER LA INTERACCIÓN IDÓNEA CONSIGO MISMO, CON LOS DEMÁS Y CON LA N…"
                           type="text"
                           required
                           onChange={(e) => setProgramCode(e.target.value)}
@@ -131,8 +131,8 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-first-name"
-                          placeholder="Versión del programa de formación"
-                          type="text"
+                          placeholder="Ej. 1"
+                          type="number"
                           required
                           onChange={(e) => setProgramVersion(e.target.value)}
                         />
@@ -149,7 +149,7 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-email"
-                          placeholder="Duración estimada"
+                          placeholder="Ej. 48"
                           type="text"
                           onChange={(e) => setTotalDuration(e.target.value)}
                         />

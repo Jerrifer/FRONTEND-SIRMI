@@ -27,14 +27,12 @@ import { swalWithBootstrapButtons } from "plugins/alerts";
 import Spinner from "../../components/loader";
 import { allOtherActivityService } from "services/otherActivity";
 import { deleteOtheractivityService } from "services/otherActivity";
+import PaginationData from "plugins/pagination";
 const OtherActivity = () => {
   const [otheractivity, setOtheractivitys] = useState([]);
 
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
-  const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,6 +47,8 @@ const OtherActivity = () => {
     setOtheractivitys(data.results);
     setLoading(false);
   };
+
+  const totalOtherActivities = otheractivity.length
 
   // metodo de eliminar
 
@@ -158,8 +158,7 @@ const OtherActivity = () => {
                           <td>{otheractivitys.hours}</td>
 
                           <td>
-                            {/* <DetailOtheractivity Otheractivity={otheractivitys}
-                            /> */}
+                            <DetailOtheractivity Otheractivity={otheractivitys}/>
 
                             <Link
                               to={`/admin/Updateotheractivity/${otheractivitys._id}`}
@@ -200,17 +199,18 @@ const OtherActivity = () => {
                         </tr>
                       );
                     })
-                    .slice((currentPage - 1) * 5, (currentPage - 1) * 7 + 7)}
+                    .slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)}
                 </tbody>
               </Table>
 
-              <CardFooter className="py-4"></CardFooter>
-              {/* <PaginationData
-                userPerPage={userPerPage}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalUsers={totalFormationPrograms}
-              /> */}
+              <CardFooter className="py-4">
+                <PaginationData
+                  userPerPage={userPerPage}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalData={totalOtherActivities}
+                />
+              </CardFooter>
             </Card>
           </div>
         </Row>

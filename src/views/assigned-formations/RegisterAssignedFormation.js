@@ -17,21 +17,24 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { allFormationProgramsService } from "services/formationPrograms";
 import "views/formation-programs/input.css";
 import AddLearningResults from "./addLearningResults";
 import Multiselect from "multiselect-react-dropdown";
 import { LearningResultByCompetenceService } from "services/learningResults";
 import { optionValueDecorator, selectedValueDecorator, customStyle, closeIcon } from "plugins/multiSelect";
+import { registerAssignedFormationService } from "services/assignedFormations";
+import { swalWithBootstrapButtons } from "plugins/alerts";
 
 const RegisterAssignedFormation = () => {
-  // const navigate = useHistory();
+  const navigate = useHistory();
 
   const [ficha, setFicha] = useState("");
   const [activity, setActivity] = useState("");
   const [hoursMonth, setHoursMonth] = useState("");
   const [learningResultSelected, setLearningResultSelected] = useState([]);
+  // const [endDate, setEndDate] = useState([]);
 
   const [formationPrograms, setFormationPrograms] = useState([]);
   const [competences, setCompetences] = useState([]);
@@ -73,15 +76,25 @@ const RegisterAssignedFormation = () => {
     setForms(prevForms => prevForms.filter(form => form.id !== id));
   };
 
+  const postResultSelected = (data) => {
+    console.log('jerri');
+    console.log(data);
+    setLearningResultSelected(prevLearningResultSelected => {
+      return {
+        ...prevLearningResultSelected,
+        [data.learning_result._id]: data.end_date
+      };
+    });
+  };
+
   const renderForms = () => {
     return forms.map(form => (
       <div key={form.id}>
         <Row >
-          <Col lg="11">
-            <AddLearningResults options={learningResults} onSelect={setLearningResultSelected} disable={disable2} />
-            
+          <Col lg="11" md="11">
+            <AddLearningResults options={learningResults} onSelect={postResultSelected} disable={disable2}/>
           </Col>
-          <Col lg="1" className="d-flex align-items-center">
+          <Col lg="1" md="1" className="d-flex align-items-center">
             {forms.length > 1 && (
               <Button className="my-3" variant='' onClick={() => removeForm(form.id)}>Quitar</Button>
             )}
@@ -98,23 +111,23 @@ const RegisterAssignedFormation = () => {
       ficha: ficha,
       activity: activity,
       hours_month: hoursMonth,
-      learning_results:learningResultSelected
+      learning_results: learningResultSelected,
     };
 
     console.log(body);
 
-    // const data = await registerAssignedFormationService(body);
-    // if (data.status === "success") {
-    //   swalWithBootstrapButtons.fire(
-    //     "Registro exitoso",
-    //     data.message,
-    //     data.status
-    //   );
-    //   console.log(data);
-    // } else {
-    //   swalWithBootstrapButtons.fire(data.message, data.results, data.status);
-    // }
-    // navigate.push("/admin/assignedformations");
+    const data = await registerAssignedFormationService(body);
+    if (data.status === "success") {
+      swalWithBootstrapButtons.fire(
+        "Registro exitoso",
+        data.message,
+        data.status
+      );
+      console.log(data);
+    } else {
+      swalWithBootstrapButtons.fire(data.message, data.results, data.status);
+    }
+    navigate.push("/admin/assignedformations");
   };
 
   return (
@@ -149,7 +162,7 @@ const RegisterAssignedFormation = () => {
                           className="form-control-alternative"
                           id="input-ficha"
                           placeholder="Ej. 2451475"
-                          type="text"
+                          type="number"
                           required
                           onChange={(e) => setFicha(e.target.value)}
                         />
@@ -166,7 +179,7 @@ const RegisterAssignedFormation = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-activity"
-                          placeholder="Seleccionar"
+                          placeholder="Ej. Determinar el cumplimiento de las buenas prácticas de calidad en el desarrollo de software."
                           type="text"
                           required
                           onChange={(e) => setActivity(e.target.value)}
@@ -176,40 +189,40 @@ const RegisterAssignedFormation = () => {
                   </Row>
                   <Row>
                   <Col lg="6">
-                <FormGroup>
-                  <label
-                    className="form-control-label"
-                    htmlFor="input-hours-month"
-                  >
-                    Programas de formación
-                  </label>
-                  <Multiselect
-                    required
-                    selectedValueDecorator={selectedValueDecorator}
-                    optionValueDecorator={optionValueDecorator}
-                    customCloseIcon={closeIcon}
-                    style={customStyle}
-                    avoidHighlightFirstOption={true}
-                    closeOnSelect={true}
-                    hidePlaceholder={true}
-                    loading={formationPrograms.length <= 0}
-                    selectionLimit={1}
-                    emptyRecordMsg="No hay más datos"
-                    showCloseIcon={true}
-                    onKeyPressFn={function noRefCheck(){}}
-                    onSearch={function noRefCheck(){}}
-                    onRemove={function noRefCheck(){
-                        setDisable(true)
-                    }}
-                    onSelect={function noRefCheck(e){
-                        showCompetences(e[0])
-                    }}
-                    placeholder="Seleccionar"
-                    displayValue="program_name"
-                    options={formationPrograms}
-                  />
-                </FormGroup>
-              </Col>
+                  <FormGroup>
+                    <label
+                      className="form-control-label"
+                      htmlFor="input-hours-month"
+                    >
+                      Programas de formación
+                    </label>
+                    <Multiselect
+                      required
+                      selectedValueDecorator={selectedValueDecorator}
+                      optionValueDecorator={optionValueDecorator}
+                      customCloseIcon={closeIcon}
+                      style={customStyle}
+                      avoidHighlightFirstOption={true}
+                      closeOnSelect={true}
+                      hidePlaceholder={true}
+                      loading={formationPrograms.length <= 0}
+                      selectionLimit={1}
+                      emptyRecordMsg="No hay más datos"
+                      showCloseIcon={true}
+                      onKeyPressFn={function noRefCheck(){}}
+                      onSearch={function noRefCheck(){}}
+                      onRemove={function noRefCheck(){
+                          setDisable(true)
+                      }}
+                      onSelect={function noRefCheck(e){
+                          showCompetences(e[0])
+                      }}
+                      placeholder="Seleccionar"
+                      displayValue="program_name"
+                      options={formationPrograms}
+                    />
+                  </FormGroup>
+                </Col>
               <Col lg="6">
                 <FormGroup>
                   <label
@@ -284,8 +297,8 @@ const RegisterAssignedFormation = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-hours-month"
-                          placeholder="Ej. 48"
-                          type="text"
+                          placeholder="Ej. 15"
+                          type="number"
                           required
                           onChange={(e) => setHoursMonth(e.target.value)}
                         />

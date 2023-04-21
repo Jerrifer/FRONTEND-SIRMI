@@ -212,7 +212,7 @@ var routes = [
   // assigned formation 
   {
     path: "/assignedformations",
-    name: "Formaciones asignadas",
+    name: "Formaciones tituladas",
     icon: "ni ni-bullet-list-67 text-dark",
     component: ListAssignedFormations,
     layout: "/admin",

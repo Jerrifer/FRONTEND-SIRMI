@@ -49,7 +49,7 @@ function DetailFormationProgram({ formationProgram }) {
               </Form.Group>
               <Form.Group>
                 <Form.Label>Duración estimada</Form.Label>
-                <h3 className="ml-4">{formationProgram.total_duration} (Horas)</h3>
+                <h3 className="ml-4">{formationProgram.total_duration} (Meses)</h3>
               </Form.Group>
 
               <Form.Group>
@@ -82,7 +82,7 @@ function DetailFormationProgram({ formationProgram }) {
                         <Form.Group key={competence._id}>
                           <Card className="p-2 mt-2">
                             <Row>
-                              <Col lg="1" className="">
+                              <Col lg="1" className="d-flex align-items-center justify-content-center">
                                 <i className="ni ni-check-bold" />
                               </Col>
                               <Col lg="11">

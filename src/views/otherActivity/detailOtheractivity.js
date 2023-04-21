@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { UncontrolledTooltip } from "reactstrap";
 
-function DetailOtheractivity({ Competence }) {
+function DetailOtheractivity({ Otheractivity }) {
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!isShow);
@@ -33,16 +33,16 @@ function DetailOtheractivity({ Competence }) {
           <Modal.Body>
             <div className="container ">
               <Form.Group className="text-center mb-5">
-                <h2>{Competence.activity}</h2>
+                <h2>{Otheractivity.activity}</h2>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Código del programa de formación</Form.Label>
-                <h3 className="ml-4">{Competence.description}</h3>
+                <h3 className="ml-4">{Otheractivity.description}</h3>
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Versión del programa de formación</Form.Label>
-                <h3 className="ml-4">{Competence.hours}</h3>
+                <h3 className="ml-4">{Otheractivity.hours}</h3>
               </Form.Group>
            
 

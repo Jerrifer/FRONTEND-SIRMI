@@ -9,7 +9,7 @@ export const selectedValueDecorator = (selectedItem) => {
     );
     };
 
-export const optionValueDecorator = (option) => {
+export const optionValueDecorator =  (option) => {
     return (
         <div>
         <h6>{option}</h6>
@@ -41,7 +41,7 @@ export const customStyle = {
 
     },
     inputField: {
-        color: '#0000',
+        color: '#000',
     },
 };
 
