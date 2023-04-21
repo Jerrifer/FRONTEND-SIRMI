@@ -26,14 +26,15 @@ import { getFormationProgramService, deallocateCompetencesService } from "servic
 import Swal from "sweetalert2";
 import { allCompetencesService } from "services/competences";
 import Spinner from "../../components/loader"
+import PaginationData from "plugins/pagination";
 
 const ProgramCompetences = () => {
   const { id } = useParams();
   
   
   const [formationProgram, setFormationProgram] = useState([]);
-  const [allCompetences, setAllCompetences] = useState([]);
   const [competencesByProgram, setCompetencesByProgram] = useState([]);
+  const [allCompetences, setAllCompetences] = useState([]);
   
   useEffect(() => {
     showCompetences()
@@ -58,7 +59,7 @@ const ProgramCompetences = () => {
       setLoading(false)
   };
 
-
+  const totalCompetencesByProgram = competencesByProgram.length
 
   const deallocateCompetence = async (competence) => {
     const alertParams = {
@@ -193,17 +194,18 @@ const ProgramCompetences = () => {
                         </tr>
                       );
                     })
-                    .slice((currentPage - 1) * 5, (currentPage - 1) * 7 + 7)}
+                    .slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)}
                 </tbody>
               </Table>
 
-              <CardFooter className="py-4"></CardFooter>
-              {/* <PaginationData
-                userPerPage={userPerPage}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalUsers={totalFormationPrograms}
-              /> */}
+              <CardFooter className="py-4">
+                <PaginationData
+                  userPerPage={userPerPage}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalData={totalCompetencesByProgram}
+                />
+              </CardFooter>
             </Card>
           </div>
         </Row>

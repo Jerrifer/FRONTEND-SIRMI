@@ -30,6 +30,7 @@ import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 // import { allUsersService } from "services/users";
 import Spinner from "../../components/loader"
+import PaginationData from "plugins/pagination";
 
 const ListUser = () => {
   
@@ -37,7 +38,8 @@ const ListUser = () => {
 
   const [search, setSearch] = useState("");
 
-  const [currentPage] = useState(1);
+  const userPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [isLoading, setisLoading] = useState(true);
 
@@ -53,6 +55,8 @@ const ListUser = () => {
     setUser(data.results);
     console.log(data);
   };
+
+  const totalUsers = user.length
 
   const deleteUsers = async (id) => {
     const alertParams = {
@@ -218,11 +222,18 @@ const ListUser = () => {
                         </tr>
                       );
                     })
-                    .slice((currentPage - 1) * 5, (currentPage - 1) * 7 + 7)}
+                    .slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)}
                 </tbody>
               </Table>
 
-              <CardFooter className="py-4"></CardFooter>
+              <CardFooter className="py-4">
+                <PaginationData
+                  userPerPage={userPerPage}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalData={totalUsers}
+                />
+              </CardFooter>
             </Card>
           </div>
         </Row>

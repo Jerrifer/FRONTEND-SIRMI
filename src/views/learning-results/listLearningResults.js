@@ -25,33 +25,36 @@ import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 import { deleteLearningResultService } from "services/learningResults";
 import Spinner from "../../components/loader"
+import PaginationData from "plugins/pagination";
 
 const LearningResults = () => {
 
   const { id } =useParams()
 
-  const [learningresult, setLearningresult] = useState([]);
+  const [learningresults, setLearningresults] = useState([]);
   const [competence, setCompetence] = useState([]);
   const [ loading ,setLoading] = useState(true);
 
   const [search, setSearch] = useState("");
 
-  // const [userPerPage] = useState(5);
-  const [currentPage] = useState(1);
+  const userPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
 
   // const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
   // const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
   const showLearningresults = async (id) => {
     const data = await LearningResultByCompetenceService(id)
-      setLearningresult(data.results.learningresults);
+      setLearningresults(data.results.learningresults);
       setCompetence(data.results.competence);
       setLoading(false)
   };
 
+  const totalLearningResults = learningresults.length
+
   useEffect(() => {
     showLearningresults(id);
-  }, [id, learningresult]);
+  }, [id, learningresults]);
 
   const deleteLearningResult = async (id) => {
     const alertParams = {
@@ -95,9 +98,9 @@ const LearningResults = () => {
   let result = [];
 
   if (!search) {
-    result = learningresult;
+    result = learningresults;
   } else {
-    result = learningresult.filter((dato) =>
+    result = learningresults.filter((dato) =>
       dato.learning_result.toLowerCase().includes(search.toLocaleLowerCase())
     );
   }
@@ -112,12 +115,13 @@ const LearningResults = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-                <Col lg="6">
-                  <h3>Resultados de aprendizaje de... {competence.labor_competition}
+                <Col lg="8">
+                  <h3>COMPETENCIA LABORAL: <u>{competence.labor_competition}</u>
                     <Link
                       to={`/admin/RegisterLearningResult/${competence._id}`}
                       tag={NavLinkRRD}
                       activeclassname="active"
+                      className="ml-4"
                     >
                       <button className="btn btn-success bg-success">
                         Registrar
@@ -126,7 +130,7 @@ const LearningResults = () => {
                   </h3>
                 </Col>
 
-                <Col lg="6">
+                <Col lg="4">
                  <div>
                  <input
                     value={search}
@@ -154,8 +158,7 @@ const LearningResults = () => {
                 <tbody>
                 {loading && < Spinner/>}
 
-                  {result
-                    .map((learningResult, i = 0) => {
+                  {result.map((learningResult, i = 0) => {
                       return (
                         <tr key={learningResult._id}>
                           <td>
@@ -206,17 +209,18 @@ const LearningResults = () => {
                         </tr>
                       );
                     })
-                    .slice((currentPage - 1) * 5, (currentPage - 1) * 7 + 7)}
+                    .slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)}
                 </tbody>
               </Table>
 
-              <CardFooter className="py-4"></CardFooter>
-              {/* <PaginationData
-                userPerPage={userPerPage}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalUsers={totalFormationPrograms}
-              /> */}
+              <CardFooter className="py-4">
+                <PaginationData
+                  userPerPage={userPerPage}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalData={totalLearningResults}
+                />
+              </CardFooter>
             </Card>
           </div>
         </Row>

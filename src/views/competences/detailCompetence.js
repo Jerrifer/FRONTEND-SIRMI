@@ -13,8 +13,9 @@ function DetailCompetence({ Competence }) {
   return (
     <>
       <Button variant="" 
-      id="btn-program-detail"
-      onClick={initModal}>
+        id="btn-program-detail"
+        onClick={initModal}
+      >
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
       <UncontrolledTooltip
@@ -27,7 +28,7 @@ function DetailCompetence({ Competence }) {
 
       <Modal show={isShow} size={"lg"} className=" color ">
         <Modal.Header>
-          <Modal.Title>Competencia... </Modal.Title>
+          <Modal.Title>Competencia laboral... </Modal.Title>
         </Modal.Header>
         <div className="container">
           <Modal.Body>
@@ -36,12 +37,12 @@ function DetailCompetence({ Competence }) {
                 <h2>{Competence.labor_competition}</h2>
               </Form.Group>
               <Form.Group>
-                <Form.Label>Código del programa de formación</Form.Label>
+                <Form.Label>Código de la competencia laboral</Form.Label>
                 <h3 className="ml-4">{Competence.labor_competence_code}</h3>
               </Form.Group>
 
               <Form.Group>
-                <Form.Label>Versión del programa de formación</Form.Label>
+                <Form.Label>Versión de la competencia laboral</Form.Label>
                 <h3 className="ml-4">{Competence.labor_competition_version}</h3>
               </Form.Group>
               <Form.Group>

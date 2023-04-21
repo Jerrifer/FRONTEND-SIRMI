@@ -27,6 +27,7 @@ import { deleteCompetenceService } from "services/competences";
 import Swal from "sweetalert2";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Spinner from "../../components/loader"
+import PaginationData from "plugins/pagination";
 
 const ListCompetence = () => {
   const [competences, setCompetences] = useState([]);
@@ -51,7 +52,7 @@ const ListCompetence = () => {
     setLoading(false)
   };
 
-  // metodo de eliminar
+  const totalCompetences = competences.length
 
   const deleteCompetence = async (id) => {
     const alertParams = {
@@ -164,23 +165,6 @@ const ListCompetence = () => {
                             <DetailCompetence Competence={competence} />
 
                             <Link
-                              to={`/admin/updateCompetence/${competence._id}`}
-                              tag={NavLinkRRD}
-                              activeclassname="active"
-                            >
-                              <Button variant="" id="btn-program-edit">
-                                <i className="fas fa-pen-alt"></i>
-                              </Button>
-                              <UncontrolledTooltip
-                                className="tooltip-inner"
-                                delay={0}
-                                target="btn-program-edit"
-                              >
-                                Actualizar competencia
-                              </UncontrolledTooltip>
-                            </Link>
-
-                            <Link
                               to={`/admin/learningresults/${competence._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
@@ -197,6 +181,23 @@ const ListCompetence = () => {
                                 target="btn-program-competence"
                               >
                                 Resultado de aprendizaje
+                              </UncontrolledTooltip>
+                            </Link>
+
+                            <Link
+                              to={`/admin/updateCompetence/${competence._id}`}
+                              tag={NavLinkRRD}
+                              activeclassname="active"
+                            >
+                              <Button variant="" id="btn-program-edit">
+                                <i className="fas fa-pen-alt"></i>
+                              </Button>
+                              <UncontrolledTooltip
+                                className="tooltip-inner"
+                                delay={0}
+                                target="btn-program-edit"
+                              >
+                                Actualizar competencia
                               </UncontrolledTooltip>
                             </Link>
 
@@ -220,17 +221,18 @@ const ListCompetence = () => {
                         </tr>
                       );
                     })
-                    .slice((currentPage - 1) * 5, (currentPage - 1) * 7 + 7)}
+                    .slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)}
                 </tbody>
               </Table>
 
-              <CardFooter className="py-4"></CardFooter>
-              {/* <PaginationData
-                userPerPage={userPerPage}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalUsers={totalFormationPrograms}
-              /> */}
+              <CardFooter className="py-4">
+                <PaginationData
+                  userPerPage={userPerPage}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalData={totalCompetences}
+                />
+              </CardFooter>
             </Card>
           </div>
         </Row>

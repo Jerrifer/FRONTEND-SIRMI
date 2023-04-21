@@ -229,12 +229,12 @@ const FormationPrograms = () => {
               </Table>
 
               <CardFooter className="py-4">
-              <PaginationData
-                userPerPage={userPerPage}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-                totalData={totalFormationPrograms}
-              />
+                <PaginationData
+                  userPerPage={userPerPage}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalData={totalFormationPrograms}
+                />
               </CardFooter>
             </Card>
           </div>

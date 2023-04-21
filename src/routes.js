@@ -19,6 +19,9 @@ import Profile from "views/examples/Profile";
 import ListContracts from "views/contracts/listContracts";
 import RegisterContracts from "views/contracts/RegisterContract"
 import UpdateContracts from "views/contracts/updateContract"
+import ListAssignedFormations from "views/assigned-formations/listAssignedFormations";
+import RegisterAssignedFormation from "views/assigned-formations/RegisterAssignedFormation";
+import UpdateAssignedFormation from "views/assigned-formations/updateAssignedFormation";
 
 
 
@@ -203,6 +206,37 @@ var routes = [
     layout: "/admin",
     sidebar: false,
   },
+
+   // end contracts
+
+  // assigned formation 
+  {
+    path: "/assignedformations",
+    name: "Formaciones asignadas",
+    icon: "ni ni-bullet-list-67 text-dark",
+    component: ListAssignedFormations,
+    layout: "/admin",
+  },
+
+  {
+    path: "/registerassignedformation",
+    name: "Registrar Formacion Asignada",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: RegisterAssignedFormation,
+    layout: "/admin",
+    sidebar: false,
+  },
+
+  {
+    path: "/updateassignedformation/:id",
+    name: "ActualizarFormacion Asignada",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: UpdateAssignedFormation,
+    layout: "/admin",
+    sidebar: false,
+  },
+
+  // end assigned formation 
 
 
 

@@ -63,15 +63,6 @@ function PaginationData({
                 {i}
               </Reactstrap.PaginationLink>
             </Reactstrap.PaginationItem>
-            {/* <li key={i}>
-              <a
-                className={`pagination-link ${i === currentPage ? 'is-current' : ''
-                  }`}
-                onClick={() => onSpecificPage(i)}
-              >
-                {i}
-              </a>
-            </li> */}
           </>
 
         );
@@ -97,23 +88,6 @@ function PaginationData({
 
   return (
     <>
-      {/* <nav className="pagination is-centered m-1" role="navigation" aria-label="pagination">
-        <a
-          className={`pagination-previous ${currentPage === 1 ? 'is-disabled' : ''}`}
-          onClick={onPreviousPage}
-        >
-          Previous
-        </a>
-
-        <a
-          className={`pagination-next ${currentPage >= pageNumbers.length ? 'is-disabled' : ''
-            }`}
-          onClick={onNextPage}
-        >
-          Next page
-        </a>
-        <ul className="pagination-list">{getPaginationButtons()}</ul>
-      </nav> */}
       <nav aria-label="...">
         <Reactstrap.Pagination
           className="pagination justify-content-end mb-0"
@@ -132,6 +106,7 @@ function PaginationData({
               <span className="sr-only">Previous</span>
             </Reactstrap.PaginationLink>
           </Reactstrap.PaginationItem>
+          
           <Reactstrap.PaginationItem>
             <ul className="pagination-list">{getPaginationButtons()}</ul>
           </Reactstrap.PaginationItem>
