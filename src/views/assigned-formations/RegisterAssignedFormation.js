@@ -17,18 +17,16 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import { swalWithBootstrapButtons } from "plugins/alerts";
-import { useHistory } from "react-router-dom";
-import { registerAssignedFormationService } from "services/assignedFormations";
+// import { useHistory } from "react-router-dom";
 import { allFormationProgramsService } from "services/formationPrograms";
 import "views/formation-programs/input.css";
 import AddLearningResults from "./addLearningResults";
 import Multiselect from "multiselect-react-dropdown";
 import { LearningResultByCompetenceService } from "services/learningResults";
-import MultiSelectCustom from "plugins/multiSelect";
+import { optionValueDecorator, selectedValueDecorator, customStyle, closeIcon } from "plugins/multiSelect";
 
 const RegisterAssignedFormation = () => {
-  const navigate = useHistory();
+  // const navigate = useHistory();
 
   const [ficha, setFicha] = useState("");
   const [activity, setActivity] = useState("");
@@ -38,6 +36,9 @@ const RegisterAssignedFormation = () => {
   const [formationPrograms, setFormationPrograms] = useState([]);
   const [competences, setCompetences] = useState([]);
   const [learningResults, setLearningResults] = useState([]);
+  
+  const [disable, setDisable] = useState(true);
+  const [disable2, setDisable2] = useState(true);
 
   useEffect(() => {
     showFormationPrograms();
@@ -48,21 +49,18 @@ const RegisterAssignedFormation = () => {
     setFormationPrograms(data.results);
   };
 
-
-  const [remove, setRemove] = useState(true);
-  const [remove2, setRemove2] = useState(true);
-
   const showCompetences = async (selectedFormationProgram) => {
     setCompetences(selectedFormationProgram.competences)
-    setRemove(false)
+    setDisable(false)
   }
 
   const showLearningResults = async (competence) => {
     const data = await LearningResultByCompetenceService(competence._id)
     setLearningResults(data.results.learningresults)
-    setRemove2(false)
+    setDisable2(false)
   }
 
+  //Formulario dinámico
   const [forms, setForms] = useState([{ id: 1 }]);
 
   const addForm = () => {
@@ -75,56 +73,20 @@ const RegisterAssignedFormation = () => {
     setForms(prevForms => prevForms.filter(form => form.id !== id));
   };
 
-  // const selectedValueDecorator = (selectedItem) => {
-  //   return (
-  //     <div className="selected">
-  //       <h6 className="t6">{selectedItem}</h6>
-  //     </div>
-  //   );
-  // };
-  
-
-  // const optionValueDecorator = (option) => {
-  //   return (
-  //     <div>
-  //       <h6>{option}</h6>
-  //     </div>
-  //   );
-  // }; 
-
-  // const customStyle = {
-  //   closeIcon: {
-  //     background: 'black'
-  //   },
-  //   optionContainer: {
-  //     backgroundColor: '#f9f9f9',
-  //   },
-  //   option: {
-  //     color: '#333',
-  //   },
-  //   chips: {
-  //     color: '#000', // Aquí puedes definir el color que desees
-  //     background: '#ffff',
-  //     border: 'none',
-  //     boxShadow: '2px 2px 5px 0px rgba(0, 0, 0, 0.1)',
-  //   },
-  //   searchBox: {
-  //     border: 'none',
-  //     'border-bottom': '1px solid black',
-  //     'border-radius': '0px'
-  //   },
-  //   inputField: {
-  //     color: '#0000',
-  //   },
-  // };
-
   const renderForms = () => {
     return forms.map(form => (
       <div key={form.id}>
-        <AddLearningResults options={learningResults} onSelect={setLearningResultSelected} disable={remove2} />
-        {forms.length > 1 && (
-          <Button className="my-3" variant='' onClick={() => removeForm(form.id)}>Quitar</Button>
-        )}
+        <Row >
+          <Col lg="11">
+            <AddLearningResults options={learningResults} onSelect={setLearningResultSelected} disable={disable2} />
+            
+          </Col>
+          <Col lg="1" className="d-flex align-items-center">
+            {forms.length > 1 && (
+              <Button className="my-3" variant='' onClick={() => removeForm(form.id)}>Quitar</Button>
+            )}
+          </Col>
+        </Row>
       </div>
     ));
   };
@@ -204,7 +166,7 @@ const RegisterAssignedFormation = () => {
                         <Input
                           className="form-control-alternative"
                           id="input-activity"
-                          placeholder="Ej. Determinar el cumplimiento de las buenas prácticas de calidad en el desarrollo de software"
+                          placeholder="Seleccionar"
                           type="text"
                           required
                           onChange={(e) => setActivity(e.target.value)}
@@ -221,7 +183,31 @@ const RegisterAssignedFormation = () => {
                   >
                     Programas de formación
                   </label>
-                   <MultiSelectCustom options={formationPrograms} setRemove={setRemove} onSelect={showCompetences} />
+                  <Multiselect
+                    required
+                    selectedValueDecorator={selectedValueDecorator}
+                    optionValueDecorator={optionValueDecorator}
+                    customCloseIcon={closeIcon}
+                    style={customStyle}
+                    avoidHighlightFirstOption={true}
+                    closeOnSelect={true}
+                    hidePlaceholder={true}
+                    loading={formationPrograms.length <= 0}
+                    selectionLimit={1}
+                    emptyRecordMsg="No hay más datos"
+                    showCloseIcon={true}
+                    onKeyPressFn={function noRefCheck(){}}
+                    onSearch={function noRefCheck(){}}
+                    onRemove={function noRefCheck(){
+                        setDisable(true)
+                    }}
+                    onSelect={function noRefCheck(e){
+                        showCompetences(e[0])
+                    }}
+                    placeholder="Seleccionar"
+                    displayValue="program_name"
+                    options={formationPrograms}
+                  />
                 </FormGroup>
               </Col>
               <Col lg="6">
@@ -232,12 +218,12 @@ const RegisterAssignedFormation = () => {
                     >
                       Competencias
                     </label>
-                    <MultiSelectCustom options={competences} setRemove={setRemove2} onSelect={showLearningResults} disable={remove} />
-                      {/* <Multiselect
-                        disable={remove}
+                      <Multiselect
+                        disable={disable}
                         required
                         selectedValueDecorator={selectedValueDecorator}
-                        placeholder="Competencias"
+                        optionValueDecorator={optionValueDecorator}
+                        placeholder="Seleccionar"
                         displayValue="labor_competition"
                         selectionLimit={1}
                         onKeyPressFn={function noRefCheck(){}}
@@ -246,11 +232,15 @@ const RegisterAssignedFormation = () => {
                         onSelect={function noRefCheck(e){
                           showLearningResults(e[0])
                         }}
-                        options={competences} 
+                        hidePlaceholder={true}
+                        closeOnSelect={false}
+                        loading={competences.length <= 0}
                         avoidHighlightFirstOption={true}
-                        closeOnSelect={true}
                         emptyRecordMsg="No hay más datos"
-                      /> */}
+                        style={customStyle}
+                        customCloseIcon={closeIcon}
+                        options={competences}
+                      />
                   </FormGroup>
                 </Col>
                   </Row>
@@ -266,10 +256,10 @@ const RegisterAssignedFormation = () => {
                             </Col>
                           </Row>
                         </CardHeader>
-                        <CardBody>
-                          <FormGroup>
+                        <CardBody >
+                          <FormGroup className="mb-0">
                             <Button
-                            className="mb-3"
+                              className="mb-3"
                               onClick={addForm}
                               variant=""
                               id="btn-program-remove"
@@ -286,7 +276,7 @@ const RegisterAssignedFormation = () => {
                     <Col lg="6">
                       <FormGroup>
                         <label
-                          className="form-control-label"
+                          className="form-control-label mt-4"
                           htmlFor="input-hours-month"
                         >
                           Horas al mes

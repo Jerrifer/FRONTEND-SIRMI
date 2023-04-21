@@ -32,33 +32,3 @@ filter: grayscale(5px);
   color: #ffffff;
 }
 
-.t6 {
-  margin-bottom: 0;
-}
-
-.selected {
-  overflow: hidden;
-  max-width: 550px;
-}
-
-/* @media (min-width: 1412px){
-  .selected {
-    overflow: hidden;
-    max-width: 300px;
-  }
-}
-
-@media (min-width: 1000px){
-  .selected {
-    overflow: hidden;
-    max-width: 200px;
-  }
-}
-
-
-@media (min-width: 250px){
-  .selected {
-    overflow: hidden;
-    max-width: 200px;
-  }
-} */

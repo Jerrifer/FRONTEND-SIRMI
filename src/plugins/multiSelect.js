@@ -1,25 +1,23 @@
-const { default: Multiselect } = require("multiselect-react-dropdown")
 
+import "assets/css/selected.css"
 
-function MultiSelectCustom({options, setRemove, onSelect, disable}) {
-
-    const selectedValueDecorator = (selectedItem) => {
+export const selectedValueDecorator = (selectedItem) => {
     return (
         <div className="selected">
-        <h6 className="t6">{selectedItem}</h6>
+            <h6 className="t6">{selectedItem}</h6>
         </div>
     );
     };
 
-    const optionValueDecorator = (option) => {
+export const optionValueDecorator = (option) => {
     return (
         <div>
         <h6>{option}</h6>
         </div>
     );
-    }; 
-    
-    const customStyle = {
+}; 
+
+export const customStyle = {
     closeIcon: {
         background: 'black'
     },
@@ -37,48 +35,18 @@ function MultiSelectCustom({options, setRemove, onSelect, disable}) {
     },
     searchBox: {
         border: 'none',
-        'border-bottom': '1px solid black',
-        'border-radius': '0px'
+        borderBottom: '1px solid black',
+        borderRadius: '0px',
+        maxHeight: "40px",
+
     },
     inputField: {
         color: '#0000',
     },
-    };
+};
 
-  return (
-    <>
-      <Multiselect
-        disable={disable}
-        required
-        selectedValueDecorator={selectedValueDecorator}
-        optionValueDecorator={optionValueDecorator}
-        onKeyPressFn={function noRefCheck(){}}
-        onSearch={function noRefCheck(){}}
-        onRemove={function noRefCheck(){
-            setRemove(true)
-        }}
-        onSelect={function noRefCheck(e){
-            onSelect(e[0])
-        }}
-        avoidHighlightFirstOption={true}
-        closeOnSelect={true}
-        hidePlaceholder={true}
-        loading={options.length <= 0}
-        placeholder="Programas de formación"
-        displayValue="program_name"
-        selectionLimit={1}
-        options={options}
-        emptyRecordMsg="No hay más datos"
-        style={customStyle}
-        showCloseIcon={true}
-        customCloseIcon={<i className="ni ni-fat-remove" style={{fontSize: '20px', cursor: 'pointer'}}></i>}
-      />
-    </>
-  );
-}
 
-export default MultiSelectCustom;
-
+export const closeIcon = <i className="ni ni-fat-remove" style={{fontSize: '20px', cursor: 'pointer'}}></i>
 
 
 

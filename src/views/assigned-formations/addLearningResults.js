@@ -3,8 +3,34 @@
 import React from "react";
 import Multiselect from "multiselect-react-dropdown";
 import { Col, FormGroup, Input, Row } from "reactstrap";
+import { selectedValueDecorator, optionValueDecorator, closeIcon } from "plugins/multiSelect";
 
 function AddLearningResults({options, onSelect, disable}) {
+
+  const customStyle = {
+    closeIcon: {
+        background: 'black'
+    },
+    optionContainer: {
+        backgroundColor: '#f9f9f9',
+    },
+    option: {
+        color: '#333',
+    },
+    chips: {
+        color: '#000', // Aquí puedes definir el color que desees
+        background: 'ghostwhite',
+        border: 'none',
+        boxShadow: '2px 2px 5px 0px rgba(0, 0, 0, 0.1)',
+    },
+    searchBox: {
+        maxHeight: "40px",
+
+    },
+    inputField: {
+        color: '#0000',
+    },
+};
 
   // useEffect(() => {
   //   showCompetences(selectedFormationProgram)
@@ -25,16 +51,20 @@ function AddLearningResults({options, onSelect, disable}) {
     <>
       <Row>
         <Col lg='6'>
-            <label
-              className="form-control-label"
-              htmlFor="input-ficha"
-            >
-              Resultados de aprendizaje
-            </label>
+          <label
+            className="form-control-label"
+            htmlFor="input-ficha"
+          >
+            Seleccione un resultado de aprendizaje
+          </label>
           <Multiselect
-            disable={disable}
             required
-            placeholder="Resultados de aprendizaje"
+            disable={disable}
+            selectedValueDecorator={selectedValueDecorator}
+            optionValueDecorator={optionValueDecorator}
+            customCloseIcon={closeIcon}
+            style={customStyle}
+            placeholder="Seleccionar"
             displayValue="learning_result"
             selectionLimit={1}
             onKeyPressFn={function noRefCheck(){}}
@@ -46,6 +76,7 @@ function AddLearningResults({options, onSelect, disable}) {
             options={options}
             avoidHighlightFirstOption={true}
             closeOnSelect={true}
+            hidePlaceholder={true}
             emptyRecordMsg="No hay más datos"
           />
         </Col>
