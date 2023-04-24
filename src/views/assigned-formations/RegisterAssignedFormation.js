@@ -77,14 +77,16 @@ const RegisterAssignedFormation = () => {
   };
 
   const postResultSelected = (data) => {
-    console.log('jerri');
-    console.log(data);
     setLearningResultSelected(prevLearningResultSelected => {
+      const newResult = { learning_result: data.learning_result._id, end_date: data.end_date };
       return {
         ...prevLearningResultSelected,
-        [data.learning_result._id]: data.end_date
+        [data.learning_result._id]: newResult
       };
     });
+
+    const learningResultsFilter = learningResults.filter(learningResult => learningResult === data.learning_result)
+    setLearningResults(learningResultsFilter);
   };
 
   const renderForms = () => {
@@ -107,11 +109,13 @@ const RegisterAssignedFormation = () => {
   const register = async (e) => {
     e.preventDefault();
 
+    const learningResults = Object.values(learningResultSelected);
+
     const body = {
       ficha: ficha,
       activity: activity,
       hours_month: hoursMonth,
-      learning_results: learningResultSelected,
+      learning_results: learningResults,
     };
 
     console.log(body);
@@ -223,39 +227,41 @@ const RegisterAssignedFormation = () => {
                     />
                   </FormGroup>
                 </Col>
-              <Col lg="6">
-                <FormGroup>
-                  <label
-                    className="form-control-label"
-                      htmlFor="input-hours-month"
-                    >
-                      Competencias
-                    </label>
-                      <Multiselect
-                        disable={disable}
-                        required
-                        selectedValueDecorator={selectedValueDecorator}
-                        optionValueDecorator={optionValueDecorator}
-                        placeholder="Seleccionar"
-                        displayValue="labor_competition"
-                        selectionLimit={1}
-                        onKeyPressFn={function noRefCheck(){}}
-                        onRemove={function noRefCheck(){}}
-                        onSearch={function noRefCheck(){}}
-                        onSelect={function noRefCheck(e){
-                          showLearningResults(e[0])
-                        }}
-                        hidePlaceholder={true}
-                        closeOnSelect={false}
-                        loading={competences.length <= 0}
-                        avoidHighlightFirstOption={true}
-                        emptyRecordMsg="No hay más datos"
-                        style={customStyle}
-                        customCloseIcon={closeIcon}
-                        options={competences}
-                      />
-                  </FormGroup>
-                </Col>
+                <Col lg="6">
+                  <FormGroup>
+                    <label
+                      className="form-control-label"
+                        htmlFor="input-hours-month"
+                      >
+                        Competencias
+                      </label>
+                        <Multiselect
+                          disable={disable}
+                          required
+                          selectedValueDecorator={selectedValueDecorator}
+                          optionValueDecorator={optionValueDecorator}
+                          placeholder="Seleccionar"
+                          displayValue="labor_competition"
+                          selectionLimit={1}
+                          onKeyPressFn={function noRefCheck(){}}
+                          onRemove={function noRefCheck(){
+                            setDisable2(true)
+                          }}
+                          onSearch={function noRefCheck(){}}
+                          onSelect={function noRefCheck(e){
+                            showLearningResults(e[0])
+                          }}
+                          hidePlaceholder={true}
+                          closeOnSelect={false}
+                          loading={competences.length <= 0}
+                          avoidHighlightFirstOption={true}
+                          emptyRecordMsg="No hay más datos"
+                          style={customStyle}
+                          customCloseIcon={closeIcon}
+                          options={competences}
+                        />
+                    </FormGroup>
+                  </Col>
                   </Row>
                   <Row>
                     <Col lg="12">
@@ -283,6 +289,208 @@ const RegisterAssignedFormation = () => {
                           </FormGroup>
                         </CardBody>
                       </Card>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg="12">
+                      <FormGroup>
+                        <label
+                          className="form-control-label mt-4"
+                          htmlFor="input-hours-month"
+                        >
+                          Horario
+                        </label>
+                          <Row>
+                            <Col lg='12'>
+                              <div className="custom-control custom-checkbox ml-4" style={{display: 'flex', alignItems: 'center'}}>
+                                <input
+                                    className="custom-control-input"
+                                    id="customCheck1"
+                                    type="checkbox"
+                                  />
+                                  
+                                  <label className="custom-control-label" htmlFor="customCheck1">
+                                    <h3>Lunes</h3>
+                                  </label>
+                                <FormGroup   className="ml-3">
+                                <label
+                                  className="form-control-label"
+                                  htmlFor="input-hours-month"
+                                >
+                                  Hora entrada
+                                </label>
+                                <Input
+                                  disabled
+                                  className="form-control-alternative"
+                                  id="input-hours-month"
+                                  placeholder="Ej. 15"
+                                  type="number"
+                                  required
+                                />
+                              </FormGroup>
+
+                              <FormGroup  className="ml-3">
+                                <label
+                                  className="form-control-label"
+                                  htmlFor="input-hours-month"
+                                >
+                                  Hora salida
+                                </label>
+                                <Input
+                                  className="form-control-alternative"
+                                  id="input-hours-month"
+                                  placeholder="Ej. 15"
+                                  type="number"
+                                  required
+                                />
+                              </FormGroup>
+                              </div>
+                            </Col>
+
+                            <Col lg='12'>
+                             <div className="custom-control custom-checkbox ml-4" style={{display: 'flex', alignItems: 'center'}}>
+                              <input
+                                  className="custom-control-input"
+                                  id="customCheck1"
+                                  type="checkbox"
+                                />
+                                
+                                <label className="custom-control-label" htmlFor="customCheck1">
+                                  <h3>Martes</h3>
+                                </label>
+                              <FormGroup   className="ml-3">
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-hours-month"
+                              >
+                                Hora entrada
+                              </label>
+                              <Input
+                                disabled
+                                className="form-control-alternative"
+                                id="input-hours-month"
+                                placeholder="Ej. 15"
+                                type="number"
+                                required
+                              />
+                            </FormGroup>
+
+                            <FormGroup  className="ml-3">
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-hours-month"
+                              >
+                                Hora salida
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                id="input-hours-month"
+                                placeholder="Ej. 15"
+                                type="number"
+                                required
+                              />
+                            </FormGroup>
+                            </div>
+                            </Col>
+
+                            <Col lg='12'>
+                             <div className="custom-control custom-checkbox ml-4" style={{display: 'flex', alignItems: 'center'}}>
+                              <input
+                                  className="custom-control-input"
+                                  id="customCheck1"
+                                  type="checkbox"
+                                />
+                                
+                                <label className="custom-control-label" htmlFor="customCheck1">
+                                  <h3>Miercoles</h3>
+                                </label>
+                              <FormGroup   className="ml-3">
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-hours-month"
+                              >
+                                Hora entrada
+                              </label>
+                              <Input
+                                disabled
+                                className="form-control-alternative"
+                                id="input-hours-month"
+                                placeholder="Ej. 15"
+                                type="number"
+                                required
+                              />
+                            </FormGroup>
+
+                            <FormGroup  className="ml-3">
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-hours-month"
+                              >
+                                Hora salida
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                id="input-hours-month"
+                                placeholder="Ej. 15"
+                                type="number"
+                                required
+                              />
+                            </FormGroup>
+                            </div>
+                            </Col>
+
+                            <Col lg='12'>
+                             <div className="custom-control custom-checkbox ml-4" style={{display: 'flex', alignItems: 'center'}}>
+                              <input
+                                  className="custom-control-input"
+                                  id="customCheck1"
+                                  type="checkbox"
+                                />
+                                
+                                <label className="custom-control-label" htmlFor="customCheck1">
+                                  <h3>Jueves</h3>
+                                </label>
+                              <FormGroup   className="ml-3">
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-hours-month"
+                              >
+                                Hora entrada
+                              </label>
+                              <Input
+                                disabled
+                                className="form-control-alternative"
+                                id="input-hours-month"
+                                placeholder="Ej. 15"
+                                type="number"
+                                required
+                              />
+                            </FormGroup>
+
+                            <FormGroup  className="ml-3">
+                              <label
+                                className="form-control-label"
+                                htmlFor="input-hours-month"
+                              >
+                                Hora salida
+                              </label>
+                              <Input
+                                className="form-control-alternative"
+                                id="input-hours-month"
+                                placeholder="Ej. 15"
+                                type="number"
+                                required
+                              />
+                            </FormGroup>
+                            </div>
+                            </Col>
+                        </Row>
+                        {/* <Row>Martes</Row>
+                        <Row>Miercoles</Row>
+                        <Row>Jueves</Row>
+                        <Row>Viernes</Row>
+                        <Row>Sábado</Row> */}
+                      </FormGroup>
                     </Col>
                   </Row>
                   <Row>
