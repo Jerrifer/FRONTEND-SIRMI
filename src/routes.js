@@ -28,6 +28,7 @@ import UpdateAssignedFormation from "views/assigned-formations/updateAssignedFor
 import otheractivity from "views/otherActivity/listOtheractivity"
 import registerOtherActivity from "views/otherActivity/RegisterOtheractivity";
 import Updateotheractivity from "views/otherActivity/updateOtheractivity";
+import Rmi from "views/assigned-formations/rmi";
 
 var routes = [
   {
@@ -263,6 +264,15 @@ var routes = [
     name: "Actualizar actividad",
     icon: "ni ni-single-copy-04 text-dark",
     component: Updateotheractivity,
+    layout: "/admin",
+    sidebar: false,
+  },
+
+  {
+    path: "/rmi",
+    name: "rmi",
+    icon: "ni ni-single-copy-04 text-dark",
+    component: Rmi,
     layout: "/admin",
     sidebar: false,
   },
