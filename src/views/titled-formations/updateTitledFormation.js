@@ -21,44 +21,44 @@ import "../../../src/components/Headers/header.css";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 
 import { useHistory, useParams } from "react-router-dom";
-import { getAssignedFormationService } from "services/assignedFormations";
-import { updateAssignedFormationService } from "services/assignedFormations";
+import { getTitledFormationService } from "services/titledFormations";
+import { updateTitledFormationService } from "services/titledFormations";
 
 // import { Swal } from "sweetalert2";
 
-const UpdateAssignedFormation = () => {
+const UpdateTitledFormation = () => {
   const navigate = useHistory();
 
   const { id } = useParams();
 
   useEffect(() => {
-    showAssignedFormation(id);
+    showTitledFormation(id);
   }, [id]);
 
-  const [assignedFormation, setAssignedFormation] = useState([]);
+  const [titledFormation, setTitledFormation] = useState([]);
 
-  const showAssignedFormation = async (id) => {
-    const data = await getAssignedFormationService(id);
-    setAssignedFormation(data.results);
+  const showTitledFormation = async (id) => {
+    const data = await getTitledFormationService(id);
+    setTitledFormation(data.results);
 
     // console.log(data);
   };
 
   const changeData = (e) => {
-    setAssignedFormation({ ...assignedFormation, [e.target.name]: e.target.value });
+    setTitledFormation({ ...titledFormation, [e.target.name]: e.target.value });
   };
 
   const update = async (e) => {
     e.preventDefault();
 
-    const data = await updateAssignedFormationService(id, assignedFormation);
+    const data = await updateTitledFormationService(id, titledFormation);
     if (data.status === "success") {
       swalWithBootstrapButtons.fire(
         "Actualizado exitosamente",
         data.message,
         data.status
       );
-      navigate.push("/admin/assignedformations");
+      navigate.push("/admin/titledformations");
     } else {
       swalWithBootstrapButtons.fire(data.message, data.results, data.status);
     }
@@ -96,7 +96,7 @@ const UpdateAssignedFormation = () => {
                           name="ficha"
                           placeholder="Ej. 24514755"
                           type="text"
-                          defaultValue={assignedFormation.ficha}
+                          defaultValue={titledFormation.ficha}
                           required
                           onChange={changeData}
                         />
@@ -117,7 +117,7 @@ const UpdateAssignedFormation = () => {
                           name="activity"
                           placeholder="Ej. Determinar el cumplimiento de las buenas prácticas de calidad en el desarrollo de software"
                           type="text"
-                          defaultValue={assignedFormation.activity}
+                          defaultValue={titledFormation.activity}
                           required
                           onChange={changeData}
                         />
@@ -139,7 +139,7 @@ const UpdateAssignedFormation = () => {
                           name="hours_month"
                           placeholder="Ej. 48"
                           type="text"
-                          defaultValue={assignedFormation.hours_month}
+                          defaultValue={titledFormation.hours_month}
                           required
                           onChange={changeData}
                         />
@@ -160,4 +160,4 @@ const UpdateAssignedFormation = () => {
   );
 };
 
-export default UpdateAssignedFormation;
+export default UpdateTitledFormation;

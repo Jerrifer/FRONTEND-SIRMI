@@ -1,5 +1,5 @@
 /* eslint-disable no-script-url */
-import "./styles.css";
+// import "./styles.css";
 import logo_sena from "assets/img/sena_logo.png";
 
 const ReportTemplateRMI = ({ user, rmi, othersActivities }) => {

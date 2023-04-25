@@ -19,16 +19,16 @@ import Profile from "views/examples/Profile";
 import ListContracts from "views/contracts/listContracts";
 import RegisterContracts from "views/contracts/RegisterContract"
 import UpdateContracts from "views/contracts/updateContract"
-import ListAssignedFormations from "views/assigned-formations/listAssignedFormations";
-import RegisterAssignedFormation from "views/assigned-formations/RegisterAssignedFormation";
-import UpdateAssignedFormation from "views/assigned-formations/updateAssignedFormation";
 
 
 
 import otheractivity from "views/otherActivity/listOtheractivity"
 import registerOtherActivity from "views/otherActivity/RegisterOtheractivity";
 import Updateotheractivity from "views/otherActivity/updateOtheractivity";
-import Rmi from "views/assigned-formations/rmi";
+import Rmi from "views/titled-formations/rmi";
+import ListTitledFormations from "views/titled-formations/listAssignedFormations";
+import RegisterTitledFormation from "views/titled-formations/RegisterTitledFormation";
+import UpdateTitledFormation from "views/titled-formations/updateTitledFormation";
 
 var routes = [
   {
@@ -210,34 +210,34 @@ var routes = [
 
    // end contracts
 
-  // assigned formation 
+  // titled formation 
   {
-    path: "/assignedformations",
+    path: "/titledformations",
     name: "Formaciones tituladas",
     icon: "ni ni-bullet-list-67 text-dark",
-    component: ListAssignedFormations,
+    component: ListTitledFormations,
     layout: "/admin",
   },
 
   {
-    path: "/registerassignedformation",
+    path: "/registertitledformation",
     name: "Registrar Formacion Asignada",
     icon: "ni ni-single-copy-04 text-dark",
-    component: RegisterAssignedFormation,
+    component: RegisterTitledFormation,
     layout: "/admin",
     sidebar: false,
   },
 
   {
-    path: "/updateassignedformation/:id",
+    path: "/updatetitledformation/:id",
     name: "ActualizarFormacion Asignada",
     icon: "ni ni-single-copy-04 text-dark",
-    component: UpdateAssignedFormation,
+    component: UpdateTitledFormation,
     layout: "/admin",
     sidebar: false,
   },
 
-  // end assigned formation 
+  // end titled formation 
 
 
 

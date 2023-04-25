@@ -30,11 +30,11 @@ import {
   customStyle,
   closeIcon,
 } from "plugins/multiSelect";
-import { registerAssignedFormationService } from "services/assignedFormations";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import TrainingSchedule from "./trainingSchedule";
+import { registerTitledFormationService } from "services/titledFormations";
 
-const RegisterAssignedFormation = () => {
+const RegisterTitledFormation = () => {
   const navigate = useHistory();
 
   const [ficha, setFicha] = useState("");
@@ -207,7 +207,7 @@ const RegisterAssignedFormation = () => {
 
     console.log(body);
 
-    const data = await registerAssignedFormationService(body);
+    const data = await registerTitledFormationService(body);
     if (data.status === "success") {
       swalWithBootstrapButtons.fire(
         "Registro exitoso",
@@ -218,7 +218,7 @@ const RegisterAssignedFormation = () => {
     } else {
       swalWithBootstrapButtons.fire(data.message, data.results, data.status);
     }
-    navigate.push("/admin/assignedformations");
+    navigate.push("/admin/titledformations");
   };
 
   return (
@@ -459,4 +459,4 @@ const RegisterAssignedFormation = () => {
   );
 };
 
-export default RegisterAssignedFormation;
+export default RegisterTitledFormation;

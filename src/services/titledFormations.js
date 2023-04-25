@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { BASE_URL } from 'globals.constans';
 
-export const allAssignedFormationsService = async () => {
+export const allTitledFormationsService = async () => {
     return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}assignedformations`).then((response) => {
+        await axios.get(`${BASE_URL}titledformations`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -11,9 +11,9 @@ export const allAssignedFormationsService = async () => {
     })
 };
 
-export const getAssignedFormationService = async (id) => {
+export const getTitledFormationService = async (id) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}assignedformations/${id}`).then((response) => {
+        await axios.get(`${BASE_URL}titledformations/${id}`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -21,9 +21,9 @@ export const getAssignedFormationService = async (id) => {
     })
   };
 
-  export const registerAssignedFormationService = async (body) => {
+  export const registerTitledFormationService = async (body) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.post(`${BASE_URL}assignedformations`, body).then((response) => {
+        await axios.post(`${BASE_URL}titledformations`, body).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -31,9 +31,9 @@ export const getAssignedFormationService = async (id) => {
     })
   };
 
-  export const updateAssignedFormationService = async (id, body) => {
+  export const updateTitledFormationService = async (id, body) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.put(`${BASE_URL}assignedformations/${id}`, body).then((response) => {
+        await axios.put(`${BASE_URL}titledformations/${id}`, body).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -41,9 +41,9 @@ export const getAssignedFormationService = async (id) => {
     })
   };
 
-  export const deleteAssignedFormationService = async (id) => {
+  export const deleteTitledFormationService = async (id) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.delete(`${BASE_URL}assignedformations/${id}`).then((response) => {
+        await axios.delete(`${BASE_URL}titledformations/${id}`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)

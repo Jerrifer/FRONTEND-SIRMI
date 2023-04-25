@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { UncontrolledTooltip } from "reactstrap";
 
-function DetailAssignedFormation({ assignedFormation }) {
+function DetailTitledFormation({ titledFormation }) {
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!isShow);
@@ -13,7 +13,7 @@ function DetailAssignedFormation({ assignedFormation }) {
     <>
       <Button 
         variant="" 
-        id="btn-assigned-formation-detail"
+        id="btn-titled-formation-detail"
         onClick={initModal}
       >
         <i className="fas fa-eye-solid fa-eye" />
@@ -21,7 +21,7 @@ function DetailAssignedFormation({ assignedFormation }) {
       <UncontrolledTooltip
         className="tooltip-inner"
         delay={0}
-        target="btn-assigned-formation-detail"
+        target="btn-titled-formation-detail"
       >
         Ver detalle reporte
       </UncontrolledTooltip>
@@ -35,16 +35,16 @@ function DetailAssignedFormation({ assignedFormation }) {
             <div className="container ">
               <Form.Group>
               <Form.Label>Ficha</Form.Label>
-                <h2>{assignedFormation.ficha}</h2>
+                <h2>{titledFormation.ficha}</h2>
               </Form.Group>
               <Form.Group>
                 <Form.Label>Actividad</Form.Label>
-                <h3 className="ml-4">{assignedFormation.activity}</h3>
+                <h3 className="ml-4">{titledFormation.activity}</h3>
               </Form.Group>
 
               <Form.Group>
                 <Form.Label>Horas al mes</Form.Label>
-                <h3 className="ml-4">{assignedFormation.hours_month}</h3>
+                <h3 className="ml-4">{titledFormation.hours_month}</h3>
               </Form.Group>
             </div>
           </Modal.Body>
@@ -60,4 +60,4 @@ function DetailAssignedFormation({ assignedFormation }) {
   );
 }
 
-export default DetailAssignedFormation;
+export default DetailTitledFormation;

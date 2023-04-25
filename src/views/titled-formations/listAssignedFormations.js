@@ -24,13 +24,13 @@ import Swal from "sweetalert2";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Spinner from "../../components/loader"
 import PaginationData from "plugins/pagination";
-import { allAssignedFormationsService } from "services/assignedFormations";
-import { deleteAssignedFormationService } from "services/assignedFormations";
-import DetailAssignedFormation from "./detailAssignedFormation";
+import { allTitledFormationsService } from "services/titledFormations";
+import { deleteTitledFormationService } from "services/titledFormations";
+import DetailTitledFormation from "./detailTitledFormation";
 
-const ListAssignedFormations = () => {
+const ListTitledFormations = () => {
 
-  const [assignedFormations, setAssignedFormations] = useState([]);
+  const [titledFormations, setTitledFormations] = useState([]);
 
   const [search, setSearch] = useState("");
   const [ loading ,setLoading] = useState(true);
@@ -39,18 +39,18 @@ const ListAssignedFormations = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    showAssignedFormations();
+    showTitledFormations();
   }, []);
 
-  const showAssignedFormations = async () => {
-    const data = await allAssignedFormationsService();
-    setAssignedFormations(data.results);
+  const showTitledFormations = async () => {
+    const data = await allTitledFormationsService();
+    setTitledFormations(data.results);
     setLoading(false)
   };
 
-  const totalAssignedFormations = assignedFormations.length 
+  const totalTitledFormations = titledFormations.length 
 
-  const deleteAssignedFormation = async (id) => {
+  const deleteTitledFormation = async (id) => {
     const alertParams = {
       title: "¿Está seguro de eliminar el reporte de formación asignada?",
       icon: "warning",
@@ -58,7 +58,7 @@ const ListAssignedFormations = () => {
     const confirmed = await alert(alertParams);
 
     if (confirmed.isConfirmed) {
-      const data = await deleteAssignedFormationService(id);
+      const data = await deleteTitledFormationService(id);
       if (data.status === "success") {
         swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
       } else {
@@ -78,9 +78,9 @@ const ListAssignedFormations = () => {
   let result = [];
 
   if (!search) {
-    result = assignedFormations;
+    result = titledFormations;
   } else {
-    result = assignedFormations.filter((dato) =>
+    result = titledFormations.filter((dato) =>
       dato.ficha
         .toLowerCase()
         .includes(search.toLocaleLowerCase())
@@ -99,7 +99,7 @@ const ListAssignedFormations = () => {
               <CardHeader className="border-0">
                 <Col lg="6">
                   <Link
-                    to={`/admin/registerassignedformation`}
+                    to={`/admin/registertitledformation`}
                     tag={NavLinkRRD}
                     activeclassname="active"
                   >
@@ -136,9 +136,9 @@ const ListAssignedFormations = () => {
                 {loading && < Spinner/>}
 
                   {result
-                    .map((assignedFormation, i = 0) => {
+                    .map((titledFormation, i = 0) => {
                       return (
-                        <tr key={assignedFormation._id}>
+                        <tr key={titledFormation._id}>
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
@@ -146,17 +146,17 @@ const ListAssignedFormations = () => {
                             </Badge>
                           </td>
 
-                          <td>{assignedFormation.ficha}</td>
+                          <td>{titledFormation.ficha}</td>
 
-                          <td>{assignedFormation.activity}</td>
+                          <td>{titledFormation.activity}</td>
 
-                          <td>{assignedFormation.hours_month}</td>
+                          <td>{titledFormation.hours_month}</td>
 
                           <td>
-                            <DetailAssignedFormation assignedFormation={assignedFormation} />
+                            <DetailTitledFormation titledFormation={titledFormation} />
 
                             <Link
-                              to={`/admin/updateassignedformation/${assignedFormation._id}`}
+                              to={`/admin/updatetitledformation/${titledFormation._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
@@ -176,7 +176,7 @@ const ListAssignedFormations = () => {
                               variant=""
                               id="btn-program-delete"
                               onClick={() =>
-                                deleteAssignedFormation(assignedFormation._id)
+                                deleteTitledFormation(titledFormation._id)
                               }
                             >
                               <i className="fas fa-trash-alt"></i>
@@ -201,7 +201,7 @@ const ListAssignedFormations = () => {
                   userPerPage={userPerPage}
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}
-                  totalData={totalAssignedFormations}
+                  totalData={totalTitledFormations}
                 />
               </CardFooter>
             </Card>
@@ -212,4 +212,4 @@ const ListAssignedFormations = () => {
   );
 };
 
-export default ListAssignedFormations;
+export default ListTitledFormations;
