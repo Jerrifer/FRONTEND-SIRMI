@@ -26,7 +26,7 @@ import otheractivity from "views/otherActivity/listOtheractivity"
 import registerOtherActivity from "views/otherActivity/RegisterOtheractivity";
 import Updateotheractivity from "views/otherActivity/updateOtheractivity";
 import Rmi from "views/titled-formations/rmi";
-import ListTitledFormations from "views/titled-formations/listAssignedFormations";
+import ListTitledFormations from "views/titled-formations/listTitledFormations";
 import RegisterTitledFormation from "views/titled-formations/RegisterTitledFormation";
 import UpdateTitledFormation from "views/titled-formations/updateTitledFormation";
 

@@ -33,6 +33,7 @@ import {
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import TrainingSchedule from "./trainingSchedule";
 import { registerTitledFormationService } from "services/titledFormations";
+import Calendar from "components/calendar/calendar";
 
 const RegisterTitledFormation = () => {
   const navigate = useHistory();
@@ -420,6 +421,10 @@ const RegisterTitledFormation = () => {
                         </tbody>
                       </Table>
                     </Col>
+                  </Row>
+
+                  <Row className="m-5">
+                    <Calendar />
                   </Row>
 
                   <Row>

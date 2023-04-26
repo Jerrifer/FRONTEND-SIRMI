@@ -1,39 +1,39 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import jsPDF from "jspdf";
 import ReportTemplateRMI from "components/RMI/report-template-RMI";
 import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 
 function Rmi() {
-  const [schedules, setSchedules] = useState([
-    {
-      _id: 23312123,
-      date: "16:00 - 19:00",
-    },
-    {
-      _id: 23144523,
-      date: "16:00 - 19:00",
-    },
-    {
-      _id: 2387123,
-      date: "16:00 - 19:00",
-    },
-    {
-      _id: 2356586123,
-      date: "16:00 - 19:00",
-    },
-    {
-      _id: 236543123,
-      date: "16:00 - 19:00",
-    },
-    {
-      _id: 23164523,
-      date: "16:00 - 19:00",
-    },
-    {
-      _id: 264563123,
-      date: "16:00 - 19:00",
-    },
-  ]);
+  // const [schedules, setSchedules] = useState([
+  //   {
+  //     _id: 23312123,
+  //     date: "16:00 - 19:00",
+  //   },
+  //   {
+  //     _id: 23144523,
+  //     date: "16:00 - 19:00",
+  //   },
+  //   {
+  //     _id: 2387123,
+  //     date: "16:00 - 19:00",
+  //   },
+  //   {
+  //     _id: 2356586123,
+  //     date: "16:00 - 19:00",
+  //   },
+  //   {
+  //     _id: 236543123,
+  //     date: "16:00 - 19:00",
+  //   },
+  //   {
+  //     _id: 23164523,
+  //     date: "16:00 - 19:00",
+  //   },
+  //   {
+  //     _id: 264563123,
+  //     date: "16:00 - 19:00",
+  //   },
+  // ]);
   const USER = {
     trainingCenter: "CENTRO DE TELEINFORMÁTICA Y PRODUCCIÓN INDUSTRIAL",
     name: "PABLO ANTONIO ORTIZ GUTIERREZ",
