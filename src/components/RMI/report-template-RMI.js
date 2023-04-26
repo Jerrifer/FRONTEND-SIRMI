@@ -14,6 +14,7 @@ const ReportTemplateRMI = ({ user, rmi, othersActivities }) => {
   }
 
   return (
+    <div className="contenedor">
     <table>
       <thead>
         <tr className="row0">
@@ -330,6 +331,7 @@ const ReportTemplateRMI = ({ user, rmi, othersActivities }) => {
         ))}
       </tbody>
     </table>
+    </div>
   );
 };
 

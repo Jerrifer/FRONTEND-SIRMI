@@ -12,11 +12,7 @@
     background-color: #a1a1a1;
 }
 
-html {
-    font-family: Calibri, Arial, Helvetica, sans-serif;
-    font-size: 11pt;
-    background-color: white
-}
+
 
 a.comment-indicator:hover+div.comment {
     background: #ffd;
@@ -4622,9 +4618,9 @@ table.sheet0 tr.row43 {
     margin-bottom: 0.75in;
 }
 
-body {
-    margin-left: 0.7in;
-    margin-right: 0.7in;
-    margin-top: 0.75in;
-    margin-bottom: 0.75in;
+.contenedor{
+    margin-left: 0.17in;
+    margin-right: 0.17in;
+    margin-top: 0.15in;
+    margin-bottom: 0.75in; 
 }
