@@ -11,6 +11,7 @@ import "assets/scss/argon-dashboard-react.scss";
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import PublicLayout from "layouts/Public.js";
+import  RmiLayout from 'layouts/Rmi'
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -19,6 +20,7 @@ root.render(
     <Switch>
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+      <Route path="/rmi" render={(props) => <RmiLayout {...props} />} />
       <Route path="/public" render={(props) => <PublicLayout {...props} />} />
     </Switch>
     {/* <Redirect from="/" to="/admin/index" /> */}

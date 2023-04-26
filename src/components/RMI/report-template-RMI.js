@@ -1,7 +1,7 @@
 /* eslint-disable no-script-url */
 // import "./styles.css";
 import logo_sena from "assets/img/sena_logo.png";
-
+import './styles.css'
 const ReportTemplateRMI = ({ user, rmi, othersActivities }) => {
   let totalHoras = 0;
   for (let i = 0; i < rmi.length; i++) {
@@ -21,7 +21,7 @@ const ReportTemplateRMI = ({ user, rmi, othersActivities }) => {
           <td className="column1 style60 s style65" colSpan="4" rowSpan="3">
             <img src={logo_sena} style={{ width: "60px" }} alt="" />
           </td>
-          <td className="column5 style70 s style72" colSpan="16">
+          <td className="column5 style70 s style72" colSpan="17">
             REPORTE MENSUAL DEL INSTRUCTOR - RMI
           </td>
           <td className="column21 style145 s style148" colSpan="2" rowSpan="6">
@@ -34,20 +34,20 @@ const ReportTemplateRMI = ({ user, rmi, othersActivities }) => {
           <td className="column6 style69 s style69" rowSpan="5">
             {user.month}
           </td>
-          <td className="column6 style69 s style69" colSpan="8">
+          <td className="column6 style69 s style69" colSpan="7">
             NOMBRE
           </td>
-          <td className="column14 style81 s style82" colSpan="7">
+          <td className="column14 style81 s style82" colSpan="9">
             CORREO ELECTRÓNICO
           </td>
           <td className="column23">&nbsp;</td>
         </tr>
         <tr className="row2">
           <td className="column0">&nbsp;</td>
-          <td className="column6 style40 s style40" colSpan="8">
+          <td className="column6 style40 s style40" colSpan="7">
             {user.name}
           </td>
-          <td className="column14 style84 s style86" colSpan="7">
+          <td className="column14 style84 s style86" colSpan="9">
             <i style={{cursor: 'pointer'}} title="">
               {user.email}
             </i>
@@ -59,28 +59,28 @@ const ReportTemplateRMI = ({ user, rmi, othersActivities }) => {
           <td className="column1 style93 s style98" colSpan="4" rowSpan="3">
             {user.trainingCenter}
           </td>
-          <td className="column6 style69 s style69" colSpan="8">
+          <td className="column6 style69 s style69" colSpan="7">
             CÉDULA
           </td>
-          <td className="column14 style87 s style88" colSpan="7">
+          <td className="column14 style87 s style88" colSpan="9">
             NUMERO DE CONTACTO
           </td>
           <td className="column23">&nbsp;</td>
         </tr>
         <tr className="row4">
           <td className="column0">&nbsp;</td>
-          <td className="column6 style40 n style40" colSpan="8">
+          <td className="column6 style40 n style40" colSpan="7">
             {user.identification}
           </td>
-          <td className="column14 style53 n style54" colSpan="7">
+          <td className="column14 style53 n style54" colSpan="9">
             {user.cellPhone}
           </td>
           <td className="column23">&nbsp;</td>
         </tr>
         <tr className="row5">
           <td className="column0">&nbsp;</td>
-          <td className="column6 style41 null style41" colSpan="8"></td>
-          <td className="column14 style42 null style43" colSpan="7"></td>
+          <td className="column6 style41 null style41" colSpan="7"></td>
+          <td className="column14 style42 null style43" colSpan="9"></td>
           <td className="column23">&nbsp;</td>
         </tr>
         <tr className="row6">
@@ -281,8 +281,7 @@ const ReportTemplateRMI = ({ user, rmi, othersActivities }) => {
           <td className="column11 style2 null"></td>
           <td className="column12 style2 null"></td>
           <td className="column13 style2 null"></td>
-          <td className="column13 style2 null"></td>
-          <td className="column14 style28 s style30" colSpan="6">
+          <td className="column14 style28 s style30" colSpan="7">
             TOTAL HORAS FORMACIÓN MES
           </td>
           <td className="column20 style18 f">{totalHoras}</td>

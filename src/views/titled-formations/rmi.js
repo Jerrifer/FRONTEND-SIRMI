@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import jsPDF from "jspdf";
 import ReportTemplateRMI from "components/RMI/report-template-RMI";
+import { Link, NavLink as NavLinkRRD } from "react-router-dom";
 
 function Rmi() {
   const [schedules, setSchedules] = useState([
@@ -361,20 +362,27 @@ function Rmi() {
         />
       </div>
       <button
-        className="button"
-        style={{
-          width: "120px",
-          height: "30px",
-          marginBottom: "10px",
-          background: "white",
-          border: "1px solid",
-          borderRadius: "7%",
-          cursor: "pointer",
-        }}
+        className="btn btn-success mt-5"
+       
         onClick={() => {handleGeneratePdf()}}
       >
         Generar PDF
       </button>
+
+
+      <Link
+                              to={`/admin/registertitledformation`}
+                              tag={NavLinkRRD}
+                              activeclassname="active"
+                            >
+      <button
+        className="btn btn-danger mt-5">
+        volver
+      </button>
+
+      </Link>
+      
+                 
     </div>
   );
 }

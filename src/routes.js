@@ -270,11 +270,11 @@ var routes = [
 
   {
     path: "/rmi",
-    name: "rmi",
     icon: "ni ni-single-copy-04 text-dark",
     component: Rmi,
-    layout: "/admin",
+    layout: "/rmi",
     sidebar: false,
   },
+
 ];
 export default routes;
