@@ -79,6 +79,7 @@ const RegisterTitledFormation = () => {
   const [competences, setCompetences] = useState([]);
   const [learningResults, setLearningResults] = useState([]);
   const [formationProgramSelected, setFormationProgramSelected] = useState([]);
+  const [selectedDays, setSelectedDays ] = useState([])
 
   const [disable, setDisable] = useState(true);
   const [disable2, setDisable2] = useState(true);
@@ -186,6 +187,18 @@ const RegisterTitledFormation = () => {
     setSchedules(updatedSchedules);
   };
 
+  function handleDayClick(day) {
+    const designatedDays = Object.values(selectedDays);
+    const isDesignatedDay = designatedDays.includes(day);
+
+    if(isDesignatedDay) {
+      const filtrados = designatedDays.filter(item => item !== day)
+      return setSelectedDays(filtrados)
+    }
+    setSelectedDays({ ...selectedDays, [day]: day});
+    console.log(`Se hizo clic en el día ${day}`);
+  }
+
 
   // updateSchedule(23312123, "18:00 - 21:00");
 
@@ -193,6 +206,7 @@ const RegisterTitledFormation = () => {
     e.preventDefault();
 
     const learningResults = Object.values(learningResultSelected);
+    const workDays = Object.values(selectedDays);
 
     const body = {
       ficha: ficha,
@@ -204,6 +218,7 @@ const RegisterTitledFormation = () => {
         learning_results: learningResults,
       },
       schedule: schedules,
+      workdays: workDays
     };
 
     console.log(body);
@@ -424,7 +439,7 @@ const RegisterTitledFormation = () => {
                   </Row>
 
                   <Row className="m-5">
-                    <Calendar />
+                    <Calendar selectedDays={selectedDays} handleDayClick={handleDayClick} />
                   </Row>
 
                   <Row>

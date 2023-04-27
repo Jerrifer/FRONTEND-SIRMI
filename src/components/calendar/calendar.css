@@ -54,12 +54,28 @@
     cursor: pointer;
   }
 
+  .designated {
+    background-color: #47a44b; /* Cambiar aquí el color que desees */
+    color: #fff; /* Cambiar aquí el color que desees */
+  }
+
+  .holiday {
+    background-color: #a44747; /* Cambiar aquí el color que desees */
+    color: #fff; /* Cambiar aquí el color que desees */
+  }
+
+  span.disabled {
+    color: grey;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
   .allday {
     justify-content: center;
   }
   
   .day:hover {
-    background-color: #47a44b;
+    background-color: #47a44c82;
   }
   
   .week {
