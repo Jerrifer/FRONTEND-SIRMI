@@ -48,6 +48,7 @@
     "bulma": "^0.9.4",
     "chart.js": "2.9.4",
     "classnames": "2.3.1",
+    "colombian-holidays": "^4.1.1",
     "eslint": "^8.1.0",
     "formik": "^2.2.9",
     "jspdf": "^2.5.1",

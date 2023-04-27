@@ -306,6 +306,7 @@ function Rmi() {
       ],
       duration: 18,
     },
+    
   ];
 
   const OTHERSACTIVITES = [
@@ -371,10 +372,10 @@ function Rmi() {
 
 
       <Link
-                              to={`/admin/registertitledformation`}
-                              tag={NavLinkRRD}
-                              activeclassname="active"
-                            >
+        to={`/admin/registertitledformation`}
+        tag={NavLinkRRD}
+        activeclassname="active"
+      >
       <button
         className="btn btn-danger mt-5">
         volver

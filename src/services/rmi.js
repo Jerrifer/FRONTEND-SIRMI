@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { BASE_URL } from 'globals.constans';
 
-export const allTitledFormationsService = async () => {
+export const allRmiService = async () => {
     return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}titledformations`).then((response) => {
+        await axios.get(`${BASE_URL}rmi`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -11,9 +11,20 @@ export const allTitledFormationsService = async () => {
     })
 };
 
-export const getTitledFormationService = async (id) => {
+export const getRmiService = async (id) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}titledformations/${id}`).then((response) => {
+        await axios.get(`${BASE_URL}rmi/${id}`).then((response) => {
+            resolve(response.data)
+            console.log(response.data);
+        }).catch((error) => {
+            resolve(error.response.data)
+        })          
+    })
+  };
+
+  export const registerRmiService = async (body) => {
+    return await new Promise( async (resolve, reject) => {
+        await axios.post(`${BASE_URL}rmi`, body).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -21,9 +32,9 @@ export const getTitledFormationService = async (id) => {
     })
   };
 
-  export const registerTitledFormationService = async (body) => {
+  export const updateRmiService = async (id, body) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.post(`${BASE_URL}titledformations`, body).then((response) => {
+        await axios.put(`${BASE_URL}rmi/${id}`, body).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -31,9 +42,9 @@ export const getTitledFormationService = async (id) => {
     })
   };
 
-  export const updateTitledFormationService = async (id, body) => {
+  export const deleteRmiService = async (id) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.put(`${BASE_URL}titledformations/${id}`, body).then((response) => {
+        await axios.delete(`${BASE_URL}rmi/${id}`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -41,9 +52,9 @@ export const getTitledFormationService = async (id) => {
     })
   };
 
-  export const deleteTitledFormationService = async (id) => {
+  export const rmiByUserService = async (id) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.delete(`${BASE_URL}titledformations/${id}`).then((response) => {
+        await axios.get(`${BASE_URL}rmi/byuser/${id}`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -51,13 +62,3 @@ export const getTitledFormationService = async (id) => {
     })
   };
 
-
-  export const titledFormationsByRmiService = async (id) => {
-    return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}titledformations/byrmi/${id}`).then((response) => {
-            resolve(response.data)
-        }).catch((error) => {
-            resolve(error.response.data)
-        })          
-    })
-  };

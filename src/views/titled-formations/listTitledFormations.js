@@ -18,7 +18,7 @@ import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import { Link, NavLink as NavLinkRRD } from "react-router-dom";
+import { Link, NavLink as NavLinkRRD, useParams } from "react-router-dom";
 import { alert } from "plugins/alerts.js";
 import Swal from "sweetalert2";
 import { swalWithBootstrapButtons } from "plugins/alerts";
@@ -27,10 +27,29 @@ import PaginationData from "plugins/pagination";
 import { allTitledFormationsService } from "services/titledFormations";
 import { deleteTitledFormationService } from "services/titledFormations";
 import DetailTitledFormation from "./detailTitledFormation";
+import { titledFormationsByRmiService } from "services/titledFormations";
+
+const months = [
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
+];
 
 const ListTitledFormations = () => {
 
+  const { id } = useParams();
+
   const [titledFormations, setTitledFormations] = useState([]);
+  const [rmi, setRmi] = useState([]);
 
   const [search, setSearch] = useState("");
   const [ loading ,setLoading] = useState(true);
@@ -39,12 +58,13 @@ const ListTitledFormations = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    showTitledFormations();
-  }, []);
+    showTitledFormations(id);
+  }, [id]);
 
-  const showTitledFormations = async () => {
-    const data = await allTitledFormationsService();
-    setTitledFormations(data.results);
+  const showTitledFormations = async (id) => {
+    const data = await titledFormationsByRmiService(id);
+    setTitledFormations(data.results.allTitledFormations);
+    setRmi(data.results.rmi);
     setLoading(false)
   };
 
@@ -98,15 +118,18 @@ const ListTitledFormations = () => {
             <Card className="formulario ">
               <CardHeader className="border-0">
                 <Col lg="6">
-                  <Link
-                    to={`/admin/registertitledformation`}
-                    tag={NavLinkRRD}
-                    activeclassname="active"
-                  >
-                    <button className="btn btn-success bg-success">
-                      Registrar
-                    </button>
-                  </Link>
+                  <h2>
+                    Reporte de formación titulada del mes: {months[rmi.month]}
+                    <Link
+                      to={`/admin/registertitledformation/${id}`}
+                      tag={NavLinkRRD}
+                      activeclassname="active"
+                      >
+                      <button className="btn btn-success bg-success ml-3">
+                        Registrar
+                      </button>
+                    </Link>
+                  </h2>
                 </Col>
 
                 <Col lg="6">

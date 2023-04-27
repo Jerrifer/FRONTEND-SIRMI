@@ -51,6 +51,7 @@ const Login = () => {
       //   setLogin(data.results);
       // };
 
+      localStorage.setItem("user", login.user);
       localStorage.setItem("token", login.token);
       localStorage.setItem("name", login.user.first_name);
       localStorage.setItem("lastname", login.user.last_name);

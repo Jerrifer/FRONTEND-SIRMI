@@ -29,6 +29,7 @@ import Rmi from "views/titled-formations/rmi";
 import ListTitledFormations from "views/titled-formations/listTitledFormations";
 import RegisterTitledFormation from "views/titled-formations/RegisterTitledFormation";
 import UpdateTitledFormation from "views/titled-formations/updateTitledFormation";
+import ListRmi from "views/RMI/listRmi";
 
 var routes = [
   {
@@ -212,7 +213,7 @@ var routes = [
 
   // titled formation 
   {
-    path: "/titledformations",
+    path: "/titledformations/:id",
     name: "Formaciones tituladas",
     icon: "ni ni-bullet-list-67 text-dark",
     component: ListTitledFormations,
@@ -220,7 +221,7 @@ var routes = [
   },
 
   {
-    path: "/registertitledformation",
+    path: "/registertitledformation/:id",
     name: "Registrar Formacion Asignada",
     icon: "ni ni-single-copy-04 text-dark",
     component: RegisterTitledFormation,
@@ -266,6 +267,16 @@ var routes = [
     component: Updateotheractivity,
     layout: "/admin",
     sidebar: false,
+  },
+
+  //RMI
+
+  {
+    path: "/list-rmi",
+    name: "Rmi's",
+    icon: "ni ni-books text-dark",
+    component: ListRmi,
+    layout: "/admin",
   },
 
   {

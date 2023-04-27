@@ -28,7 +28,7 @@ export const customStyle = {
         color: '#333',
     },
     chips: {
-        color: '#000', // Aquí puedes definir el color que desees
+        color: '#000',
         background: '#ffff',
         border: 'none',
         boxShadow: '2px 2px 5px 0px rgba(0, 0, 0, 0.1)',

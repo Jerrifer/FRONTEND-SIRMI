@@ -1,0 +1,35 @@
+.card-cal {
+    padding: 10px;
+}
+
+.card-head-cal {
+    justify-content: space-between;
+}
+
+.card-body-cal {
+    justify-content: center;
+    padding-inline: 40px;
+}
+
+/* .card-row-cal {
+    background-color:rgb(255, 234, 0);
+    border: 1px solid #000;
+}
+
+.card-col-cal {
+    background-color:crimson;
+    border: 1px solid #000;
+} */
+
+.card-month-cal {
+    width: 200px;
+    height: 200px;
+    align-items: center;    
+    cursor: pointer
+}
+
+.card-month-cal:hover {
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(122, 119, 115, 0.679);
+    transform: scale(0.98)
+  }

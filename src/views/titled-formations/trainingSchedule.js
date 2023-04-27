@@ -20,7 +20,7 @@ function TrainingSchedule({ schedule }) {
       color: "#333",
     },
     chips: {
-      color: "#000", // Aquí puedes definir el color que desees
+      color: "#000", 
       background: "ghostwhite",
       border: "none",
       boxShadow: "2px 2px 5px 0px rgba(0, 0, 0, 0.1)",
@@ -68,7 +68,7 @@ function TrainingSchedule({ schedule }) {
             className="form-control-label mt-4"
             htmlFor="input-hours-month"
           >
-            Horario
+            <h4>Horario</h4>
           </label>
           <div style={{ display: "flex", alignItems: "center" }}>
             <Form>
@@ -100,7 +100,7 @@ function TrainingSchedule({ schedule }) {
                     options={days}
                 />
                 </FormGroup>
-                <FormGroup className="ml-3">
+                <FormGroup className="my-3">
                 <label className="form-control-label" htmlFor="input-hours-month">
                     Horas de entrada y salida (24 Horas)
                 </label>
@@ -127,7 +127,7 @@ function TrainingSchedule({ schedule }) {
                     onChange={(e) => setEndTime(e.target.value)}
                 />
                 </FormGroup> */}
-                <Button type="submit" onClick={add} className="ml-3">Añadir</Button>
+                <Button type="submit" onClick={add} className="my-3">Añadir</Button>
             </Form>
           </div>
     </>

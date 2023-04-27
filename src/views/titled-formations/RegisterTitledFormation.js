@@ -18,7 +18,7 @@ import {
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { allFormationProgramsService } from "services/formationPrograms";
 import "views/formation-programs/input.css";
 import AddLearningResults from "./addLearningResults";
@@ -36,6 +36,9 @@ import { registerTitledFormationService } from "services/titledFormations";
 import Calendar from "components/calendar/calendar";
 
 const RegisterTitledFormation = () => {
+
+  const { id } = useParams();
+
   const navigate = useHistory();
 
   const [ficha, setFicha] = useState("");
@@ -218,7 +221,8 @@ const RegisterTitledFormation = () => {
         learning_results: learningResults,
       },
       schedule: schedules,
-      workdays: workDays
+      workdays: workDays,
+      rmi: id,
     };
 
     console.log(body);
@@ -393,11 +397,28 @@ const RegisterTitledFormation = () => {
                         </CardBody>
                       </Card>
                     </Col>
+                    
                   </Row>
                   {/* Horario */}
                   <Row>
                     <Col lg="2">
                       <TrainingSchedule schedule={updateSchedule} />
+                      <FormGroup>
+                        <label
+                          className="form-control-label mt-4"
+                          htmlFor="input-hours-month"
+                        >
+                          Horas al mes
+                        </label>
+                        <Input
+                          className="form-control-alternative"
+                          id="input-hours-month"
+                          placeholder="Ej. 15"
+                          type="number"
+                          required
+                          onChange={(e) => setHoursMonth(e.target.value)}
+                        />
+                      </FormGroup>
                     </Col>
                     <Col lg="10" className="p-5">
                       <Table
@@ -435,33 +456,12 @@ const RegisterTitledFormation = () => {
                           </tr>
                         </tbody>
                       </Table>
+                      <Row className="mt-4   d-flex justify-content-center">
+                        <Calendar selectedDays={selectedDays} handleDayClick={handleDayClick} />
+                      </Row>
                     </Col>
                   </Row>
-
-                  <Row className="m-5">
-                    <Calendar selectedDays={selectedDays} handleDayClick={handleDayClick} />
-                  </Row>
-
-                  <Row>
-                    <Col lg="6">
-                      <FormGroup>
-                        <label
-                          className="form-control-label mt-4"
-                          htmlFor="input-hours-month"
-                        >
-                          Horas al mes
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          id="input-hours-month"
-                          placeholder="Ej. 15"
-                          type="number"
-                          required
-                          onChange={(e) => setHoursMonth(e.target.value)}
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                  
 
                   <Button
                     type="submit"

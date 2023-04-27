@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./calendar.css";
 import Day from "./day";
+import colombianHolidays from "colombian-holidays";
+import moment from "moment";
 
 const meses = [
   "Enero",
@@ -25,12 +27,12 @@ function Calendar({selectedDays, handleDayClick}) {
   const [num_dias, setNumDias] = useState(0);
   const [primer_dia_semana, setPrimerDiaSemana] = useState(0);
 
-  const month = 4
+  const month = 2
   
   useEffect(() => {
-    // Calcular el número de días que tiene el mes actual
+    // Número de días que tiene el mes
     if (month === 1) {
-      // Febrero
+      //Mes de Febrero
       if (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) {
         setNumDias(29);
       } else {
@@ -44,12 +46,27 @@ function Calendar({selectedDays, handleDayClick}) {
       setNumDias(31);
     }
 
-    // Calcular el día de la semana en el que cae el primer día del mes actual
+    // Calcular el día de la semana en el que cae el primer día del mes
     const primer_dia_mes = new Date(year, month, 1);
     setPrimerDiaSemana(primer_dia_mes.getDay());
   }, [year, month]);
   
-  // Crear filas para los días del mes
+  const holidaysColombian = colombianHolidays({
+    year: year,
+    month: month+1,
+  });
+
+  let holidays = []
+  holidaysColombian.map(holiday => {
+    let fecha = moment(holiday.celebrationDate)
+    var dia = fecha.date();
+    return (
+      holidays.push(dia)
+    )
+    
+  })
+
+  // Filas para los días del mes
   let dia = 1;
   const filas = [];
   while (dia <= num_dias) {
@@ -60,7 +77,7 @@ function Calendar({selectedDays, handleDayClick}) {
         celdas.push(<td className="days" key={i}></td>);
       } else if (dia <= num_dias) {
         // Celdas con los días del mes
-        celdas.push(<Day i={i} dia={dia} selectedDays={selectedDays} handleDayClick={handleDayClick}/>);
+        celdas.push(<Day i={i} dia={dia} holidays={holidays} selectedDays={selectedDays} handleDayClick={handleDayClick}/>);
         dia++;
       } else {
         // Celdas vacías después del último día del mes
@@ -69,8 +86,6 @@ function Calendar({selectedDays, handleDayClick}) {
     }
     filas.push(<tr className="row-days" key={dia}>{celdas}</tr>);
   }
-
-  
 
   return (
     <div className="calendar">
