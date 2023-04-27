@@ -54,7 +54,14 @@ const ListRmi = () => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    setUser(localStorage.getItem('user'))
+    const first_name = localStorage.getItem('name')
+    const last_name = localStorage.getItem('lastname')
+
+    const user = {
+      first_name: first_name,
+      last_name: last_name
+    }
+    setUser(user)
     showRmis();
   }, []);
 
@@ -144,7 +151,7 @@ const ListRmi = () => {
           <div className="col">
             <Card className="card-cal mx-7">
               <CardHeader className="card-head-cal">
-                <h1>Usuario: {user.first_name}  {user.last_name}</h1>
+                <h2>Instructor: {user.first_name}  {user.last_name}</h2>
                 <h1>Año {year}</h1>
                 <Col lg="2">
                     <Button className="btn btn-success bg-success" onClick={addRmi}>
