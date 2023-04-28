@@ -37,10 +37,11 @@ const ListContracts = () => {
 
   const [ contracts, setContracts] = useState([]);
   const [ user, setUser] = useState([]);
+  const [ rendering, setRendering] = useState(false);
 
   useEffect(() => {
     showContractsByUser(id.id);
-  }, [id]);
+  }, [id, rendering]);
 
   const showContractsByUser = async (id) => {
     const data = await contractsByUserService(id)
@@ -70,6 +71,7 @@ const ListContracts = () => {
           data.message,
           'success'
         )
+        setRendering(true)
       }
       else{
         swalWithBootstrapButtons.fire(
@@ -175,24 +177,24 @@ const ListContracts = () => {
                           </td>
                           {
                             contract.status === true ?
-                            <td>
+                            <td className="parpadea">
                               <div id="btn-active-contract" class="esfera-active"></div>
                               <UncontrolledTooltip
                                 className="tooltip-inner"
                                 delay={0}
-                                placement="bottom"
+                                placement="top"
                                 target="btn-active-contract"
                               >
                                   Contrato activo
                               </UncontrolledTooltip>
                             </td>
                             :
-                            <td className="parpadea">
+                            <td className="">
                               <div id="btn-inactive-contract" class="esfera-inactive"></div>
                               <UncontrolledTooltip
                                 className="tooltip-inner"
                                 delay={0}
-                                placement="bottom"
+                                placement="top"
                                 target="btn-inactive-contract"
                               >
                                   Contrato inactivo
