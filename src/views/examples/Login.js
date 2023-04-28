@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 
 // reactstrap components
 import {
@@ -16,6 +15,8 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { signInService } from "services/auth";
+import { swalWithBootstrapButtons } from "plugins/alerts";
 // import { signInService } from "services/auth";
 
 const Login = () => {
@@ -41,11 +42,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:3000/api/v1/auth/login";
-      await axios.post(url, data).then((response) => {
-        setLogin(response.data.results)
-        console.log(response.data)
-      })
+      const response = await signInService(data)
+      setLogin(response.results)
+      console.log(response)
+
+      if (response.status === "success") {
+        swalWithBootstrapButtons.fire(
+          "Registro exitoso",
+          response.message,
+          response.status
+        );
+      } else {
+        swalWithBootstrapButtons.fire(response.message, response.results, response.status);
+      }
       // const signInservice = async () => {
       //   const data = await signInService();
       //   setLogin(data.results);

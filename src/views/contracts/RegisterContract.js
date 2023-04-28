@@ -22,15 +22,30 @@ import { useHistory, useParams } from "react-router-dom";
 import { registerContractService } from "services/contracts";
 import { getUserService } from "services/users";
 import { TextArea } from "semantic-ui-react";
+import Multiselect from "multiselect-react-dropdown";
+import { optionValueDecorator } from "plugins/multiSelect";
+import { closeIcon } from "plugins/multiSelect";
+import { allThematicLinesService } from "services/thematicLines";
+import { customStyle } from "plugins/multiSelect";
+
+export const selectedValueDecorator = (selectedItem) => {
+  return (
+    <div style={{maxWidth: '300px', overflow: 'hidden'}}>
+        <h6 className="t6">{selectedItem}</h6>
+    </div>
+  );
+  };
 
 const RegisterContracts = () => {
   const navigate = useHistory();
   const id = useParams()
 
   const [user, setUser] = useState([])
+  const [thematicLines, setThematicLines] = useState([])
 
   useEffect(() => {
     showUser(id)
+    showThematicLines()
   }, [id]);
   
   const [contractnumber, setContractnumber] = useState("");
@@ -39,8 +54,12 @@ const RegisterContracts = () => {
   const [startdate, setStartdate] = useState("");
   const [enddate, setEnddate] = useState("");
   const [typecontract, setTypecontract] = useState("");
+  const [thematicLineSelected, setThematicLineSelected] = useState("");
 
-
+  const showThematicLines = async () => {
+    const data = await allThematicLinesService()
+    setThematicLines(data.results)
+  }
 
   const showUser = async (id) => {
     const data = await getUserService(id.id)
@@ -58,7 +77,8 @@ const RegisterContracts = () => {
       start_date: startdate,
       end_date: enddate,
       type_contract: typecontract,
-      user: id.id
+      user: id.id,
+      thematic_line: thematicLineSelected,
     };
 
     const data = await registerContractService(body)
@@ -97,7 +117,7 @@ const RegisterContracts = () => {
               <Form onSubmit={register}>
                 <div className="px-5">
                   <Row>
-                    <Col lg="6">
+                    <Col lg="4">
                       <FormGroup>
                         <label
                           className="form-control-label"
@@ -115,7 +135,7 @@ const RegisterContracts = () => {
                         />
                       </FormGroup>
                     </Col>
-                    <Col lg="6">
+                    <Col lg="4">
                       <FormGroup>
                         <label
                           className="form-control-label"
@@ -132,24 +152,44 @@ const RegisterContracts = () => {
                         />
                       </FormGroup>
                     </Col>
+                    <Col lg="4">
+                      <FormGroup>
+                        <label
+                          className="form-control-label"
+                          htmlFor="thematic_line"
+                        >
+                          Línea tématica
+                        </label>
+                        <Multiselect
+                            id="thematic_line"
+                            required
+                            selectedValueDecorator={selectedValueDecorator}
+                            optionValueDecorator={optionValueDecorator}
+                            customCloseIcon={closeIcon}
+                            style={customStyle}    
+                            avoidHighlightFirstOption={true}
+                            closeOnSelect={true}
+                            hidePlaceholder={true}
+                            loading={thematicLines.length <= 0}
+                            selectionLimit={1}
+                            emptyRecordMsg="No hay más datos"
+                            showCloseIcon={true}
+                            onKeyPressFn={function noRefCheck() {}}
+                            onSearch={function noRefCheck() {}}
+                            onRemove={function noRefCheck() {}}
+                            onSelect={function noRefCheck(e) {
+                              setThematicLineSelected(e[0]);
+                            }}
+                            placeholder="Seleccionar"
+                            displayValue="thematic_line"
+                            options={thematicLines}
+                          />
+                      </FormGroup>
+                    </Col>
                   </Row>
                   <Row>
                     <Col lg="6">
                       <FormGroup>
-                        {/* <label
-                          className="form-control-label"
-                          htmlFor="pay"
-                        >
-                          Valor y forma de Pago
-                        </label>
-                        <Input
-                          className="form-control-alternative"
-                          id="pay"
-                          placeholder="pay"
-                          type="text"
-                          required
-                          onChange={(e) => setPay(e.target.value)}
-                        /> */}
                         <label
                           className="form-control-label"
                           htmlFor="pay"

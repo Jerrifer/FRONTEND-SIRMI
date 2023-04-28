@@ -28,6 +28,7 @@ import { deleteContractService } from "services/contracts";
 import { contractsByUserService } from "services/contracts";
 import Spinner from "../../components/loader"
 import PaginationData from "plugins/pagination";
+import "assets/css/parpadeo.css"
 
 const ListContracts = () => {
 
@@ -151,6 +152,7 @@ const ListContracts = () => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Número de contrato</th>
                     <th scope="col">Fecha inicio</th>
                     <th scope="col">Fecha fin</th>
@@ -171,6 +173,33 @@ const ListContracts = () => {
                               {i + 1}
                             </Badge>
                           </td>
+                          {
+                            contract.status === true ?
+                            <td>
+                              <div id="btn-active-contract" class="esfera-active"></div>
+                              <UncontrolledTooltip
+                                className="tooltip-inner"
+                                delay={0}
+                                placement="bottom"
+                                target="btn-active-contract"
+                              >
+                                  Contrato activo
+                              </UncontrolledTooltip>
+                            </td>
+                            :
+                            <td className="parpadea">
+                              <div id="btn-inactive-contract" class="esfera-inactive"></div>
+                              <UncontrolledTooltip
+                                className="tooltip-inner"
+                                delay={0}
+                                placement="bottom"
+                                target="btn-inactive-contract"
+                              >
+                                  Contrato inactivo
+                              </UncontrolledTooltip>
+                            </td>
+
+                          }
                           <td>{contract.contract_number}</td>
                           <td>{contract.start_date}</td>
                           <td>{contract.end_date}</td>

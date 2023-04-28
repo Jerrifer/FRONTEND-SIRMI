@@ -12,7 +12,7 @@ export const selectedValueDecorator = (selectedItem) => {
 export const optionValueDecorator =  (option) => {
     return (
         <div>
-        <h6>{option}</h6>
+          <h6>{option}</h6>
         </div>
     );
 }; 

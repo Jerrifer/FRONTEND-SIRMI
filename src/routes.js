@@ -218,6 +218,7 @@ var routes = [
     icon: "ni ni-bullet-list-67 text-dark",
     component: ListTitledFormations,
     layout: "/admin",
+    sidebar: false,
   },
 
   {

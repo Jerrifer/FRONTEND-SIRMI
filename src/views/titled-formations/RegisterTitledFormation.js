@@ -238,7 +238,7 @@ const RegisterTitledFormation = () => {
     } else {
       swalWithBootstrapButtons.fire(data.message, data.results, data.status);
     }
-    navigate.push("/admin/titledformations");
+    navigate.push(`/admin/titledformations/${id}`);
   };
 
   return (
