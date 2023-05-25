@@ -211,71 +211,12 @@ var routes = [
 
    // end contracts
 
-  // titled formation 
-  {
-    path: "/titledformations/:id",
-    name: "Formaciones tituladas",
-    icon: "ni ni-bullet-list-67 text-dark",
-    component: ListTitledFormations,
-    layout: "/admin",
-    sidebar: false,
-  },
-
-  {
-    path: "/registertitledformation/:id",
-    name: "Registrar Formacion Asignada",
-    icon: "ni ni-single-copy-04 text-dark",
-    component: RegisterTitledFormation,
-    layout: "/admin",
-    sidebar: false,
-  },
-
-  {
-    path: "/updatetitledformation/:id",
-    name: "ActualizarFormacion Asignada",
-    icon: "ni ni-single-copy-04 text-dark",
-    component: UpdateTitledFormation,
-    layout: "/admin",
-    sidebar: false,
-  },
-
-  // end titled formation 
-
-
-
-   // otheractivity
-   {
-    path: "/otheractivity",
-    name: "Otras actividades",
-    icon: "ni ni-books text-dark",
-    component: otheractivity,
-    layout: "/admin",
-  },
-
-  {
-    path: "/registerOtheractivity",
-    name: "Registrar actividad",
-    icon: "ni ni-single-copy-04 text-dark",
-    component: registerOtherActivity,
-    layout: "/admin",
-    sidebar: false,
-  },
-
-  {
-    path: "/updateotheractivity/:id",
-    name: "Actualizar actividad",
-    icon: "ni ni-single-copy-04 text-dark",
-    component: Updateotheractivity,
-    layout: "/admin",
-    sidebar: false,
-  },
-
   //RMI
 
   {
     path: "/list-rmi",
     name: "Rmi's",
-    icon: "ni ni-books text-dark",
+    icon: "ni ni-bullet-list-67 text-dark",
     component: ListRmi,
     layout: "/admin",
   },
@@ -287,6 +228,63 @@ var routes = [
     layout: "/rmi",
     sidebar: false,
   },
+
+    // titled formation 
+    {
+      path: "/titledformations/:id",
+      name: "Formaciones tituladas",
+      icon: "ni ni-bullet-list-67 text-dark",
+      component: ListTitledFormations,
+      layout: "/admin",
+      sidebar: false,
+    },
+  
+    {
+      path: "/registertitledformation/:id",
+      name: "Registrar Formacion Asignada",
+      icon: "ni ni-single-copy-04 text-dark",
+      component: RegisterTitledFormation,
+      layout: "/admin",
+      sidebar: false,
+    },
+  
+    {
+      path: "/updatetitledformation/:id",
+      name: "ActualizarFormacion Asignada",
+      icon: "ni ni-single-copy-04 text-dark",
+      component: UpdateTitledFormation,
+      layout: "/admin",
+      sidebar: false,
+    },
+  
+    // end titled formation 
+
+     // otheractivity
+     {
+      path: "/otheractivity",
+      name: "Otras actividades",
+      icon: "",
+      component: otheractivity,
+      layout: "/admin",
+    },
+  
+    {
+      path: "/registerOtheractivity",
+      name: "Registrar actividad",
+      icon: "ni ni-single-copy-04 text-dark",
+      component: registerOtherActivity,
+      layout: "/admin",
+      sidebar: false,
+    },
+  
+    {
+      path: "/updateotheractivity/:id",
+      name: "Actualizar actividad",
+      icon: "ni ni-single-copy-04 text-dark",
+      component: Updateotheractivity,
+      layout: "/admin",
+      sidebar: false,
+    },
 
 ];
 export default routes;

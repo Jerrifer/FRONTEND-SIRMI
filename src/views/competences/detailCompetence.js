@@ -27,27 +27,33 @@ function DetailCompetence({ Competence }) {
       </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color ">
-        <Modal.Header>
-          <Modal.Title>Competencia laboral... </Modal.Title>
+        <Modal.Header className="justify-content-end pb-0">
+          <i className="fas fa-remove" style={{cursor: 'pointer'}} onClick={initModal}></i>
         </Modal.Header>
         <div className="container">
           <Modal.Body>
             <div className="container ">
               <Form.Group className="text-center mb-5">
-                <h2>{Competence.labor_competition}</h2>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Código de la competencia laboral</Form.Label>
-                <h3 className="ml-4">{Competence.labor_competence_code}</h3>
+                <h1>Detalles competencia laboral</h1>
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label>Versión de la competencia laboral</Form.Label>
-                <h3 className="ml-4">{Competence.labor_competition_version}</h3>
+              <Form.Group className="mb-4">
+                <Form.Label>Competencia laboral</Form.Label>
+                <h3>{Competence.labor_competition}</h3>
               </Form.Group>
-              <Form.Group>
+
+              <Form.Group className="mb-4">
+                <Form.Label>Código de la competencia laboral</Form.Label>
+                <h3>{Competence.labor_competence_code}</h3>
+              </Form.Group>
+
+              <Form.Group className="mb-4">
+                <Form.Label>Versión de la competencia laboral</Form.Label>
+                <h3>{Competence.labor_competition_version}</h3>
+              </Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Duración estimada</Form.Label>
-                <h3 className="ml-4">{Competence.duration || "Sin registrar"}</h3>
+                <h3>{Competence.duration || "Sin registrar"}</h3>
               </Form.Group>
 
               {/* {formationPrograms.map((formationProgram) => {
@@ -59,12 +65,6 @@ function DetailCompetence({ Competence }) {
               })} */}
             </div>
           </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="danger" onClick={initModal}>
-              Cerrar
-            </Button>
-          </Modal.Footer>
         </div>
       </Modal>
     </>

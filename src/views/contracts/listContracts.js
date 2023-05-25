@@ -111,7 +111,7 @@ const ListContracts = () => {
 
   return (
     <>
-      <Header />
+      <Header title={`Gestionar contratos de ${user.first_name} ${user.last_name}`} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -120,7 +120,6 @@ const ListContracts = () => {
             <Card className="formulario ">
               <CardHeader className="border-0">
                 <Col lg="6">
-                  <h3>Contratos de {user.first_name} {user.last_name}
                   <Link
                     to={`/admin/RegisterContracts/${user._id}`}
                     tag={NavLinkRRD}
@@ -131,8 +130,6 @@ const ListContracts = () => {
                       Registrar
                     </button>
                   </Link>
-                  </h3>
-                  
                 </Col>
 
                 <Col lg="6">
@@ -141,7 +138,7 @@ const ListContracts = () => {
                       value={search}
                       onChange={searcher}
                       type="search"
-                      placeholder="search"
+                      placeholder="Buscar"
                       className="input"
                     />
                   </div>

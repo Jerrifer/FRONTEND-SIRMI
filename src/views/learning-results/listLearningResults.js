@@ -107,7 +107,7 @@ const LearningResults = () => {
 
   return (
     <>
-      <Header />
+      <Header title={"Resultados de aprendizaje"} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -115,8 +115,7 @@ const LearningResults = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-                <Col lg="8">
-                  <h3>COMPETENCIA LABORAL: <u>{competence.labor_competition}</u>
+                <Col className="p-0" lg="1">
                     <Link
                       to={`/admin/RegisterLearningResult/${competence._id}`}
                       tag={NavLinkRRD}
@@ -127,7 +126,10 @@ const LearningResults = () => {
                         Registrar
                       </button>
                     </Link>
-                  </h3>
+                </Col>
+
+                <Col lg="7">
+                  <h4>COMPETENCIA LABORAL: <h5 className="text-gray">{competence.labor_competition}</h5></h4>
                 </Col>
 
                 <Col lg="4">
@@ -136,7 +138,7 @@ const LearningResults = () => {
                     value={search}
                     onChange={searcher}
                     type="search"
-                    placeholder="search"
+                    placeholder="Buscar"
                     className="input"
                   />
                  </div>

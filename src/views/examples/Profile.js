@@ -46,7 +46,7 @@ const Profile = () => {
                   <div class="front__text">
                     <div class="front__text-header">
                       <p class="m-b-10 f-w-600 tm ">{user.first_name} {user.last_name}</p>
-                      <i class="fas fa-map-marker-alt front-icons"></i> Instructor
+                      <h3 className="d-flex justify-content-center"><i class="ni ni-single-02 text-default front-icons"></i>Instructor</h3>
                     </div>
                   </div>
 

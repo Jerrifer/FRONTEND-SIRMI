@@ -11,5 +11,13 @@
 }
 
 .icon-back {
-    color: #ffff;
+    font-size:larger;
+}
+
+.btn-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
 }

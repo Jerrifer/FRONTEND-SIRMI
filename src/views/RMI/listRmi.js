@@ -145,7 +145,7 @@ const ListRmi = () => {
 
   return (
     <>
-      <Header />
+      <Header title={"Gestionar Rmi's"} />
       <Container className="mt--7" fluid>
       <Row>
           <div className="col">

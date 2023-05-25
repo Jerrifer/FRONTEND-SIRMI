@@ -26,23 +26,29 @@ function DetailOtheractivity({ Otheractivity }) {
       </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color ">
-        <Modal.Header>
-          <Modal.Title>activityuu </Modal.Title>
+        <Modal.Header className="justify-content-end pb-0">
+          <i className="fas fa-remove" style={{cursor: 'pointer'}} onClick={initModal}></i>
         </Modal.Header>
         <div className="container">
           <Modal.Body>
             <div className="container ">
               <Form.Group className="text-center mb-5">
-                <h2>{Otheractivity.activity}</h2>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Código del programa de formación</Form.Label>
-                <h3 className="ml-4">{Otheractivity.description}</h3>
+                <h1>Detalles otra actividad</h1>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
+                <Form.Label>Actividad</Form.Label>
+                <h3>{Otheractivity.activity}</h3>
+              </Form.Group>
+
+              <Form.Group className="mb-4">
+                <Form.Label>Código del programa de formación</Form.Label>
+                <h3>{Otheractivity.description}</h3>
+              </Form.Group>
+
+              <Form.Group className="mb-4">
                 <Form.Label>Versión del programa de formación</Form.Label>
-                <h3 className="ml-4">{Otheractivity.hours}</h3>
+                <h3>{Otheractivity.hours}</h3>
               </Form.Group>
            
 

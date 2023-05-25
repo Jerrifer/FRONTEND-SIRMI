@@ -28,46 +28,48 @@ function DetailUsers({user}) {
 
       <Modal show={isShow} size={"lg"} className=" color">
 
+        <Modal.Header className="justify-content-end pb-0">
+          <i className="fas fa-remove" style={{cursor: 'pointer'}} onClick={initModal}></i>
+        </Modal.Header>
         <div className="container">
           <Modal.Body>
             <div className="container ">
               <Form.Group className="text-center mb-4">
-                <h2>Detalles de {user.first_name}</h2>
+                <h1>Detalles usuario</h1>
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label>Apellidos</Form.Label>
-                <h3 className="ml-4">{user.last_name}</h3>
+              <Form.Group className="mb-4">
+                <Form.Label>Usuario</Form.Label>
+                <h3>{user.first_name} {user.last_name}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
+                <Form.Label>Perfil (Quemado)</Form.Label>
+                <h3>Instructor</h3>
+              </Form.Group>
+
+              <Form.Group className="mb-4">
                 <Form.Label>Correo</Form.Label>
-                <h3 className="ml-4">{user.email}</h3>
+                <h3>{user.email}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Número de contacto</Form.Label>
-                <h3 className="ml-4">{user.contact_number}</h3>
+                <h3>{user.contact_number}</h3>
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label>Número ded identificación</Form.Label>
-                <h3 className="ml-4">{user.document_number}</h3>
+              <Form.Group className="mb-4">
+                <Form.Label>Número de identificación</Form.Label>
+                <h3>{user.document_number}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Centro de formación</Form.Label>
-                <h3 className="ml-4">{user.training_center.training_center}</h3>
+                <h3>{user.training_center.training_center}</h3>
               </Form.Group>
 
             </div>
           </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="danger" onClick={initModal}>
-              Cerrar
-            </Button>
-          </Modal.Footer>
         </div>
       </Modal>
     </>

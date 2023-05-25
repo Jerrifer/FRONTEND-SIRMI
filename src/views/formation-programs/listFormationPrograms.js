@@ -96,7 +96,7 @@ const FormationPrograms = () => {
 
   return (
     <>
-      <Header />
+      <Header title={"Gestionar programas de formación"} />
       
       {/* Page content */}
       <Container className="mt--7" fluid>
@@ -121,7 +121,7 @@ const FormationPrograms = () => {
                     value={search}
                     onChange={searcher}
                     type="search"
-                    placeholder="search"
+                    placeholder="Buscar"
                     className="input"
                   />
                 </Col>

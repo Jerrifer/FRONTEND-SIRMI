@@ -8,6 +8,7 @@ import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
 import "./cambios.css";
 import routes from "routes.js";
+import NotFoundLayout from "./404";
 
 const Auth = (props) => {
   const mainContent = React.useRef(null);
@@ -64,7 +65,7 @@ const Auth = (props) => {
           <Row className="justify-content-end">
             <Switch>
               {getRoutes(routes)}
-              <Redirect from="*" to="/auth/login" />
+              <Redirect from="*" render={NotFoundLayout} />
             </Switch>
           </Row>
         </Container>

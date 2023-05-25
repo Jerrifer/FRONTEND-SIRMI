@@ -116,7 +116,7 @@ const OtherActivity = () => {
                     value={search}
                     onChange={searcher}
                     type="search"
-                    placeholder="search"
+                    placeholder="Buscar"
                     className="input"
                   />
                 </Col>

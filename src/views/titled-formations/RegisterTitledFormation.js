@@ -34,6 +34,7 @@ import { swalWithBootstrapButtons } from "plugins/alerts";
 import TrainingSchedule from "./trainingSchedule";
 import { registerTitledFormationService } from "services/titledFormations";
 import Calendar from "components/calendar/calendar";
+import { getRmiService } from "services/rmi";
 
 const RegisterTitledFormation = () => {
 
@@ -79,6 +80,7 @@ const RegisterTitledFormation = () => {
   // const [endDate, setEndDate] = useState([]);
 
   const [formationPrograms, setFormationPrograms] = useState([]);
+  const [rmi, setRmi] = useState([]);
   const [competences, setCompetences] = useState([]);
   const [learningResults, setLearningResults] = useState([]);
   const [formationProgramSelected, setFormationProgramSelected] = useState([]);
@@ -89,12 +91,20 @@ const RegisterTitledFormation = () => {
 
   useEffect(() => {
     showFormationPrograms();
-  }, []);
+    showRmi(id);
+  }, [id]);
 
   const showFormationPrograms = async () => {
     const data = await allFormationProgramsService();
     setFormationPrograms(data.results);
   };
+
+  const showRmi = async (id) => {
+    const data = await getRmiService(id)
+    setRmi(data.results)
+    console.log(data.results);
+  }
+
 
   const showCompetences = async (selectedFormationProgram) => {
     setCompetences(selectedFormationProgram.competences);
@@ -167,15 +177,6 @@ const RegisterTitledFormation = () => {
     ));
   };
 
-  // const checkSchedule = (schedule) => {
-  //   setSchedules((prevSchedules) => {
-  //     return {
-  //       ...prevSchedules,
-  //       [schedule._id]: schedule,
-  //     };
-  //   });
-  // };
-
   const updateSchedule = (_id, newDate) => {
     const updatedSchedules = schedules.map((schedule) => {
       if (schedule._id === _id) {
@@ -201,9 +202,6 @@ const RegisterTitledFormation = () => {
     setSelectedDays({ ...selectedDays, [day]: day});
     console.log(`Se hizo clic en el día ${day}`);
   }
-
-
-  // updateSchedule(23312123, "18:00 - 21:00");
 
   const register = async (e) => {
     e.preventDefault();
@@ -456,13 +454,11 @@ const RegisterTitledFormation = () => {
                           </tr>
                         </tbody>
                       </Table>
-                      <Row className="mt-4   d-flex justify-content-center">
-                        <Calendar selectedDays={selectedDays} handleDayClick={handleDayClick} />
+                      <Row className="mt-4 d-flex justify-content-center">
+                        <Calendar selectedDays={selectedDays} handleDayClick={handleDayClick} month={rmi.month} />
                       </Row>
                     </Col>
                   </Row>
-                  
-
                   <Button
                     type="submit"
                     className="btn btn-success m-4 bg-success"

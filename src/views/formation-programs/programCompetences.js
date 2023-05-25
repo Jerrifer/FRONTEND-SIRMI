@@ -116,7 +116,7 @@ const ProgramCompetences = () => {
 
   return (
     <>
-      <Header />
+      <Header title={"Gestionar competencias laborales del programa de formación"} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -124,11 +124,14 @@ const ProgramCompetences = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-                <Col lg="8">
-                  <h2>
-                    COMPETENCIAS DEL PROGRAMA DE FORMACIÓN "{formationProgram.program_name}"
+                <Col lg="1" className="p-0">
                     <AssignCompetences  program={formationProgram} competences={allCompetences}/>
-                  </h2>
+                </Col>
+
+                <Col lg="7">
+                  <h3 className="d-flex">
+                    ROGRAMA DE FORMACIÓN<h3 className="ml-2 text-gray">"{formationProgram.program_name}"</h3>
+                  </h3>
                 </Col>
 
                 <Col lg="4">
@@ -137,7 +140,7 @@ const ProgramCompetences = () => {
                       value={search}
                       onChange={searcher}
                       type="search"
-                      placeholder="search"
+                      placeholder="Buscar"
                       className="input"
                     />
                   </div>

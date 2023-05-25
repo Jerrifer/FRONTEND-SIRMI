@@ -20,14 +20,12 @@ const meses = [
 ];
 const dias_semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
 
-function Calendar({selectedDays, handleDayClick}) {
+function Calendar({selectedDays, handleDayClick, month}) {
 
   const year = new Date().getFullYear()
 //   const [month, setMonth] = useState(new Date().getMonth());
   const [num_dias, setNumDias] = useState(0);
   const [primer_dia_semana, setPrimerDiaSemana] = useState(0);
-
-  const month = 2
   
   useEffect(() => {
     // Número de días que tiene el mes
@@ -89,7 +87,7 @@ function Calendar({selectedDays, handleDayClick}) {
 
   return (
     <div className="calendar">
-      <div className="header">
+      <div className="header-calendar">
         <span className="month">{meses[month]}</span>
         <span className="year">{year}</span>
       </div>

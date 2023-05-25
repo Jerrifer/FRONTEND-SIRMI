@@ -28,43 +28,50 @@ function DetailFormationProgram({ formationProgram }) {
       </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color">
-        <Modal.Header>
-          <Modal.Title>Programa de formación...</Modal.Title>
+        <Modal.Header className="justify-content-end pb-0">
+          <i className="fas fa-remove" style={{cursor: 'pointer'}} onClick={initModal}></i>
         </Modal.Header>
 
         <div className="container">
           <Modal.Body>
             <div className="">
               <Form.Group className="text-center mb-4">
-                <h2>{formationProgram.program_name}</h2>
+                <h1>Detalles programa de formación</h1>
               </Form.Group>
-              <Form.Group>
+
+              <Form.Group className="mb-4">
+                <Form.Label>Programa de formación</Form.Label>
+                <h3>{formationProgram.program_name}</h3>
+              </Form.Group>
+
+              <Form.Group className="mb-4">
                 <Form.Label>Código del programa de formación</Form.Label>
-                <h3 className="ml-4">{formationProgram.program_code}</h3>
+                <h3>{formationProgram.program_code}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Versión del programa de formación</Form.Label>
-                <h3 className="ml-4">{formationProgram.program_version}</h3>
+                <h3>{formationProgram.program_version}</h3>
               </Form.Group>
-              <Form.Group>
+
+              <Form.Group className="mb-4">
                 <Form.Label>Duración estimada</Form.Label>
-                <h3 className="ml-4">{formationProgram.total_duration} (Meses)</h3>
+                <h3>{formationProgram.total_duration} (Meses)</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>línea tématica</Form.Label>
-                <h3 className="ml-4">{thematicLine.thematic_line}</h3>
+                <h3>{thematicLine.thematic_line}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Tipo del programa</Form.Label>
-                <h3 className="ml-4">{typeProgram.type_program}</h3>
+                <h3>{typeProgram.type_program}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Titulación del programa</Form.Label>
-                <h3 className="ml-4">{programLevel.program_level}</h3>
+                <h3>{programLevel.program_level}</h3>
               </Form.Group>
 
               {/* {competences.map((competence) => {
@@ -100,12 +107,6 @@ function DetailFormationProgram({ formationProgram }) {
               </Accordion>
             </div>
           </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="danger" onClick={initModal}>
-              Cerrar
-            </Button>
-          </Modal.Footer>
         </div>
       </Modal>
     </>

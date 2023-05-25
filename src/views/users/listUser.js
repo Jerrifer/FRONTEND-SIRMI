@@ -98,7 +98,7 @@ const ListUser = () => {
 
     {/* {loader ? console.log('kkkkkk') : console.log('ppipp')} */}
     {isLoading && <div>cargando.....</div>}
-      <Header />
+      <Header title={"Gestinar Usuarios"} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -123,7 +123,7 @@ const ListUser = () => {
                     value={search}
                     onChange={searcher}
                     type="search"
-                    placeholder="search"
+                    placeholder="Buscar"
                     className="input"
                   />
                 </Col>

@@ -27,33 +27,32 @@ function DetailTitledFormation({ titledFormation }) {
       </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color ">
-        <Modal.Header>
-          <Modal.Title>Programación asignada... </Modal.Title>
+        <Modal.Header className="justify-content-end pb-0">
+          <i className="fas fa-remove" style={{cursor: 'pointer'}} onClick={initModal}></i>
         </Modal.Header>
         <div className="container">
           <Modal.Body>
             <div className="container ">
-              <Form.Group>
-              <Form.Label>Ficha</Form.Label>
-                <h2>{titledFormation.ficha}</h2>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Actividad</Form.Label>
-                <h3 className="ml-4">{titledFormation.activity}</h3>
+              <Form.Group className="text-center mb-5">
+                <h1>Detalles reporte formación titulada</h1>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
+                <Form.Label>Ficha</Form.Label>
+                <h3>{titledFormation.ficha}</h3>
+              </Form.Group>
+
+              <Form.Group className="mb-4">
+                <Form.Label>Actividad</Form.Label>
+                <h3>{titledFormation.activity}</h3>
+              </Form.Group>
+
+              <Form.Group className="mb-4">
                 <Form.Label>Horas al mes</Form.Label>
-                <h3 className="ml-4">{titledFormation.hours_month}</h3>
+                <h3>{titledFormation.hours_month}</h3>
               </Form.Group>
             </div>
           </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="danger" onClick={initModal}>
-              Cerrar
-            </Button>
-          </Modal.Footer>
         </div>
       </Modal>
     </>

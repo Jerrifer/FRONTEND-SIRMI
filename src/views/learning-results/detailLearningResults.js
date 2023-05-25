@@ -26,35 +26,32 @@ function DetailLearningResult({learningResult, competence}) {
 
       <Modal show={isShow} size={"lg"} className=" color">
 
-      <Modal.Header>
-        <Modal.Title>
-          Resultado de aprendizaje...
-        </Modal.Title>
-      </Modal.Header>
+        <Modal.Header className="justify-content-end pb-0">
+          <i className="fas fa-remove" style={{cursor: 'pointer'}} onClick={initModal}></i>
+        </Modal.Header>
         <div className="container">
           <Modal.Body>
             <div className="container">
               <Form.Group className="text-center mb-4">
-                <h2>{learningResult.learning_result}</h2>
+                <h1>Detalles resultado de aprendizaje</h1>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
+                <Form.Label>Resultado de aprendizaje</Form.Label>
+                <h3>{competence.learning_result}</h3>
+              </Form.Group>
+
+              <Form.Group className="mb-4">
                 <Form.Label>Competencia</Form.Label>
-                <h3 className="ml-4">{competence.labor_competition}</h3>
+                <h3>{competence.labor_competition}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Código de la competencia</Form.Label>
-                <h3 className="ml-4">{competence.labor_competence_code}</h3>
+                <h3>{competence.labor_competence_code}</h3>
               </Form.Group>
             </div>
           </Modal.Body>
-
-          <Modal.Footer>
-            <Button variant="danger" onClick={initModal}>
-              Cerrar
-            </Button>
-          </Modal.Footer>
         </div>
       </Modal>
     </>

@@ -27,50 +27,51 @@ function DetailContracts({ contract }) {
       </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color ">
-
         <div className="container">
-          <Modal.Body>
-            <div className="container ">
+          <Modal.Header className="justify-content-end pb-0">
+              <i className="fas fa-remove" style={{cursor: 'pointer'}} onClick={initModal}></i>
+          </Modal.Header>
+          <Modal.Body className="pt-0">
               <Form.Group className="text-center mb-4">
-                <h2>Contrato de {user.first_name} {user.last_name}</h2>
+                <h1>Detalles contrato</h1>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
+                <Form.Label>Contrato del usuario</Form.Label>
+                <h3>{user.first_name} {user.last_name}</h3>
+              </Form.Group>
+
+              <Form.Group className="mb-4">
                 <Form.Label>Número de contrato</Form.Label>
-                <h3 className="ml-4">{contract.contract_number}</h3>
+                <h3>{contract.contract_number}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Objeto</Form.Label>
-                <h3 className="ml-4">{contract.object}</h3>
+                <h3>{contract.object}</h3>
               </Form.Group>
 
-              <Form.Group>
-                <Form.Label>Pago</Form.Label>
-                <h3 className="ml-4">{contract.pay}</h3>
+              <Form.Group className="mb-4">
+                <Form.Label>Valor y forma de pago</Form.Label>
+                <h3>{contract.pay}</h3>
               </Form.Group>
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Fecha inicio</Form.Label>
-                <h3 className="ml-4">{contract.start_date}</h3>
+                <h3>{contract.start_date}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Fecha fin</Form.Label>
-                <h3 className="ml-4">{contract.end_date}</h3>
+                <h3>{contract.end_date}</h3>
               </Form.Group>
 
-              <Form.Group>
+              <Form.Group className="mb-4">
                 <Form.Label>Tipo de contrato</Form.Label>
-                <h3 className="ml-4">{contract.type_contract}</h3>
+                <h3>{contract.type_contract}</h3>
               </Form.Group>
-
-            </div>
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="danger" onClick={initModal}>
-              Cerrar
-            </Button>
           </Modal.Footer>
         </div>
       </Modal>

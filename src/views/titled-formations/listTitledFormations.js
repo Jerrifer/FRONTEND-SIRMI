@@ -109,7 +109,7 @@ const ListTitledFormations = () => {
 
   return (
     <>
-      <Header />
+      <Header title={"Gestionar reportes de formación titulada"} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -117,9 +117,7 @@ const ListTitledFormations = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-                <Col lg="6">
-                  <h2>
-                    Reporte de formación titulada del mes: {months[rmi.month]}
+                <Col lg="1" className="p-0">
                     <Link
                       to={`/admin/registertitledformation/${id}`}
                       tag={NavLinkRRD}
@@ -129,15 +127,20 @@ const ListTitledFormations = () => {
                         Registrar
                       </button>
                     </Link>
+                </Col>
+
+                <Col lg="7" className="d-flex justify-content-center align-items-center">
+                  <h2>
+                    Mes: {months[rmi.month]}
                   </h2>
                 </Col>
 
-                <Col lg="6">
+                <Col lg="4">
                   <input
                     value={search}
                     onChange={searcher}
                     type="search"
-                    placeholder="search"
+                    placeholder="Buscar"
                     className="input"
                   />
                 </Col>
