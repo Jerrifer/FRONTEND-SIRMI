@@ -26,6 +26,7 @@ import Swal from "sweetalert2";
 import { deleteLearningResultService } from "services/learningResults";
 import Spinner from "../../components/loader"
 import PaginationData from "plugins/pagination";
+import RegisterLearningResult from "./registerLearningResults";
 
 const LearningResults = () => {
 
@@ -54,7 +55,7 @@ const LearningResults = () => {
 
   useEffect(() => {
     showLearningresults(id);
-  }, [id, learningresults]);
+  }, [id]);
 
   const deleteLearningResult = async (id) => {
     const alertParams = {
@@ -116,7 +117,7 @@ const LearningResults = () => {
             <Card className="formulario ">
               <CardHeader className="border-0">
                 <Col className="p-0" lg="1">
-                    <Link
+                    {/* <Link
                       to={`/admin/RegisterLearningResult/${competence._id}`}
                       tag={NavLinkRRD}
                       activeclassname="active"
@@ -125,7 +126,9 @@ const LearningResults = () => {
                       <button className="btn btn-success bg-success">
                         Registrar
                       </button>
-                    </Link>
+                    </Link> */}
+
+                    <RegisterLearningResult  competence={competence} />
                 </Col>
 
                 <Col lg="7">

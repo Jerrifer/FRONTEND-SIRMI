@@ -32,7 +32,7 @@ import "assets/css/parpadeo.css"
 
 const ListContracts = () => {
 
-  const id = useParams()
+  const { id } = useParams()
   const [ loading ,setLoading] = useState(true);
 
   const [ contracts, setContracts] = useState([]);
@@ -40,7 +40,7 @@ const ListContracts = () => {
   const [ rendering, setRendering] = useState(false);
 
   useEffect(() => {
-    showContractsByUser(id.id);
+    showContractsByUser(id);
   }, [id, rendering]);
 
   const showContractsByUser = async (id) => {
@@ -48,6 +48,8 @@ const ListContracts = () => {
     setContracts(data.results.listContracts);
     setUser(data.results.user);
     setLoading(false)
+    console.log("jerri");
+    console.log(data);
   };
 
   const totalContracts = contracts.length
@@ -151,7 +153,7 @@ const ListContracts = () => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Estado</th>
+                    
                     <th scope="col">Número de contrato</th>
                     <th scope="col">Fecha inicio</th>
                     <th scope="col">Fecha fin</th>
@@ -172,33 +174,6 @@ const ListContracts = () => {
                               {i + 1}
                             </Badge>
                           </td>
-                          {
-                            contract.status === true ?
-                            <td className="parpadea">
-                              <div id="btn-active-contract" class="esfera-active"></div>
-                              <UncontrolledTooltip
-                                className="tooltip-inner"
-                                delay={0}
-                                placement="top"
-                                target="btn-active-contract"
-                              >
-                                  Contrato activo
-                              </UncontrolledTooltip>
-                            </td>
-                            :
-                            <td className="">
-                              <div id="btn-inactive-contract" class="esfera-inactive"></div>
-                              <UncontrolledTooltip
-                                className="tooltip-inner"
-                                delay={0}
-                                placement="top"
-                                target="btn-inactive-contract"
-                              >
-                                  Contrato inactivo
-                              </UncontrolledTooltip>
-                            </td>
-
-                          }
                           <td>{contract.contract_number}</td>
                           <td>{contract.start_date}</td>
                           <td>{contract.end_date}</td>

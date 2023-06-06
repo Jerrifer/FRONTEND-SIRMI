@@ -135,8 +135,8 @@ const ListUser = () => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">N°</th>
-
                     <th scope="col">Usuario</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Correo electrónico</th>
                     <th scope="col">Número teléfono</th>
                     <th scope="col">Número de identidad</th>
@@ -158,6 +158,33 @@ const ListUser = () => {
                           </td>
 
                           <td>{user.first_name} {user.last_name}</td>
+                          {
+                            user.status === true ?
+                            <td className="parpadea">
+                              <div id="btn-active-contract" class="esfera-active"></div>
+                              <UncontrolledTooltip
+                                className="tooltip-inner"
+                                delay={0}
+                                placement="top"
+                                target="btn-active-contract"
+                              >
+                                  Contrato activo
+                              </UncontrolledTooltip>
+                            </td>
+                            :
+                            <td className="">
+                              <div id="btn-inactive-contract" class="esfera-inactive"></div>
+                              <UncontrolledTooltip
+                                className="tooltip-inner"
+                                delay={0}
+                                placement="top"
+                                target="btn-inactive-contract"
+                              >
+                                  Contrato inactivo
+                              </UncontrolledTooltip>
+                            </td>
+
+                          }
                           <td>{user.email}</td>
                           <td>{user.contact_number}</td>
                           <td>{user.document_number}</td>

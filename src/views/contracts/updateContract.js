@@ -56,7 +56,7 @@ const [contracts , setContracts] = useState([])
             data.message,
             data.status
           );
-          navigate.push("/admin/contracts");
+          navigate.push(`/admin/contracts/${contracts.user._id}`);
 
         } else {
           swalWithBootstrapButtons.fire(

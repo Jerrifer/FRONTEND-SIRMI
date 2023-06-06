@@ -12,7 +12,6 @@ import UpdateUsers from "views/users/updateUser";
 
 import LearningResults from 'views/learning-results/listLearningResults'
 import UpdateLearningresult from "views/learning-results/updateLearningResults"
-import RegisterLearningResult from "views/learning-results/registerLearningResults";
 import ProgramCompetences from "views/formation-programs/programCompetences";
 import Profile from "views/examples/Profile";
 
@@ -156,15 +155,6 @@ var routes = [
     name: "Resultados de Aprendizaje",
     icon: "ni ni-books text-dark",
     component: LearningResults,
-    layout: "/admin",
-    sidebar: false,
-  },
-
-  {
-    path: "/RegisterLearningResult/:id",
-    name: "Registrar Resultado de Aprendizaje",
-    icon: "ni ni-single-copy-04 text-dark",
-    component: RegisterLearningResult,
     layout: "/admin",
     sidebar: false,
   },
