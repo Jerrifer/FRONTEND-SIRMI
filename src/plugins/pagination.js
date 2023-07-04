@@ -32,20 +32,14 @@ function PaginationData({
   const getPaginationButtons = () => {
     if (pageNumbers.length <= 4) {
       return pageNumbers.map((noPage) => (
-        <>
-          <Reactstrap.PaginationItem key={noPage}>
-            <Reactstrap.PaginationItem className={`${noPage === currentPage ? 'active' : ''
-                }`} onClick={(e) => { e.preventDefault(); onSpecificPage(noPage) }}>
-              <Reactstrap.PaginationLink
-                href="#pablo"
-               
-              >
-                {noPage}
-              </Reactstrap.PaginationLink>
-            </Reactstrap.PaginationItem>
+          <Reactstrap.PaginationItem key={noPage} className={`${noPage === currentPage ? 'active' : ''}`}>
+            <Reactstrap.PaginationLink
+              href="#pablo"
+              onClick={(e) => { e.preventDefault(); onSpecificPage(noPage) }}
+            >
+              {noPage}
+            </Reactstrap.PaginationLink>
           </Reactstrap.PaginationItem>
-        </>
-
       ));
     } else {
       let left = Math.max(1, currentPage - 2);
@@ -53,18 +47,14 @@ function PaginationData({
       let buttons = [];
       for (let i = left; i <= right; i++) {
         buttons.push(
-          <>
-            <Reactstrap.PaginationItem className={` ${i === currentPage ? 'active' : ''
-              }`}>
-              <Reactstrap.PaginationLink
-                href="#pablo"
-                onClick={(e) => { e.preventDefault(); onSpecificPage(i) }}
-              >
-                {i}
-              </Reactstrap.PaginationLink>
-            </Reactstrap.PaginationItem>
-          </>
-
+          <Reactstrap.PaginationItem key={i} className={`${i === currentPage ? 'active' : ''}`}>
+            <Reactstrap.PaginationLink
+              href="#pablo"
+              onClick={(e) => { e.preventDefault(); onSpecificPage(i) }}
+            >
+              {i}
+            </Reactstrap.PaginationLink>
+          </Reactstrap.PaginationItem>
         );
       }
       if (left > 1) {
@@ -87,48 +77,41 @@ function PaginationData({
   };
 
   return (
-    <>
-      <nav aria-label="...">
-        <Reactstrap.Pagination
-          className="pagination justify-content-end mb-0"
-          listClassName="justify-content-end mb-0"
-        >
-          <Reactstrap.PaginationItem className="">
-            <Reactstrap.PaginationLink
-              href="#pablo"
-              onClick={(e) => {
-                e.preventDefault();
-                onPreviousPage()
-              }}
-              className={`${currentPage === 1 ? 'disabled' : ''}`}
-            >
-              <i className="fas fa-angle-left" />
-              <span className="sr-only">Previous</span>
-            </Reactstrap.PaginationLink>
-          </Reactstrap.PaginationItem>
-          
-          <Reactstrap.PaginationItem>
-            <ul className="pagination-list">{getPaginationButtons()}</ul>
-          </Reactstrap.PaginationItem>
+    <nav aria-label="...">
+      <Reactstrap.Pagination className="pagination justify-content-end mb-0" listClassName="justify-content-end mb-0">
+        <Reactstrap.PaginationItem>
+          <Reactstrap.PaginationLink
+            href="#pablo"
+            onClick={(e) => {
+              e.preventDefault();
+              onPreviousPage();
+            }}
+            className={`${currentPage === 1 ? 'disabled' : ''}`}
+          >
+            <i className="fas fa-angle-left" />
+            <span className="sr-only">Previous</span>
+          </Reactstrap.PaginationLink>
+        </Reactstrap.PaginationItem>
 
-          <Reactstrap.PaginationItem>
-            <Reactstrap.PaginationLink
-              href="#pablo"
-              onClick={(e) => {
-                e.preventDefault();
-                onNextPage()
-              }}
-              className={`${currentPage >= pageNumbers.length ? 'disabled' : ''
-                }`}
-            >
-              <i className="fas fa-angle-right" />
-              <span className="sr-only">Next</span>
-            </Reactstrap.PaginationLink>
-          </Reactstrap.PaginationItem>
-        </Reactstrap.Pagination>
-      </nav>
-    </>
+        <Reactstrap.PaginationItem>
+          <ul className="pagination-list">{getPaginationButtons()}</ul>
+        </Reactstrap.PaginationItem>
 
+        <Reactstrap.PaginationItem>
+          <Reactstrap.PaginationLink
+            href="#pablo"
+            onClick={(e) => {
+              e.preventDefault();
+              onNextPage();
+            }}
+            className={`${currentPage >= pageNumbers.length ? 'disabled' : ''}`}
+          >
+            <i className="fas fa-angle-right" />
+            <span className="sr-only">Next</span>
+          </Reactstrap.PaginationLink>
+        </Reactstrap.PaginationItem>
+      </Reactstrap.Pagination>
+    </nav>
   );
 }
 

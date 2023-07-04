@@ -17,7 +17,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Fabrica de Software
+              Fábrica de Software
             </a>
           </div>
         </Col>

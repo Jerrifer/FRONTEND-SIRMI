@@ -4,26 +4,11 @@ import Day from "./day";
 import colombianHolidays from "colombian-holidays";
 import moment from "moment";
 
-const meses = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
-];
-const dias_semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+const dias_semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
 
-function Calendar({selectedDays, handleDayClick, month}) {
+function Calendar({selectedDays, handleDayClick, month, year, schedules, months}) {
 
-  const year = new Date().getFullYear()
-//   const [month, setMonth] = useState(new Date().getMonth());
+  // const year = new Date().getFullYear()
   const [num_dias, setNumDias] = useState(0);
   const [primer_dia_semana, setPrimerDiaSemana] = useState(0);
   
@@ -54,14 +39,27 @@ function Calendar({selectedDays, handleDayClick, month}) {
     month: month+1,
   });
 
+  //Festivos
   let holidays = []
   holidaysColombian.map(holiday => {
-    let fecha = moment(holiday.celebrationDate)
-    var dia = fecha.date();
+    let dateHoliday = moment(holiday.celebrationDate)
+    var dayHoliday = dateHoliday.date();
     return (
-      holidays.push(dia)
+      holidays.push(dayHoliday)
+      // holidays.push({
+      //   day:dayHoliday,
+      //   name: holiday.name.es
+      // })
     )
-    
+  })
+  
+  const selectedWeekDays = schedules.filter((weekday) => weekday.start_time !== '')
+
+  let newSelectedWeekDays = []
+  selectedWeekDays.map(selectedWeekDay => {
+    return (
+      newSelectedWeekDays.push(selectedWeekDay._id)
+    )
   })
 
   // Filas para los días del mes
@@ -75,7 +73,8 @@ function Calendar({selectedDays, handleDayClick, month}) {
         celdas.push(<td className="days" key={i}></td>);
       } else if (dia <= num_dias) {
         // Celdas con los días del mes
-        celdas.push(<Day i={i} dia={dia} holidays={holidays} selectedDays={selectedDays} handleDayClick={handleDayClick}/>);
+        
+        celdas.push(<Day key={i} i={i} dia={dia} selectedWeekDays={newSelectedWeekDays} holidays={holidays} selectedDays={selectedDays} handleDayClick={handleDayClick}/>);
         dia++;
       } else {
         // Celdas vacías después del último día del mes
@@ -88,7 +87,7 @@ function Calendar({selectedDays, handleDayClick, month}) {
   return (
     <div className="calendar">
       <div className="header-calendar">
-        <span className="month">{meses[month]}</span>
+        <span className="month">{months[month]}</span>
         <span className="year">{year}</span>
       </div>
       <table className="week">

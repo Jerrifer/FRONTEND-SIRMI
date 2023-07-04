@@ -8,18 +8,17 @@ function DetailLearningResult({learningResult, competence}) {
     return invokeModal(!isShow);
   };
 
-  console.log(learningResult);
   return (
     <>
       <Button variant=""
-      id="btn-program-detail"
+      id={"btn-program-detail"+competence.labor_competence_code}
        onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button> 
       <UncontrolledTooltip
-        className="tooltip-inner"
+        
         delay={0}
-        target="btn-program-detail"
+        target={"btn-program-detail"+competence.labor_competence_code}
       >
         Ver detalle
       </UncontrolledTooltip>

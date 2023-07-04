@@ -11,6 +11,7 @@ import {
   Container,
   Row,
   Col,
+  Input,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -25,9 +26,11 @@ import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 import "assets/css/rmi-cards-calendar.css"
 import Spinner from "../../components/loader";
-import { allRmiService } from "services/rmi";
+import { rmiByUserService, yearsByUserService } from "services/rmi";
 import { deleteRmiService } from "services/rmi";
 import { registerRmiService } from "services/rmi";
+import Multiselect from "multiselect-react-dropdown";
+import { selectedValueDecorator, optionValueDecorator, closeIcon, customStyle } from "plugins/multiSelect";
 
 
 const months = [
@@ -48,51 +51,44 @@ const months = [
 const ListRmi = () => {
 
   const navigate = useHistory();
+
+  const currentYear = new Date().getFullYear()
+
+  const [year, setYear] = useState([{year: currentYear}]);
+  const [years, setYears] = useState([]);
   const [rmi, setRmi] = useState([]);
-  const year = new Date().getFullYear()
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState([]);
+  const [ rendering, setRendering] = useState(0);
 
   useEffect(() => {
     const first_name = localStorage.getItem('name')
     const last_name = localStorage.getItem('lastname')
+    const id = localStorage.getItem('id')
 
     const user = {
+      id: id,
       first_name: first_name,
       last_name: last_name
     }
     setUser(user)
-    showRmis();
-  }, []);
+    showRmis(user.id, year[0].year);
+    showYears(user.id);
+  }, [year, rendering]);
 
-  const showRmis = async () => {
-    const data = await allRmiService();
-
+  const showRmis = async (id, year) => {
+    const data = await rmiByUserService(id, year);
     setRmi(data.results);
     setLoading(false);
   };
 
-  const [search, setSearch] = useState("");
-
-
-  const deleteRmi = async (id) => {
-    const alertParams = {
-      title: "¿Está seguro de eliminar el rmi?",
-      icon: "warning",
-    };
-    const confirmed = await alert(alertParams);
-
-    if (confirmed.isConfirmed) {
-      const data = await deleteRmiService(id);
-      if (data.status === "success") {
-        swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
-      } else {
-        swalWithBootstrapButtons.fire("Error!", data.message, "error");
-      }
-    } else if (confirmed.dismiss === Swal.DismissReason.cancel) {
-      swalWithBootstrapButtons.fire("Cancelado!", "", "info");
-    }
+  const showYears = async (user) => {
+    const data = await yearsByUserService(user);
+    setYears(data.results);
   };
+  
+
+  const [search, setSearch] = useState("");
 
   //funcion de busqueda
   const searcher = (e) => {
@@ -119,7 +115,7 @@ const ListRmi = () => {
     const userId = localStorage.getItem('id')
     const lastRmi = rmi.slice(-1).pop();
     const dataRmi = {
-      month: lastRmi.month+1,
+      month: lastRmi ? lastRmi.month+1 : 0,
       total_hours_formation: 0,
       total_hours_other_activities: 0,
       total_hours_month: 0,
@@ -127,7 +123,7 @@ const ListRmi = () => {
     }
 
     const data = await registerRmiService(dataRmi);
-    console.log(data);
+    setRendering(rendering+ 1)
     if(data.status === 'success') {
       swalWithBootstrapButtons.fire(
         'Se añadio un nuevo mes',
@@ -145,15 +141,46 @@ const ListRmi = () => {
 
   return (
     <>
-      <Header title={"Gestionar Rmi's"} />
+      <Header title={"Gestionar RMI's"} />
       <Container className="mt--7" fluid>
       <Row>
           <div className="col">
             <Card className="card-cal mx-7">
               <CardHeader className="card-head-cal">
-                <h2>Instructor: {user.first_name}  {user.last_name}</h2>
-                <h1>Año {year}</h1>
-                <Col lg="2">
+                <Col lg="4" className="d-flex justify-content-start">
+                  <h2>Instructor: {user.first_name}  {user.last_name}</h2>
+                </Col>
+                <Col lg="4" className="d-flex justify-content-center">
+                  <label
+                    className="form-control-label"
+                    htmlFor="input-activity"
+                  >
+                    <h1>Año {year[0].year}</h1>
+                    <Input className="form-control-alternative" type="number" min="2022" max="2026" defaultValue={year[0].year} onChange={(e) => setYear([{year: e.target.value}])}/>
+                    <Multiselect
+                          required
+                          selectedValueDecorator={selectedValueDecorator}
+                          optionValueDecorator={optionValueDecorator}
+                          customCloseIcon={closeIcon}
+                          style={customStyle}
+                          avoidHighlightFirstOption={true}
+                          hidePlaceholder={true}
+                          loading={rmi.length <= 0}
+                          selectionLimit={1}
+                          emptyRecordMsg="No hay más datos"
+                          showCloseIcon={true}
+                          onKeyPressFn={function noRefCheck() {}}
+                          onSearch={function noRefCheck() {}}
+                          onRemove={function noRefCheck() {}}
+                          onSelect={function noRefCheck(e) {setYear(e)}}
+                          placeholder="Seleccionar"
+                          displayValue="year"
+                          options={years}
+                          selectedValues={year}
+                        />
+                  </label>
+                </Col>
+                <Col lg="4" className="align-self-center d-flex justify-content-center">
                     <Button className="btn btn-success bg-success" onClick={addRmi}>
                       Mes +
                     </Button>
@@ -165,13 +192,11 @@ const ListRmi = () => {
                 {
                   rmi.map((rmi) => {
                     return(
-                      <Col lg="3" className="card-col-cal  my-3">
+                      <Col key={rmi._id} lg="3" className="card-col-cal  my-3">
                           <Card className="card-month-cal" onClick={() => {handleMonth(rmi._id)}}>
                               <h2>{months[rmi.month]}</h2>
 
-                              <div>
-                                Total de horas: {rmi.total_hours_month}
-                              </div>
+                              <h4>Total de horas: {rmi.total_hours_month}</h4>
                           </Card>
                       </Col>
                     )

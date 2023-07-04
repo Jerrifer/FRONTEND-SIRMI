@@ -50,7 +50,6 @@ const RegisterCompetence = () => {
         data.message,
         data.status
       )
-      console.log(data);
     } else {
       swalWithBootstrapButtons.fire(
         data.message,

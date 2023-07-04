@@ -33,17 +33,18 @@ const ListCompetence = () => {
   const [competences, setCompetences] = useState([]);
 
   const [search, setSearch] = useState("");
+  const [ rendering, setRendering] = useState(0);
   const [ loading ,setLoading] = useState(true);
-
-  const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
-  const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
 
   const [userPerPage, setUserPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const lastIndex = userPerPage * currentPage; // = 1 * 6 = 6
+  const firstIndex = lastIndex - userPerPage; // = 6 - 6 = 0
+
   useEffect(() => {
     showCompetences();
-  }, []);
+  }, [rendering]);
 
   // llamado a la api
   const showCompetences = async () => {
@@ -65,6 +66,7 @@ const ListCompetence = () => {
       const data = await deleteCompetenceService(id);
       if (data.status === "success") {
         swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
+        setRendering(rendering + 1)
       } else {
         swalWithBootstrapButtons.fire("Error!", data.message, "error");
       }
@@ -130,36 +132,36 @@ const ListCompetence = () => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Código de la competencia laboral</th>
+                    <th scope="col">Código</th>
                     <th scope="col">Competencia laboral</th>
-                    <th scope="col">Versión de la competencia laboral</th>
+                    <th scope="col">Versión</th>
                     <th scope="col">Duración</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                {loading && < Spinner/>}
+                {loading && <tr><td><Spinner/></td></tr>}
 
                   {result
                     .map((competence, i = 0) => {
                       return (
                         <tr key={competence._id}>
-                          <td>
+                          <td className="text-center">
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
                               {i + 1}
                             </Badge>
                           </td>
 
-                          <td>{competence.labor_competence_code}</td>
+                          <td className="text-center">{competence.labor_competence_code}</td>
 
-                          <td className="space">
+                          <td className="spaces">
                             {competence.labor_competition}
                           </td>
 
-                          <td>{competence.labor_competition_version}</td>
+                          <td className="text-center">{competence.labor_competition_version}</td>
 
-                          <td>{competence.duration}</td>
+                          <td className="text-center">{competence.duration}</td>
 
                           <td>
                             <DetailCompetence Competence={competence} />
@@ -171,16 +173,15 @@ const ListCompetence = () => {
                             >
                               <Button 
                               variant=""
-                              id="btn-program-competence"
+                              id={"btn-program-competence"+competence.labor_competence_code}
                               >
                                 <i className="fas fa-award"></i>
                               </Button>
                               <UncontrolledTooltip
-                                className="tooltip-inner"
                                 delay={0}
-                                target="btn-program-competence"
+                                target={"btn-program-competence"+competence.labor_competence_code}
                               >
-                                Resultado de aprendizaje
+                                Resultados de aprendizaje
                               </UncontrolledTooltip>
                             </Link>
 
@@ -189,13 +190,12 @@ const ListCompetence = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="" id="btn-program-edit">
+                              <Button variant="" id={"btn-program-edit"+competence.labor_competence_code}>
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                               <UncontrolledTooltip
-                                className="tooltip-inner"
                                 delay={0}
-                                target="btn-program-edit"
+                                target={"btn-program-edit"+competence.labor_competence_code}
                               >
                                 Actualizar competencia
                               </UncontrolledTooltip>
@@ -203,7 +203,7 @@ const ListCompetence = () => {
 
                             <Button
                               variant=""
-                              id="btn-program-delete"
+                              id={"btn-program-delete"+competence.labor_competence_code}
                               onClick={() =>
                                 deleteCompetence(competence._id)
                               }
@@ -211,9 +211,9 @@ const ListCompetence = () => {
                               <i className="fas fa-trash-alt"></i>
                             </Button>
                             <UncontrolledTooltip
-                              className="tooltip-inner"
+                              
                               delay={0}
-                              target="btn-program-delete"
+                              target={"btn-program-delete"+competence.labor_competence_code}
                             >
                               Eliminar Competencia
                             </UncontrolledTooltip>

@@ -58,10 +58,8 @@ const RegisterCompetence = () => {
       document_number: documentnumber,
       training_center: trainingcenter
     };
-    console.log(trainingcenter);
 
     const data = await registerUserService(body)
-    console.log(data.results);
     if(data.status === 'success') {
       swalWithBootstrapButtons.fire(
         'Registro exitoso',

@@ -37,7 +37,7 @@ const ListContracts = () => {
 
   const [ contracts, setContracts] = useState([]);
   const [ user, setUser] = useState([]);
-  const [ rendering, setRendering] = useState(false);
+  const [ rendering, setRendering] = useState(0);
 
   useEffect(() => {
     showContractsByUser(id);
@@ -48,8 +48,6 @@ const ListContracts = () => {
     setContracts(data.results.listContracts);
     setUser(data.results.user);
     setLoading(false)
-    console.log("jerri");
-    console.log(data);
   };
 
   const totalContracts = contracts.length
@@ -73,7 +71,7 @@ const ListContracts = () => {
           data.message,
           'success'
         )
-        setRendering(true)
+        setRendering(rendering + 1)
       }
       else{
         swalWithBootstrapButtons.fire(
@@ -162,7 +160,7 @@ const ListContracts = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {loading && < Spinner/>}
+                {loading && <tr><td><Spinner/></td></tr>}
 
                   {result
                     .map((contract, i = 0) => {
@@ -189,22 +187,21 @@ const ListContracts = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button id="btn-update-contract" variant="">
+                              <Button id={"btn-update-contract"+contract.contract_number} variant="">
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                             </Link>
 
                             <UncontrolledTooltip
-                              className="tooltip-inner"
                               delay={0}
                               placement="top"
-                              target="btn-update-contract"
+                              target={"btn-update-contract"+contract.contract_number}
                             >
                                 Actualizar contrato
                             </UncontrolledTooltip>
 
                             <Button
-                              id="btn-delete-contract"
+                              id={"btn-delete-contract"+contract.contract_number}
                               variant=""
                               onClick={() =>
                                 deleteContract(contract._id)
@@ -214,10 +211,10 @@ const ListContracts = () => {
                             </Button>
 
                             <UncontrolledTooltip
-                              className="tooltip-inner"
+                              
                               delay={0}
                               placement="top"
-                              target="btn-delete-contract"
+                              target={"btn-delete-contract"+contract.contract_number}
                             >
                                 Eliminar contrato
                             </UncontrolledTooltip>

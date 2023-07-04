@@ -46,7 +46,6 @@ const UpdateLearningresults = () => {
     e.preventDefault();
 
     const data = await updateLearningResultService(id, learningResults)
-        console.log(data);
 
         if (data.status === "success") {
           swalWithBootstrapButtons.fire(

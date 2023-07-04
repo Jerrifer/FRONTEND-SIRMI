@@ -36,7 +36,6 @@ function RegisterLearningResult({ competence }) {
     };
 
     const data = await registerLearningResultService(body)
-    console.log(data);
     invokeModal(!isShow);
     if(data.status === 'success') {
       swalWithBootstrapButtons.fire(
@@ -65,7 +64,7 @@ function RegisterLearningResult({ competence }) {
         Registrar
       </Button>
       <UncontrolledTooltip
-        className="tooltip-inner"
+        
         delay={0}
         target="btn-register-result"
       >

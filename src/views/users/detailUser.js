@@ -18,7 +18,6 @@ function DetailUsers({user}) {
       </Button>
 
       <UncontrolledTooltip
-        className="tooltip-inner"
         delay={0}
         placement="top"
         target="btn-detail-user"
@@ -33,7 +32,6 @@ function DetailUsers({user}) {
         </Modal.Header>
         <div className="container">
           <Modal.Body>
-            <div className="container ">
               <Form.Group className="text-center mb-4">
                 <h1>Detalles usuario</h1>
                 <hr className="mt-3"></hr>
@@ -68,8 +66,6 @@ function DetailUsers({user}) {
                 <Form.Label>Centro de formación</Form.Label>
                 <h3>{user.training_center.training_center}</h3>
               </Form.Group>
-
-            </div>
           </Modal.Body>
         </div>
       </Modal>

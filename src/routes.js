@@ -1,11 +1,14 @@
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
+
 import Competences from "views/competences/listCompetence";
 import FormationPrograms from "views/formation-programs/listFormationPrograms";
 import RegisterFormationProgram from "views/formation-programs/registerFormationProgram";
+
 import UpdateFormationProgram from "views/formation-programs/updateFormationPrograms";
 import UpdateCompetence from "views/competences/updateCompetence";
 import RegisterCompetence from "views/competences/RegisterCompetence";
+
 import ListUser from "views/users/listUser";
 import RegisterUser from "views/users/registerUser";
 import UpdateUsers from "views/users/updateUser";
@@ -19,15 +22,16 @@ import ListContracts from "views/contracts/listContracts";
 import RegisterContracts from "views/contracts/RegisterContract"
 import UpdateContracts from "views/contracts/updateContract"
 
+import otheractivity from "views/other-activity/listOtheractivity"
+import registerOtherActivity from "views/other-activity/RegisterOtheractivity";
+import Updateotheractivity from "views/other-activity/updateOtheractivity";
 
-
-import otheractivity from "views/otherActivity/listOtheractivity"
-import registerOtherActivity from "views/otherActivity/RegisterOtheractivity";
-import Updateotheractivity from "views/otherActivity/updateOtheractivity";
-import Rmi from "views/titled-formations/rmi";
 import ListTitledFormations from "views/titled-formations/listTitledFormations";
 import RegisterTitledFormation from "views/titled-formations/RegisterTitledFormation";
 import UpdateTitledFormation from "views/titled-formations/updateTitledFormation";
+
+import Rmi from "views/titled-formations/rmi";
+
 import ListRmi from "views/RMI/listRmi";
 
 var routes = [

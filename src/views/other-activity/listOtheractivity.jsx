@@ -32,6 +32,7 @@ const OtherActivity = () => {
   const [otheractivity, setOtheractivitys] = useState([]);
 
   const [search, setSearch] = useState("");
+  const [ rendering, setRendering] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const [userPerPage, setUserPerPage] = useState(5);
@@ -39,7 +40,7 @@ const OtherActivity = () => {
 
   useEffect(() => {
     showOtheractivity();
-  }, []);
+  }, [rendering]);
 
   // llamado a la api
   const showOtheractivity = async () => {
@@ -63,6 +64,7 @@ const OtherActivity = () => {
       const data = await deleteOtheractivityService(id);
       if (data.status === "success") {
         swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
+        setRendering(rendering + 1)
       } else {
         swalWithBootstrapButtons.fire("Error!", data.message, "error");
       }
@@ -91,7 +93,7 @@ const OtherActivity = () => {
 
   return (
     <>
-      <Header />
+      <Header title={"Otras actividades"}/>
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -136,7 +138,7 @@ const OtherActivity = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {loading && <Spinner />}
+                  {loading && <tr><td><Spinner/></td></tr>}
 
                   {result
                     .map((otheractivitys, i = 0) => {
@@ -151,27 +153,26 @@ const OtherActivity = () => {
 
                           <td>{otheractivitys.activity}</td>
 
-                          <td className="space">
+                          <td className="spaces">
                             {otheractivitys.description}
                           </td>
 
                           <td>{otheractivitys.hours}</td>
 
                           <td>
-                            <DetailOtheractivity Otheractivity={otheractivitys}/>
+                            <DetailOtheractivity Otheractivity={otheractivitys} index={i}/>
 
                             <Link
                               to={`/admin/Updateotheractivity/${otheractivitys._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="" id="btn-program-edit">
+                              <Button variant="" id={"btn-program-edit"+i}>
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                               <UncontrolledTooltip
-                                className="tooltip-inner"
                                 delay={0}
-                                target="btn-program-edit"
+                                target={"btn-program-edit"+i}
                               >
                                 Actualizar competencia
                               </UncontrolledTooltip>
@@ -181,7 +182,7 @@ const OtherActivity = () => {
 
                             <Button
                               variant=""
-                              id="btn-program-delete"
+                              id={"btn-program-delete"+i}
                               onClick={() =>
                                 deleteOtheractivity(otheractivitys._id)
                               }
@@ -189,9 +190,8 @@ const OtherActivity = () => {
                               <i className="fas fa-trash-alt"></i>
                             </Button>
                             <UncontrolledTooltip
-                              className="tooltip-inner"
                               delay={0}
-                              target="btn-program-delete"
+                              target={"btn-program-delete"+i}
                             >
                               Eliminar Competencia 
                             </UncontrolledTooltip>

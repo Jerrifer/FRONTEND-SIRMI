@@ -6,7 +6,7 @@
   }
   
   .header-calendar {
-    background-color: #47a44b;
+    background-color: #2dce89;
     color: #fff;
     padding: 5px;
     text-align: center;
@@ -52,20 +52,25 @@
     border-radius: 10%;
     transition: background-color 0.2s ease;
     cursor: pointer;
+    color: black;
   }
 
   .designated {
-    background-color: #47a44b; /* Cambiar aquí el color que desees */
+    background-color: #2dce89; /* Cambiar aquí el color que desees */
     color: #fff; /* Cambiar aquí el color que desees */
   }
 
   .holiday {
-    background-color: #a44747; /* Cambiar aquí el color que desees */
-    color: #fff; /* Cambiar aquí el color que desees */
+    background-color: #b73131; /* Cambiar aquí el color que desees */
+    color: #fff;; /* Cambiar aquí el color que desees */
+  }
+
+  .disabledday {
+    background-color: #8f8f8f87; /* Cambiar aquí el color que desees */
+    color: black; /* Cambiar aquí el color que desees */
   }
 
   span.disabled {
-    color: grey;
     cursor: not-allowed;
     pointer-events: none;
   }

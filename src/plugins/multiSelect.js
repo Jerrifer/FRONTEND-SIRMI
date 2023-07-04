@@ -11,34 +11,25 @@ export const selectedValueDecorator = (selectedItem) => {
 
 export const optionValueDecorator =  (option) => {
     return (
-        <div>
           <h6>{option}</h6>
-        </div>
     );
 }; 
 
 export const customStyle = {
-    closeIcon: {
-        background: 'black'
-    },
     optionContainer: {
         backgroundColor: '#f9f9f9',
     },
-    option: {
-        color: '#333',
-    },
     chips: {
-        color: '#000',
+        color: '#ffff',
         background: '#ffff',
         border: 'none',
-        boxShadow: '2px 2px 5px 0px rgba(0, 0, 0, 0.1)',
+        borderRadius:' 5px',
     },
     searchBox: {
         border: 'none',
-        borderBottom: '1px solid black',
-        borderRadius: '0px',
+        boxShadow: '2px 2px 5px 0px rgba(0, 0, 0, 0.1)',
+        background: '#ffff',
         maxHeight: "40px",
-
     },
     inputField: {
         color: '#000',
@@ -46,7 +37,7 @@ export const customStyle = {
 };
 
 
-export const closeIcon = <i className="ni ni-fat-remove" style={{fontSize: '20px', cursor: 'pointer'}}></i>
+export const closeIcon = <i className="ni ni-fat-remove" style={{fontSize: '20px', cursor: 'pointer', color: 'black'}}></i>
 
 
 

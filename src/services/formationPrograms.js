@@ -15,7 +15,6 @@ export const getFormationProgramService = async (id) => {
     return await new Promise( async (resolve, reject) => {
         await axios.get(`${BASE_URL}formationprograms/${id}`).then((response) => {
             resolve(response.data)
-            console.log(response.data);
         }).catch((error) => {
             resolve(error.response.data)
         })          
@@ -57,7 +56,6 @@ export const getFormationProgramService = async (id) => {
     return await new Promise( async (resolve, reject) => {
         await axios.post(`${BASE_URL}formationprograms/assign/${id}`, competences).then((response) => {
             resolve(response.data)
-            console.log(response.data);
         }).catch((error) => {
             resolve(error.response.data)
         })          
@@ -70,7 +68,6 @@ export const getFormationProgramService = async (id) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
-            console.log(error);
         })          
     })
   };

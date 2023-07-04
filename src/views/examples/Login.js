@@ -29,7 +29,6 @@ const Login = () => {
     document_number: "",
   });
 
-  const [login, setLogin ] = useState([])
 
   const [setError] = useState({});
 
@@ -43,17 +42,12 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await signInService(data)
-      setLogin(response.results)
+      const login = response.results;
       console.log(response)
 
       if (response.status === "success") {
-        swalWithBootstrapButtons.fire(
-          "Registro exitoso",
-          response.message,
-          response.status
-        );
-        localStorage.setItem("user", login.user);
-        localStorage.setItem("token", login.token);
+        // localStorage.setItem("user", login.user);
+        console.log(login);
         localStorage.setItem("name", login.user.first_name);
         localStorage.setItem("lastname", login.user.last_name);
         localStorage.setItem("email", login.user.email);
@@ -61,15 +55,16 @@ const Login = () => {
         localStorage.setItem("document", login.user.document_number);
         localStorage.setItem("id", login.user._id);
         localStorage.setItem("training_center", login.user.training_center._id);
+        localStorage.setItem("token", login.token);
+        swalWithBootstrapButtons.fire(
+          "Registro exitoso",
+          response.message,
+          response.status
+        );
         window.location = "/admin/index";
-      // console.log(login.user.message);
       } else {
         swalWithBootstrapButtons.fire(response.message, response.results, response.status);
       }
-      // const signInservice = async () => {
-      //   const data = await signInService();
-      //   setLogin(data.results);
-      // };
 
     } catch (error) {
       if (

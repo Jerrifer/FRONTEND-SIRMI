@@ -17,7 +17,6 @@ const Header = ({title}) => {
                 <i className="fas fa-reply text-default icon-back"></i>
               </Button>
               <UncontrolledTooltip
-                className="tooltip-inner"
                 delay={0}
                 target="btn-back"
               >

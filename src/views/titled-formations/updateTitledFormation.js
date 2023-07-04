@@ -41,7 +41,6 @@ const UpdateTitledFormation = () => {
     const data = await getTitledFormationService(id);
     setTitledFormation(data.results);
 
-    // console.log(data);
   };
 
   const changeData = (e) => {

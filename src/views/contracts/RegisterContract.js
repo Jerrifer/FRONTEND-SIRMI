@@ -64,7 +64,6 @@ const RegisterContracts = () => {
   const showUser = async (id) => {
     const data = await getUserService(id.id)
     setUser(data.results)
-    console.log(data);
   }
 
   const register = async (e) => {
@@ -82,7 +81,6 @@ const RegisterContracts = () => {
     };
 
     const data = await registerContractService(body)
-    console.log(data);
     if(data.status === 'success') {
       swalWithBootstrapButtons.fire(
         'Registro exitoso',

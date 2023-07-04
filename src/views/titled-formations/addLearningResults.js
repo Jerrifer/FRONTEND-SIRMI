@@ -53,7 +53,7 @@ function AddLearningResults({options, onSelect, disable}) {
             Seleccione un resultado de aprendizaje
           </label>
           <Multiselect
-            required
+            // required
             disable={disable}
             selectedValueDecorator={selectedValueDecorator}
             optionValueDecorator={optionValueDecorator}
@@ -88,7 +88,7 @@ function AddLearningResults({options, onSelect, disable}) {
               id="input-ficha"
               placeholder="Ej. 24514755"
               type="date"
-              required
+              // required
               onChange={(e) => joinData(e.target.value)}
             />
           </FormGroup>

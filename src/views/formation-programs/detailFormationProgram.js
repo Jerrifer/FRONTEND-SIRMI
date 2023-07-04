@@ -16,13 +16,12 @@ function DetailFormationProgram({ formationProgram }) {
 
   return (
     <>
-      <Button id="btn-program-detail" variant="" onClick={initModal}>
+      <Button id={"btn-program-detail"+formationProgram.program_code} variant="" onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
       <UncontrolledTooltip
-        className="tooltip-inner"
         delay={0}
-        target="btn-program-detail"
+        target={"btn-program-detail"+formationProgram.program_code}
       >
         Ver detalles del programa
       </UncontrolledTooltip>

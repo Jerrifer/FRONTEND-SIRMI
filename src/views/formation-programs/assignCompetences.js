@@ -5,7 +5,7 @@ import "./input.css";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import { assignCompetencesService } from "services/formationPrograms";
 
-function AssignCompetences(props) {
+function AssignCompetences({program, competences, setRendering, rendering}) {
 
   const [ isShow, invokeModal ] = useState(false);
   const [selectedCompetencies, setSelectedCompetencies] = useState([]);
@@ -13,8 +13,9 @@ function AssignCompetences(props) {
   const initModal = () => {
     return invokeModal(!isShow);
   };
-  const formationProgram = props.program;
-  const competences = props.competences;
+  const formationProgram = program;
+  console.log(formationProgram.competences);
+  console.log(competences);
 
   const selectedCompetences = async (e) => {
     e.preventDefault();
@@ -22,16 +23,15 @@ function AssignCompetences(props) {
       const _idCompetence = item._id
       return _idCompetence;
     });
-
   const data = await assignCompetencesService(formationProgram._id, {competences: idsCompetence})
     initModal()
-    console.log(data);
     if(data.status === 'success') {
       swalWithBootstrapButtons.fire(
         data.message,
         '',
         data.status
       )
+      setRendering(rendering + 1)
     } else {
       swalWithBootstrapButtons.fire(
         data.message,

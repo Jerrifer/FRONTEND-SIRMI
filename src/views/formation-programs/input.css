@@ -26,9 +26,3 @@ filter: grayscale(5px);
   color: #47a44b;
   
 }
-
-.tooltip-inner {
-  background-color: #000;
-  color: #ffffff;
-}
-

@@ -51,9 +51,9 @@ export const getRmiService = async (id) => {
     })
   };
 
-  export const rmiByUserService = async (id) => {
+  export const rmiByUserService = async (id, year) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}rmi/byuser/${id}`).then((response) => {
+        await axios.get(`${BASE_URL}rmi/byuser/${id}/${year}`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -61,3 +61,12 @@ export const getRmiService = async (id) => {
     })
   };
 
+  export const yearsByUserService = async (id) => {
+    return await new Promise( async (resolve, reject) => {
+        await axios.get(`${BASE_URL}rmi/years/${id}`).then((response) => {
+            resolve(response.data)
+        }).catch((error) => {
+            resolve(error.response.data)
+        })          
+    })
+  };

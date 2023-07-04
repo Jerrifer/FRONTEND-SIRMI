@@ -35,11 +35,12 @@ const ProgramCompetences = () => {
   const [formationProgram, setFormationProgram] = useState([]);
   const [competencesByProgram, setCompetencesByProgram] = useState([]);
   const [allCompetences, setAllCompetences] = useState([]);
+  const [ rendering, setRendering] = useState(0);
   
   useEffect(() => {
     showCompetences()
     showFormationProgram(id);
-  }, [id, formationProgram, competencesByProgram]);
+  }, [rendering, id]);
   
   const [search, setSearch] = useState("");
   const [ loading ,setLoading] = useState(true);
@@ -76,6 +77,7 @@ const ProgramCompetences = () => {
           data.message,
           'success'
         )
+        setRendering(rendering + 1)
       }
       else{
         swalWithBootstrapButtons.fire(
@@ -116,7 +118,7 @@ const ProgramCompetences = () => {
 
   return (
     <>
-      <Header title={"Gestionar competencias laborales del programa de formación"} />
+      <Header title={"Gestionar competencias laborales del programa: "+formationProgram.program_name} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -124,17 +126,11 @@ const ProgramCompetences = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-                <Col lg="1" className="p-0">
-                    <AssignCompetences  program={formationProgram} competences={allCompetences}/>
+                <Col lg="6" className="p-0">
+                    <AssignCompetences  program={formationProgram} competences={allCompetences} setRendering={setRendering} rendering={rendering}/>
                 </Col>
 
-                <Col lg="7">
-                  <h3 className="d-flex">
-                    ROGRAMA DE FORMACIÓN<h3 className="ml-2 text-gray">"{formationProgram.program_name}"</h3>
-                  </h3>
-                </Col>
-
-                <Col lg="4">
+                <Col lg="6">
                   <div>
                     <input
                       value={search}
@@ -152,32 +148,32 @@ const ProgramCompetences = () => {
               >
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">#</th>
+                    <th className="text-center" scope="col">#</th>
                     <th scope="col">Competencia laboral</th>
-                    <th scope="col">Código de la competencia laboral</th>
-                    <th scope="col">Acciones</th>
+                    <th className="text-center" scope="col">Código de la competencia laboral</th>
+                    <th className="text-center" scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                {loading && < Spinner/>}
+                {loading && <tr><td><Spinner/></td></tr>}
 
                   {competences.map((competence, i = 0) => {
                       return (
                         <tr key={competence._id}>
-                          <td>
+                          <td className="text-center">
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
                               {i + 1}
                             </Badge>
                           </td>
 
-                          <td>{competence.labor_competition}</td>
+                          <td className="spaces">{competence.labor_competition}</td>
 
-                          <td>{competence.labor_competence_code}</td>
+                          <td className="text-center">{competence.labor_competence_code}</td>
 
-                          <td>
+                          <td className="text-center">
                             <Button
-                              id="btn-competence-deallocate"
+                              id={"btn-competence-deallocate"+competence.labor_competence_code}
                               variant=""
                               onClick={() =>
                                 deallocateCompetence(competence._id)
@@ -186,10 +182,10 @@ const ProgramCompetences = () => {
                               <i className="fas fa-trash-alt"></i>
                             </Button>
                             <UncontrolledTooltip
-                              className="tooltip-inner"
+                              
                               delay={0}
                               placement="top"
-                              target="btn-competence-deallocate"
+                              target={"btn-competence-deallocate"+competence.labor_competence_code}
                             >
                               Quitar competencia
                             </UncontrolledTooltip>

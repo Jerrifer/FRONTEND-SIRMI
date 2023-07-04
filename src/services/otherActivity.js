@@ -15,7 +15,6 @@ export const getOtherActivityService = async (id) => {
     return await new Promise( async (resolve, reject) => {
         await axios.get(`${BASE_URL}otheractivity/${id}`).then((response) => {
             resolve(response.data)
-            console.log(response.data);
         }).catch((error) => {
             resolve(error.response.data)
         })          

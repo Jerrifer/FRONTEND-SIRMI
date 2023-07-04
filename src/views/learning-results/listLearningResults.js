@@ -34,7 +34,9 @@ const LearningResults = () => {
 
   const [learningresults, setLearningresults] = useState([]);
   const [competence, setCompetence] = useState([]);
+  const [ rendering, setRendering] = useState(0);
   const [ loading ,setLoading] = useState(true);
+
 
   const [search, setSearch] = useState("");
 
@@ -55,7 +57,7 @@ const LearningResults = () => {
 
   useEffect(() => {
     showLearningresults(id);
-  }, [id]);
+  }, [id, rendering]);
 
   const deleteLearningResult = async (id) => {
     const alertParams = {
@@ -72,6 +74,7 @@ const LearningResults = () => {
           data.message,
           'success'
         )
+        setRendering(rendering + 1)
       }
       else{
         swalWithBootstrapButtons.fire(
@@ -108,7 +111,7 @@ const LearningResults = () => {
 
   return (
     <>
-      <Header title={"Resultados de aprendizaje"} />
+      <Header title={"Resultados de aprendizaje de la competencia: "+competence.labor_competition} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -116,26 +119,11 @@ const LearningResults = () => {
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-                <Col className="p-0" lg="1">
-                    {/* <Link
-                      to={`/admin/RegisterLearningResult/${competence._id}`}
-                      tag={NavLinkRRD}
-                      activeclassname="active"
-                      className="ml-4"
-                    >
-                      <button className="btn btn-success bg-success">
-                        Registrar
-                      </button>
-                    </Link> */}
-
+                <Col lg="6" className="p-0">
                     <RegisterLearningResult  competence={competence} />
                 </Col>
 
-                <Col lg="7">
-                  <h4>COMPETENCIA LABORAL: <h5 className="text-gray">{competence.labor_competition}</h5></h4>
-                </Col>
-
-                <Col lg="4">
+                <Col lg="6">
                  <div>
                  <input
                     value={search}
@@ -161,7 +149,7 @@ const LearningResults = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {loading && < Spinner/>}
+                {loading && <tr><td><Spinner/></td></tr>}
 
                   {result.map((learningResult, i = 0) => {
                       return (
@@ -185,13 +173,13 @@ const LearningResults = () => {
                               activeclassname="active"
                             >
                               <Button variant=""
-                              id="btn-program-update">
+                              id={"btn-program-update"+competence.labor_competence_code}>
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                               <UncontrolledTooltip
-                                className="tooltip-inner"
+                                
                                 delay={0}
-                                target="btn-program-update"
+                                target={"btn-program-update"+competence.labor_competence_code}
                               >
                                 Actualizar resultado de aprendizaje
                               </UncontrolledTooltip>
@@ -204,7 +192,7 @@ const LearningResults = () => {
                               <i className="fas fa-trash-alt"></i>
                             </Button>
                             <UncontrolledTooltip
-                              className="tooltip-inner"
+                              
                               delay={0}
                               target="btn-program-delete"
                             >

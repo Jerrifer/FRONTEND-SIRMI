@@ -15,7 +15,6 @@ export const getUserService = async (id) => {
     return await new Promise( async (resolve, reject) => {
         await axios.get(`${BASE_URL}users/${id}`).then((response) => {
             resolve(response.data)
-            console.log(response.data);
         }).catch((error) => {
             resolve(error.response.data)
         })          
@@ -56,7 +55,6 @@ export const getUserService = async (id) => {
     return await new Promise( async (resolve, reject) => {
         await axios.get(`${BASE_URL}users/bytrainingcenter/${id}`).then((response) => {
             resolve(response.data)
-            console.log(response.data);
         }).catch((error) => {
             resolve(error.response.data)
         })          

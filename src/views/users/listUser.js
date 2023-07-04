@@ -35,9 +35,8 @@ import PaginationData from "plugins/pagination";
 const ListUser = () => {
   
   const [user, setUser] = useState([]);
-
+  const [ rendering, setRendering] = useState(0);
   const [search, setSearch] = useState("");
-
   const userPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -48,12 +47,11 @@ const ListUser = () => {
     const idTrainingCenter = localStorage.getItem('training_center')
     listUsers(idTrainingCenter)
     setisLoading(false)
-  }, []);
+  }, [rendering]);
 
   const listUsers = async (id) => {
     const data = await getUsersByTrainingCenterService(id);
     setUser(data.results);
-    console.log(data);
   };
 
   const totalUsers = user.length
@@ -69,6 +67,7 @@ const ListUser = () => {
       const data = await deleteUserService(id);
       if (data.status === "success") {
         swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
+        setRendering(rendering + 1)
       } else {
         swalWithBootstrapButtons.fire("Error!", data.message, "error");
       }
@@ -95,9 +94,6 @@ const ListUser = () => {
 
   return (
     <>
-
-    {/* {loader ? console.log('kkkkkk') : console.log('ppipp')} */}
-    {isLoading && <div>cargando.....</div>}
       <Header title={"Gestinar Usuarios"} />
       {/* Page content */}
       <Container className="mt--7" fluid>
@@ -123,7 +119,8 @@ const ListUser = () => {
                     value={search}
                     onChange={searcher}
                     type="search"
-                    placeholder="Buscar"
+                    icon={"fas fa-pen-alt"}
+                    placeholder={"🔍 Buscar"}
                     className="input"
                   />
                 </Col>
@@ -144,10 +141,11 @@ const ListUser = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {isLoading && < Spinner/>}
 
-                  {result
-                    .map((user, i = 0) => {
+                {isLoading && <tr><td><Spinner/></td></tr> }
+                
+
+                  {result.map((user, i = 0) => {
                       return (
                         <tr key={user._id}>
                           <td>
@@ -158,33 +156,32 @@ const ListUser = () => {
                           </td>
 
                           <td>{user.first_name} {user.last_name}</td>
+
                           {
                             user.status === true ?
                             <td className="parpadea">
-                              <div id="btn-active-contract" class="esfera-active"></div>
+                              <div id={"btn-active-contract"+i} className="esfera-active"></div>
                               <UncontrolledTooltip
-                                className="tooltip-inner"
                                 delay={0}
                                 placement="top"
-                                target="btn-active-contract"
+                                target={"btn-active-contract"+i}
                               >
                                   Contrato activo
                               </UncontrolledTooltip>
                             </td>
                             :
                             <td className="">
-                              <div id="btn-inactive-contract" class="esfera-inactive"></div>
+                              <div id={"btn-inactive-contract"+i} className="esfera-inactive"></div>
                               <UncontrolledTooltip
-                                className="tooltip-inner"
                                 delay={0}
                                 placement="top"
-                                target="btn-inactive-contract"
+                                target={"btn-inactive-contract"+i}
                               >
                                   Contrato inactivo
                               </UncontrolledTooltip>
                             </td>
-
                           }
+
                           <td>{user.email}</td>
                           <td>{user.contact_number}</td>
                           <td>{user.document_number}</td>
@@ -197,16 +194,15 @@ const ListUser = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="" id="btn-contracts">
+                              <Button variant="" id={"btn-contracts"+i}>
                                 <i className="ni ni-paper-diploma"></i>
                               </Button>
                             </Link>
 
                             <UncontrolledTooltip
-                              className="tooltip-inner"
                               delay={0}
                               placement="top"
-                              target="btn-contracts"
+                              target={"btn-contracts"+i}
                             >
                               Ver contratos
                             </UncontrolledTooltip>
@@ -216,40 +212,39 @@ const ListUser = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button id="btn-update-user" variant="">
+                              <Button id={"btn-update-user"+i} variant="">
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                             </Link>
 
                             <UncontrolledTooltip
-                              className="tooltip-inner"
                               delay={0}
                               placement="top"
-                              target="btn-update-user"
+                              target={"btn-update-user"+i}
                             >
                               Actualizar usuario
                             </UncontrolledTooltip>
 
                             <Button
-                              id="btn-delete-user"
+                              id={"btn-delete-user"+i}
                               variant=""
                               onClick={() => deleteUsers(user._id)}
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
+
                             <UncontrolledTooltip
-                              className="tooltip-inner"
                               delay={0}
                               placement="top"
-                              target="btn-delete-user"
+                              target={"btn-delete-user"+i}
                             >
                               Eliminar usuario
                             </UncontrolledTooltip>
                           </td>
                         </tr>
                       );
-                    })
-                    .slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)}
+                    }).slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)
+                  }
                 </tbody>
               </Table>
 

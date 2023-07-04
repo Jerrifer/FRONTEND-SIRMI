@@ -13,55 +13,64 @@ import {
   Row,
   Col,
 } from "reactstrap";
-// core components
 
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
-
+// import { BASE_URL } from "globals.constans";
+// import axios from "axios";
 import { swalWithBootstrapButtons } from "plugins/alerts";
-import { useHistory } from "react-router-dom";
-import { registerOtherActivityService } from "services/otherActivity";
 
-const RegisterCompetence = () => {
+import { useHistory, useParams } from "react-router-dom";
+import { updateOtherActivityService } from "services/otherActivity";
+import { getOtherActivityService } from "services/otherActivity";
+
+// import { Swal } from "sweetalert2";
+
+const Updateotheractivity = () => {
   const navigate = useHistory();
 
-  const [activity, setActivity] = useState("");
-  const [description, setDescription] = useState("");
-  const [hours, setHours] = useState("");
+  const { id } = useParams();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    showactivity(id);
+  }, [id]);
 
-  const register = async (e) => {
-    e.preventDefault();
+  const [otheractivity, setOtheractivity] = useState([]);
 
-    const body = {
-      activity: activity,
-      description: description,
-      hours: hours,
-    };
+  const showactivity = async (id) => {
+    const data = await getOtherActivityService(id);
+    setOtheractivity(data.results);
 
-
-    const data = await registerOtherActivityService(body);
-    if(data.status === 'success') {
-      swalWithBootstrapButtons.fire(
-        'Registro exitoso',
-        data.message,
-        data.status
-      )
-      console.log(data);
-    } else {
-      swalWithBootstrapButtons.fire(
-        data.message,
-        data.results,
-        data.status
-      )
-    }
-      navigate.push("/admin/otheractivity");
   };
 
+  const changeData = (e) => {
+    setOtheractivity({ ...otheractivity, [e.target.name]: e.target.value });
+  };
 
+  const update = async (e) => {
+    e.preventDefault();
 
-   
+    // const typeDataTypeProgram = typeof competence.type_program;
+
+    // if (typeDataTypeProgram === "object") {
+    //   competence.type_program = competence.type_program._id;
+    // }
+
+    const data = await updateOtherActivityService(id, otheractivity);
+
+    if (data.status === "success") {
+      swalWithBootstrapButtons.fire(
+        "Actualizado exitosamente",
+        data.message,
+        data.status
+      );
+      navigate.push("/admin/otheractivity");
+    } else {
+      swalWithBootstrapButtons.fire(data.message, data.results, data.status);
+    }
+
+  };
+
   return (
     <>
       <Header />
@@ -72,12 +81,12 @@ const RegisterCompetence = () => {
             <CardHeader className="bg-white border-0 align-items-center">
               <Row className="align-items-center">
                 <Col s="8">
-                  <h3 className="mb-0">Registrar actividad</h3>
+                  <h3 className="mb-0">Actualizar actividad</h3>
                 </Col>
               </Row>
             </CardHeader>
             <CardBody>
-              <Form onSubmit={register}>
+              <Form onSubmit={update}>
                 <div className="px-5">
                   <Row>
                     <Col lg="6">
@@ -91,10 +100,12 @@ const RegisterCompetence = () => {
                         <Input
                           className="form-control-alternative"
                           id="activity"
-                          placeholder=" activity"
+                          name="activity"
+                          placeholder="activity"
                           type="text"
+                          defaultValue={otheractivity.activity}
                           required
-                          onChange={(e) => setActivity(e.target.value)}
+                          onChange={changeData}
                         />
                       </FormGroup>
                     </Col>
@@ -107,12 +118,15 @@ const RegisterCompetence = () => {
                           description
                         </label>
                         <Input
+                          
                           className="form-control-alternative"
                           id="description"
-                          placeholder=" description"
+                          name="description"
+                          placeholder="description"
                           type="text"
+                          defaultValue={otheractivity.description}
                           required
-                          onChange={(e) => setDescription(e.target.value)}
+                          onChange={changeData}
                         />
                       </FormGroup>
                     </Col>
@@ -124,26 +138,26 @@ const RegisterCompetence = () => {
                           className="form-control-label"
                           htmlFor="hours"
                         >
-                          hours
+                         hours
                         </label>
                         <Input
                           className="form-control-alternative"
                           id="hours"
+                          name="hours"
                           placeholder="hours"
                           type="text"
+                          defaultValue={otheractivity.hours}
                           required
-                          onChange={(e) => setHours(e.target.value)}
+                          onChange={changeData}
                         />
                       </FormGroup>
                     </Col>
-                   
+                    
+                  
                   </Row>
 
-                  <Button
-                    type="submit"
-                    className="btn btn-success m-4 bg-success"
-                  >
-                    Registrar
+                  <Button type="submit" className="justify-content-end m-4">
+                    Guardar cambios
                   </Button>
                 </div>
               </Form>
@@ -155,4 +169,4 @@ const RegisterCompetence = () => {
   );
 };
 
-export default RegisterCompetence;
+export default Updateotheractivity;

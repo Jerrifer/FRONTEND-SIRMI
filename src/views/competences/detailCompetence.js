@@ -13,17 +13,16 @@ function DetailCompetence({ Competence }) {
   return (
     <>
       <Button variant="" 
-        id="btn-program-detail"
+        id={"btn-program-detail"+Competence.labor_competence_code}
         onClick={initModal}
       >
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
       <UncontrolledTooltip
-        className="tooltip-inner"
         delay={0}
-        target="btn-program-detail"
+        target={"btn-program-detail"+Competence.labor_competence_code}
       >
-        Ver detalle de competencia
+        Ver detalles de competencia
       </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color ">

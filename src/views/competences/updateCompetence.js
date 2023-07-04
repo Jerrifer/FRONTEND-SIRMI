@@ -40,8 +40,6 @@ const UpdateCompetence = () => {
   const showCompetence = async (id) => {
     const data = await getCompetenceService(id);
     setCompetence(data.results);
-
-    // console.log(data);
   };
 
   const changeData = (e) => {

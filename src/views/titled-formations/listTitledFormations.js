@@ -46,12 +46,13 @@ const months = [
 
 const ListTitledFormations = () => {
 
-  const { id } = useParams();
+  const { id, year } = useParams();
 
   const [titledFormations, setTitledFormations] = useState([]);
   const [rmi, setRmi] = useState([]);
 
   const [search, setSearch] = useState("");
+  const [ rendering, setRendering] = useState(0);
   const [ loading ,setLoading] = useState(true);
 
   const [userPerPage, setUserPerPage] = useState(5);
@@ -59,7 +60,7 @@ const ListTitledFormations = () => {
 
   useEffect(() => {
     showTitledFormations(id);
-  }, [id]);
+  }, [id, rendering]);
 
   const showTitledFormations = async (id) => {
     const data = await titledFormationsByRmiService(id);
@@ -79,6 +80,7 @@ const ListTitledFormations = () => {
 
     if (confirmed.isConfirmed) {
       const data = await deleteTitledFormationService(id);
+      setRendering(rendering + 1)
       if (data.status === "success") {
         swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
       } else {
@@ -159,7 +161,7 @@ const ListTitledFormations = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {loading && < Spinner/>}
+                {loading && <tr><td><Spinner/></td></tr>}
 
                   {result
                     .map((titledFormation, i = 0) => {
@@ -186,13 +188,13 @@ const ListTitledFormations = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="" id="btn-program-edit">
+                              <Button variant="" id={"btn-program-edit"+i}>
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                               <UncontrolledTooltip
-                                className="tooltip-inner"
+                                
                                 delay={0}
-                                target="btn-program-edit"
+                                target={"btn-program-edit"+i}
                               >
                                 Actualizar reporte
                               </UncontrolledTooltip>
@@ -200,7 +202,7 @@ const ListTitledFormations = () => {
 
                             <Button
                               variant=""
-                              id="btn-program-delete"
+                              id={"btn-program-delete"+i}
                               onClick={() =>
                                 deleteTitledFormation(titledFormation._id)
                               }
@@ -208,9 +210,9 @@ const ListTitledFormations = () => {
                               <i className="fas fa-trash-alt"></i>
                             </Button>
                             <UncontrolledTooltip
-                              className="tooltip-inner"
+                              
                               delay={0}
-                              target="btn-program-delete"
+                              target={"btn-program-delete"+i}
                             >
                               Eliminar reporte
                             </UncontrolledTooltip>

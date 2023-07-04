@@ -36,16 +36,16 @@ import Spinner from "../../components/loader";
 const FormationPrograms = () => {
   const [formationPrograms, setFormationPrograms] = useState([]);
   const [ loading ,setLoading] = useState(true);
+  const [ rendering, setRendering] = useState(0);
+
   useEffect(() => {
     showFormationPrograms();
-  }, []);
+  }, [rendering]);
   
   const showFormationPrograms = async () => {
     const data = await allFormationProgramsService();
-    
     setFormationPrograms(data.results);
     setLoading(false)
-    
   };
   
   
@@ -70,6 +70,7 @@ const FormationPrograms = () => {
       const data = await deleteFormationProgramService(id);
       if (data.status === "success") {
         swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
+        setRendering(rendering + 1)
       } else {
         swalWithBootstrapButtons.fire("Error!", data.message, "error");
       }
@@ -132,23 +133,22 @@ const FormationPrograms = () => {
               >
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Código del programa</th>
-                    <th scope="col">Duración estimada (Meses)</th>
-                    <th scope="col">Versión</th>
-                    {/* <th scope="col">Programa de Formación</th> */}
-                    <th scope="col">Acciones</th>
+                    <th className="text-center" scope="col">#</th>
+                    <th scope="col">Programa de Formación</th>
+                    <th className="text-center" scope="col">Código del programa</th>
+                    <th className="text-center" scope="col">Duración estimada (Meses)</th>
+                    <th className="text-center" scope="col">Versión</th>
+                    <th className="text-center" scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                {loading && < Spinner/>}
+                {loading && <tr><td><Spinner/></td></tr>}
 
                   {result
                     .map((formationProgram, i = 0) => {
                       return (
                         <tr key={formationProgram._id}>
-                          <td>
+                          <td className="text-center">
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
                               {i + 1}
@@ -157,13 +157,13 @@ const FormationPrograms = () => {
 
                           <td>{formationProgram.program_name}</td>
 
-                          <td>{formationProgram.program_code}</td>
+                          <td className="text-center">{formationProgram.program_code}</td>
 
-                          <td>{formationProgram.total_duration}</td>
+                          <td className="text-center">{formationProgram.total_duration}</td>
 
-                          <td>{formationProgram.program_version}</td>
+                          <td className="text-center">{formationProgram.program_version}</td>
 
-                          <td>
+                          <td className="text-center">
                             <DetailFormationProgram
                               formationProgram={formationProgram}
                             />
@@ -172,14 +172,13 @@ const FormationPrograms = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="" id="btn-program-competences">
+                              <Button variant="" id={"btn-program-competences"+formationProgram.program_code}>
                                 <i className="fas fa-address-book"></i>
                               </Button>
 
                               <UncontrolledTooltip
-                                className="tooltip-inner"
                                 delay={0}
-                                target="btn-program-competences"
+                                target={"btn-program-competences"+formationProgram.program_code}
                               >
                                 Competencias asignadas
                               </UncontrolledTooltip>
@@ -190,22 +189,21 @@ const FormationPrograms = () => {
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="" id="btn-program-edit">
+                              <Button variant="" id={"btn-program-edit"+formationProgram.program_code}>
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
 
                               <UncontrolledTooltip
-                                className="tooltip-inner"
                                 delay={0}
                                 placement="top"
-                                target="btn-program-edit"
+                                target={"btn-program-edit"+formationProgram.program_code}
                               >
                                 Actualizar programa
                               </UncontrolledTooltip>
                             </Link>
 
                             <Button
-                              id="btn-program-delete"
+                              id={"btn-program-delete"+formationProgram.program_code}
                               variant=""
                               onClick={() =>
                                 deleteFormationProgram(formationProgram._id)
@@ -214,17 +212,17 @@ const FormationPrograms = () => {
                               <i className="fas fa-trash-alt"></i>
                             </Button>
                             <UncontrolledTooltip
-                              className="tooltip-inner"
+                              
                               delay={0}
-                              target="btn-program-delete"
+                              target={"btn-program-delete"+formationProgram.program_code}
                             >
                               Eliminar programa
                             </UncontrolledTooltip>
                           </td>
                         </tr>
                       );
-                    })
-                    .slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)}
+                    }).slice((currentPage - 1) * 7, (currentPage - 1) * 7 + 7)
+                    }
                 </tbody>
               </Table>
 

@@ -13,15 +13,15 @@ function DetailTitledFormation({ titledFormation }) {
     <>
       <Button 
         variant="" 
-        id="btn-titled-formation-detail"
+        id={"btn-titled-formation-detail"}
         onClick={initModal}
       >
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
       <UncontrolledTooltip
-        className="tooltip-inner"
+        
         delay={0}
-        target="btn-titled-formation-detail"
+        target={"btn-titled-formation-detail"}
       >
         Ver detalle reporte
       </UncontrolledTooltip>

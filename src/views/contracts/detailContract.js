@@ -13,15 +13,14 @@ function DetailContracts({ contract }) {
 
   return (
     <>
-      <Button id="btn-detail-contract" variant="" onClick={initModal}>
+      <Button id={"btn-detail-contract"+contract.contract_number} variant="" onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
 
       <UncontrolledTooltip
-        className="tooltip-inner"
         delay={0}
         placement="top"
-        target="btn-detail-contract"
+        target={"btn-detail-contract"+contract.contract_number}
       >
           Ver detalles del contrato
       </UncontrolledTooltip>

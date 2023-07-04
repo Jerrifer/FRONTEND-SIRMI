@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { UncontrolledTooltip } from "reactstrap";
 
-function DetailOtheractivity({ Otheractivity }) {
+function DetailOtheractivity({ Otheractivity, index }) {
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!isShow);
@@ -13,14 +13,14 @@ function DetailOtheractivity({ Otheractivity }) {
   return (
     <>
       <Button variant="" 
-      id="btn-program-detail"
+      id={"btn-program-detail"+index}
       onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
       <UncontrolledTooltip
-        className="tooltip-inner"
+        
         delay={0}
-        target="btn-program-detail"
+        target={"btn-program-detail"+index}
       >
         Ver detalle de competencia
       </UncontrolledTooltip>

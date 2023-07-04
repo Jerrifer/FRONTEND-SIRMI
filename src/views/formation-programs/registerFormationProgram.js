@@ -26,6 +26,7 @@ import { allProgramLevelsService } from "services/programLevels";
 import { allThematicLinesService } from "services/thematicLines";
 import { allTypeProgramsService } from "services/typePrograms";
 import Multiselect from "multiselect-react-dropdown";
+import { customStyle, closeIcon, selectedValueDecorator, optionValueDecorator } from "plugins/multiSelect";
 
 const RegisterFormationProgram = () => {
 
@@ -199,13 +200,13 @@ const [typePrograms, setTypePrograms] = useState([]);
                           Titulo del programa
                         </label>
                       
-                          {/* <select className=" input"  onChange={(e) => setSelectedProgramLevel(e.target.value)}>
-                            {programLevels.map((programLevel) =>
-                                <option key={programLevel._id} value={programLevel._id}>{programLevel.program_level}</option>
-                            )}
-                          </select> */}
                           <Multiselect
                             required
+                            selectedValueDecorator={selectedValueDecorator}
+                            optionValueDecorator={optionValueDecorator}
+                            customCloseIcon={closeIcon}
+                            style={customStyle}
+                            hidePlaceholder={true}
                             placeholder="Titulos de programas"
                             displayValue="program_level"
                             selectionLimit={1}
@@ -217,12 +218,11 @@ const [typePrograms, setTypePrograms] = useState([]);
                             }}
                             options={programLevels}
                             avoidHighlightFirstOption={true}
-                            closeOnSelect={true}
                           />
 
                         </FormGroup>
                       </Col>
-                      <Col lg="4">
+                      <Col lg="6">
                         <FormGroup>
                         <label
                           className="form-control-label"
@@ -230,14 +230,14 @@ const [typePrograms, setTypePrograms] = useState([]);
                         >
                           Línea tématica
                         </label>
-                        {/* <select className="input" onChange={(e) => setSelectedThematicLine(e.target.value)}>
-                          {thematicLines.map((thematicLine) => 
-                              <option key={thematicLine._id} value={thematicLine._id}>{thematicLine.thematic_line}</option>
-                          )}
-                        </select> */}
 
                         <Multiselect
                             required
+                            selectedValueDecorator={selectedValueDecorator}
+                            optionValueDecorator={optionValueDecorator}
+                            customCloseIcon={closeIcon}
+                            style={customStyle}
+                            hidePlaceholder={true}
                             placeholder="Lineas tématicas"
                             displayValue="thematic_line"
                             selectionLimit={1}
@@ -249,14 +249,13 @@ const [typePrograms, setTypePrograms] = useState([]);
                             }}
                             options={thematicLines}
                             avoidHighlightFirstOption={true}
-                            closeOnSelect={true}
                           />
                         </FormGroup>
                       </Col>
                     </Row>
 
                     <Row>
-                      <Col lg="4">
+                      <Col lg="6">
                         <FormGroup>
                         <label
                           className="form-control-label"
@@ -264,14 +263,14 @@ const [typePrograms, setTypePrograms] = useState([]);
                         >
                           Tipo del programa
                         </label>
-                        {/* <select className="input" onChange={(e) => setSelectedTypeProgram(e.target.value)}>
-                          {typePrograms.map((typeProgram) =>
-                              <option key={typeProgram._id} value={typeProgram._id}>{typeProgram.type_program}</option>
-                          )}
-                        </select> */}
 
                         <Multiselect
                             required
+                            selectedValueDecorator={selectedValueDecorator}
+                            optionValueDecorator={optionValueDecorator}
+                            customCloseIcon={closeIcon}
+                            style={customStyle}
+                            hidePlaceholder={true}
                             placeholder="Tipos de programas"
                             displayValue="type_program"
                             selectionLimit={1}
@@ -283,7 +282,6 @@ const [typePrograms, setTypePrograms] = useState([]);
                             }}
                             options={typePrograms}
                             avoidHighlightFirstOption={true}
-                            closeOnSelect={true}
                           />
                         </FormGroup>
                       </Col>
