@@ -25,7 +25,7 @@ function DetailUsers({user}) {
       >
         Ver detalles del usuario
       </UncontrolledTooltip>
-
+      
       <Modal show={isShow} size={"lg"} className=" color">
 
         <Modal.Header className="justify-content-end pb-0">
@@ -36,6 +36,7 @@ function DetailUsers({user}) {
             <div className="container ">
               <Form.Group className="text-center mb-4">
                 <h1>Detalles usuario</h1>
+                <hr className="mt-3"></hr>
               </Form.Group>
 
               <Form.Group className="mb-4">
