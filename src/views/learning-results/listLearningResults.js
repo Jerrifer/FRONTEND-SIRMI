@@ -27,6 +27,7 @@ import { deleteLearningResultService } from "services/learningResults";
 import Spinner from "../../components/loader"
 import PaginationData from "plugins/pagination";
 import RegisterLearningResult from "./registerLearningResults";
+import UpdateLearningresults from "./updateLearningResults";
 
 const LearningResults = () => {
 
@@ -111,7 +112,7 @@ const LearningResults = () => {
 
   return (
     <>
-      <Header title={"Resultados de aprendizaje de la competencia: "+competence.labor_competition} />
+      <Header title={"Gestionar resultados de aprendizaje"} />
       {/* Page content */}
       <Container className="mt--7" fluid>
         {/* Table */}
@@ -167,23 +168,7 @@ const LearningResults = () => {
                           <td>
                             <DetailLearningResult learningResult={learningResult} competence={competence} />
 
-                            <Link
-                              to={`/admin/updatelearningResult/${learningResult._id}`}
-                              tag={NavLinkRRD}
-                              activeclassname="active"
-                            >
-                              <Button variant=""
-                              id={"btn-program-update"+competence.labor_competence_code}>
-                                <i className="fas fa-pen-alt"></i>
-                              </Button>
-                              <UncontrolledTooltip
-                                
-                                delay={0}
-                                target={"btn-program-update"+competence.labor_competence_code}
-                              >
-                                Actualizar resultado de aprendizaje
-                              </UncontrolledTooltip>
-                            </Link>
+                            <UpdateLearningresults learningResult={learningResult} />
 
                             <Button
                               variant=""id="btn-program-delete"
@@ -196,7 +181,7 @@ const LearningResults = () => {
                               delay={0}
                               target="btn-program-delete"
                             >
-                            Eliminar resultado de aprendizaje
+                            Eliminar resultado
                             </UncontrolledTooltip>
                           </td>
                         </tr>

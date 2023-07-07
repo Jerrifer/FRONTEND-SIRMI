@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { UncontrolledTooltip } from "reactstrap";
+import { Col, Row, UncontrolledTooltip } from "reactstrap";
 
 function DetailCompetence({ Competence }) {
   const [isShow, invokeModal] = useState(false);
@@ -25,7 +25,7 @@ function DetailCompetence({ Competence }) {
         Ver detalles de competencia
       </UncontrolledTooltip>
 
-      <Modal show={isShow} size={"lg"} className=" color ">
+      <Modal show={isShow} size={"lg"} className="color ">
         <Modal.Header className="justify-content-end pb-0">
           <i className="fas fa-remove" style={{cursor: 'pointer'}} onClick={initModal}></i>
         </Modal.Header>
@@ -33,27 +33,35 @@ function DetailCompetence({ Competence }) {
           <Modal.Body>
             <div className="container ">
               <Form.Group className="text-center mb-5">
-                <h1>Detalles competencia laboral</h1>
+                <h1 className="m-2">Detalles competencia laboral</h1>
+                <hr className="mt-3"></hr>
               </Form.Group>
 
-              <Form.Group className="mb-4">
-                <Form.Label>Competencia laboral</Form.Label>
+              <Form.Group className="mb-4 text-center">
+                <Form.Label className="text-center">Competencia laboral</Form.Label>
                 <h3>{Competence.labor_competition}</h3>
               </Form.Group>
 
-              <Form.Group className="mb-4">
-                <Form.Label>Código de la competencia laboral</Form.Label>
-                <h3>{Competence.labor_competence_code}</h3>
-              </Form.Group>
-
-              <Form.Group className="mb-4">
-                <Form.Label>Versión de la competencia laboral</Form.Label>
-                <h3>{Competence.labor_competition_version}</h3>
-              </Form.Group>
-              <Form.Group className="mb-4">
-                <Form.Label>Duración estimada</Form.Label>
-                <h3>{Competence.duration || "Sin registrar"}</h3>
-              </Form.Group>
+              <Row>
+                <Col lg="4">
+                  <Form.Group className="mb-4">
+                  <Form.Label>Código</Form.Label>
+                  <h3>{Competence.labor_competence_code}</h3>
+                  </Form.Group>
+                </Col>
+                <Col lg="4">
+                  <Form.Group className="mb-4">
+                    <Form.Label>Duración estimada</Form.Label>
+                    <h3>{Competence.duration || "Sin registrar"}</h3>
+                  </Form.Group>
+                </Col>
+                <Col lg="4">
+                  <Form.Group className="mb-4">
+                    <Form.Label>Versión</Form.Label>
+                    <h3>{Competence.labor_competition_version}</h3>
+                  </Form.Group>
+                </Col>
+              </Row>
 
               {/* {formationPrograms.map((formationProgram) => {
                 return (

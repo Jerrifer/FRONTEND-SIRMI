@@ -12,6 +12,13 @@ import {
   Row,
   Col,
   Input,
+  CardBody,
+  UncontrolledDropdown,
+  DropdownToggle,
+  Media,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledTooltip,
 } from "reactstrap";
 // core components
 import Header from "components/Headers/Header.js";
@@ -25,27 +32,26 @@ import { Link, NavLink as NavLinkRRD, useHistory } from "react-router-dom";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Swal from "sweetalert2";
 import "assets/css/rmi-cards-calendar.css"
+import "assets/css/button-shop-now.css"
 import Spinner from "../../components/loader";
 import { rmiByUserService, yearsByUserService } from "services/rmi";
-import { deleteRmiService } from "services/rmi";
 import { registerRmiService } from "services/rmi";
 import Multiselect from "multiselect-react-dropdown";
 import { selectedValueDecorator, optionValueDecorator, closeIcon, customStyle } from "plugins/multiSelect";
 
-
 const months = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Octubre",
-  "Noviembre",
-  "Diciembre",
+  "Ene",
+  "Feb",
+  "Mar",
+  "Abr",
+  "May",
+  "Jun",
+  "Jul",
+  "Ago",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dic",
 ];
 
 const ListRmi = () => {
@@ -85,26 +91,37 @@ const ListRmi = () => {
   const showYears = async (user) => {
     const data = await yearsByUserService(user);
     setYears(data.results);
-  };
-  
-
-  const [search, setSearch] = useState("");
-
-  //funcion de busqueda
-  const searcher = (e) => {
-    setSearch(e.target.value);
+    console.log(data);
   };
 
-  //metodo de filtrado
-  let result = [];
-
-  if (!search) {
-    result = rmi;
-  } else {
-    result = rmi.filter((dato) =>
-      dato.month.toLowerCase().includes(search.toLocaleLowerCase())
-    );
-  }
+  const handleYear = async (newYear) => {
+    await years.map((year) => {
+      console.log(year.year);
+      console.log(newYear);
+      if (year.year === newYear) {
+        return setYear([{year: newYear}])
+      }else {
+        return (
+          swalWithBootstrapButtons.fire({
+            position: 'top-end',
+            icon: "info",
+            timer: 2000,
+            toast: true,
+            title: "No tienes registrados RMI's de más años",
+            showConfirmButton: false,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+        )
+      }
+    })
+    
+    // if (year < 10) {
+    //   setYear([{year: year}]);
+    // }
+  };
 
   const handleMonth = (id) => {
     navigate.push(`/admin/titledformations/${id}`);
@@ -113,8 +130,10 @@ const ListRmi = () => {
   const addRmi = async () => {
 
     const userId = localStorage.getItem('id')
-    const lastRmi = rmi.slice(-1).pop();
-    const dataRmi = {
+    const lastRmi = rmi.slice(-1).pop() || {month: -1};
+    console.log(lastRmi);
+    if (lastRmi.month < 11) {
+      const dataRmi = {
       month: lastRmi ? lastRmi.month+1 : 0,
       total_hours_formation: 0,
       total_hours_other_activities: 0,
@@ -137,6 +156,21 @@ const ListRmi = () => {
         data.status
       )
     }
+    } else {
+
+      swalWithBootstrapButtons.fire({
+        position: 'top-end',
+        icon: "warning",
+        timer: 2000,
+        toast: true,
+        title: "Ya hay 12 meses",
+        showConfirmButton: false,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+    }
   }
 
   return (
@@ -147,43 +181,51 @@ const ListRmi = () => {
           <div className="col">
             <Card className="card-cal mx-7">
               <CardHeader className="card-head-cal">
-                <Col lg="4" className="d-flex justify-content-start">
+                <Col lg="4" className="d-flex justify-content-start align-items-center">
                   <h2>Instructor: {user.first_name}  {user.last_name}</h2>
                 </Col>
-                <Col lg="4" className="d-flex justify-content-center">
-                  <label
-                    className="form-control-label"
-                    htmlFor="input-activity"
-                  >
-                    <h1>Año {year[0].year}</h1>
-                    <Input className="form-control-alternative" type="number" min="2022" max="2026" defaultValue={year[0].year} onChange={(e) => setYear([{year: e.target.value}])}/>
-                    <Multiselect
-                          required
-                          selectedValueDecorator={selectedValueDecorator}
-                          optionValueDecorator={optionValueDecorator}
-                          customCloseIcon={closeIcon}
-                          style={customStyle}
-                          avoidHighlightFirstOption={true}
-                          hidePlaceholder={true}
-                          loading={rmi.length <= 0}
-                          selectionLimit={1}
-                          emptyRecordMsg="No hay más datos"
-                          showCloseIcon={true}
-                          onKeyPressFn={function noRefCheck() {}}
-                          onSearch={function noRefCheck() {}}
-                          onRemove={function noRefCheck() {}}
-                          onSelect={function noRefCheck(e) {setYear(e)}}
-                          placeholder="Seleccionar"
-                          displayValue="year"
-                          options={years}
-                          selectedValues={year}
-                        />
-                  </label>
+                <Col lg="4" className="d-flex justify-content-start align-items-center">
+                    <Button variant=""  className="px-1 py-1 d-flex justify-content-center align-items-center" onClick={() => handleYear(year[0].year-1)}>
+                      <i className="ni ni-bold-down"></i>
+                    </Button>
+                      <h1 className="m-2">Año {year[0].year}</h1>
+                    <Button variant=""  className="px-1 py-1 d-flex justify-content-center align-items-center" onClick={() => handleYear(year[0].year+1)}>
+                      <i className="ni ni-bold-up"></i>
+                    </Button>
+                    {/* <Input className="form-control-alternative" type="number" min="2022" max="2026" defaultValue={year[0].year} onChange={(e) => setYear([{year: e.target.value}])}/> */}
+                    {/* <Multiselect
+                      required
+                      singleSelect
+                      selectedValueDecorator={selectedValueDecorator}
+                      optionValueDecorator={optionValueDecorator}
+                      customCloseIcon={closeIcon}
+                      style={customStyle}
+                      avoidHighlightFirstOption={true}
+                      hidePlaceholder={true}
+                      loading={rmi.length <= 0}
+                      selectionLimit={1}
+                      emptyRecordMsg="No hay más años"
+                      showCloseIcon={true}
+                      onKeyPressFn={function noRefCheck() {}}
+                      onSearch={function noRefCheck() {}}
+                      onRemove={function noRefCheck() {}}
+                      onSelect={function noRefCheck(e) {setYear(e)}}
+                      placeholder="Seleccionar"
+                      displayValue="year"
+                      options={years}
+                      selectedValues={year}
+                    /> */}
                 </Col>
                 <Col lg="4" className="align-self-center d-flex justify-content-center">
-                    <Button className="btn btn-success bg-success" onClick={addRmi}>
+                    <Button id="plus-month" className="btn btn-success bg-success" onClick={addRmi}>
                       Mes +
                     </Button>
+                    <UncontrolledTooltip
+                      delay={0}
+                      target="plus-month"
+                    >
+                      Agregar un mes
+                    </UncontrolledTooltip>
                 </Col>
               </CardHeader>
               {loading && < Spinner/>}
@@ -193,11 +235,35 @@ const ListRmi = () => {
                   rmi.map((rmi) => {
                     return(
                       <Col key={rmi._id} lg="3" className="card-col-cal  my-3">
-                          <Card className="card-month-cal" onClick={() => {handleMonth(rmi._id)}}>
-                              <h2>{months[rmi.month]}</h2>
+                          {/*          */}
+                          <Card id={"card"+rmi._id} className="card-month-cal" onClick={() => {handleMonth(rmi._id)}}>
+                              <CardHeader className="p-1 bg-green rounded"><h2 className="m-0 text-white text-shadow">{months[rmi.month]}</h2></CardHeader>
+                              <CardBody className="text-center">
+                                <button className="cta">
+                                  <h4 className="hover-underline-animation">Total horas mes: {rmi.total_hours_month}</h4>
+                                </button>
+                                <Row>
+                                  <Col lg="6">
+                                  <button className="cta">
+                                    <h5 className="hover-underline-animation">Horas formación: {rmi.total_hours_formation}</h5>
+                                  </button>
+                                  </Col>
 
-                              <h4>Total de horas: {rmi.total_hours_month}</h4>
+                                  <Col lg="6">
+                                  <button className="cta">
+                                    <h5 className="hover-underline-animation">Horas otras actividades: {rmi.total_hours_other_activities}</h5>
+                                  </button>
+                                  </Col>
+                                </Row>
+                              </CardBody>
                           </Card>
+                          <UncontrolledTooltip
+                            delay={0}
+                            target={"card"+rmi._id}
+                          >
+                            Has clic aquí para gestionar los reportes
+                          </UncontrolledTooltip>
+                          {/*          */}
                       </Col>
                     )
                   })

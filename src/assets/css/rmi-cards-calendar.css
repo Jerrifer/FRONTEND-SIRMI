@@ -22,9 +22,8 @@
 } */
 
 .card-month-cal {
-    width: 200px;
-    height: 200px;
-    align-items: center;    
+    width: 250px;
+    height: 200px;   
     cursor: pointer
 }
 

@@ -13,16 +13,16 @@ function DetailOtheractivity({ Otheractivity, index }) {
   return (
     <>
       <Button variant="" 
-      id={"btn-program-detail"+index}
+      id={"btn-other-activity-detail"+index}
       onClick={initModal}>
         <i className="fas fa-eye-solid fa-eye" />
       </Button>
       <UncontrolledTooltip
         
         delay={0}
-        target={"btn-program-detail"+index}
+        target={"btn-other-activity-detail"+index}
       >
-        Ver detalle de competencia
+        Ver detalles del reporte
       </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color ">
@@ -33,7 +33,8 @@ function DetailOtheractivity({ Otheractivity, index }) {
           <Modal.Body>
             <div className="container ">
               <Form.Group className="text-center mb-5">
-                <h1>Detalles otra actividad</h1>
+                <h1 className="m-2">Detalles otra actividad</h1>
+                <hr className="mt-3"></hr>
               </Form.Group>
 
               <Form.Group className="mb-4">
@@ -42,12 +43,12 @@ function DetailOtheractivity({ Otheractivity, index }) {
               </Form.Group>
 
               <Form.Group className="mb-4">
-                <Form.Label>Código del programa de formación</Form.Label>
+                <Form.Label>Descripción</Form.Label>
                 <h3>{Otheractivity.description}</h3>
               </Form.Group>
 
               <Form.Group className="mb-4">
-                <Form.Label>Versión del programa de formación</Form.Label>
+                <Form.Label>Horas</Form.Label>
                 <h3>{Otheractivity.hours}</h3>
               </Form.Group>
            

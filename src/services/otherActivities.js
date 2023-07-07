@@ -1,9 +1,9 @@
 import axios from "axios"
 import { BASE_URL } from 'globals.constans';
 
-export const allOtherActivityService = async () => {
+export const allOtherActivitiesService = async () => {
     return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}otheractivity`).then((response) => {
+        await axios.get(`${BASE_URL}otheractivities`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -13,7 +13,7 @@ export const allOtherActivityService = async () => {
 
 export const getOtherActivityService = async (id) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.get(`${BASE_URL}otheractivity/${id}`).then((response) => {
+        await axios.get(`${BASE_URL}otheractivities/${id}`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -23,7 +23,7 @@ export const getOtherActivityService = async (id) => {
 
   export const registerOtherActivityService = async (body) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.post(`${BASE_URL}otheractivity`, body).then((response) => {
+        await axios.post(`${BASE_URL}otheractivities`, body).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -33,7 +33,7 @@ export const getOtherActivityService = async (id) => {
 
   export const updateOtherActivityService = async (id, body) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.put(`${BASE_URL}otheractivity/${id}`, body).then((response) => {
+        await axios.put(`${BASE_URL}otheractivities/${id}`, body).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)
@@ -41,9 +41,19 @@ export const getOtherActivityService = async (id) => {
     })
   };
 
-  export const deleteOtheractivityService = async (id) => {
+  export const deleteOtherActivityService = async (id) => {
     return await new Promise( async (resolve, reject) => {
-        await axios.delete(`${BASE_URL}otheractivity/${id}`).then((response) => {
+        await axios.delete(`${BASE_URL}otheractivities/${id}`).then((response) => {
+            resolve(response.data)
+        }).catch((error) => {
+            resolve(error.response.data)
+        })          
+    })
+  };
+
+  export const otherActivitiesByRmiService = async (id) => {
+    return await new Promise( async (resolve, reject) => {
+        await axios.delete(`${BASE_URL}otheractivities/byrmi/${id}`).then((response) => {
             resolve(response.data)
         }).catch((error) => {
             resolve(error.response.data)

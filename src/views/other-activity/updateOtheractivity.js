@@ -21,8 +21,7 @@ import "../../../src/components/Headers/header.css";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 
 import { useHistory, useParams } from "react-router-dom";
-import { updateOtherActivityService } from "services/otherActivity";
-import { getOtherActivityService } from "services/otherActivity";
+import { updateOtherActivityService, getOtherActivityService } from "services/otherActivities";
 
 // import { Swal } from "sweetalert2";
 
@@ -39,6 +38,7 @@ const Updateotheractivity = () => {
 
   const showactivity = async (id) => {
     const data = await getOtherActivityService(id);
+    console.log(data);
     setOtheractivity(data.results);
 
   };
@@ -64,7 +64,7 @@ const Updateotheractivity = () => {
         data.message,
         data.status
       );
-      navigate.push("/admin/otheractivity");
+      navigate.push(`/admin/titledformations/${otheractivity.rmi}`);
     } else {
       swalWithBootstrapButtons.fire(data.message, data.results, data.status);
     }

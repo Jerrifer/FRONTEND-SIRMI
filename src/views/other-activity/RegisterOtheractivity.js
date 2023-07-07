@@ -19,10 +19,12 @@ import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
 
 import { swalWithBootstrapButtons } from "plugins/alerts";
-import { useHistory } from "react-router-dom";
-import { registerOtherActivityService } from "services/otherActivity";
+import { useHistory, useParams } from "react-router-dom";
+import { registerOtherActivityService } from "services/otherActivities";
 
 const RegisterCompetence = () => {
+  const { id } = useParams();
+
   const navigate = useHistory();
 
   const [activity, setActivity] = useState("");
@@ -38,6 +40,7 @@ const RegisterCompetence = () => {
       activity: activity,
       description: description,
       hours: hours,
+      rmi: id,
     };
 
 
@@ -48,6 +51,7 @@ const RegisterCompetence = () => {
         data.message,
         data.status
       )
+      navigate.push(`/admin/titledformations/${id}`);
     } else {
       swalWithBootstrapButtons.fire(
         data.message,
@@ -55,12 +59,8 @@ const RegisterCompetence = () => {
         data.status
       )
     }
-      navigate.push("/admin/otheractivity");
   };
 
-
-
-   
   return (
     <>
       <Header />
@@ -129,7 +129,7 @@ const RegisterCompetence = () => {
                           className="form-control-alternative"
                           id="hours"
                           placeholder="hours"
-                          type="text"
+                          type="Number"
                           required
                           onChange={(e) => setHours(e.target.value)}
                         />

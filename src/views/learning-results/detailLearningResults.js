@@ -20,7 +20,7 @@ function DetailLearningResult({learningResult, competence}) {
         delay={0}
         target={"btn-program-detail"+competence.labor_competence_code}
       >
-        Ver detalle
+        Ver detalles del resultado
       </UncontrolledTooltip>
 
       <Modal show={isShow} size={"lg"} className=" color">
@@ -32,12 +32,13 @@ function DetailLearningResult({learningResult, competence}) {
           <Modal.Body>
             <div className="container">
               <Form.Group className="text-center mb-4">
-                <h1>Detalles resultado de aprendizaje</h1>
+                <h1 className="m-2">Detalles resultado de aprendizaje</h1>
+                <hr className="mt-3"></hr>
               </Form.Group>
 
               <Form.Group className="mb-4">
                 <Form.Label>Resultado de aprendizaje</Form.Label>
-                <h3>{competence.learning_result}</h3>
+                <h3>{learningResult.learning_result}</h3>
               </Form.Group>
 
               <Form.Group className="mb-4">

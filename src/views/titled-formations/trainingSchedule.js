@@ -1,23 +1,23 @@
 import React from "react";
 import Multiselect from "multiselect-react-dropdown";
-import { Button, Input } from "reactstrap";
+import { Button, Col, Input } from "reactstrap";
 import {
   selectedValueDecorator,
-  optionValueDecorator,
-  closeIcon, customStyle
+  optionValueDecorator, 
+  customStyle
 } from "plugins/multiSelect";
 import { useState } from "react";
 
 function TrainingSchedule({ schedule }) {
 
   const days = [
+    { _id: 0, day: "Domingo" },
     { _id: 1, day: "Lunes" },
     { _id: 2, day: "Martes" },
     { _id: 3, day: "Miercoles" },
     { _id: 4, day: "Jueves" },
     { _id: 5, day: "Viernes" },
-    { _id: 6, day: "Sabado" },
-    { _id: 0, day: "Domingo" },
+    { _id: 6, day: "Sábado" },
   ];
 
   const [day, setDay ] = useState([])
@@ -32,10 +32,12 @@ function TrainingSchedule({ schedule }) {
     if (startTime === '') {
       return alert('Campo requerido')
     }
+    console.log(startTime);
+    const newStartTime = startTime.substring(0, 2) + ":00";
+    const newEndTime = endTime.substring(0, 2) + ":00";
     const hoursPerDay = await calcularTotalHoras(startTime, endTime)
-    schedule(day._id,startTime, endTime, hoursPerDay, sharedEvent)
+    schedule(day._id,newStartTime, newEndTime, hoursPerDay, sharedEvent)
   }
-
   
   function calcularTotalHoras(horaInicio, horaFin) {
     var partesInicio = horaInicio.split(':');
@@ -43,11 +45,11 @@ function TrainingSchedule({ schedule }) {
   
     var fechaInicio = new Date();
     fechaInicio.setHours(parseInt(partesInicio[0], 10));
-    fechaInicio.setMinutes(parseInt(partesInicio[1], 10));
+    // fechaInicio.setMinutes(parseInt(partesInicio[1], 10));
   
     var fechaFin = new Date();
     fechaFin.setHours(parseInt(partesFin[0], 10));
-    fechaFin.setMinutes(parseInt(partesFin[1], 10));
+    // fechaFin.setMinutes(parseInt(partesFin[1], 10));
   
     var diferenciaMilisegundos = fechaFin - fechaInicio;
     var totalHoras = diferenciaMilisegundos / 3600000; // Total de horas en formato decimal
@@ -91,57 +93,50 @@ function TrainingSchedule({ schedule }) {
                     style={customStyle}
                     options={days}
                 />
-                <label className="form-control-label" htmlFor="input-hours-month">
+                <label className="form-control-label w-100" htmlFor="input-start-time">
                     Hora de entrada
-                <Input
-                    required
-                    disabled={disable}
-                    className="form-control-alternative"
-                    id="input-hours-month"
-                    placeholder="Ej. 16:00"
-                    type="time"
-                    onChange={(e) => setStartTime(e.target.value)}
-                />
+                  <Input
+                      required
+                      disabled={disable}
+                      className="form-control-alternative"
+                      id="input-start-time"
+                      placeholder="Ej. 16:00"
+                      type="time"
+                      step="3600"
+                      onChange={(e) => setStartTime(e.target.value)}
+                      />
                 </label>
+                
 
-                <label className="form-control-label" htmlFor="input-hours-month">
+                <label className="form-control-label w-100" htmlFor="input-end-time">
                     Hora de salida
+                    
                 <Input
                     required
                     disabled={disable}
                     className="form-control-alternative"
-                    id="input-hours-month"
-                    placeholder="Ej. 16:00"
+                    id="myTimeInput"
+                    placeholder="Ej. 20:00"
                     type="time"
+                    step="3600"
                     onChange={(e) => setEndTime(e.target.value)}
                 />
                 </label>
-
-                {/* <div className="custom-control custom-control-alternative custom-checkbox mb-1">
-                  <input
-                    className="custom-control-input"
-                    id="customCheck1"
-                    type="checkbox"
-                    onChange={() =>setSharedEvent(!sharedEvent)}
-                  />
-                  <label className="custom-control-label" htmlFor="customCheck1">
-                    Evento compartido
-                  </label>
-                </div> */}
                 
                 <div className="d-flex justify-content-between">
-                <label htmlFor="customCheck1">
+                <label htmlFor="customCheckShared">
                   <h6>¿Evento compartido?</h6>
                 </label>
                 <span className="clearfix"/>
                   <label className="custom-toggle">
-                    <input type="checkbox" id="customCheck1" onChange={() =>setSharedEvent(!sharedEvent)}/>
+                    <input type="checkbox" id="customCheckShared" onChange={() =>setSharedEvent(!sharedEvent)}/>
                     <span className="custom-toggle-slider rounded-circle" />
                   </label>
                 </div>
 
                 <Button type="submit" onClick={add} className="my-3">Añadir</Button>
             </div>
+            
           </div>
     </>
   );

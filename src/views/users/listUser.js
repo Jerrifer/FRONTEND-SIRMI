@@ -88,7 +88,7 @@ const ListUser = () => {
     result = user;
   } else {
     result = user.filter((dato) =>
-      dato.email.toLowerCase().includes(search.toLocaleLowerCase())
+      dato.email.toLowerCase().includes(search.toLocaleLowerCase()) || dato.first_name.toLowerCase().includes(search.toLocaleLowerCase())
     );
   }
 
@@ -204,7 +204,7 @@ const ListUser = () => {
                               placement="top"
                               target={"btn-contracts"+i}
                             >
-                              Ver contratos
+                              Gestionar contratos
                             </UncontrolledTooltip>
 
                             <Link

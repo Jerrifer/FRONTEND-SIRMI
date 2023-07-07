@@ -7,11 +7,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/scss/argon-dashboard-react.scss";
-
+import "assets/css/text-shadow.css";
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
-import PublicLayout from "layouts/Public.js";
-import  RmiLayout from 'layouts/Rmi'
+// import PublicLayout from "layouts/Public.js";
+// import  RmiLayout from 'layouts/Rmi'
 import NotFoundLayout from "layouts/404";
 import { ProtectedRoute } from "components/protected/protectedRoutes";
 import axios from 'axios';
@@ -27,10 +27,10 @@ axios.interceptors.request.use(function(config) {
 root.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/admin" render={(props) => <ProtectedRoute><AdminLayout {...props} /></ProtectedRoute> } />
       <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-      <Route path="/rmi" render={(props) => <RmiLayout {...props} />} />
-      <Route path="/public" render={(props) => <PublicLayout {...props} />} />
+      <Route path="/admin" render={(props) => <ProtectedRoute><AdminLayout {...props} /></ProtectedRoute> } />
+      {/* <Route path="/rmi" render={(props) => <RmiLayout {...props} />} />
+      <Route path="/public" render={(props) => <PublicLayout {...props} />} /> */}
       <Route path="*" render={(props) => <NotFoundLayout {...props} />} />
     </Switch>
     {/* <Redirect from="/" to="/admin/index" /> */}

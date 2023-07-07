@@ -14,7 +14,7 @@ import RegisterUser from "views/users/registerUser";
 import UpdateUsers from "views/users/updateUser";
 
 import LearningResults from 'views/learning-results/listLearningResults'
-import UpdateLearningresult from "views/learning-results/updateLearningResults"
+
 import ProgramCompetences from "views/formation-programs/programCompetences";
 import Profile from "views/examples/Profile";
 
@@ -22,13 +22,13 @@ import ListContracts from "views/contracts/listContracts";
 import RegisterContracts from "views/contracts/RegisterContract"
 import UpdateContracts from "views/contracts/updateContract"
 
-import otheractivity from "views/other-activity/listOtheractivity"
 import registerOtherActivity from "views/other-activity/RegisterOtheractivity";
 import Updateotheractivity from "views/other-activity/updateOtheractivity";
 
 import ListTitledFormations from "views/titled-formations/listTitledFormations";
 import RegisterTitledFormation from "views/titled-formations/RegisterTitledFormation";
 import UpdateTitledFormation from "views/titled-formations/updateTitledFormation";
+import DetailTitledFormation from "views/titled-formations/detailTitledFormation";
 
 import Rmi from "views/titled-formations/rmi";
 
@@ -163,14 +163,6 @@ var routes = [
     sidebar: false,
   },
 
-  {
-    path: "/updatelearningresult/:id",
-    name: "Actualizar Resultado de Aprendizaje",
-    icon: "ni ni-single-copy-04 text-dark",
-    component: UpdateLearningresult,
-    layout: "/admin",
-    sidebar: false,
-  },
   // LearningResults end
 
 
@@ -244,9 +236,18 @@ var routes = [
   
     {
       path: "/updatetitledformation/:id",
-      name: "ActualizarFormacion Asignada",
+      name: "ActualizarFormacion Titulada",
       icon: "ni ni-single-copy-04 text-dark",
       component: UpdateTitledFormation,
+      layout: "/admin",
+      sidebar: false,
+    },
+
+    {
+      path: "/detailtitledformation/:id",
+      name: "Detalles Formacion Titulada",
+      icon: "ni ni-single-copy-04 text-dark",
+      component: DetailTitledFormation,
       layout: "/admin",
       sidebar: false,
     },
@@ -254,16 +255,17 @@ var routes = [
     // end titled formation 
 
      // otheractivity
-     {
-      path: "/otheractivity",
-      name: "Otras actividades",
-      icon: "",
-      component: otheractivity,
-      layout: "/admin",
-    },
+    //  {
+    //   path: "/otheractivity/:id",
+    //   name: "Otras actividades",
+    //   icon: "",
+    //   component: otheractivity,
+    //   layout: "/admin",
+    //   sidebar: false,
+    // },
   
     {
-      path: "/registerOtheractivity",
+      path: "/registerotheractivity/:id",
       name: "Registrar actividad",
       icon: "ni ni-single-copy-04 text-dark",
       component: registerOtherActivity,
@@ -279,6 +281,14 @@ var routes = [
       layout: "/admin",
       sidebar: false,
     },
+
+    // {
+    //   path: "/404",
+    //   name: "404",
+    //   icon: "ni ni-single-copy-04 text-dark",
+    //   layout: "404",
+    //   sidebar: false,
+    // },
 
 ];
 export default routes;

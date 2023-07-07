@@ -9,7 +9,6 @@ function DetailUsers({user}) {
   };
 
   // const users = data
-  console.log(user);
 
   return (
     <>
@@ -33,7 +32,10 @@ function DetailUsers({user}) {
         <div className="container">
           <Modal.Body>
               <Form.Group className="text-center mb-4">
-                <h1>Detalles usuario</h1>
+                <h1 className="m-2">
+                  <i className="fas fa-eye-solid fa-eye mr-3"></i>
+                  Detalles usuario
+                </h1>
                 <hr className="mt-3"></hr>
               </Form.Group>
 

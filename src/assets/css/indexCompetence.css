@@ -8,3 +8,12 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
+  .space-400{
+    max-width: 400px;
+    font-size: 40px;
+    border: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }

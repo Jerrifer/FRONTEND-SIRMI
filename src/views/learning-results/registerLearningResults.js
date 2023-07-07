@@ -17,7 +17,7 @@ function RegisterLearningResult({ competence }) {
 
   const navigate = useHistory();
 
-  const [learningResult, setLearningresult] = useState("");
+  const [learningResult, setLearningResult] = useState("");
 
   useEffect(() => {}, []);
 
@@ -94,7 +94,7 @@ function RegisterLearningResult({ competence }) {
                           placeholder="Resultado de Aprendizaje"
                           type="text"
                           required
-                          onChange={(e) => setLearningresult(e.target.value)}
+                          onChange={(e) => setLearningResult(e.target.value)}
                         />
                       </FormGroup>
                   <Row>

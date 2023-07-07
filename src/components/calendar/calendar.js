@@ -3,10 +3,11 @@ import "./calendar.css";
 import Day from "./day";
 import colombianHolidays from "colombian-holidays";
 import moment from "moment";
+import DayWithHolidays from "./daysWithHolidays";
 
 const dias_semana = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado"];
 
-function Calendar({selectedDays, handleDayClick, month, year, schedules, months}) {
+function Calendar({selectedDays, handleDayClick, month, year, schedules, months, withHolidays}) {
 
   // const year = new Date().getFullYear()
   const [num_dias, setNumDias] = useState(0);
@@ -52,6 +53,26 @@ function Calendar({selectedDays, handleDayClick, month, year, schedules, months}
       // })
     )
   })
+
+  // console.log("hola prro");
+  // console.log(selectedDays);
+  // if (selectedDays.length  > 0) {
+  //   if ('week_day' in selectedDays[0]) {
+  //     let newSelectedDays = []
+  //     selectedDays.map((selectedDay) => {
+  //       console.log('jerri');
+  //       console.log(selectedDay);
+  //       const day = selectedDay.day
+  //       return(
+  //         newSelectedDays.push(day)
+  //       )
+  //     })
+  //     selectedDays = newSelectedDays
+  //   }else {
+  //     console.log("xdxd");
+  //     return selectedDays
+  //   }
+  // } 
   
   const selectedWeekDays = schedules.filter((weekday) => weekday.start_time !== '')
 
@@ -73,7 +94,30 @@ function Calendar({selectedDays, handleDayClick, month, year, schedules, months}
         celdas.push(<td className="days" key={i}></td>);
       } else if (dia <= num_dias) {
         // Celdas con los días del mes
-        
+        // if (withHolidays) {
+        //   let holidays = []
+        //   holidaysColombian.map(holiday => {
+        //     let dateHoliday = moment(holiday.celebrationDate)
+        //     var dayHoliday = dateHoliday.date();
+        //     return (
+        //       holidays.push({
+        //         day:dayHoliday,
+        //         name: holiday.name.es
+        //       })
+        //     )
+        //   })
+        // celdas.push(<DayWithHolidays key={i} i={i} dia={dia} selectedWeekDays={newSelectedWeekDays} holidays={holidays} selectedDays={selectedDays} handleDayClick={handleDayClick}/>);
+        // } else {
+        //   let holidays = []
+        //   holidaysColombian.map(holiday => {
+        //     let dateHoliday = moment(holiday.celebrationDate)
+        //     var dayHoliday = dateHoliday.date();
+        //     return (
+        //       holidays.push(dayHoliday)
+        //     )
+        //   })
+        // celdas.push(<Day key={i} i={i} dia={dia} selectedWeekDays={newSelectedWeekDays} holidays={holidays} selectedDays={selectedDays} handleDayClick={handleDayClick}/>);
+        // }
         celdas.push(<Day key={i} i={i} dia={dia} selectedWeekDays={newSelectedWeekDays} holidays={holidays} selectedDays={selectedDays} handleDayClick={handleDayClick}/>);
         dia++;
       } else {

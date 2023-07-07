@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { UncontrolledTooltip } from "reactstrap";
 
-function DetailContracts({ contract }) {
+function DetailContracts({ contract, user }) {
 
   const [isShow, invokeModal] = useState(false);
   const initModal = () => {
     return invokeModal(!isShow);
   };
-
-  const user = contract.user;
 
   return (
     <>
@@ -32,7 +30,8 @@ function DetailContracts({ contract }) {
           </Modal.Header>
           <Modal.Body className="pt-0">
               <Form.Group className="text-center mb-4">
-                <h1>Detalles contrato</h1>
+                <h1 className="m-2">Detalles contrato</h1>
+                <hr className="mt-3"></hr>
               </Form.Group>
 
               <Form.Group className="mb-4">

@@ -1,121 +1,113 @@
 import React, { useEffect, useState } from "react";
 
-// reactstrap components
 import {
-  Button,
-  Card,
-  CardHeader,
-  CardBody,
   FormGroup,
-  Form,
   Input,
-  Container,
-  Row,
-  Col,
+  UncontrolledTooltip,
 } from "reactstrap";
 
-import Header from "components/Headers/Header";
-import "../../../src/components/Headers/header.css";
-import { swalWithBootstrapButtons } from "plugins/alerts";
+import { Modal, Button, Form } from "react-bootstrap";
 
-import { useHistory, useParams } from "react-router-dom";
-import { getLearningResultService } from "services/learningResults";
+import { swalWithBootstrapButtons } from "plugins/alerts";
+import { useHistory } from "react-router-dom";
 import { updateLearningResultService } from "services/learningResults";
 
+function UpdateLearningresults(props) {
 
-const UpdateLearningresults = () => {
   const navigate = useHistory();
-  const { id } = useParams();
+
+  const [learningResult, setLearningResult] = useState(props.learningResult);
 
   useEffect(() => {
-    showLearningresults(id);
-  }, [id]);
+    console.log(props.learningResult);
+  }, [props.learningResult]);
 
-  const [learningResults, setLearningResults] = useState([]);
+  const [isShow, invokeModal] = useState(false);
 
-  const showLearningresults = async (id) => {
-    const data = await getLearningResultService(id)
-      setLearningResults(data.results);
+  const initModal = () => {
+    return invokeModal(!isShow);
   };
 
   const changeData = (e) => {
-    setLearningResults({ ...learningResults, [e.target.name]: e.target.value });
+    setLearningResult({ ...learningResult, [e.target.name]: e.target.value });
   };
 
   const update = async (e) => {
     e.preventDefault();
 
-    const data = await updateLearningResultService(id, learningResults)
-
-        if (data.status === "success") {
-          swalWithBootstrapButtons.fire(
-            "Actualizado exitosamente",
-            data.message,
-            data.status
-          );
-          navigate.push(`/admin/learningresults/${learningResults.competence._id}`);
-        } else {
-          swalWithBootstrapButtons.fire(
-            data.message,
-            data.results,
-            data.status
-          );
-        }
+    console.log(learningResult);
+    const data = await updateLearningResultService(learningResult._id, learningResult)
+    invokeModal(!isShow);
+    if(data.status === 'success') {
+      swalWithBootstrapButtons.fire(
+        'Actualización exitosa',
+        data.message,
+        data.status
+      )
+      navigate.push(`/admin/learningresults/${learningResult.competence}`);
+    } else {
+      swalWithBootstrapButtons.fire(
+        data.message,
+        data.results,
+        data.status
+      )
+    }
   };
 
   return (
     <>
-      <Header />
-      {/* Page content */}
-      <Container className="mt--7  align-items-center" fluid>
-        <Col className="order-xl-2 align-items-center  " xl="11">
-          <Card className="bg-secondary formulario  ">
-            <CardHeader className="bg-white border-0 align-items-center">
-              <Row className="align-items-center">
-                <Col s="8">
-                  <h3 className="mb-0">Actualizar Resultado de Aprendizaje</h3>
-                </Col>
-              </Row>
-            </CardHeader>
-            <CardBody>
-              <Form onSubmit={update}>
+        <Button 
+            variant=""
+            id={"btn-program-update"+learningResult.competence}
+            onClick={initModal}
+        >
+            <i className="fas fa-pen-alt"></i>
+        </Button>
+        <UncontrolledTooltip
+            delay={0}
+            target={"btn-program-update"+learningResult.competence}
+        >
+        Actualizar resultado
+        </UncontrolledTooltip>
+
+      <Modal show={isShow} size={"lg"} className=" color">
+        <Modal.Header className="justify-content-end pb-0">
+          <i className="fas fa-remove" style={{cursor: 'pointer'}} onClick={initModal}></i>
+        </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={update}>
                 <div className="px-5">
-                  <Row>
-                    
-                    <Col lg="6">
+                    <Form.Group className="text-center mb-4">
+                      <h1>Actualizar resultado de aprendizaje</h1>
+                    </Form.Group>
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-email"
+                          htmlFor="input-username"
                         >
-                          Resultado de Aprendizaje
+                          Nombre del resultado de Aprendizaje
                         </label>
                         <Input
                           className="form-control-alternative"
-                          id="learning_result"
-                          name="learning_result"
+                          id="input-username"
                           placeholder="Resultado de Aprendizaje"
                           type="text"
-                          defaultValue={learningResults.learning_result}
                           required
-                          onChange={changeData}
+                          name="learning_result"
+                          defaultValue={learningResult.learning_result}
+                          onChange={(e) => changeData(e)}
                         />
                       </FormGroup>
-                    </Col>
-                  </Row>
-                
 
                   <Button type="submit" className="justify-content-end m-4">
                     Guardar cambios
                   </Button>
                 </div>
               </Form>
-            </CardBody>
-          </Card>
-        </Col>
-      </Container>
+          </Modal.Body>
+      </Modal>
     </>
   );
-};
+}
 
 export default UpdateLearningresults;

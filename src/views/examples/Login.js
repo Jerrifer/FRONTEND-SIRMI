@@ -61,7 +61,7 @@ const Login = () => {
           response.message,
           response.status
         );
-        window.location = "/admin/index";
+        window.location = "/admin/users";
       } else {
         swalWithBootstrapButtons.fire(response.message, response.results, response.status);
       }

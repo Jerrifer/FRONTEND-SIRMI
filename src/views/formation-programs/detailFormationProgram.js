@@ -35,7 +35,8 @@ function DetailFormationProgram({ formationProgram }) {
           <Modal.Body>
             <div className="">
               <Form.Group className="text-center mb-4">
-                <h1>Detalles programa de formación</h1>
+                <h1 className="m-2">Detalles programa de formación</h1>
+                <hr className="mt-3"></hr>
               </Form.Group>
 
               <Form.Group className="mb-4">

@@ -18,17 +18,20 @@ import Header from "components/Headers/Header.js";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import "../../../src/components/Headers/header.css";
-import { Link, NavLink as NavLinkRRD } from "react-router-dom";
+import { Link, NavLink as NavLinkRRD, useParams } from "react-router-dom";
 import DetailOtheractivity from "./detailOtheractivity";
 import "assets/css/indexCompetence.css";
 import { alert } from "plugins/alerts.js";
 import Swal from "sweetalert2";
 import { swalWithBootstrapButtons } from "plugins/alerts";
 import Spinner from "../../components/loader";
-import { allOtherActivityService } from "services/otherActivity";
-import { deleteOtheractivityService } from "services/otherActivity";
+import { otherActivitiesByRmiService, deleteOtherActivityService } from "services/otherActivities";
 import PaginationData from "plugins/pagination";
+
 const OtherActivity = () => {
+
+  const { id } = useParams();
+
   const [otheractivity, setOtheractivitys] = useState([]);
 
   const [search, setSearch] = useState("");
@@ -39,14 +42,20 @@ const OtherActivity = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    showOtheractivity();
-  }, [rendering]);
+    showOtherActivities(id);
+  }, [id, rendering]);
 
   // llamado a la api
-  const showOtheractivity = async () => {
-    const data = await allOtherActivityService();
-    setOtheractivitys(data.results);
-    setLoading(false);
+  const showOtherActivities = async (id) => {
+    const data = await otherActivitiesByRmiService(id);
+    if (data.status === "success") {
+      console.log(data);
+      setOtheractivitys(data.results);
+      setLoading(false);
+    } else {
+      swalWithBootstrapButtons.fire("Error", data.message, "error");
+      setLoading(false);
+    }
   };
 
   const totalOtherActivities = otheractivity.length
@@ -55,13 +64,13 @@ const OtherActivity = () => {
 
   const deleteOtheractivity = async (id) => {
     const alertParams = {
-      title: "¿Está seguro de eliminar el programa de formación?",
+      title: "¿Está seguro de eliminar el reporte?",
       icon: "warning",
     };
     const confirmed = await alert(alertParams);
 
     if (confirmed.isConfirmed) {
-      const data = await deleteOtheractivityService(id);
+      const data = await deleteOtherActivityService(id);
       if (data.status === "success") {
         swalWithBootstrapButtons.fire("Eliminado!", data.message, "success");
         setRendering(rendering + 1)
@@ -93,17 +102,12 @@ const OtherActivity = () => {
 
   return (
     <>
-      <Header title={"Otras actividades"}/>
-      {/* Page content */}
-      <Container className="mt--7" fluid>
-        {/* Table */}
-        <Row>
           <div className="col">
             <Card className="formulario ">
               <CardHeader className="border-0">
-                <Col lg="6">
+                <Col lg="2">
                   <Link
-                    to={`/admin/registerOtheractivity`}
+                    to={`/admin/registerotheractivity/${id}`}
                     tag={NavLinkRRD}
                     activeclassname="active"
                   >
@@ -113,12 +117,18 @@ const OtherActivity = () => {
                   </Link>
                 </Col>
 
-                <Col lg="6">
+                <Col lg="6" className="d-flex justify-content-center align-items-center">
+                  <h2>
+                    Otras actividades
+                  </h2>
+                </Col>
+
+                <Col lg="4">
                   <input
                     value={search}
                     onChange={searcher}
                     type="search"
-                    placeholder="Buscar"
+                    placeholder="Buscar por actividad"
                     className="input"
                   />
                 </Col>
@@ -130,10 +140,9 @@ const OtherActivity = () => {
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">activity</th>
-                    <th scope="col">description</th>
-               
-                    <th scope="col">hours</th>
+                    <th scope="col">actividad</th>
+                    {/* <th scope="col">descripción</th> */}
+                    <th scope="col">horas</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
@@ -141,9 +150,9 @@ const OtherActivity = () => {
                   {loading && <tr><td><Spinner/></td></tr>}
 
                   {result
-                    .map((otheractivitys, i = 0) => {
+                    .map((otheractivity, i = 0) => {
                       return (
-                        <tr key={otheractivitys._id}>
+                        <tr key={otheractivity._id}>
                           <td>
                             <Badge color="" className="badge-dot mr-4">
                               <i className="bg-success" />
@@ -151,30 +160,32 @@ const OtherActivity = () => {
                             </Badge>
                           </td>
 
-                          <td>{otheractivitys.activity}</td>
-
-                          <td className="spaces">
-                            {otheractivitys.description}
+                          <td className="space-400">
+                            {otheractivity.activity}
                           </td>
 
-                          <td>{otheractivitys.hours}</td>
+                          {/* <td className="space-400">
+                            {otheractivity.description}
+                          </td> */}
+
+                          <td>{otheractivity.hours}</td>
 
                           <td>
-                            <DetailOtheractivity Otheractivity={otheractivitys} index={i}/>
+                            <DetailOtheractivity Otheractivity={otheractivity} index={i}/>
 
                             <Link
-                              to={`/admin/Updateotheractivity/${otheractivitys._id}`}
+                              to={`/admin/updateotheractivity/${otheractivity._id}`}
                               tag={NavLinkRRD}
                               activeclassname="active"
                             >
-                              <Button variant="" id={"btn-program-edit"+i}>
+                              <Button variant="" id={"btn-other-activity-edit"+i}>
                                 <i className="fas fa-pen-alt"></i>
                               </Button>
                               <UncontrolledTooltip
                                 delay={0}
-                                target={"btn-program-edit"+i}
+                                target={"btn-other-activity-edit"+i}
                               >
-                                Actualizar competencia
+                                Actualizar reporte
                               </UncontrolledTooltip>
                             </Link>
 
@@ -182,18 +193,18 @@ const OtherActivity = () => {
 
                             <Button
                               variant=""
-                              id={"btn-program-delete"+i}
+                              id={"btn-other-activity-delete"+i}
                               onClick={() =>
-                                deleteOtheractivity(otheractivitys._id)
+                                deleteOtheractivity(otheractivity._id)
                               }
                             >
                               <i className="fas fa-trash-alt"></i>
                             </Button>
                             <UncontrolledTooltip
                               delay={0}
-                              target={"btn-program-delete"+i}
+                              target={"btn-other-activity-delete"+i}
                             >
-                              Eliminar Competencia 
+                              Eliminar reporte 
                             </UncontrolledTooltip>
                           </td>
                         </tr>
@@ -213,8 +224,6 @@ const OtherActivity = () => {
               </CardFooter>
             </Card>
           </div>
-        </Row>
-      </Container>
     </>
   );
 };

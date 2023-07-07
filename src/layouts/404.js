@@ -9,7 +9,7 @@ const NotFoundLayout = () => {
     <>
       <div className="content_404">
           <p className="zoom-area mx-auto m-0 pt-5 ">
-             Page Not Found
+            Página no encontrada
           </p>
           <section class="error-container">
             <span>
@@ -21,7 +21,7 @@ const NotFoundLayout = () => {
             </span>
           </section>
           <div className="link-container">
-            <Link to='/auth/login'>
+            <Link to='/admin/users'>
               <p className="Link-index">Ir a la pagina de inicio</p>
             </Link>
           </div>

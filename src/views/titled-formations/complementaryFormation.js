@@ -8,12 +8,11 @@ import colombianHolidays from "colombian-holidays";
 import moment from "moment";
 
 
-function ComplementaryFormation({ months, year, schedules, setComplementary }) {
+function ComplementaryFormation({ months, year, schedules, setComplementary, id}) {
 
     const [monthSelected, setMonthSelected ] = useState(0)
     const [weekDays, setWeekDays ] = useState([])
     const [selectedDays, setSelectedDays ] = useState([])
-    // const [courseDuration, setCourseDuration ] = useState("")
 
     // const joinData = (endDate) => {
     //     const data = {
@@ -24,6 +23,10 @@ function ComplementaryFormation({ months, year, schedules, setComplementary }) {
     useEffect(() => {
         weekDaysByMonth(monthSelected, year, schedules)
     }, [monthSelected, year, schedules])
+
+    useEffect(() => {
+        setComplementary(monthSelected, selectedDays, id)
+    }, [monthSelected, selectedDays, id])
     
 
     function getMonth(e) {
@@ -117,13 +120,14 @@ function ComplementaryFormation({ months, year, schedules, setComplementary }) {
                 </label>
                 <table>
                     <tbody className="shadow p-3 mb-5 rounded">
+                        <tr>
                         {
                             weekDays.map((weekDay) => {
                                 const designatedDays = Object.values(selectedDays);
                                 const isDesignatedDay = designatedDays.includes(weekDay);
                                 const isHolidays = holidays.includes(weekDay);
                                 return(
-                                    <td>
+                                    <td key={weekDay}>
                                         <span
                                             onClick={() => {
                                                 handleDayClick(weekDay);
@@ -136,6 +140,7 @@ function ComplementaryFormation({ months, year, schedules, setComplementary }) {
                                 )
                             })
                         }
+                        </tr>
                     </tbody>
                 </table>
             </Col>

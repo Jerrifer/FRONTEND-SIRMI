@@ -87,7 +87,7 @@ const ListCompetence = () => {
     result = competences;
   } else {
     result = competences.filter((dato) =>
-      dato.labor_competence_code
+      dato.labor_competition
         .toLowerCase()
         .includes(search.toLocaleLowerCase())
     );
@@ -181,7 +181,7 @@ const ListCompetence = () => {
                                 delay={0}
                                 target={"btn-program-competence"+competence.labor_competence_code}
                               >
-                                Resultados de aprendizaje
+                                Gestionar resultados de aprendizaje
                               </UncontrolledTooltip>
                             </Link>
 

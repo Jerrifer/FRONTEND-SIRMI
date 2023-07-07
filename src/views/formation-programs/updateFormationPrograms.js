@@ -58,33 +58,29 @@ const UpdateFormationProgram = () => {
   
   const showFormationProgram = async (id) => {
     const data = await getFormationProgramService(id)
-    setFormationProgram(data.results);
-    setProgramName(data.results.program_name)
-    setTotalDuration(data.results.total_duration)
-    setProgramVersion(data.results.program_version)
-    setSelectedProgramLevel([data.results.program_level])
-    setSelectedThematicLine([data.results.thematic_line])
-    setSelectedTypeProgram([data.results.type_program])
+    await setFormationProgram(data.results);
+    await setProgramName(data.results.program_name)
+    await setTotalDuration(data.results.total_duration)
+    await setProgramVersion(data.results.program_version)
+    await setSelectedProgramLevel([data.results.program_level])
+    await setSelectedThematicLine([data.results.thematic_line])
+    await setSelectedTypeProgram([data.results.type_program])
     console.log(data.results);
   };
 
-
-
-  
-
   const showProgramLevel = async () => {
     const data = await allProgramLevelsService()
-      setProgramLevels(data.results);
+    await setProgramLevels(data.results);
   };
 
   const showThematicLines = async () => {
     const data = await allThematicLinesService() 
-      setThematicLines(data.results);
+    await setThematicLines(data.results);
   };
 
   const showTypeProgram = async () => {
     const data = await allTypeProgramsService()
-      setTypePrograms(data.results);
+    await setTypePrograms(data.results);
   };
   
 
@@ -158,7 +154,7 @@ const UpdateFormationProgram = () => {
                           name="program_name"
                           placeholder="Nombre del programa de formación"
                           type="text"
-                          defaultValue={formationProgram.program_name}
+                          defaultValue={formationProgram?.program_name}
                           required
                           onChange={(e) => setProgramName(e.target.value)}
                         />
@@ -179,8 +175,7 @@ const UpdateFormationProgram = () => {
                           placeholder="Código del programa de formación"
                           type="text"
                           disabled
-                          defaultValue={formationProgram.program_code}
-                          value={formationProgram.program_code}
+                          value={formationProgram?.program_code}
                           required
                         />
                         </FormGroup>
@@ -201,7 +196,7 @@ const UpdateFormationProgram = () => {
                           name="program_version"
                           placeholder="Versión del programa de formación"
                           type="text"
-                          defaultValue={formationProgram.program_version}
+                          defaultValue={formationProgram?.program_version}
                           required
                           onChange={(e) => setProgramVersion(e.target.value)}
                         />
@@ -221,7 +216,7 @@ const UpdateFormationProgram = () => {
                           name="total_duration"
                           placeholder="Duración estimada"
                           type="text"
-                          defaultValue={formationProgram.total_duration}
+                          defaultValue={formationProgram?.total_duration}
                           required
                           onChange={(e) => setTotalDuration(e.target.value)}
                         />

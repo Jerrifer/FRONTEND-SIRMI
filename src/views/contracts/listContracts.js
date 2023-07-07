@@ -180,6 +180,7 @@ const ListContracts = () => {
                           <td>
                             <Detailcontract
                               contract={contract}
+                              user={user}
                             />
 
                             <Link

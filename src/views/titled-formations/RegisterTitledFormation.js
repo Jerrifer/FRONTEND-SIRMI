@@ -15,8 +15,8 @@ import {
   Table,
   UncontrolledTooltip,
 } from "reactstrap";
+import Spinner from "../../components/loader"
 // core components
-
 import Header from "components/Headers/Header";
 import "../../../src/components/Headers/header.css";
 import { useHistory, useParams } from "react-router-dom";
@@ -36,7 +36,7 @@ import TrainingSchedule from "./trainingSchedule";
 import { registerTitledFormationService } from "services/titledFormations";
 import Calendar from "components/calendar/calendar";
 import { getRmiService } from "services/rmi";
-import ComplementaryFormation from "./complementaryFormation";
+import AddFormsComplementary from "./addFormsComplementary";
 
 const months = [
   "Enero",
@@ -124,7 +124,8 @@ const RegisterTitledFormation = () => {
   const [formationProgramSelected, setFormationProgramSelected] = useState([]);
   const [selectedDays, setSelectedDays ] = useState([])
   const [complementary, setComplementary ] = useState(false)
-
+  const [courseDuration, setCourseDuration ] = useState(0)
+  const [loading ,setLoading] = useState(true);
   const [disable, setDisable] = useState(true);
   const [disable2, setDisable2] = useState(true);
 
@@ -141,6 +142,7 @@ const RegisterTitledFormation = () => {
   const showRmi = async (id) => {
     const data = await getRmiService(id)
     setRmi(data.results)
+    setLoading(false)
   }
 
 
@@ -158,38 +160,31 @@ const RegisterTitledFormation = () => {
   };
 
   //Formulario dinámico
-  const [formsLearningResults, setFormsLearningResults] = useState([{ id: 1 }]);
-  const [formsDates, setFormsDates] = useState([{ id: 1 }]);
+  const [formsLearningResults, setFormsLearningResults] = useState([{ id: 0 }]);
 
   const addFormLearningResults = () => {
-    if (formsLearningResults.length < 5) {
-      setFormsLearningResults((prevForms) => [...prevForms, { id: Date.now() }]);
+    if (formsLearningResults.length < 3) {
+      setFormsLearningResults((prevForms) => [...prevForms, { id: formsLearningResults.length + 1 }]);
     }
+    console.log(formsLearningResults);
   };
 
-  const addFormDates = () => {
-    if (formsDates.length < 5) {
-      setFormsDates((prevForms) => [...prevForms, { id: Date.now() }]);
-    }
-  };
 
   const removeFormLearningResults = (id) => {
     setFormsLearningResults((prevForms) => prevForms.filter((form) => form.id !== id));
   };
 
-  const removeFormDates = (id) => {
-    setFormsDates((prevForms) => prevForms.filter((form) => form.id !== id));
-  };
-
   const postResultSelected = (data) => {
+    console.log('xd');
+    console.log(data);
     setLearningResultSelected((prevLearningResultSelected) => {
       const newResult = {
-        learning_result: data.learning_result._id,
+        learning_result: data.learning_result,
         end_date: data.end_date,
       };
       return {
         ...prevLearningResultSelected,
-        [data.learning_result._id]: newResult,
+        [data.id]: newResult,
       };
     });
 
@@ -200,6 +195,7 @@ const RegisterTitledFormation = () => {
   };
 
   const renderFormsLearningResults = () => {
+    console.log(learningResults);
     return formsLearningResults.map((form) => (
       <div key={form.id}>
         <Row>
@@ -207,7 +203,9 @@ const RegisterTitledFormation = () => {
             <AddLearningResults
               options={learningResults}
               onSelect={postResultSelected}
+              isSelectedValues={false}
               disable={disable2}
+              id={form.id}
             />
           </Col>
           <Col lg="1" md="1" className="d-flex align-items-center">
@@ -216,33 +214,6 @@ const RegisterTitledFormation = () => {
                 className="my-3"
                 variant=""
                 onClick={() => removeFormLearningResults(form.id)}
-              >
-                Quitar
-              </Button>
-            )}
-          </Col>
-        </Row>
-      </div>
-    ));
-  };
-
-  const renderFormsDates = () => {
-    return formsDates.map((form) => (
-      <div key={form.id}>
-        <Row>
-          <Col lg="11" md="11">
-            <ComplementaryFormation
-              months={months}
-              year={rmi.year}
-              schedules={schedules}
-            />
-          </Col>
-          <Col lg="1" md="1" className="d-flex align-items-center">
-            {formsLearningResults.length > 1 && (
-              <Button
-                className="my-3"
-                variant=""
-                onClick={() => removeFormDates(form.id)}
               >
                 Quitar
               </Button>
@@ -276,17 +247,18 @@ const RegisterTitledFormation = () => {
     const isDesignatedDay = designatedDays.includes(day);
     if(isDesignatedDay) {
       const filtrados = designatedDays.filter(item => item !== day)
-      return setSelectedDays(filtrados)
+      console.log("filtrados");
+      return setSelectedDays({...filtrados})
     }
     setSelectedDays({ ...selectedDays, [day]: day});
     console.log(`Se hizo clic en el día ${day} que cae ${weekdays}`);
-
   }
 
   // Este hook está para scuchar cambios en el horario o los días seleccionados en el 
   // calendario y ejecutar las funcions que actualizaran el valor de las horas al mes del reporte
   useEffect(() => {
     const countResult = totalHoursCount(selectedDays, rmi, schedules)
+    console.log(countResult);
     const totalHours = convertDecimalToHoursMinutes(countResult)
     setHoursMonth(totalHours)
   },[selectedDays, rmi, schedules])
@@ -338,9 +310,14 @@ const RegisterTitledFormation = () => {
 
   const register = async (e) => {
     e.preventDefault();
+    // console.log(formsLearningResults.length)
+    console.log('selectedDays')
+    console.log(selectedDays)
 
     const learningResults = Object.values(learningResultSelected);
     const workDays = Object.values(selectedDays);
+    console.log('workDays')
+    console.log(workDays)
 
     let newWorkDays = []
     workDays.map((workDay) => {
@@ -357,21 +334,21 @@ const RegisterTitledFormation = () => {
     console.log(newWorkDays);
     const body = {
       ficha: ficha,
-      activity: activity,
+      activity: activity.toUpperCase(),
       hours_month: hoursMonth,
       formation_program: formationProgramSelected._id,
-      competence: {
-        competence: competenceSelected._id,
-        learning_results: learningResults,
-      },
+      competence: competenceSelected._id,
+      learning_results: learningResults,
       schedule: schedules,
       work_days: newWorkDays,
       rmi: id,
+      complementary: complementary,
+      course_duration: courseDuration,
     };
 
     let hola = schedules[0].start_date + schedules[0].end_date
     console.log("hola");
-    console.log(body);
+    console.log(hola);
 
     const data = await registerTitledFormationService(body);
     if (data.status === "success") {
@@ -389,16 +366,17 @@ const RegisterTitledFormation = () => {
 
   return (
     <>
-      <Header title={"Registrar reporte de formación titulada"}/>
+      <Header title={"Registrar reporte de formación"}/>
       {/* Page content */}
       <Container className="mt--7  align-items-center" fluid>
+      {loading && <Spinner/>}
         <Col className="order-xl-2 align-items-center  " xl="11">
           <Card className="bg-secondary formulario  ">
             <CardHeader className="bg-white border-0 align-items-center">
               <Row className="align-items-center">
                 <Col s="8">
                   <h3 className="mb-0">
-                    Mes: {months[rmi.month]}
+                    {months[rmi.month]+rmi.year || "Mes..."}
                   </h3>
                 </Col>
               </Row>
@@ -413,7 +391,7 @@ const RegisterTitledFormation = () => {
                           className="form-control-label"
                           htmlFor="input-ficha"
                         >
-                          ficha
+                          Ficha
                         </label>
                         <Input
                           className="form-control-alternative"
@@ -449,11 +427,12 @@ const RegisterTitledFormation = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-hours-month"
+                          htmlFor="select-formation-program"
                         >
-                          Programas de formación
+                          Programa de formación
                         </label>
                         <Multiselect
+                          id="select-formation-program"
                           // required
                           selectedValueDecorator={selectedValueDecorator}
                           optionValueDecorator={optionValueDecorator}
@@ -483,11 +462,12 @@ const RegisterTitledFormation = () => {
                       <FormGroup>
                         <label
                           className="form-control-label"
-                          htmlFor="input-hours-month"
+                          htmlFor="select-competences"
                         >
-                          Competencias
+                          Competencia
                         </label>
                         <Multiselect
+                          id="select-competences"
                           disable={disable}
                           // required
                           selectedValueDecorator={selectedValueDecorator}
@@ -545,41 +525,35 @@ const RegisterTitledFormation = () => {
                   </Row>
                   {/* Select a time */}
                   <Row>
-                    <Col lg="2">
+                    <Col lg="3">
                       <TrainingSchedule schedule={updateSchedule} />
-                      <FormGroup>
+                      <FormGroup className="px-">
                         <label
-                          className="form-control-label mt-4"
+                          className="form-control-label mt-44"
                           htmlFor="input-hours-month"
                         >
                           Horas al mes
                         </label>
-                        <Input
-                          className="form-control-alternative"
-                          id="input-hours-month"
-                          placeholder="Ej. 15"
-                          value={hoursMonth}
-                          type="text"
-                          disabled
-                          // onChange={(e) => setHoursMonth(e.target.value)}
-                        />
+                        <Row id="input-hours-month" className="reloj bg-success p-0 m-0 d-flex justify-content-center rounded shadow">
+                          <h1 className="horas m-2" >{hoursMonth}</h1>
+                        </Row>
                       </FormGroup>
                     </Col>
                       {/* Schedule */}
-                    <Col lg="10" className="p-5">
+                    <Col lg="9" className="p-5">
                       <Table
-                        className=" table table-striped table-hover shadow-lg align-items-center table-flush"
+                        className=" table table-bordered"
                         responsive
                       >
                         <thead className="thead">
-                          <tr>
-                            <th className="text-center w-15">Domingo</th>
-                            <th className="text-center w-15">Lunes</th>
-                            <th className="text-center w-15">Martes</th>
-                            <th className="text-center w-15">Miercoles</th>
-                            <th className="text-center w-15">Jueves</th>
-                            <th className="text-center w-15">Viernes</th>
-                            <th className="text-center w-15">Sábado</th>
+                          <tr className="bg-green">
+                            <th className="text-center">Domingo</th>
+                            <th className="text-center">Lunes</th>
+                            <th className="text-center">Martes</th>
+                            <th className="text-center">Miercoles</th>
+                            <th className="text-center">Jueves</th>
+                            <th className="text-center">Viernes</th>
+                            <th className="text-center">Sábado</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -614,19 +588,19 @@ const RegisterTitledFormation = () => {
                       </Table>
                       {/* Calendar */}
                       <Row className="mt-4 d-flex justify-content-center">
-                        <Calendar selectedDays={selectedDays} handleDayClick={handleDayClick} month={rmi.month} year={rmi.year} schedules={schedules} months={months}/>
+                        <Calendar selectedDays={selectedDays} handleDayClick={handleDayClick} month={rmi.month} year={rmi.year} schedules={schedules} months={months} withHolidays={false}/>
                       </Row>
                     </Col>
                   </Row>
 
                   <div>
                     <div className="d-flex justify-content-start">
-                      <label htmlFor="customCheck1">
+                      <label htmlFor="customCheckComplementary">
                         <h6 className="mr-4">¿El reporte es de formación complementaria?</h6>
                       </label>
                       <span className="clearfix"/>
                       <label className="custom-toggle">
-                        <input type="checkbox" id="customCheck1" onChange={() => {setComplementary(!complementary)}}/>
+                        <input type="checkbox" id="customCheckComplementary" onChange={() => {setComplementary(!complementary)}}/>
                         <span className="custom-toggle-slider rounded-circle" />
                       </label>
                     </div>
@@ -634,24 +608,7 @@ const RegisterTitledFormation = () => {
                   
                   {
                     complementary ?
-                      <FormGroup className="mb-0">
-                        <Input
-                          className="form-control-alternative w-25"
-                          id="input-hours-month"
-                          placeholder="Ej. 15"
-                          type="text"
-                          // onChange={(e) => setHoursMonth(e.target.value)}
-                        />
-                        <Button
-                          className="mb-3"
-                          onClick={addFormDates}
-                          variant=""
-                          id="btn-program-remove"
-                        >
-                          Agregar
-                        </Button>
-                        {renderFormsDates()}
-                      </FormGroup>
+                      <AddFormsComplementary months={months} rmi={rmi} schedules={schedules} setCourseDuration={setCourseDuration}/>
                     :
                     <></>
                   }

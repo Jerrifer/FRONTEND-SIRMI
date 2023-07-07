@@ -180,7 +180,7 @@ const FormationPrograms = () => {
                                 delay={0}
                                 target={"btn-program-competences"+formationProgram.program_code}
                               >
-                                Competencias asignadas
+                                Gestionar competencias asignadas
                               </UncontrolledTooltip>
                             </Link>
 
